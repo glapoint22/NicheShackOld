@@ -1,0 +1,50 @@
+@import 'theme';
+
+.product{
+    text-align: center;
+    position: relative;
+    width: 300px;
+    background: $color4;
+    @include shadow();
+}
+.hop-link{
+    height: 300px;
+    line-height: 300px;
+    cursor: pointer;
+    img{
+        width:auto;
+        height:auto;
+        max-width: 300px;
+        max-height: 300px;
+        vertical-align: middle;
+        min-width: 230px;
+    }
+}
+.price-tag{
+    width: 300px;
+    height: 25px;
+    background: #300029;
+    position: absolute;
+    top: 311px;
+    line-height: 25px;
+    color: $gold;
+    font-size: 18px;
+    backface-visibility: hidden;
+}
+.product-name{
+    @include gradient($color1, $color2);
+    font-size: 18px;
+    color: #e6e6e6;
+    font-weight: bold;
+    height: 35px;
+    line-height: 35px;
+}
+.product-description{
+    text-align: center;
+    white-space: normal;
+    padding: 10px;
+    color: #ffffff;
+    @include gradient($color3, $color4);
+    height: 80px;
+    overflow: auto;
+}

@@ -6,7 +6,9 @@ import { ConfirmComponent } from './confirm/confirm.component';
 import { PreferencesComponent } from './preferences/preferences.component';
 import { SearchComponent } from './search/search.component';
 import { ThankYouComponent } from './thank-you/thank-you.component';
-import { ComponentsModule } from '../components/components.module';
+import { SharedModule } from '../shared/shared.module';
+import { HomeModule } from './home/home.module';
+import { SearchModule } from './search/search.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { ComponentsModule } from '../components/components.module';
   ],
   imports: [
     CommonModule,
-    ComponentsModule
+    SharedModule,
+    HomeModule,
+    SearchModule
   ],
   exports: [
     HomeComponent,

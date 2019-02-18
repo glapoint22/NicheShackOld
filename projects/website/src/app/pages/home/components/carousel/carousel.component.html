@@ -1,0 +1,10 @@
+<div class="carousel-container">
+  <div [style.transition]="'all ' + speed + 's ' + curve" [style.transform]="'translateX(' + translate + '%)'" (transitionend)="transitionEnd()">
+      <div class="product-banner" *ngFor="let productBanner of productBanners" [style.left.%]="productBanner.pos" (click)="onProductBannerClick(productBanner.product)">
+          <img [src]="'/Images/' + productBanner.name">
+      </div>
+  </div>
+  <arrows (onArrowClick)="onArrowClick($event)"></arrows>
+  <paginator [pages]="productBanners" [currentPage]="index" (onPaginatorClick)="onPaginatorClick($event)" [showPlay]="true"
+      (onPlayClick)="onPlayClick()" [play]="play"></paginator>
+</div>

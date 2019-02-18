@@ -1,10 +1,9 @@
 <div class="background-container">
-  <search-bar></search-bar>
+  <search-bar #searchBar></search-bar>
   <carousel></carousel>
   <div class="content">
-      <!-- <products-slider *ngFor="let productSlider of productSliders" [caption]="productSlider.caption" [products]="productSlider.products"></products-slider> -->
-      <products-slider></products-slider>
-      <featured-categories></featured-categories>
+      <products-slider *ngFor="let productSlider of productSliders" [caption]="productSlider.caption" [products]="productSlider.products"></products-slider>
+      <featured-categories [categories]="searchBar.categories"></featured-categories>
   </div>
   <footer></footer>
 </div>

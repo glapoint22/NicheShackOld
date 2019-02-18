@@ -1,0 +1,18 @@
+<div class="product">
+  <!-- Product Name -->
+  <div class="product-name">{{product.name}}</div>
+
+  <!-- Video Play Button -->
+  <video-play-button [videos]="product.videos" [productName]="product.name"></video-play-button>
+
+  <!-- Hop Link -->
+  <div class="hop-link" (click)="onClick()">
+    <img *ngIf="product.image" #img [src]="'/Images/' + product.image">
+  </div>
+
+  <!-- Price Tag -->
+  <div class="price-tag">{{product.price | currency:'USD'}}</div>
+
+  <!-- Product Description -->
+  <div [innerHtml]="product.description" class="product-description"></div>
+</div>
