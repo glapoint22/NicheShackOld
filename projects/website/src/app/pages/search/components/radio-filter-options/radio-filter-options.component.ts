@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { FilterOptionsComponent } from '../filter-options/filter-options.component';
+import { SearchComponent } from '../../search.component';
 
 @Component({
   selector: 'radio-filter-options',
   templateUrl: './radio-filter-options.component.html',
-  styleUrls: ['./radio-filter-options.component.scss']
+  styleUrls: ['../filter/filter.component.scss']
 })
-export class RadioFilterOptionsComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+export class RadioFilterOptionsComponent extends FilterOptionsComponent {
+  @Input() selectedOption: any = {};
+  @Input() paramName: string = '';
+  @Input() searchComponent: SearchComponent;
 }

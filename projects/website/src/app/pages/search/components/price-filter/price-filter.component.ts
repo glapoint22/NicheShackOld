@@ -1,15 +1,79 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { FilterComponent } from '../filter/filter.component';
+import { SearchComponent } from '../../search.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'price-filter',
-  templateUrl: './price-filter.component.html',
-  styleUrls: ['./price-filter.component.scss']
+  templateUrl: '../filter/filter.component.html',
+  styleUrls: ['../filter/filter.component.scss']
 })
-export class PriceFilterComponent implements OnInit {
+export class PriceFilterComponent extends FilterComponent implements OnInit {
+  @Input() searchComponent: SearchComponent;
+  public min: string;
+  public max: string;
+  public showClearPrice: boolean;
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) { super()}
 
   ngOnInit() {
+    this.route.queryParamMap.subscribe(() => {
+      let priceRange = this.getPriceRange();
+
+      //If there is a custom price range, set the min and max properties
+      if (priceRange) {
+        this.min = priceRange.min;
+        this.max = priceRange.max;
+        this.showClearPrice = true;
+      }
+    });
   }
 
+  onSubmit(priceForm) {
+    if (!priceForm.form.controls.min.value && !priceForm.form.controls.max.value) {
+      priceForm.submitted = false;
+      this.showClearPrice = false;
+      return;
+    }
+
+    //If price range is valid, set the filter
+    if (priceForm.valid) {
+      this.searchComponent.setFilter('Price', '[' + Math.min(Number(this.min), Number(this.max)) + '-' + Math.max(Number(this.min), Number(this.max)) + ']');
+      priceForm.submitted = false;
+    } else {
+      if (priceForm.form.controls.min.value || priceForm.form.controls.max.value) this.showClearPrice = true;
+    }
+  }
+
+  getPriceRange() {
+    let priceRange: any, optionsArray = this.searchComponent.getOptionsFromQueryParams(this.caption), regEx = new RegExp(/\[(\d+\.?(?:\d+)?)-(\d+\.?(?:\d+)?)\]/, 'g');
+
+    //Iterate through all the options
+    for (let i = 0; i < optionsArray.length; i++) {
+      let result = regEx.exec(optionsArray[i]);
+
+      //If result contains a custom price range, set the min and max to the price range object
+      if (result) {
+        priceRange = {};
+        priceRange['min'] = result[1];
+        priceRange['max'] = result[2];
+      }
+    }
+    return priceRange;
+  }
+
+  clearPrice(priceForm) {
+    //Get the price range from the url
+    let priceRange = this.getPriceRange();
+
+    this.min = undefined;
+    this.max = undefined;
+    this.showClearPrice = false;
+    priceForm.submitted = false;
+
+    //If there is an custom price range, set the filter with the same price range and it will clear it from the url
+    if (priceRange) {
+      this.searchComponent.setFilter('Price', '[' + priceRange.min + '-' + priceRange.max + ']');
+    }
+  }
 }

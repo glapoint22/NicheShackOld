@@ -1,3 +1,7 @@
-<p>
-  radio-filter-options works!
-</p>
+<div *ngFor="let option of options" class="content" [ngClass]="{'show-content': parent.showContent}"
+  (transitionend)="parent.onTransitionEnd()">
+  <radio-button [name]="parent.caption" [type]="'radio'" [value]="option.value" [label]="option.name"
+    [checked]="selectedOption === option"
+    (change)="searchComponent.setQueryParameters([{name: paramName, value: option.value}], ['page'])"></radio-button>
+  <br>
+</div>

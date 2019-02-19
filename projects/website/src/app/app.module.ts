@@ -4,7 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PagesModule } from './pages/pages.module';
 
 // Services
 import { CookieService } from 'ngx-cookie-service';
@@ -18,8 +17,7 @@ import { CookieService } from 'ngx-cookie-service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
-    PagesModule
+    HttpClientModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

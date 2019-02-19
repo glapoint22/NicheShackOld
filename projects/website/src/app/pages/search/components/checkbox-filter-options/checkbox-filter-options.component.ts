@@ -1,15 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
+import { SearchComponent } from '../../search.component';
+import { FilterOptionsComponent } from '../filter-options/filter-options.component';
 
 @Component({
   selector: 'checkbox-filter-options',
   templateUrl: './checkbox-filter-options.component.html',
-  styleUrls: ['./checkbox-filter-options.component.scss']
+  styleUrls: ['../filter/filter.component.scss']
 })
-export class CheckboxFilterOptionsComponent implements OnInit {
+export class CheckboxFilterOptionsComponent extends FilterOptionsComponent implements OnChanges {
+  @Input() searchComponent: SearchComponent;
 
-  constructor() { }
+  ngOnChanges() {
+    let optionsArray = this.searchComponent.getOptionsFromQueryParams(this.parent.caption);
 
-  ngOnInit() {
+    //Check or uncheck the options
+    for (let i = 0; i < this.options.length; i++) {
+      this.options[i].checked = optionsArray.includes(this.options[i].name);
+    }
   }
-
 }

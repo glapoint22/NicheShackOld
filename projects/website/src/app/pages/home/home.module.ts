@@ -1,21 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductsSliderComponent } from './components/products-slider/products-slider.component';
-import { CarouselComponent } from './components/carousel/carousel.component';
-import { SharedModule } from '../../shared/shared.module';
+import { HomeComponent } from './home.component';
+import { HomeRoutingModule } from './home-routing.module';
+import { HeaderFooterModule } from '../../shared/header-footer/header-footer.module';
+import { FeaturedCategoriesModule } from '../../shared/featured-categories/featured-categories.module';
+import { HomeComponentsModule } from './components/home-components.module';
 
 @NgModule({
-  declarations: [
-    ProductsSliderComponent,
-    CarouselComponent
-  ],
+  declarations: [HomeComponent],
   imports: [
     CommonModule,
-    SharedModule
-  ],
-  exports: [
-    ProductsSliderComponent,
-    CarouselComponent
+    HomeRoutingModule,
+    HomeComponentsModule,
+    HeaderFooterModule,
+    FeaturedCategoriesModule
   ]
 })
 export class HomeModule { }

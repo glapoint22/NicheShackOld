@@ -1,3 +1,4 @@
-<p>
-  checkbox-filter-options works!
-</p>
+<div *ngFor="let option of options" class="content" [ngClass]="{'show-content': parent.showContent}" (transitionend)="parent.onTransitionEnd()">
+    <checkbox [type]="'checkbox'" [label]="option.name" [checked]="option.checked" (change)="searchComponent.setFilter(parent.caption, option.name)"></checkbox>
+    <span class="count">({{option.productCount|number}})</span>
+  </div>

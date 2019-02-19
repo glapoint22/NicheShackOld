@@ -1,0 +1,62 @@
+@import 'theme';
+
+.filter-container{
+    background: $color4;
+    min-height: 44px;
+    border: 1px solid $color3;
+    padding-left: 20px;
+    padding-right: 10px;
+    position:relative;
+    color: #e7e7e7;
+    overflow: hidden;
+    backface-visibility: hidden;
+    user-select: none;
+    @include shadow();
+}
+.padding{
+    padding-bottom: 10px;
+}
+.caption{
+    font-weight: bold;
+    margin: 10px 0 10px;
+    color: $gold;
+    font-size: 18px;
+}
+.arrow-container{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 10px;
+    cursor: pointer;
+    right: 10px;
+}
+.arrow{
+    width: 0;
+    height: 0;
+    position: relative;
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    border-left: 7px solid $color1;
+    top: 3px;
+    left: 7px;
+    transition: transform 0.25s;
+}
+.count{
+    color: $color1;
+    margin-left: 5px;
+}
+.content {
+    max-height: 0;
+    opacity: 0;
+    transition: all 0.25s;
+}
+.rotate {
+    transform: translate(-1px, 1px) rotate(90deg);
+}
+.show-content {
+    max-height: 28px;
+    opacity: 1;
+}
+.opacity {
+    opacity: 1;
+}

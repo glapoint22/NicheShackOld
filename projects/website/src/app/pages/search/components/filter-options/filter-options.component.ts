@@ -1,15 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'filter-options',
-  templateUrl: './filter-options.component.html',
-  styleUrls: ['./filter-options.component.scss']
+  template: '',
 })
-export class FilterOptionsComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+export class FilterOptionsComponent {
+  @Input() parent: any = {};
+  @Input() options: Array<any> = [];
 }

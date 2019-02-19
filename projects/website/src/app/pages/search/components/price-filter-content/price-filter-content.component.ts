@@ -1,15 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'price-filter-content',
   templateUrl: './price-filter-content.component.html',
-  styleUrls: ['./price-filter-content.component.scss']
+  styleUrls: ['../filter/filter.component.scss', '../price-filter/price-filter.component.scss']
 })
-export class PriceFilterContentComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+export class PriceFilterContentComponent {
+  @Input() parent: any = {};
 }
