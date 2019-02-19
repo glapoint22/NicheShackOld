@@ -1,6 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FilterComponent } from '../filter/filter.component';
-import { SearchComponent } from '../../search.component';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -9,12 +8,13 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['../filter/filter.component.scss']
 })
 export class PriceFilterComponent extends FilterComponent implements OnInit {
-  @Input() searchComponent: SearchComponent;
+  @Input() hostComponent: any;
+  @Output() onSetFilter = new EventEmitter<any>();
   public min: string;
   public max: string;
   public showClearPrice: boolean;
 
-  constructor(private route: ActivatedRoute) { super()}
+  constructor(private route: ActivatedRoute) { super() }
 
   ngOnInit() {
     this.route.queryParamMap.subscribe(() => {
@@ -38,7 +38,7 @@ export class PriceFilterComponent extends FilterComponent implements OnInit {
 
     //If price range is valid, set the filter
     if (priceForm.valid) {
-      this.searchComponent.setFilter('Price', '[' + Math.min(Number(this.min), Number(this.max)) + '-' + Math.max(Number(this.min), Number(this.max)) + ']');
+      this.onSetFilter.emit({ filterName: 'Price', option: '[' + Math.min(Number(this.min), Number(this.max)) + '-' + Math.max(Number(this.min), Number(this.max)) + ']' });
       priceForm.submitted = false;
     } else {
       if (priceForm.form.controls.min.value || priceForm.form.controls.max.value) this.showClearPrice = true;
@@ -46,7 +46,7 @@ export class PriceFilterComponent extends FilterComponent implements OnInit {
   }
 
   getPriceRange() {
-    let priceRange: any, optionsArray = this.searchComponent.getOptionsFromQueryParams(this.caption), regEx = new RegExp(/\[(\d+\.?(?:\d+)?)-(\d+\.?(?:\d+)?)\]/, 'g');
+    let priceRange: any, optionsArray = this.hostComponent.getOptionsFromQueryParams(this.caption), regEx = new RegExp(/\[(\d+\.?(?:\d+)?)-(\d+\.?(?:\d+)?)\]/, 'g');
 
     //Iterate through all the options
     for (let i = 0; i < optionsArray.length; i++) {
@@ -73,7 +73,7 @@ export class PriceFilterComponent extends FilterComponent implements OnInit {
 
     //If there is an custom price range, set the filter with the same price range and it will clear it from the url
     if (priceRange) {
-      this.searchComponent.setFilter('Price', '[' + priceRange.min + '-' + priceRange.max + ']');
+      this.onSetFilter.emit({ filterName: 'Price', option: '[' + priceRange.min + '-' + priceRange.max + ']' });
     }
   }
 }

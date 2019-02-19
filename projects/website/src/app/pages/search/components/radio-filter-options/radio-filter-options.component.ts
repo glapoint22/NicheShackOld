@@ -1,6 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FilterOptionsComponent } from '../filter-options/filter-options.component';
-import { SearchComponent } from '../../search.component';
 
 @Component({
   selector: 'radio-filter-options',
@@ -10,5 +9,9 @@ import { SearchComponent } from '../../search.component';
 export class RadioFilterOptionsComponent extends FilterOptionsComponent {
   @Input() selectedOption: any = {};
   @Input() paramName: string = '';
-  @Input() searchComponent: SearchComponent;
+  @Output() onOptionChange = new EventEmitter<any>();
+
+  onChange(queryParams) {
+    this.onOptionChange.emit(queryParams);
+  }
 }

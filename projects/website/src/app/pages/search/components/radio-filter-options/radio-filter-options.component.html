@@ -2,6 +2,6 @@
   (transitionend)="parent.onTransitionEnd()">
   <radio-button [name]="parent.caption" [type]="'radio'" [value]="option.value" [label]="option.name"
     [checked]="selectedOption === option"
-    (change)="searchComponent.setQueryParameters([{name: paramName, value: option.value}], ['page'])"></radio-button>
+    (change)="onChange({add: [{name: paramName, value: option.value}], remove: ['page']})"></radio-button>
   <br>
 </div>

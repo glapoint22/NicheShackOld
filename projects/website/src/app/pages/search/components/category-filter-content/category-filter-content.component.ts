@@ -1,5 +1,4 @@
-import { Component, Input } from '@angular/core';
-import { SearchComponent } from '../../search.component';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'category-filter-content',
@@ -8,13 +7,17 @@ import { SearchComponent } from '../../search.component';
 })
 export class CategoryFilterContentComponent {
   @Input() parent: any = {};
-  @Input() searchComponent: SearchComponent;
+  @Output() onCategoryClick = new EventEmitter<any>();
   public maxCount = 4;
   public showAllCategories: boolean;
   public allCategoriesVisible: boolean;
   public seeMoreCategories: boolean;
   public lineHeight: number = 18;
   public margin: number = 10;
+
+  onClick(queryParams) {
+    this.onCategoryClick.emit(queryParams);
+  }
 
   getMaxHeight(category) {
     // Calculate all niches + See Less + category title

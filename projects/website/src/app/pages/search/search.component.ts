@@ -183,13 +183,13 @@ export class SearchComponent implements OnInit {
     if (event.target.innerWidth > 970) this.showFilters = false;
   }
 
-  setFilter(filter: string, option: string) {
+  setFilter(filter: any) {
     let result, startString, midString, endString;
 
     //If there are any filters
     if (this.filterString) {
       //Search for the filter in the string
-      result = this.getFilter(filter);
+      result = this.getFilter(filter.filterName);
 
       //If the filter was found within the filter string
       if (result) {
@@ -202,7 +202,7 @@ export class SearchComponent implements OnInit {
         let array = result[2].split(this.separator);
 
         //Test to see if the option is a user defined price range
-        if (option.substr(0, 1) === '[') {
+        if (filter.option.substr(0, 1) === '[') {
           let found = false;
 
           //Iterate through the array to see if there is an existing price range
@@ -210,8 +210,8 @@ export class SearchComponent implements OnInit {
             //If found...
             if (array[i].substr(0, 1) === '[') {
               //If the passed in price range is different, replace
-              if (array[i] != option) {
-                array[i] = option;
+              if (array[i] != filter.option) {
+                array[i] = filter.option;
               } else {
                 //Otherwise, remove the price range
                 array.splice(i, 1);
@@ -224,16 +224,16 @@ export class SearchComponent implements OnInit {
           if (found) {
             midString = array.join(this.separator);
           } else {
-            midString = result[2] + this.separator + option;
+            midString = result[2] + this.separator + filter.option;
           }
 
         } else {
           //The option is not a user defined price range
-          let index = array.indexOf(option);
+          let index = array.indexOf(filter.option);
 
           //If the option is not found, add it to the mid string
           if (index == -1) {
-            midString = result[2] + this.separator + option;
+            midString = result[2] + this.separator + filter.option;
           } else {
             //The option was found, so remove it from the string
             array.splice(index, 1);
@@ -248,34 +248,34 @@ export class SearchComponent implements OnInit {
         //If the midstring is empty, this means there are no more options in this filter.
         //Remove this filter from the filter string
         if (midString === '') {
-          this.filterString = this.filterString.replace(filter + '||', '');
+          this.filterString = this.filterString.replace(filter.filterName + '||', '');
         }
       } else {
         //The filter was not found within the filter string so we add it here
-        this.filterString += filter + '|' + option + '|';
+        this.filterString += filter.filterName + '|' + filter.option + '|';
       }
     } else {
       //There are no filters in the filter string, so add the first one here
-      this.filterString = filter + '|' + option + '|';
+      this.filterString = filter.filterName + '|' + filter.option + '|';
     }
 
 
     //Set the query params
     if (this.filterString === '') {
-      this.setQueryParameters([], ['page', 'filter']);
+      this.setQueryParameters({add: [], remove: ['page', 'filter']});
     } else {
-      this.setQueryParameters([{ name: 'filter', value: this.filterString }], ['page']);
+      this.setQueryParameters({add: [{ name: 'filter', value: this.filterString }], remove: ['page']});
     }
   }
 
 
 
-  setQueryParameters(add, remove) {
+  setQueryParameters(queryParameters: any) {
     let params = {};
 
     //Remove the query parameters
     for (let i = 0; i < this.queryParams.keys.length; i++) {
-      if (remove.every(x => {
+      if (queryParameters.remove.every(x => {
         return x !== this.queryParams.keys[i];
       })) {
         params[this.queryParams.keys[i]] = this.queryParams.params[this.queryParams.keys[i]];
@@ -283,8 +283,8 @@ export class SearchComponent implements OnInit {
     }
 
     //Add the query parameters
-    for (let i = 0; i < add.length; i++) {
-      params[add[i].name] = add[i].value;
+    for (let i = 0; i < queryParameters.add.length; i++) {
+      params[queryParameters.add[i].name] = queryParameters.add[i].value;
     }
 
     //Update the url
