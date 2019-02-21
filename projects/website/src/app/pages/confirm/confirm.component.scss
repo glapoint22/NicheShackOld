@@ -1,0 +1,41 @@
+@import 'theme';
+
+.content{
+    width: 600px;
+    margin: auto;
+    margin-top: 80px;
+    margin-bottom: 100px;
+    color: #cecece;
+    font-size: 18px;
+}
+.thanks{
+    font-size: 25px;
+    font-weight: bold;
+    color: $gold;
+}
+hr{
+    height: 3px;
+    background: #545454;
+    border: none;
+}
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  li {
+    padding-left: 1em; 
+    text-indent: -.7em;
+    margin-bottom: 5px;
+  }
+  
+  li::before {
+    content: "• ";
+    color: $gold;
+  }
+@media screen and (max-width: 640px) {
+    .content{
+        width: 90%;
+    }
+}

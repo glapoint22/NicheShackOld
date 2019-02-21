@@ -13,19 +13,20 @@ export class SearchBarComponent implements OnInit {
   public categories: Array<any> = [];
   public searchCategories: Array<any> = []
   public selectedCategory: any = {};
+  private queryParams: any;
 
   constructor(private dataService: DataService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     window.dispatchEvent(new Event('resize'));
     this.route.queryParamMap.subscribe(queryParams => {
-      //Get the search words from the url
+      //Get params from the url
       this.query = queryParams.get('query');
+      this.queryParams = queryParams;
 
-      //Get the category from the url
+      // Get the selected category
       if (this.categories.length > 0) {
-        let id = this.searchCategories.findIndex(x => x.id == Number(queryParams.get('category')));
-        this.selectedCategory = this.searchCategories[id];
+        this.selectedCategory = this.getSelectedCategory();
       }
     });
 
@@ -34,9 +35,17 @@ export class SearchBarComponent implements OnInit {
         this.categories = response;
         this.searchCategories = this.categories.slice().map(x => ({ id: x.id, name: x.name }));
         this.searchCategories.unshift({ name: 'All', id: 0 });
-        this.selectedCategory = this.searchCategories[0];
+
+        // Get the selected category
+        this.selectedCategory = this.getSelectedCategory();
       });
   }
+
+  getSelectedCategory() {
+    let id = this.searchCategories.findIndex(x => x.id == Number(this.queryParams.get('category')));
+    return this.searchCategories[id];
+  }
+
 
   onSearchButtonClick(query, category) {
     if (query !== '') {

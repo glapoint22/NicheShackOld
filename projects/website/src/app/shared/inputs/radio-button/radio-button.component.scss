@@ -1,3 +1,5 @@
+@import 'theme';
+
 .checkmark {
     border-radius: 50%;
 }
@@ -6,6 +8,6 @@
     top: 3px;
     width: 10px;
     height: 10px;
-    background-color: white;
+    background-color: $gold;
     border-radius: 50%;
 }

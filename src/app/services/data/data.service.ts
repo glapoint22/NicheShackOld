@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { ShowModalService } from '../show-modal/show-modal.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +9,7 @@ import { ShowModalService } from '../show-modal/show-modal.service';
 export class DataService {
   public data: any = {};
 
-  constructor(private http: HttpClient, private showModalService: ShowModalService) { }
+  constructor(private http: HttpClient) { }
 
   get(url: string, parameters?: Array<any>): Observable<any> {
     let params = new HttpParams();
@@ -18,21 +17,11 @@ export class DataService {
     //Set the params
     if (parameters) parameters.forEach(x => params = params.set(x.key, x.value));
 
-    // if (!isError) {
-    //   // Hide error screen
-    //   this.showModalService.showError(false);
-
-    //   // Show loading screen
-    //   this.showModalService.showLoading(true);
-    // }
-
-
     //Get the data
     return this.http.get(url, { params: params })
       .pipe(
         tap(() => {
           // Hide loading screen
-          // this.showModalService.showLoading(false);
         }),
         catchError(this.handleError())
       );
@@ -41,16 +30,13 @@ export class DataService {
 
   post(url: string, body: any) {
     // Hide error screen
-    // this.showModalService.showError(false);
 
     // Show loading screen
-    // this.showModalService.showLoading(true);
 
     return this.http.post(url, body)
       .pipe(
         tap(() => {
           // Hide loading screen
-          // this.showModalService.showLoading(false);
         }),
         catchError(this.handleError())
       );
@@ -58,16 +44,13 @@ export class DataService {
 
   put(url: string, body: any) {
     // Hide error screen
-    // this.showModalService.showError(false);
 
     // Show loading screen
-    // this.showModalService.showLoading(true);
 
     return this.http.put(url, body)
       .pipe(
         tap(() => {
           // Hide loading screen
-          // this.showModalService.showLoading(false);
         }),
         catchError(this.handleError())
       );
@@ -75,8 +58,8 @@ export class DataService {
 
   handleError() {
     return (error) => {
-      // this.showModalService.showError(error);
-      // this.showModalService.showLoading(false);
+      // showError;
+      // hide loading
       return throwError(error);
     }
   }

@@ -5,10 +5,12 @@ import { ArrowsModule } from '../../../shared/arrows/arrows.module';
 import { PaginatorModule } from '../../../shared/paginator/paginator.module';
 import { ProductsSliderComponent } from './products-slider/products-slider.component';
 import { ProductModule } from '../../../shared/product/product.module';
+import { FeaturedCategoriesComponent } from './featured-categories/featured-categories.component';
 
 @NgModule({
   declarations: [
     CarouselComponent,
+    FeaturedCategoriesComponent,
     ProductsSliderComponent
   ],
   imports: [
@@ -19,6 +21,7 @@ import { ProductModule } from '../../../shared/product/product.module';
   ],
   exports: [
     CarouselComponent,
+    FeaturedCategoriesComponent,
     ProductsSliderComponent
   ]
 })

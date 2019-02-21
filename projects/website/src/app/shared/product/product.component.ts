@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { ShowModalService } from 'src/app/services/show-modal/show-modal.service';
 
 @Component({
   selector: 'product',
@@ -10,7 +9,7 @@ import { ShowModalService } from 'src/app/services/show-modal/show-modal.service
 export class ProductComponent {
   @Input() product: any;
 
-  constructor(private cookieService: CookieService, private showModalService: ShowModalService) { }
+  constructor(private cookieService: CookieService) { }
 
   onClick() {
     if (this.cookieService.check('Products')) {
@@ -21,13 +20,6 @@ export class ProductComponent {
       }
     } else {
       this.cookieService.set('Products', this.product.id, 9999);
-    }
-
-    if (this.cookieService.check('session')) {
-      // this.showModalService.showLoading(true);
-      window.location.href = this.product.hopLink;
-    } else {
-      // this.showModalService.showSubscriptionForm(this.product);
     }
   }
 }

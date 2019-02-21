@@ -1,0 +1,88 @@
+@import 'theme';
+
+.container{
+    background: $background-color;
+    width: 100%;
+    text-align: left;
+    position: absolute;
+    min-height: 100%;
+}
+form{
+    font-family: Verdana, Geneva, Tahoma, sans-serif; 
+    width: 1080px;
+    margin: auto;
+    background: $color4;
+    font-size: 14px;
+    color: #b3b2b2;
+    padding-top: 10px;
+    margin-top: 80px;
+    margin-bottom: 100px;
+}
+input[type=radio]{
+    margin: 0 0 0 10px;
+}
+input[type=text], input[type=email]{
+    width: 320px;
+    height: 25px;
+    font-size: 16px;
+    padding-left: 5px;
+    margin: 0 10px 20px 10px;
+    outline: 1px solid $color1;
+}
+input[type=checkbox]{
+    margin-left: 10px;
+}
+h3{
+    margin: 5px 0 5px 10px;
+    text-align: left;
+    color: $color1;
+}
+h4{
+    margin: 0 52px 0 10px;
+    color: $color1;
+}
+ul{
+    list-style: none; 
+    padding: 0; 
+    margin-top: 0;
+}
+li{
+    display: inline-table; 
+    margin: 10px 20px 10px 20px;
+    width: 320px;
+}
+button{
+    margin: 0 0 5px 25px;
+    position: relative;
+    top: -10px;
+}
+.message{
+    color: $gold;
+    margin: -6px 10px 10px 6px;
+    font-size: 13px;
+}
+@media screen and (max-width: 1080px) {
+    form{
+        width: 90vw;
+    }
+    input[type=text], input[type=email]{
+        width: 290px;
+    }
+}
+@media screen and (max-width: 360px) {
+    input[type=text], input[type=email]{
+        width: 82vw;
+    }
+    input[type=checkbox]{
+        margin-left: 0;
+    }
+    h4{
+        margin-left: 0;
+    }
+    button{
+        margin-left: 20px;
+    }
+    li{
+        width: auto;
+    }
+}

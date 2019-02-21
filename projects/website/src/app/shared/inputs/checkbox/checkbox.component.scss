@@ -1,3 +1,5 @@
+@import 'theme';
+
 .checkmark {
     border-radius: 4px;
 }
@@ -6,7 +8,7 @@
     top: 0;
     width: 5px;
     height: 10px;
-    border: solid white;
+    border: solid $gold;
     border-width: 0 3px 3px 0;
     transform: rotate(45deg);
 }

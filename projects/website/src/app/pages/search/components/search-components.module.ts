@@ -9,6 +9,8 @@ import { FilterOptionsComponent } from './filter-options/filter-options.componen
 import { PriceFilterComponent } from './price-filter/price-filter.component';
 import { PriceFilterContentComponent } from './price-filter-content/price-filter-content.component';
 import { RadioFilterOptionsComponent } from './radio-filter-options/radio-filter-options.component';
+import { MaxItemsPipe } from './max-items.pipe';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,11 +21,13 @@ import { RadioFilterOptionsComponent } from './radio-filter-options/radio-filter
     FilterOptionsComponent,
     PriceFilterComponent,
     PriceFilterContentComponent,
-    RadioFilterOptionsComponent
+    RadioFilterOptionsComponent,
+    MaxItemsPipe
   ],
   imports: [
     CommonModule,
-    InputsModule
+    InputsModule,
+    FormsModule
   ],
   exports: [
     CategoryFilterComponent,
@@ -33,7 +37,8 @@ import { RadioFilterOptionsComponent } from './radio-filter-options/radio-filter
     FilterOptionsComponent,
     PriceFilterComponent,
     PriceFilterContentComponent,
-    RadioFilterOptionsComponent
+    RadioFilterOptionsComponent,
+    MaxItemsPipe
   ]
 })
 export class SearchComponentsModule { }

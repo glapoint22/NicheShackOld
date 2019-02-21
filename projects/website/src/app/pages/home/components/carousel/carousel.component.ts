@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data/data.service';
 import { CookieService } from 'ngx-cookie-service';
-import { ShowModalService } from 'src/app/services/show-modal/show-modal.service';
 import { ProductComponent } from 'projects/website/src/app/shared/product/product.component';
 
 @Component({
@@ -22,7 +21,7 @@ export class CarouselComponent implements OnInit {
   public speed: number = this.defaultSpeed;
   public productBanners: Array<any>;
 
-  constructor(private dataService: DataService, private cookieService: CookieService, private showModalService: ShowModalService) { }
+  constructor(private dataService: DataService, private cookieService: CookieService) { }
 
   ngOnInit() {
     this.dataService.get('api/ProductBanners')
@@ -40,7 +39,7 @@ export class CarouselComponent implements OnInit {
   }
 
   onProductBannerClick(product) {
-    let productComponent = new ProductComponent(this.cookieService, this.showModalService);
+    let productComponent = new ProductComponent(this.cookieService);
     productComponent.product = product;
     productComponent.onClick();
   }
