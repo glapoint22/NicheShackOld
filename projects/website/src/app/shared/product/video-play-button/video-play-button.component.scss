@@ -1,6 +1,6 @@
 @import 'theme';
 
-.play-circle{
+.play-circle {
     position: absolute;
     right: 0;
     margin-right: 3px;
@@ -15,7 +15,7 @@
     line-height: 60px;
     @include shadow();
 }
-.video-tag{
+.video-tag {
     background: $color1;
     height: 45px;
     position: absolute;

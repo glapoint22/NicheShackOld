@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { PageNotFoundComponent } from 'src/app/components/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
@@ -19,10 +20,7 @@ const routes: Routes = [
     path: 'preferences',
     loadChildren: './pages/preferences/preferences.module#PreferencesModule'
   },
-  {
-    path: 'confirm',
-    loadChildren: './pages/confirm/confirm.module#ConfirmModule'
-  }
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({

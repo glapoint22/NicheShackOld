@@ -1,1 +1,4 @@
 <router-outlet></router-outlet>
+<video-player *ngIf="modalService.videoPlayer.show"></video-player>
+<loading *ngIf="isLoading"></loading>
+<subscription-form *ngIf="modalService.subscriptionForm.show"></subscription-form>

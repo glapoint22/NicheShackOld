@@ -1,6 +1,6 @@
 @import 'theme';
 
-body{
+body {
     margin: 0;
     ::-webkit-scrollbar-track {
         box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
@@ -17,7 +17,7 @@ body{
         background-color: #444;
     }
 }
-button{
+button {
     @include gradient($color1, $color2);
     min-height: 40px;
     font-size: 24px;
@@ -31,7 +31,7 @@ button{
     padding: 0 10px 0 10px;
     border-radius: 5px;
 }
-button:hover{
+button:hover {
     color: #FFFFFF;
     cursor: pointer;
 }
@@ -40,8 +40,7 @@ button:disabled{
     color: rgb(151, 151, 151);
     cursor: default;
 }
-
-.background-container{
+.background-container {
     position:absolute;
     width: 100%;
     min-height: 100%;

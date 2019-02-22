@@ -1,10 +1,8 @@
 <div class="container" *ngIf="subscriptions">
-
-
   <search-bar></search-bar>
 
   <!-- Form -->
-  <form (ngSubmit)="onSubmit(preferencesForm)" #preferencesForm="ngForm">
+  <form *ngIf="!showConfirmation; else confirm" (ngSubmit)="onSubmit(preferencesForm)" #preferencesForm="ngForm">
     <h3>Personal Information:</h3>
     <!-- First Name -->
     <input type="text" placeholder="First Name" required [(ngModel)]="name" name="name" autofocus (change)="onUpdate()">
@@ -54,5 +52,10 @@
     <!-- Submit button -->
     <button type="submit" [disabled]="!isUpdated">Submit</button>
   </form>
+
+  <ng-template #confirm>
+    <confirm></confirm>
+  </ng-template>
+
   <footer></footer>
 </div>

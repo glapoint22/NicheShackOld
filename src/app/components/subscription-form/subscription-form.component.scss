@@ -1,0 +1,35 @@
+form{
+    background: rgba(16, 16, 16, 0.78);
+    font-size: 25px;
+    width: 650px;
+    text-align: center;
+    color: #ffffff;
+    border-radius: 5px;
+    padding: 0 10px;
+    border: 1px solid #4e4e4e;
+    input {
+        display: block;
+        margin: auto;
+        margin-bottom: 10px;
+        width: 300px;
+        height: 25px;
+        font-size: 14px;
+        padding-left: 5px;
+        outline-color: #2E2E2E;
+    }
+    .fa-times-circle{
+        float: right;
+        margin: 10px;
+        color: #adadad;
+    }
+    .fa-times-circle:hover{
+        color: rgb(233, 233, 233);
+        cursor: pointer;
+    }
+    .warning{
+        color: red;
+        font-size: 14px;
+        padding-right: 155px;
+        padding-bottom: 5px;
+    }
+}

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data/data.service';
-import { Router } from '@angular/router';
+import { ModalService } from 'src/app/services/modal/modal.service';
 
 @Component({
   selector: 'preferences',
@@ -20,8 +20,9 @@ export class PreferencesComponent implements OnInit {
   public originalEmailSendFrequency: number;
   public updatedSubscriptions: Array<any> = [];
   public isUpdated: boolean = false;
+  public showConfirmation: boolean;
 
-  constructor(private dataService: DataService, private router: Router) { }
+  constructor(private dataService: DataService, private modalService: ModalService) { }
 
   ngOnInit() {
     //Get the preferences
@@ -29,7 +30,7 @@ export class PreferencesComponent implements OnInit {
       .subscribe((response: any) => {
         if (response === null) {
           // Show subscription form
-          
+          this.modalService.subscriptionForm.show = true;
         } else {
           this.init(response);
         }
@@ -111,7 +112,7 @@ export class PreferencesComponent implements OnInit {
     this.dataService.put('api/Subscriptions', preferences)
       .subscribe((response: any) => {
         this.dataService.data = preferences;
-        this.router.navigate(['/confirm']);
+        this.showConfirmation = true;
       });
   }
 }

@@ -3,11 +3,11 @@
   <div class="product-name">{{product.name}}</div>
 
   <!-- Video Play Button -->
-  <video-play-button [videos]="product.videos" [productName]="product.name"></video-play-button>
+  <video-play-button [videoCount]="product.videos.length" (onClick)="onVideoPlayButtonClick()"></video-play-button>
 
   <!-- Hop Link -->
   <div class="hop-link" (click)="onClick()">
-    <img *ngIf="product.image" #img [src]="'/Images/' + product.image">
+    <img *ngIf="product.image" [src]="'/Images/' + product.image">
   </div>
 
   <!-- Price Tag -->
