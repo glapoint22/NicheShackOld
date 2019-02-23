@@ -7,6 +7,7 @@ import { VideoPlayerModule } from './video-player/video-player.module';
 import { LoadingModule } from 'src/app/components/loading/loading.module';
 import { PageNotFoundModule } from 'src/app/components/page-not-found/page-not-found.module';
 import { SubscriptionFormModule } from 'src/app/components/subscription-form/subscription-form.module';
+import { ErrorModule } from 'src/app/components/error/error.module';
 
 // Services
 import { CookieService } from 'ngx-cookie-service';
@@ -26,7 +27,8 @@ import { AppComponent } from './app.component';
     VideoPlayerModule,
     LoadingModule,
     PageNotFoundModule,
-    SubscriptionFormModule
+    SubscriptionFormModule,
+    ErrorModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

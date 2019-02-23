@@ -7,6 +7,5 @@ export class ModalService {
   public videoPlayer: any = {};
   public loading: boolean;
   public subscriptionForm: any = {};
-
-  constructor() { }
+  public error: boolean;
 }

@@ -17,10 +17,6 @@ const routes: Routes = [
     loadChildren: './pages/search/search.module#SearchModule'
   },
   {
-    path: 'preferences',
-    loadChildren: './pages/preferences/preferences.module#PreferencesModule'
-  },
-  {
     path: 'welcome',
     loadChildren: './pages/welcome-page/welcome-page.module#WelcomePageModule'
   },

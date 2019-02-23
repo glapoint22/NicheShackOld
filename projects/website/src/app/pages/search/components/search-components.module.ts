@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { InputsModule } from '../../../shared/inputs/inputs.module';
 import { CategoryFilterComponent } from './category-filter/category-filter.component';
 import { CategoryFilterContentComponent } from './category-filter-content/category-filter-content.component';
 import { CheckboxFilterOptionsComponent } from './checkbox-filter-options/checkbox-filter-options.component';
@@ -11,6 +10,7 @@ import { PriceFilterContentComponent } from './price-filter-content/price-filter
 import { RadioFilterOptionsComponent } from './radio-filter-options/radio-filter-options.component';
 import { MaxItemsPipe } from './max-items.pipe';
 import { FormsModule } from '@angular/forms';
+import { InputsModule } from 'src/app/components/inputs/inputs.module';
 
 @NgModule({
   declarations: [
@@ -26,8 +26,8 @@ import { FormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
-    InputsModule,
-    FormsModule
+    FormsModule,
+    InputsModule
   ],
   exports: [
     CategoryFilterComponent,

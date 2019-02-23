@@ -1,5 +1,5 @@
 <div class="container" *ngIf="subscriptions">
-  <search-bar #searchBar></search-bar>
+  <!-- <search-bar #searchBar></search-bar> -->
 
   <div *ngIf="!showConfirmation; else confirm">
     <!-- Form -->
@@ -56,10 +56,10 @@
       <button type="submit" [disabled]="!isUpdated">Submit</button>
     </form>
 
-    <div *ngIf="subscriptions.length === 0" class="featured-categories">
+    <!-- <div *ngIf="subscriptions.length === 0" class="featured-categories">
       It looks like you haven't subscribed to anything yet. Check out our featured categories below.
       <featured-categories [categories]="searchBar.categories"></featured-categories>
-    </div>
+    </div> -->
   </div>
 
 
@@ -67,8 +67,8 @@
   <ng-template #confirm>
     <confirm></confirm>
   </ng-template>
-  <div style="margin-top: 100px">
+  <!-- <div style="margin-top: 100px">
     <footer></footer>
-  </div>
+  </div> -->
 
 </div>

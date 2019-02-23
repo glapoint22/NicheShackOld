@@ -34,8 +34,6 @@ export class DataService {
 
 
   post(url: string, body: any) {
-    // Hide error screen
-
     // Show loading screen
     this.modalService.loading = true;
 
@@ -50,8 +48,6 @@ export class DataService {
   }
 
   put(url: string, body: any) {
-    // Hide error screen
-
     // Show loading screen
     this.modalService.loading = true;
 
@@ -68,6 +64,7 @@ export class DataService {
   handleError() {
     return (error) => {
       // showError;
+      this.modalService.error = true;
       // hide loading
       this.modalService.loading = false;
       return throwError(error);

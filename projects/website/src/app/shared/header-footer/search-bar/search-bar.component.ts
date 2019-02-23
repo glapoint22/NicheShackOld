@@ -56,9 +56,9 @@ export class SearchBarComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
-  onEmailClick() {
-    this.router.navigate(['/preferences']);
-  }
+  // onEmailClick() {
+  //   this.router.navigate(['/preferences']);
+  // }
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {

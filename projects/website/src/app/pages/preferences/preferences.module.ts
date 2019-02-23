@@ -3,11 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { PreferencesRoutingModule } from './preferences-routing.module';
 import { PreferencesComponent } from './preferences.component';
-import { HeaderFooterModule } from '../../shared/header-footer/header-footer.module';
-import { InputsModule } from '../../shared/inputs/inputs.module';
 import { FormsModule } from '@angular/forms';
 import { ConfirmComponent } from './components/confirm/confirm.component';
-import { FeaturedCategoriesModule } from '../../shared/featured-categories/featured-categories.module';
+import { InputsModule } from 'src/app/components/inputs/inputs.module';
 
 @NgModule({
   declarations: [
@@ -17,10 +15,8 @@ import { FeaturedCategoriesModule } from '../../shared/featured-categories/featu
   imports: [
     CommonModule,
     PreferencesRoutingModule,
-    HeaderFooterModule,
-    InputsModule,
     FormsModule,
-    FeaturedCategoriesModule
+    InputsModule
   ]
 })
 export class PreferencesModule { }
