@@ -1,0 +1,6 @@
+<search-bar></search-bar>
+<welcome *ngIf="dataService.data.customer; else pageNotFound"></welcome>
+<ng-template #pageNotFound>
+    <page-not-found></page-not-found>
+</ng-template>
+<footer></footer>

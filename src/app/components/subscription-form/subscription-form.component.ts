@@ -28,10 +28,47 @@ export class SubscriptionFormComponent extends ModalComponent implements OnInit 
     this.dataService.post('api/Subscriptions', {
       name: this.name,
       email: this.email
-    })
-      .subscribe((response: any) => {
-        response;
-      });
+    }).subscribe((response: any) => {
+      //If a product was clicked
+      if (this.modalService.subscriptionForm.product) {
+        let product = this.modalService.subscriptionForm.product;
+        let hoplink = product.hopLink + '?tid=' + response.customer.id + product.id;
+
+        //If we have an existing customer, go straight to the product page
+        if (response.customer.isExistingCustomer) {
+          window.location.href = hoplink;
+        } else {
+          //We have a new customer so naviagate to the welcome page with product info
+          this.dataService.data = {
+            customer: response.customer.name,
+            hoplink: hoplink,
+            productName: product.name
+          }
+          this.router.navigate(['/welcome']);
+        }
+        //Product was not clicked
+      } else {
+        //If we have an existing customer, go straight to the preferences page
+        if (response.customer.isExistingCustomer) {
+          window.location.reload();
+        } else {
+          //We have a new customer so naviage to the welcome page
+          this.dataService.data = {
+            customer: response.customer.name
+          }
+          this.router.navigate(['/welcome']);
+        }
+      }
+    });
   }
 
+  close() {
+    if (this.modalService.subscriptionForm.product) {
+      this.modalService.loading = true;
+      window.location.href = this.modalService.subscriptionForm.product.hopLink;
+    } else {
+      this.router.navigate(['']);
+    }
+    super.close();
+  }
 }

@@ -30,6 +30,9 @@ export class PreferencesComponent implements OnInit {
       .subscribe((response: any) => {
         if (response === null) {
           // Show subscription form
+          this.modalService.subscriptionForm.caption = 'Enter your name and email below to sign up or manage your subscriptions.'
+          this.modalService.subscriptionForm.submitButton = 'Submit';
+          this.modalService.subscriptionForm.cancelButton = 'Cancel';
           this.modalService.subscriptionForm.show = true;
         } else {
           this.init(response);

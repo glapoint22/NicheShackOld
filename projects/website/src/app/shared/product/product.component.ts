@@ -27,7 +27,11 @@ export class ProductComponent {
       this.modalService.loading = true;
       window.location.href = this.product.hopLink;
     } else {
-      // this.showModalService.showSubscriptionForm(this.product);
+      this.modalService.subscriptionForm.caption = 'Would you like to sign up to receive emails on products like ' + this.product.name + '?';
+          this.modalService.subscriptionForm.submitButton = 'Yes! Sign me up';
+          this.modalService.subscriptionForm.cancelButton = 'No Thanks';
+          this.modalService.subscriptionForm.product = this.product;
+          this.modalService.subscriptionForm.show = true;
     }
   }
 

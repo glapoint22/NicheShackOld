@@ -1,61 +1,74 @@
 <div class="container" *ngIf="subscriptions">
-  <search-bar></search-bar>
+  <search-bar #searchBar></search-bar>
 
-  <!-- Form -->
-  <form *ngIf="!showConfirmation; else confirm" (ngSubmit)="onSubmit(preferencesForm)" #preferencesForm="ngForm">
-    <h3>Personal Information:</h3>
-    <!-- First Name -->
-    <input type="text" placeholder="First Name" required [(ngModel)]="name" name="name" autofocus (change)="onUpdate()">
+  <div *ngIf="!showConfirmation; else confirm">
+    <!-- Form -->
+    <form (ngSubmit)="onSubmit(preferencesForm)" #preferencesForm="ngForm">
+      <h3>Personal Information:</h3>
+      <!-- First Name -->
+      <input type="text" placeholder="First Name" required [(ngModel)]="name" name="name" autofocus
+        (change)="onUpdate()">
 
-    <!-- Last Name -->
-    <input type="email" placeholder="Email" required [(ngModel)]="email" name="email" (change)="onUpdate()">
+      <!-- Last Name -->
+      <input type="email" placeholder="Email" required [(ngModel)]="email" name="email" (change)="onUpdate()">
 
-    <!-- Email Send Frequency -->
-    <h3>How often to send you mail:</h3>
+      <!-- Email Send Frequency -->
+      <h3>How often to send you mail:</h3>
 
-    <div style="margin-left: 10px;">
-      <radio-button [name]="'emailSendFrequency'" [type]="'radio'" [label]="'Daily'" [checked]="emailSendFrequency === 1" (change)="onUpdate(1)"></radio-button>
-      <br>
-      <radio-button [name]="'emailSendFrequency'" [type]="'radio'" [label]="'Twice a week'" [checked]="emailSendFrequency === 3"
-        (change)="onUpdate(3)"></radio-button>
-      <br>
-      <radio-button [name]="'emailSendFrequency'" [type]="'radio'" [label]="'Once a week'" [checked]="emailSendFrequency === 7"
-        (change)="onUpdate(7)"></radio-button>
-      <br>
-      <radio-button [name]="'emailSendFrequency'" [type]="'radio'" [label]="'Twice a month'" [checked]="emailSendFrequency === 14"
-        (change)="onUpdate(14)"></radio-button>
-      <br>
-      <radio-button [name]="'emailSendFrequency'" [type]="'radio'" [label]="'Once a month'" [checked]="emailSendFrequency === 30"
-        (change)="onUpdate(30)"></radio-button>
-      <br>
-      <radio-button [name]="'emailSendFrequency'" [type]="'radio'" [label]="'Unsubscribe to all subscriptions'" [checked]="emailSendFrequency === 0"
-        (change)="onUpdate(0)"></radio-button>
-      <br>
-      <br>
+      <div style="margin-left: 10px;">
+        <radio-button [name]="'emailSendFrequency'" [type]="'radio'" [label]="'Daily'"
+          [checked]="emailSendFrequency === 1" (change)="onUpdate(1)"></radio-button>
+        <br>
+        <radio-button [name]="'emailSendFrequency'" [type]="'radio'" [label]="'Twice a week'"
+          [checked]="emailSendFrequency === 3" (change)="onUpdate(3)"></radio-button>
+        <br>
+        <radio-button [name]="'emailSendFrequency'" [type]="'radio'" [label]="'Once a week'"
+          [checked]="emailSendFrequency === 7" (change)="onUpdate(7)"></radio-button>
+        <br>
+        <radio-button [name]="'emailSendFrequency'" [type]="'radio'" [label]="'Twice a month'"
+          [checked]="emailSendFrequency === 14" (change)="onUpdate(14)"></radio-button>
+        <br>
+        <radio-button [name]="'emailSendFrequency'" [type]="'radio'" [label]="'Once a month'"
+          [checked]="emailSendFrequency === 30" (change)="onUpdate(30)"></radio-button>
+        <br>
+        <radio-button [name]="'emailSendFrequency'" [type]="'radio'" [label]="'Unsubscribe to all subscriptions'"
+          [checked]="emailSendFrequency === 0" (change)="onUpdate(0)"></radio-button>
+        <br>
+        <br>
+      </div>
+
+
+      <!-- Subscriptions -->
+      <h3 *ngIf="subscriptions.length > 0">Subscriptions:
+        <span class="message">(Check or uncheck to subscribe or unsubscribe, respectively)</span>
+      </h3>
+      <ul>
+        <li *ngFor="let subscription of subscriptions">
+          <h4>{{subscription.name}}</h4>
+          <div *ngFor="let niche of subscription.niches">
+            <checkbox [type]="'checkbox'" [label]="niche.name" [checked]="niche.isSubscribed"
+              (change)="onUpdateSubscription(niche)" [disabled]="emailSendFrequency === 0"></checkbox>
+          </div>
+        </li>
+      </ul>
+
+      <!-- Submit button -->
+      <button type="submit" [disabled]="!isUpdated">Submit</button>
+    </form>
+
+    <div *ngIf="subscriptions.length === 0" class="featured-categories">
+      It looks like you haven't subscribed to anything yet. Check out our featured categories below.
+      <featured-categories [categories]="searchBar.categories"></featured-categories>
     </div>
+  </div>
 
 
-    <!-- Subscriptions -->
-    <h3 *ngIf="subscriptions.length > 0">Subscriptions:
-      <span class="message">(Check or uncheck to subscribe or unsubscribe, respectively)</span>
-    </h3>
-    <ul>
-      <li *ngFor="let subscription of subscriptions">
-        <h4>{{subscription.name}}</h4>
-        <div *ngFor="let niche of subscription.niches">
-          <checkbox [type]="'checkbox'" [label]="niche.name" [checked]="niche.isSubscribed" (change)="onUpdateSubscription(niche)"
-            [disabled]="emailSendFrequency === 0"></checkbox>
-        </div>
-      </li>
-    </ul>
-
-    <!-- Submit button -->
-    <button type="submit" [disabled]="!isUpdated">Submit</button>
-  </form>
 
   <ng-template #confirm>
     <confirm></confirm>
   </ng-template>
+  <div style="margin-top: 100px">
+    <footer></footer>
+  </div>
 
-  <footer></footer>
 </div>

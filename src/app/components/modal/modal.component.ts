@@ -9,14 +9,19 @@ export class ModalComponent {
   public modalServiceObject: any;
   public isClosable: boolean;
 
-  constructor(public modalService: ModalService, private router: Router) { }
+  constructor(public modalService: ModalService, public router: Router) { }
 
   ngOnInit() {
     this.router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
-        this.close();
+        this.modalServiceObject.show = false;
       }
     });
+    document.body.style.overflow = 'hidden';
+  }
+
+  ngOnDestroy(){
+    document.body.style.overflow = 'visible';
   }
 
   close() {

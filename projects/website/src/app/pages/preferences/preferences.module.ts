@@ -7,6 +7,7 @@ import { HeaderFooterModule } from '../../shared/header-footer/header-footer.mod
 import { InputsModule } from '../../shared/inputs/inputs.module';
 import { FormsModule } from '@angular/forms';
 import { ConfirmComponent } from './components/confirm/confirm.component';
+import { FeaturedCategoriesModule } from '../../shared/featured-categories/featured-categories.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ConfirmComponent } from './components/confirm/confirm.component';
     PreferencesRoutingModule,
     HeaderFooterModule,
     InputsModule,
-    FormsModule
+    FormsModule,
+    FeaturedCategoriesModule
   ]
 })
 export class PreferencesModule { }

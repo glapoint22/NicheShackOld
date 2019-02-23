@@ -2,16 +2,21 @@
   <form (ngSubmit)="onSubmit(form)" #form="ngForm" (click)="stopPropagation($event)">
     <i class="fas fa-times-circle" (click)="close()"></i>
     <br>
-    <p>{{caption}}</p>
+    <p>{{modalService.subscriptionForm.caption}}</p>
+
+    <!-- First Name -->
     <input type="text" placeholder="First Name" required [(ngModel)]="name" name="name" autofocus #fname="ngModel">
     <div [hidden]="!form.submitted || fname.valid" class="warning">
       <i class="fas fa-exclamation-circle"></i> Please enter your name
     </div>
+    
+    <!-- Email -->
     <input type="email" placeholder="Email" required [(ngModel)]="email" name="email" ngModel email #eMail="ngModel">
     <div [hidden]="!form.submitted || eMail.valid" class="warning">
       <i class="fas fa-exclamation-circle"></i>Please enter your email
     </div>
-    <button type="submit" [innerHTML]="buttonText"></button>
-    <button (click)="close()" type="button">Cancel</button>
+    
+    <button type="submit" [innerHTML]="modalService.subscriptionForm.submitButton"></button>
+    <button (click)="close()" type="button" [innerHTML]="modalService.subscriptionForm.cancelButton"></button>
   </form>
 </div>
