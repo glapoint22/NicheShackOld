@@ -1,9 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LeadPageComponent } from './lead-page/lead-page.component';
 import { PageNotFoundComponent } from 'src/app/components/page-not-found/page-not-found.component';
+import { LeadPageComponent } from './pages/lead-page/lead-page.component';
 
 const routes: Routes = [
+  {
+    path: 'welcome',
+    loadChildren: './pages/welcome-page/welcome-page.module#WelcomePageModule'
+  },
   {
     path: ':leadPage',
     component: LeadPageComponent

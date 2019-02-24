@@ -15,6 +15,7 @@ export class LeadPageComponent implements OnInit {
   public nicheId: number;
   public caption: string;
   public leadPage: SafeHtml;
+  public pageNotFound: boolean;
 
   constructor(private dataService: DataService, private sanitizer: DomSanitizer, private route: ActivatedRoute, private modalService: ModalService, private router: Router) { }
 
@@ -26,8 +27,11 @@ export class LeadPageComponent implements OnInit {
       this.dataService.get('api/LeadPages', [{ key: 'pageTitle', value: pageTitle }])
         .subscribe((response: any) => {
           this.leadPage = this.sanitizer.bypassSecurityTrustHtml(response.body.replace(/title="[a-zA-Z0-9-.]+"/g, ''));
-          this.leadMagnetTitle = response.title;
-          this.nicheId = response.nicheId;
+          this.modalService.subscriptionForm.leadMagnet = this.leadMagnetTitle = response.title;
+          this.modalService.subscriptionForm.nicheId = this.nicheId = response.nicheId;
+        },
+        () => {
+          this.pageNotFound = true;
         });
     })
   }

@@ -63,8 +63,9 @@ export class DataService {
 
   handleError() {
     return (error) => {
-      // showError;
-      this.modalService.error = true;
+      // showError
+      if (error.status !== 404) this.modalService.error = true;
+
       // hide loading
       this.modalService.loading = false;
       return throwError(error);

@@ -13,7 +13,7 @@ export class SubscriptionFormComponent extends ModalComponent implements OnInit 
   public name: string;
   public email: string;
 
-  constructor(modalService: ModalService, router: Router, private dataService: DataService) { super(modalService, router) }
+  constructor(modalService: ModalService, router: Router, public dataService: DataService) { super(modalService, router) }
 
   ngOnInit() {
     this.isClosable = true;
@@ -25,12 +25,16 @@ export class SubscriptionFormComponent extends ModalComponent implements OnInit 
     if (form.form.status !== 'VALID') return;
     this.modalServiceObject.show = false;
 
-    this.dataService.post('api/Subscriptions', {
-      name: this.name,
-      email: this.email
-    }).subscribe((response: any) => {
+    this.dataService.post('api/Subscriptions', this.getPostData()).subscribe((response: any) => {
       this.onResponse(response);
     });
+  }
+
+  getPostData() {
+    return {
+      name: this.name,
+      email: this.email
+    }
   }
 
   onResponse(response: any) {
@@ -45,7 +49,8 @@ export class SubscriptionFormComponent extends ModalComponent implements OnInit 
       this.dataService.data = {
         customer: response.customer.name,
         hoplink: hoplink,
-        productName: product.name
+        productName: product.name,
+        isExistingCustomer: response.customer.isExistingCustomer
       }
       this.router.navigate(['/welcome']);
     }

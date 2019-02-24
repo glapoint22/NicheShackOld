@@ -8,4 +8,5 @@ export class ModalService {
   public loading: boolean;
   public subscriptionForm: any = {};
   public error: boolean;
+  public pageNotFound: boolean;
 }

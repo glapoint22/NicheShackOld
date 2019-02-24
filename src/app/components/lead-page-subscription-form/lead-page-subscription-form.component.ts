@@ -13,12 +13,25 @@ export class LeadPageSubscriptionFormComponent extends SubscriptionFormComponent
 
   constructor(modalService: ModalService, router: Router, dataService: DataService) { super(modalService, router, dataService) }
 
-  onResponse(response: any){
-    console.log("Hello");
+  onResponse(response: any) {
+    this.dataService.data = {
+      customer: response.customer.name,
+      email: response.customer.email,
+      isExistingCustomer: response.customer.isExistingCustomer,
+      leadMagnet: response.leadMagnet
+    }
+    this.router.navigate(['/welcome']);
   }
 
   close() {
     this.modalServiceObject.show = false;
+  }
+
+  getPostData() {
+    let data = super.getPostData();
+    data['leadMagnet'] = this.modalService.subscriptionForm.leadMagnet;
+    data['nicheId'] = this.modalService.subscriptionForm.nicheId;
+    return data;
   }
 
 }

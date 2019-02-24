@@ -1,2 +1,4 @@
-<router-outlet></router-outlet>
-<lead-page-subscription-form *ngIf="modalService.subscriptionForm.show"></lead-page-subscription-form>
+<router-outlet *ngIf="!error"></router-outlet>
+<lead-page-subscription-form *ngIf="subscriptionForm.show"></lead-page-subscription-form>
+<loading *ngIf="isLoading"></loading>
+<error *ngIf="error"></error>
