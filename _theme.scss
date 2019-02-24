@@ -13,6 +13,23 @@ $gold:  #ffba00;
 @mixin shadow(){
     box-shadow: 4px 0 10px #020202;
 }
+body {
+    margin: 0;
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        border-radius: 10px;
+        background-color: #131212;
+    }
+    ::-webkit-scrollbar {
+        width: 12px;
+        background-color: #131212;
+    }
+    ::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+        background-color: #444;
+    }
+}
 .modal-background {
     background: rgba(0, 0, 0, 0.9); 
     z-index: 100; 
@@ -24,4 +41,33 @@ $gold:  #ffba00;
     display: flex; 
     align-items: center; 
     justify-content: center;
+}
+button {
+    @include gradient($color1, $color2);
+    min-height: 40px;
+    font-size: 24px;
+    font-weight:bold;
+    border: none;
+    outline: none;
+    color: #C3C3C3;
+    margin: 10px;
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 0 10px 0 10px;
+    border-radius: 5px;
+}
+button:hover {
+    color: #FFFFFF;
+    cursor: pointer;
+}
+button:disabled{
+    background: rgb(110, 110, 110);
+    color: rgb(151, 151, 151);
+    cursor: default;
+}
+.background-container {
+    position:absolute;
+    width: 100%;
+    min-height: 100%;
+    background: $background-color;
 }

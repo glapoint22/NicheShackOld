@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve website --proxy-config proxy.config.js -o",
+    "start": "ng serve leadpages --proxy-config proxy.config.js -o",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
