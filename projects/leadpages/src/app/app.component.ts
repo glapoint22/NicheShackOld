@@ -13,10 +13,6 @@ export class AppComponent {
   
   constructor(private modalService: ModalService){}
 
-  ngOnInit() {
-    
-  }
-
   ngAfterContentChecked() {
     this.isLoading = this.modalService.loading;
     this.error = this.modalService.error;

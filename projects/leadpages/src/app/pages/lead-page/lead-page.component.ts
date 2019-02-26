@@ -1,9 +1,9 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { DataService } from 'src/app/services/data/data.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ModalService } from 'src/app/services/modal/modal.service';
-import { LeadPageSubscriptionFormComponent } from 'src/app/components/lead-page-subscription-form/lead-page-subscription-form.component';
+// import { LeadPageSubscriptionFormComponent } from 'src/app/components/lead-page-subscription-form/lead-page-subscription-form.component';
 
 @Component({
   selector: 'lead-page',
@@ -17,7 +17,7 @@ export class LeadPageComponent implements OnInit {
   public leadPage: SafeHtml;
   public pageNotFound: boolean;
 
-  constructor(private dataService: DataService, private sanitizer: DomSanitizer, private route: ActivatedRoute, private modalService: ModalService, private router: Router) { }
+  constructor(private dataService: DataService, private sanitizer: DomSanitizer, private route: ActivatedRoute, private modalService: ModalService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(param => {
@@ -39,18 +39,18 @@ export class LeadPageComponent implements OnInit {
   @HostListener('document:click', ['$event'])
   onClick(event) {
     if (event.target.id === 'button' || (event.target.parentElement && event.target.parentElement.id === 'button')) {
-      this.dataService.post('api/Subscriptions', { nicheId: this.nicheId, leadMagnet: this.leadMagnetTitle })
-        .subscribe((response: any) => {
-          if (response === null) {
+      // this.dataService.post('api/Subscriptions', { nicheId: this.nicheId, leadMagnet: this.leadMagnetTitle })
+        // .subscribe((response: any) => {
+          // if (response === null) {
             this.modalService.subscriptionForm.caption = 'Enter your name and email below to get your free ' + this.leadMagnetTitle + '!';
             this.modalService.subscriptionForm.submitButton = 'Yes! I would like my free ' + this.leadMagnetTitle
             this.modalService.subscriptionForm.cancelButton = 'No Thanks';
             this.modalService.subscriptionForm.show = true;
-          } else {
-            let leadPageSubscriptionForm: LeadPageSubscriptionFormComponent = new LeadPageSubscriptionFormComponent(this.modalService, this.router, this.dataService);
-            leadPageSubscriptionForm.onResponse(response);
-          }
-        });
+          // } else {
+          //   let leadPageSubscriptionForm: LeadPageSubscriptionFormComponent = new LeadPageSubscriptionFormComponent(this.modalService, this.router, this.dataService);
+          //   leadPageSubscriptionForm.onResponse(response);
+          // }
+        // });
     }
   }
 }
