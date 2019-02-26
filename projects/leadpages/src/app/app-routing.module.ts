@@ -5,10 +5,6 @@ import { LeadPageComponent } from './pages/lead-page/lead-page.component';
 
 const routes: Routes = [
   {
-    path: 'welcome',
-    loadChildren: './pages/welcome-page/welcome-page.module#WelcomePageModule'
-  },
-  {
     path: ':leadPage',
     component: LeadPageComponent
   },

@@ -18,7 +18,7 @@ const routes: Routes = [
   },
   {
     path: 'welcome',
-    loadChildren: './pages/welcome-page/welcome-page.module#WelcomePageModule'
+    loadChildren: './pages/welcome/welcome.module#WelcomeModule'
   },
   { path: '**', component: PageNotFoundComponent }
 ];

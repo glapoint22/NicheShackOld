@@ -21,7 +21,7 @@ export class LeadPageSubscriptionFormComponent extends SubscriptionFormComponent
     //   leadMagnet: response.leadMagnet
     // }
     // this.router.navigate(['/welcome']);
-    window.location.href = 'http://www.nicheShack.com/welcome?e=' + response.customer.email;
+    window.location.href = 'https://www.nicheShack.com/welcome?p=' + response;
   }
 
   close() {

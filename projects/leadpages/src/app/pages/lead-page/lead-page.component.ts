@@ -3,7 +3,6 @@ import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { DataService } from 'src/app/services/data/data.service';
 import { ActivatedRoute } from '@angular/router';
 import { ModalService } from 'src/app/services/modal/modal.service';
-// import { LeadPageSubscriptionFormComponent } from 'src/app/components/lead-page-subscription-form/lead-page-subscription-form.component';
 
 @Component({
   selector: 'lead-page',
@@ -30,27 +29,19 @@ export class LeadPageComponent implements OnInit {
           this.modalService.subscriptionForm.leadMagnet = this.leadMagnetTitle = response.title;
           this.modalService.subscriptionForm.nicheId = this.nicheId = response.nicheId;
         },
-        () => {
-          this.pageNotFound = true;
-        });
+          () => {
+            this.pageNotFound = true;
+          });
     })
   }
 
   @HostListener('document:click', ['$event'])
   onClick(event) {
     if (event.target.id === 'button' || (event.target.parentElement && event.target.parentElement.id === 'button')) {
-      // this.dataService.post('api/Subscriptions', { nicheId: this.nicheId, leadMagnet: this.leadMagnetTitle })
-        // .subscribe((response: any) => {
-          // if (response === null) {
-            this.modalService.subscriptionForm.caption = 'Enter your name and email below to get your free ' + this.leadMagnetTitle + '!';
-            this.modalService.subscriptionForm.submitButton = 'Yes! I would like my free ' + this.leadMagnetTitle
-            this.modalService.subscriptionForm.cancelButton = 'No Thanks';
-            this.modalService.subscriptionForm.show = true;
-          // } else {
-          //   let leadPageSubscriptionForm: LeadPageSubscriptionFormComponent = new LeadPageSubscriptionFormComponent(this.modalService, this.router, this.dataService);
-          //   leadPageSubscriptionForm.onResponse(response);
-          // }
-        // });
+      this.modalService.subscriptionForm.caption = 'Enter your name and email below to get your free ' + this.leadMagnetTitle + '!';
+      this.modalService.subscriptionForm.submitButton = 'Yes! I would like my free ' + this.leadMagnetTitle
+      this.modalService.subscriptionForm.cancelButton = 'No Thanks';
+      this.modalService.subscriptionForm.show = true;
     }
   }
 }
