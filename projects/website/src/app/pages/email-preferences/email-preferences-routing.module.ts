@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { PreferencesComponent } from './preferences.component';
+import { EmailPreferencesComponent } from './email-preferences.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: PreferencesComponent
+    component: EmailPreferencesComponent
   }
 ];
 
@@ -13,4 +13,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class PreferencesRoutingModule { }
+export class EmailPreferencesRoutingModule { }

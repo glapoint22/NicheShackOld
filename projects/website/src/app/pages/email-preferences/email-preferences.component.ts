@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data/data.service';
-import { ModalService } from 'src/app/services/modal/modal.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'preferences',
-  templateUrl: './preferences.component.html',
-  styleUrls: ['./preferences.component.scss']
+  selector: 'email-preferences',
+  templateUrl: './email-preferences.component.html',
+  styleUrls: ['./email-preferences.component.scss']
 })
-export class PreferencesComponent implements OnInit {
+export class EmailPreferencesComponent implements OnInit {
   public subscriptions;
   private customerId: string;
   private sessionId: string
@@ -22,32 +22,24 @@ export class PreferencesComponent implements OnInit {
   public isUpdated: boolean = false;
   public showConfirmation: boolean;
 
-  constructor(private dataService: DataService, private modalService: ModalService) { }
+  constructor(private dataService: DataService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     //Get the preferences
-    this.dataService.get('api/Subscriptions')
-      .subscribe((response: any) => {
-        if (response === null) {
-          // Show subscription form
-          this.modalService.subscriptionForm.caption = 'Enter your name and email below to sign up or manage your subscriptions.'
-          this.modalService.subscriptionForm.submitButton = 'Submit';
-          this.modalService.subscriptionForm.cancelButton = 'Cancel';
-          this.modalService.subscriptionForm.show = true;
-        } else {
-          this.init(response);
-        }
-      });
-  }
+    this.route.queryParamMap.subscribe(queryParams => {
+      let customerId = queryParams.get('p');
 
-  init(data) {
-    this.customerId = data.customer.id;
-    this.sessionId = data.customer.sessionId;
-    this.subscriptions = data.subscriptions;
-    this.originalName = this.name = data.customer.name;
-    this.originalEmail = this.email = data.customer.email;
-    this.originalEmailSendFrequency = this.emailSendFrequency = data.customer.emailSendFrequency;
-    this.emailSentDate = data.customer.emailSentDate;
+      this.dataService.get('api/Subscriptions/', [{ key: 'customerId', value: customerId }])
+        .subscribe((response: any) => {
+          this.customerId = response.customer.id;
+          this.sessionId = response.customer.sessionId;
+          this.subscriptions = response.subscriptions;
+          this.originalName = this.name = response.customer.name;
+          this.originalEmail = this.email = response.customer.email;
+          this.originalEmailSendFrequency = this.emailSendFrequency = response.customer.emailSendFrequency;
+          this.emailSentDate = response.customer.emailSentDate;
+        });
+    });
   }
 
   onUpdate(emailSendFrequency) {

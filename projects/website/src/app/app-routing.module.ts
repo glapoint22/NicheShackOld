@@ -20,6 +20,10 @@ const routes: Routes = [
     path: 'welcome',
     loadChildren: './pages/welcome/welcome.module#WelcomeModule'
   },
+  {
+    path: 'preferences',
+    loadChildren: './pages/email-preferences/email-preferences.module#EmailPreferencesModule'
+  },
   { path: '**', component: PageNotFoundComponent }
 ];
 

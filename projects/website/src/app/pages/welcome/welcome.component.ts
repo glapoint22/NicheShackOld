@@ -14,6 +14,7 @@ export class WelcomeComponent implements OnInit {
   public email: string;
   public hoplink: string;
   public productName: string;
+  public serializedCustomerId;
 
   constructor(private route: ActivatedRoute, private dataService: DataService) { }
 
@@ -21,9 +22,15 @@ export class WelcomeComponent implements OnInit {
     this.route.queryParamMap.subscribe(queryParams => {
       let parameters = queryParams.get('p');
 
-      this.dataService.get('api/Subscriptions', [{ key: 'parameters', value: parameters }])
+      this.dataService.get('api/Subscriptions/Content', [{ key: 'parameters', value: parameters }])
         .subscribe((response: any) => {
-          response;
+          this.isExistingCustomer = response.isExistingCustomer;
+          this.customer = response.customerName;
+          this.leadMagnet = response.leadMagnet;
+          this.email = response.email;
+          this.hoplink = response.hoplink + '?tid=' + response.customerId + response.productId;
+          this.productName = response.productName;
+          this.serializedCustomerId = encodeURIComponent(response.serializedCustomerId);
         });
 
     });

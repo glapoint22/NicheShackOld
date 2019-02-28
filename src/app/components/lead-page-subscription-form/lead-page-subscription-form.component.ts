@@ -28,11 +28,13 @@ export class LeadPageSubscriptionFormComponent extends SubscriptionFormComponent
     this.modalServiceObject.show = false;
   }
 
-  getPostData() {
-    let data = super.getPostData();
-    data['leadMagnet'] = this.modalService.subscriptionForm.leadMagnet;
-    data['nicheId'] = this.modalService.subscriptionForm.nicheId;
-    return data;
+  getPostData(): any {
+    return {
+      name: this.name,
+      email: this.email,
+      leadMagnet: this.modalService.subscriptionForm.leadMagnet,
+      nicheId: this.modalService.subscriptionForm.nicheId
+    }
   }
 
 }
