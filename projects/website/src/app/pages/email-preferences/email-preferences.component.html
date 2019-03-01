@@ -31,15 +31,18 @@
         <radio-button [name]="'emailSendFrequency'" [type]="'radio'" [label]="'Once a month'"
           [checked]="emailSendFrequency === 30" (change)="onUpdate(30)"></radio-button>
         <br>
-        <radio-button [name]="'emailSendFrequency'" [type]="'radio'" [label]="'Unsubscribe to all subscriptions'"
+        <radio-button *ngIf="subscriptions.length > 0" [name]="'emailSendFrequency'" [type]="'radio'" [label]="'Unsubscribe to all subscriptions'"
           [checked]="emailSendFrequency === 0" (change)="onUpdate(0)"></radio-button>
-        <br>
-        <br>
+
+          <div *ngIf="subscriptions.length === 0" style="margin-top: 10px" class="message">
+            You haven't subscribed to anything yet. Try searching for some products.
+          </div>
+        
       </div>
 
 
       <!-- Subscriptions -->
-      <h3 *ngIf="subscriptions.length > 0">Subscriptions:
+      <h3 *ngIf="subscriptions.length > 0" style="margin-top: 10px;">Subscriptions:
         <span class="message">(Check or uncheck to subscribe or unsubscribe, respectively)</span>
       </h3>
       <ul>
@@ -55,14 +58,7 @@
       <!-- Submit button -->
       <button type="submit" [disabled]="!isUpdated">Submit</button>
     </form>
-
-    <!-- <div *ngIf="subscriptions.length === 0" class="featured-categories">
-      It looks like you haven't subscribed to anything yet. Check out our featured categories below.
-      <featured-categories [categories]="searchBar.categories"></featured-categories>
-    </div> -->
   </div>
-
-
 
   <ng-template #confirm>
     <confirm></confirm>

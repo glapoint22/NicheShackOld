@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ModalService } from 'src/app/services/modal/modal.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'mail';
+  public error: boolean;
+
+  constructor(private modalService: ModalService){}
+
+  ngAfterContentChecked() {
+    this.error = this.modalService.error;
+  }
 }

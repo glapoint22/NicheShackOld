@@ -52,7 +52,7 @@ li{
     word-break: break-all;
 }
 button{
-    margin: 0 0 5px 25px;
+    margin: 10px 0 5px 25px;
     position: relative;
     top: -10px;
 }
@@ -60,13 +60,6 @@ button{
     color: $gold;
     margin: -6px 10px 10px 6px;
     font-size: 13px;
-}
-.featured-categories {
-    text-align: center;
-    color: $color5;
-    font-size: 24px;
-    font-weight: bold;
-    margin-top: 30px;
 }
 @media screen and (max-width: 1080px) {
     form{
