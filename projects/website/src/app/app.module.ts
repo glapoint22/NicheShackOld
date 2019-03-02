@@ -14,6 +14,7 @@ import { CookieService } from 'ngx-cookie-service';
 
 // Components
 import { AppComponent } from './app.component';
+import { ModalModule } from 'src/app/components/modal/modal.module';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { AppComponent } from './app.component';
     LoadingModule,
     PageNotFoundModule,
     SubscriptionFormModule,
-    ErrorModule
+    ErrorModule,
+    ModalModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]
