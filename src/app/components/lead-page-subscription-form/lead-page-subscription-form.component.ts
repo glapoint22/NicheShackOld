@@ -14,14 +14,7 @@ export class LeadPageSubscriptionFormComponent extends SubscriptionFormComponent
   constructor(modalService: ModalService, router: Router, dataService: DataService) { super(modalService, router, dataService) }
 
   onResponse(response: any) {
-    // this.dataService.data = {
-    //   customer: response.customer.name,
-    //   email: response.customer.email,
-    //   isExistingCustomer: response.customer.isExistingCustomer,
-    //   leadMagnet: response.leadMagnet
-    // }
-    // this.router.navigate(['/welcome']);
-    window.location.href = 'https://www.nicheShack.com/welcome?p=' + response;
+    window.location.href = 'https://www.nicheShack.com/welcome?p=' + encodeURIComponent(response);
   }
 
   close() {
