@@ -28,7 +28,7 @@ export class WelcomeComponent implements OnInit {
           this.customer = response.customerName;
           this.leadMagnet = response.leadMagnet;
           this.email = response.email;
-          this.hoplink = response.hoplink + '?tid=' + response.customerId + response.productId;
+          this.hoplink = response.hoplink + (response.hoplink.indexOf('?') === -1 ? '?' : '&') + 'tid=' + response.customerId + response.productId;
           this.productName = response.productName;
           this.serializedCustomerId = encodeURIComponent(response.serializedCustomerId);
         });

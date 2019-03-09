@@ -41,22 +41,7 @@ export class SubscriptionFormComponent extends ModalComponent implements OnInit 
   }
 
   onResponse(response: any) {
-    // let product = this.modalService.subscriptionForm.product;
-    // let hoplink = product.hopLink + '?tid=' + response.customer.id + product.id;
-
-    // //If we have an existing customer, go straight to the product page
-    // if (response.customer.isExistingCustomer) {
-    //   window.location.href = hoplink;
-    // } else {
-    //   //We have a new customer so naviagate to the welcome page with product info
-    //   this.dataService.data = {
-    //     customer: response.customer.name,
-    //     hoplink: hoplink,
-    //     productName: product.name,
-    //     isExistingCustomer: response.customer.isExistingCustomer
-    //   }
-      this.router.navigate(['/welcome'], { queryParams: { 'p': response } });
-    // }
+    this.router.navigate(['/welcome'], { queryParams: { 'p': response } });
   }
 
   close() {

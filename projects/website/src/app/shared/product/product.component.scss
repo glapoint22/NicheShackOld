@@ -38,6 +38,11 @@
     font-weight: bold;
     height: 35px;
     line-height: 35px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 .product-description{
     text-align: center;

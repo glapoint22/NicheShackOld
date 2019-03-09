@@ -10,6 +10,7 @@ export class PaginatorComponent {
   @Input() currentPage: number;
   @Input() showPlay: boolean;
   @Input() play: boolean;
+  @Input() positionBottom: number;
   @Output() onPaginatorClick = new EventEmitter<number>();
   @Output() onPlayClick = new EventEmitter<void>();
 
