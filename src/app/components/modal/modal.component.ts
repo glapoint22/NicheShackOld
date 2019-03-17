@@ -20,8 +20,11 @@ export class ModalComponent {
     document.body.style.overflow = 'hidden';
   }
 
-  ngOnDestroy(){
-    document.body.style.overflow = 'visible';
+  ngOnDestroy() {
+    if (!this.modalService.isHoplink) {
+      document.body.style.overflow = 'visible';
+    }
+    this.modalService.isHoplink = false;
   }
 
   close() {

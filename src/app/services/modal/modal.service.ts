@@ -9,4 +9,5 @@ export class ModalService {
   public subscriptionForm: any = {};
   public error: boolean;
   public pageNotFound: boolean;
+  public isHoplink: boolean;
 }
