@@ -34,7 +34,7 @@ export class SearchBarComponent implements OnInit {
       .subscribe((response: any) => {
         this.categories = response;
         this.searchCategories = this.categories.slice().map(x => ({ id: x.id, name: x.name }));
-        this.searchCategories.unshift({ name: 'All', id: 0 });
+        this.searchCategories.unshift({ name: 'All', id: -1 });
 
         // Get the selected category
         this.selectedCategory = this.getSelectedCategory();
@@ -42,14 +42,21 @@ export class SearchBarComponent implements OnInit {
   }
 
   getSelectedCategory() {
-    let id = this.searchCategories.findIndex(x => x.id == Number(this.queryParams.get('category')));
+    let category = this.queryParams.get('category');
+    let id;
+
+    if (!category) {
+      id = 0;
+    } else {
+      id = this.searchCategories.findIndex(x => x.id == Number(category));
+    }
     return this.searchCategories[id];
   }
 
 
   onSearchButtonClick(query, category) {
     if (query !== '') {
-      this.router.navigate(['/search'], { queryParams: { 'query': query, 'category': category } });
+      this.router.navigate(['/search'], { queryParams: category > -1 ? { 'query': query, 'category': category } : { 'query': query } });
     }
   }
   onImageClick() {
