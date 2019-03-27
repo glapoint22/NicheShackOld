@@ -55,20 +55,20 @@
           </filter>
         </div>
 
-        <category-filter #categoryFilter [categories]="categories" [caption]="'Categories'">
+        <category-filter #categoryFilter [categories]="categories" [caption]="'Categories'" [showContent] = "!showFilters" [show]="!showFilters">
           <category-filter-content [parent]="categoryFilter" (onCategoryClick)="setQueryParameters($event)"></category-filter-content>
         </category-filter>
 
         <div *ngFor="let filter of filters; trackBy:trackFilter">
           <!-- Price Filter -->
-          <price-filter #priceFilter *ngIf="filter.caption == 'Price'" [caption]="filter.caption" [hostComponent]="this" (onSetFilter)="setFilter($event)">
+          <price-filter #priceFilter *ngIf="filter.caption == 'Price'" [caption]="filter.caption" [hostComponent]="this" (onSetFilter)="setFilter($event)" [showContent] = "!showFilters" [show]="!showFilters">
             <price-filter-content [parent]="priceFilter">
               <checkbox-filter-options [hostComponent]="this" (onOptionChange)="setFilter($event)" [parent]="priceFilter" [options]="filter.labels"></checkbox-filter-options>
             </price-filter-content>
           </price-filter>
 
           <!-- Checkbox Filter -->
-          <filter #checkboxFilter *ngIf="filter.caption != 'Price'" [caption]="filter.caption">
+          <filter #checkboxFilter *ngIf="filter.caption != 'Price'" [caption]="filter.caption" [showContent] = "!showFilters" [show]="!showFilters">
             <checkbox-filter-options [hostComponent]="this" (onOptionChange)="setFilter($event)" [parent]="checkboxFilter" [options]="filter.labels"></checkbox-filter-options>
           </filter>
         </div>
