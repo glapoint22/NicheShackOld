@@ -12,51 +12,35 @@ export class ProductsSliderComponent {
   @Input() caption: string;
   @Input() products;
 
-  public currentIndex = 0;
+  public currentIndex = 1;
   public currentTranslation = 0;
   public translations: Array<any> = [{ 'translate': 0, 'index': 0 }];
   public ShowAllProducts: boolean;
+  private maxProductsperPage: number = 5;
+  private containerWidth: number = 1600;
 
-  onArrowClick(direction: number, containerWidth: number, products: Array<any>) {
+  onArrowClick(direction: number, productCount: number) {
     if (direction === -1) {
       this.onLeftArrowClick();
     } else {
-      this.onRightArrowClick(containerWidth, products);
+      this.onRightArrowClick(productCount);
     }
   }
 
-  onRightArrowClick(containerWidth, products) {
-    let productWidthTotal = 0, i, x;
+  onRightArrowClick(productCount: number) {
+    this.currentIndex++;
+    let remainingProducts = productCount - (this.currentIndex * this.maxProductsperPage);
 
-    for (i = this.currentIndex; i < products.length; i++) {
-      productWidthTotal += products[i].offsetWidth + this.margin;
+    if (remainingProducts <= 0) this.lastPage = true;
 
-      if (productWidthTotal > containerWidth) {
-        productWidthTotal -= containerWidth;
-        x = products[i].offsetWidth + this.margin - productWidthTotal;
-        this.currentIndex = i;
-        break;
-      }
-    }
-    for (let j = i + 1; j < products.length; j++) {
-      productWidthTotal += products[j].offsetWidth + this.margin;
-
-      if (productWidthTotal > containerWidth) {
-        this.currentTranslation = this.translate = containerWidth - x + this.currentTranslation;
-        this.translations.push({ 'translate': this.currentTranslation, 'index': this.currentIndex });
-        return;
-      }
-    }
-
-    this.currentTranslation = this.translate = productWidthTotal - this.margin + this.currentTranslation;
+    this.currentTranslation = this.translate = this.containerWidth + this.currentTranslation;
     this.translations.push({ 'translate': this.currentTranslation, 'index': this.currentIndex });
-    this.lastPage = true;
   }
 
   onLeftArrowClick() {
     this.lastPage = false;
     this.currentTranslation = this.translate = this.translations[this.translations.length - 2].translate;
-    this.currentIndex = this.translations[this.translations.length - 2].index;
+    this.currentIndex--;
     this.translations.pop();
   }
 }

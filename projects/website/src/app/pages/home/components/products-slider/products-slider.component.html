@@ -18,6 +18,6 @@
         </li>
       </ul>
     </div>
-    <arrows *ngIf="container.clientWidth > 300" [showLeftArrow]="translate !== 0" [showRightArrow]="slider.offsetWidth > container.offsetWidth + margin && !lastPage" (onArrowClick)="onArrowClick($event, container.clientWidth, list.children)"></arrows>
+    <arrows *ngIf="container.clientWidth > 300" [showLeftArrow]="translate !== 0" [showRightArrow]="slider.offsetWidth > container.offsetWidth + margin && !lastPage" (onArrowClick)="onArrowClick($event, list.children.length)"></arrows>
   </div>
 </div>

@@ -2,7 +2,7 @@
 
 .products-slider-container{
     position: relative;
-    width: 1364px;
+    width: 1580px;
     height: 540px;
     margin: auto;
     overflow: hidden;
@@ -24,7 +24,7 @@
 }
 .slider{
     transition: all 0.3s ease-in-out;
-    white-space: nowrap;
+    // white-space: nowrap;
     position: absolute;
 }
 ul{

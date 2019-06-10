@@ -1,18 +1,43 @@
 <div class="product" [title]="product.name">
-  <!-- Product Name -->
-  <div class="product-name">{{product.name}}</div>
-
-  <!-- Video Play Button -->
-  <video-play-button [videoCount]="product.videos.length" (onClick)="onVideoPlayButtonClick()"></video-play-button>
 
   <!-- Hop Link -->
   <div class="hop-link" (click)="onClick()">
     <img *ngIf="product.image" [src]="'/Images/' + product.image">
   </div>
 
-  <!-- Price Tag -->
-  <div class="price-tag">{{product.price | currency:'USD'}}</div>
+  <!-- Quick Look -->
+  <div class="quick-look">
+    Quick Look
+  </div>
 
-  <!-- Product Description -->
-  <div [innerHtml]="product.description" class="product-description"></div>
+  <!-- Product Info -->
+  <div class="product-info">
+
+    <!-- Product Name -->
+    <div class="product-name">
+      {{product.name}}
+    </div>
+
+    <!-- Stars -->
+    <div class="stars">
+      <span *ngFor="let i of [1,2,3,4,5]" style="padding-right: 2px">
+        <i [class]="getStar(i)"></i>
+      </span>
+
+      <!-- Reviews -->
+      <span class="reviews">
+        {{product.reviewCount | number}} reviews
+      </span>
+    </div>
+
+    <!-- Price -->
+    <div class="price">
+      <div *ngIf="product.maxPrice === 0">
+        {{product.minPrice | currency:'USD'}}
+      </div>
+      <div *ngIf="product.maxPrice > 0">
+        {{product.minPrice | currency:'USD'}} - {{product.maxPrice | currency:'USD'}}
+      </div>
+    </div>
+  </div>
 </div>
