@@ -1,12 +1,12 @@
-<div class="product" [title]="product.name">
+<div class="product" [title]="product.name" (click)="onClick()">
 
-  <!-- Hop Link -->
-  <div class="hop-link" (click)="onClick()">
+  <!-- Image Container -->
+  <div class="img-container">
     <img *ngIf="product.image" [src]="'/Images/' + product.image">
   </div>
 
   <!-- Quick Look -->
-  <div class="quick-look">
+  <div class="quick-look" (click)="onVideoPlayButtonClick(); $event.stopPropagation()">
     Quick Look
   </div>
 

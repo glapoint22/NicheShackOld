@@ -6,16 +6,17 @@
     width: 300px;
     background: $color4;
     display: grid;
+    cursor: pointer;
     @include shadow();
 }
 
 .product:hover > .quick-look {
     visibility: visible;
 }
-.hop-link{
+.img-container{
     height: 320px;
     line-height: 320px;
-    cursor: pointer;
+    
     img{
         width:auto;
         height:auto;
@@ -34,7 +35,7 @@
     color: #221901;
     text-align: center;
     line-height: 30px;
-    cursor: pointer;
+    // cursor: pointer;
     visibility: hidden;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;

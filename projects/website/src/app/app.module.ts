@@ -15,11 +15,13 @@ import { CookieService } from 'ngx-cookie-service';
 // Components
 import { AppComponent } from './app.component';
 import { ModalModule } from 'src/app/components/modal/modal.module';
+import { QuickLookComponent } from "./quick-look/quick-look.component";
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    QuickLookComponent
   ],
   imports: [
     BrowserModule,

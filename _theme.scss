@@ -41,6 +41,53 @@ body {
     display: flex; 
     align-items: center; 
     justify-content: center;
+    .title-bar{
+        @include gradient($color1, $color2);
+        position: relative; 
+        top: 0; 
+        width: 100%; 
+        height: 40px;
+        border: 1px solid #2f2f2f;
+        border-bottom: none;
+    }
+    .title{
+        text-align: center; 
+        color: white;
+        line-height: 40px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        font-size: 16px;
+    }
+    .close-button{
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        color: #d1d1d1;
+         padding: 0px 15px;
+        cursor: pointer;
+        position: absolute;
+        right: 0;
+        top: 0;
+        line-height: 40px;
+    }
+    .close-button:hover{
+        color: #ffffff;
+    }
+    .form {
+        background-color: $background-color;
+        border: 1px solid #383838;
+    }
+    @media screen and (max-width: 800px) {
+        .title-bar{
+            height: 30px; 
+        }
+        .title{
+            line-height: 30px;
+        }
+        .close-button{
+            line-height: 30px;
+        }
+    }
 }
 button {
     @include gradient($color1, $color2);
