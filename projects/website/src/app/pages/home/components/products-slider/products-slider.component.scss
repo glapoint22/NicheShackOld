@@ -24,7 +24,6 @@
 }
 .slider{
     transition: all 0.3s ease-in-out;
-    // white-space: nowrap;
     position: absolute;
 }
 ul{
@@ -43,12 +42,17 @@ ul{
     margin-top: 20px;
     text-decoration: underline;
 }
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: 1600px) {
     .products-slider-container{
-        width: 95%;
+        width: 1260px;
     }
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1280px) {
+    .products-slider-container{
+        width: 940px;
+    }
+}
+@media screen and (max-width: 980px) {
     .products-slider-container{
         width: 300px;
         height: 100%;
@@ -58,7 +62,6 @@ ul{
         height: 100%;
     }
     .slider{
-        white-space: normal;
         position: relative;
         transform: translateX(0) !important;
         transition: all 0s;

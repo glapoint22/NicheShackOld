@@ -14,10 +14,9 @@
               <product *ngIf="i <= 3" [product]="product"></product>
               <div *ngIf="i == 3 && products.length > 4" class="see-more" (click)="ShowAllProducts = true">See more products...</div>
           </ng-template>
-          
         </li>
       </ul>
     </div>
-    <arrows *ngIf="container.clientWidth > 300" [showLeftArrow]="translate !== 0" [showRightArrow]="slider.offsetWidth > container.offsetWidth + margin && !lastPage" (onArrowClick)="onArrowClick($event, list.children.length)"></arrows>
+    <arrows *ngIf="container.clientWidth > 300" [showLeftArrow]="translate !== 0" [showRightArrow]="slider.offsetWidth > container.offsetWidth + margin && !lastPage" (onArrowClick)="onArrowClick($event, list.children.length, container.offsetWidth)"></arrows>
   </div>
 </div>

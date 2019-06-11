@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, HostListener } from '@angular/core';
 
 @Component({
   selector: 'products-slider',
@@ -8,39 +8,60 @@ import { Component, Input } from '@angular/core';
 export class ProductsSliderComponent {
   public margin: number = 20;
   public lastPage: boolean = false;
-  public translate = 0;
+  public ShowAllProducts: boolean;
   @Input() caption: string;
   @Input() products;
 
-  public currentIndex = 1;
-  public currentTranslation = 0;
-  public translations: Array<any> = [{ 'translate': 0, 'index': 0 }];
-  public ShowAllProducts: boolean;
-  private maxProductsperPage: number = 5;
-  private containerWidth: number = 1600;
+  public translate: number = 0;
+  private currentPage: number = 1;
+  private currentTranslation: number = 0;
+  private translations: Array<number> = [this.currentTranslation];
+  private productWidth: number = 300;
 
-  onArrowClick(direction: number, productCount: number) {
+  onArrowClick(direction: number, productCount: number, containerWidth: number) {
+    // Execute the correct arrow function based on the direction
     if (direction === -1) {
       this.onLeftArrowClick();
     } else {
-      this.onRightArrowClick(productCount);
+      this.onRightArrowClick(productCount, containerWidth);
     }
   }
 
-  onRightArrowClick(productCount: number) {
-    this.currentIndex++;
-    let remainingProducts = productCount - (this.currentIndex * this.maxProductsperPage);
+  onRightArrowClick(productCount: number, containerWidth: number) {
+    // Increment the page
+    this.currentPage++;
 
+    // Calculate how many products should be on each page
+    let productsPerPage = (containerWidth + this.margin) / (this.productWidth + this.margin);
+
+    // Calculate the remaining products based on the current page and how many products per page
+    let remainingProducts = productCount - (this.currentPage * productsPerPage);
+
+    // See if we are on the last page
     if (remainingProducts <= 0) this.lastPage = true;
 
-    this.currentTranslation = this.translate = this.containerWidth + this.currentTranslation;
-    this.translations.push({ 'translate': this.currentTranslation, 'index': this.currentIndex });
+    // Calculate how much to move the slider
+    this.currentTranslation = this.translate = containerWidth + this.margin + this.currentTranslation;
+    this.translations.push(this.currentTranslation);
   }
 
   onLeftArrowClick() {
+    // We are not on the last page anymore
     this.lastPage = false;
-    this.currentTranslation = this.translate = this.translations[this.translations.length - 2].translate;
-    this.currentIndex--;
+
+    // Get the previous translation from the array to move the slider back
+    this.currentTranslation = this.translate = this.translations[this.translations.length - 2];
+    this.currentPage--;
     this.translations.pop();
+  }
+
+  @HostListener('window:resize', ['$event']) onResize() {
+    // Reset properties
+    this.translate = 0;
+    this.currentPage = 1;
+    this.currentTranslation = 0;
+    this.translations = [this.currentTranslation];
+    this.lastPage = false;
+    this.ShowAllProducts = false;
   }
 }
