@@ -14,7 +14,8 @@ export class ProductComponent {
   constructor(private cookieService: CookieService, private modalService: ModalService) { }
 
   ngOnInit() {
-    // TODO: add rating, review count, and minPrice/maxPrice to product in database
+    // TODO: Add rating, review count, and minPrice/maxPrice to product in database
+    // Remove description, hoplink, and videos
     this.product.rating = 2.5;
     this.product.reviewCount = 9999;
     this.product.minPrice = 37.48;

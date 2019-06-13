@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { DataService } from 'src/app/services/data/data.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ModalService } from 'src/app/services/modal/modal.service';
 
 @Component({
   selector: 'search',
@@ -32,7 +33,7 @@ export class SearchComponent implements OnInit {
   private queryParams: any;
   private separator: string = '^'
 
-  constructor(private dataService: DataService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private dataService: DataService, private route: ActivatedRoute, private router: Router, public modalService: ModalService) { }
 
   ngOnInit() {
     this.route.queryParamMap.subscribe(queryParams => {

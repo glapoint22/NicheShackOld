@@ -98,3 +98,5 @@
   </div>
   <footer></footer>
 </div>
+<quick-look *ngIf="modalService.quickLook.show && !modalService.videoPlayer.show"></quick-look>
+<video-player *ngIf="modalService.videoPlayer.show"></video-player>

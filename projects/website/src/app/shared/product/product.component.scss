@@ -59,3 +59,13 @@
         font-size: 14px;
     }
 }
+@media (hover: none) { 
+    .quick-look {
+        display: none;
+    }
+ }
+ @media screen and (max-width: 700px) {
+    .quick-look {
+        display: none;
+    }
+}

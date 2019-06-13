@@ -7,6 +7,8 @@ import { HeaderFooterModule } from '../../shared/header-footer/header-footer.mod
 import { ArrowsModule } from '../../shared/arrows/arrows.module';
 import { FormsModule } from '@angular/forms';
 import { ProductModule } from '../../shared/product/product.module';
+import { VideoPlayerModule } from '../../shared/video-player/video-player.module';
+import { QuickLookModule } from '../../shared/quick-look/quick-look.module';
 
 @NgModule({
   declarations: [SearchComponent],
@@ -17,7 +19,9 @@ import { ProductModule } from '../../shared/product/product.module';
     HeaderFooterModule,
     ArrowsModule,
     FormsModule,
-    ProductModule
+    ProductModule,
+    VideoPlayerModule,
+    QuickLookModule
   ]
 })
 export class SearchModule { }
