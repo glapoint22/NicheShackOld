@@ -9,56 +9,48 @@ import { ModalService } from 'src/app/services/modal/modal.service';
 })
 export class ProductComponent {
   @Input() product: any;
+  
 
   constructor(private cookieService: CookieService, private modalService: ModalService) { }
 
   ngOnInit() {
     // TODO: add rating, review count, and minPrice/maxPrice to product in database
-    this.product.rating = 2.9;
+    this.product.rating = 2.5;
     this.product.reviewCount = 9999;
     this.product.minPrice = 37.48;
     this.product.maxPrice = 122.22;
   }
 
-  getStar(i: number): string {
-    if (i <= Math.floor(this.product.rating)) {
-      return 'fas fa-star';
-    } else {
-      if (i > Math.floor(this.product.rating) && i < Math.floor(this.product.rating) + 2 && this.product.rating % 1 > 0) {
-        return "fas fa-star-half-alt";
-      } else {
-        return "far fa-star";
-      }
-    }
-
-  }
+  
 
   onClick() {
-    if (this.cookieService.check('Products')) {
-      let products: Array<string> = this.cookieService.get('Products').split('~');
-      if (products.findIndex(x => x === this.product.id) === -1) {
-        products.push(this.product.id);
-        this.cookieService.set('Products', products.join('~'), 9999);
-      }
-    } else {
-      this.cookieService.set('Products', this.product.id, 9999);
-    }
+    // if (this.cookieService.check('Products')) {
+    //   let products: Array<string> = this.cookieService.get('Products').split('~');
+    //   if (products.findIndex(x => x === this.product.id) === -1) {
+    //     products.push(this.product.id);
+    //     this.cookieService.set('Products', products.join('~'), 9999);
+    //   }
+    // } else {
+    //   this.cookieService.set('Products', this.product.id, 9999);
+    // }
 
-    if (this.cookieService.check('session')) {
-      this.modalService.loading = true;
-      window.location.href = this.product.hopLink;
-    } else {
-      this.modalService.subscriptionForm.caption = 'Would you like to sign up to receive emails on products like "' + this.product.name + '"?';
-      this.modalService.subscriptionForm.submitButton = 'Yes! Sign me up';
-      this.modalService.subscriptionForm.cancelButton = 'No Thanks';
-      this.modalService.subscriptionForm.product = this.product;
-      this.modalService.subscriptionForm.show = true;
-    }
+    // if (this.cookieService.check('session')) {
+    //   this.modalService.loading = true;
+    //   window.location.href = this.product.hopLink;
+    // } else {
+    //   this.modalService.subscriptionForm.caption = 'Would you like to sign up to receive emails on products like "' + this.product.name + '"?';
+    //   this.modalService.subscriptionForm.submitButton = 'Yes! Sign me up';
+    //   this.modalService.subscriptionForm.cancelButton = 'No Thanks';
+    //   this.modalService.subscriptionForm.product = this.product;
+    //   this.modalService.subscriptionForm.show = true;
+    // }
   }
 
-  onVideoPlayButtonClick() {
-    this.modalService.videoPlayer.videos = this.product.videos;
-    this.modalService.videoPlayer.productName = this.product.name;
-    this.modalService.videoPlayer.show = true;
+  onQuickLookButtonClick() {
+    // this.modalService.videoPlayer.videos = this.product.videos;
+    // this.modalService.videoPlayer.productName = this.product.name;
+    // this.modalService.videoPlayer.show = true;
+    this.modalService.quickLook.show = true;
+    this.modalService.quickLook.product = this.product;
   }
 }

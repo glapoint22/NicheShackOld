@@ -1,0 +1,84 @@
+<div class="modal-background" (click)="close()">
+  <div class="form" style="width: 760px; height: 500px;">
+
+    <div style="width: 760px; height: 340px; display:flex;">
+      <div style="width: 135px">
+        <div style="width: 110px; height: 314px; overflow: auto; margin: 14px">
+          <div *ngFor="let video of product.videos; let i = index" class="video-thumbnail"
+            [style.background-image]="'url('+ video.thumbnail + ')'" (click)="onVideoClick(i)">
+            <i class="far fa-play-circle"></i>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div style="width: 312px;
+      height: 342px;
+      align-items: center;
+      display: flex;">
+        <div style="width: 312px;
+      height: 312px;
+      background: #181818;
+      
+      text-align: center;
+      line-height: 312px;
+      border: 1px solid #292929;">
+        <img [src]="'/Images/' + modalService.quickLook.product.image" style="vertical-align: middle;">
+        </div>
+        
+      </div>
+
+
+
+
+      <div style="height: 100%;  flex: 1">
+
+        <div style="width: 230px;
+        margin: 9px 0 5px 11px;
+        font-size: 24px;
+        font-family:Arial, Helvetica, sans-serif;
+        color: white;">
+          {{modalService.quickLook.product.name}}
+        </div>
+
+
+        <div style="margin-left: 11px;
+        margin-bottom: 5px;">
+          <stars [rating]="modalService.quickLook.product.rating"></stars>
+          <span class="reviews">
+            {{modalService.quickLook.product.reviewCount | number}} reviews
+          </span>
+        </div>
+
+        <div class="price">
+          <div *ngIf="modalService.quickLook.product.maxPrice === 0">
+            {{modalService.quickLook.product.minPrice | currency:'USD'}}
+          </div>
+          <div *ngIf="modalService.quickLook.product.maxPrice > 0">
+            {{modalService.quickLook.product.minPrice | currency:'USD'}} -
+            {{modalService.quickLook.product.maxPrice | currency:'USD'}}
+          </div>
+        </div>
+
+        <div style="width: 110px;
+        height: 30px;
+        background: #ffba00;
+        border-radius: 4px;
+        margin-left: 11px;
+        text-align: center;
+        line-height: 30px;
+        font-family: arial;
+        font-size: 13px;
+        color: #2d2100;">
+          View Details
+        </div>
+
+      </div>
+    </div>
+
+
+
+
+  </div>
+</div>

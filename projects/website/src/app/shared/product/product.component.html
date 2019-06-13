@@ -6,7 +6,7 @@
   </div>
 
   <!-- Quick Look -->
-  <div class="quick-look" (click)="onVideoPlayButtonClick(); $event.stopPropagation()">
+  <div class="quick-look" (click)="onQuickLookButtonClick(); $event.stopPropagation()">
     Quick Look
   </div>
 
@@ -19,10 +19,8 @@
     </div>
 
     <!-- Stars -->
-    <div class="stars">
-      <span *ngFor="let i of [1,2,3,4,5]" style="padding-right: 2px">
-        <i [class]="getStar(i)"></i>
-      </span>
+    <div style="padding-bottom: 5px;">
+      <stars [rating]="product.rating"></stars>
 
       <!-- Reviews -->
       <span class="reviews">

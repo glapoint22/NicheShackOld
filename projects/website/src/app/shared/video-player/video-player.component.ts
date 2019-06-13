@@ -14,7 +14,7 @@ export class VideoPlayerComponent extends ModalComponent implements OnInit  {
   public videosCount: number;
   public title: string;
   public currentVideoIndex: number;
-  public videos: Array<string>;
+  public videos: Array<any>;
 
   constructor(private sanitizer: DomSanitizer, modalService: ModalService, router: Router) { super(modalService, router)}
 
@@ -22,7 +22,7 @@ export class VideoPlayerComponent extends ModalComponent implements OnInit  {
     this.videos = this.modalService.videoPlayer.videos;
     this.videosCount = this.videos.length;
     this.title = this.modalService.videoPlayer.productName;
-    this.setVideo(0);
+    this.setVideo(this.modalService.videoPlayer.index);
     this.modalServiceObject = this.modalService.videoPlayer;
     this.isClosable = true;
     super.ngOnInit();
@@ -43,7 +43,7 @@ export class VideoPlayerComponent extends ModalComponent implements OnInit  {
 
   setVideo(index: number) {
     this.currentVideoIndex = index;
-    this.currentVideo = this.desanitize(this.videos[index]);
+    this.currentVideo = this.desanitize(this.videos[index].url);
   }
 
   desanitize(string: string): SafeUrl {

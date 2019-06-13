@@ -1,0 +1,33 @@
+@import 'theme';
+
+.video-thumbnail {
+    width: 88px;
+    height: 50px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    margin-bottom: 16px;
+    text-align: center;
+    color: #e2e2e2;
+    line-height: 50px;
+    font-size: 30px;
+    cursor: pointer;
+}
+.video-thumbnail:last-child {
+    margin-bottom: 0;
+}
+.video-thumbnail:hover {
+    color: white;
+}
+.reviews {
+    font-size: 14px;
+    color: $color5;
+    font-family: Arial, Helvetica, sans-serif
+}
+.price {
+    color: #ffba00;
+    font-size: 18px;
+    margin-left: 11px;
+    margin-bottom: 5px;
+    
+}

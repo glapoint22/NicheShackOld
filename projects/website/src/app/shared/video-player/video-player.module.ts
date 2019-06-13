@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VideoPlayerComponent } from './video-player.component';
-import { ArrowsModule } from '../shared/arrows/arrows.module';
-import { PaginatorModule } from '../shared/paginator/paginator.module';
+import { ArrowsModule } from '../arrows/arrows.module';
+import { PaginatorModule } from '../paginator/paginator.module';
 
 @NgModule({
   declarations: [VideoPlayerComponent],
