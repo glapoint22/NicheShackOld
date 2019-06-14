@@ -79,14 +79,18 @@ input{
     cursor: pointer;
     float: left;
 }
-img {
-    margin-left: 25px;
-    margin-right: 25px;
+.img-container {
+    min-width: 175px;
+    min-height: 60px;
+    margin: 0 25px 0 25px;
     cursor: pointer;
-    transform: translate(0,-50%);
-    top: 50%;
-    position: relative;
-    object-fit: contain;
+    .logo {
+        background-image: url(../../../../assets/Logo.png);
+        height: 60px;
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
 }
 .icon-container {
     height: 60px;
@@ -122,7 +126,7 @@ img {
     .search-container{
         margin-left: 25px;
     }
-    img {
+    .img-container {
         margin-left: 10px;
         margin-right: 10px;
     }
@@ -145,6 +149,15 @@ img {
     .category-select-container{
         select{
             width: 44px !important;
+        }
+    }
+}
+@media screen and (max-width: 600px) {
+    .img-container {
+        min-width: 21px;
+        min-height: 21px;
+        .logo {
+            background-image: url(../../../../assets/Shack.png);
         }
     }
 }

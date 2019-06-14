@@ -1,44 +1,50 @@
 <!-- Temp select element to get width of categories select -->
 <select #tmpSelect style="padding-left: 5px; position: absolute; visibility: hidden">
-  <option [innerHtml]="selectedCategory.name"></option>
+    <option [innerHtml]="selectedCategory.name"></option>
 </select>
 <div class="search-bar">
-  <img [src]="'assets/' + logo" title="Home" (click)="onImageClick()">
 
-  <div class="menu-search-container">
-      <div class="category-menu-button" (mouseenter)="menu.showMenu = true" (mouseleave)="menu.showMenu = false" (click)="menu.showMenu = !menu.showMenu">
-          <i class="fas fa-bars" style="margin-right: 8px"></i>
-          <span class="categories-text">Categories</span>
-          <menu #menu (click)="$event.stopPropagation()" [categories]="categories"></menu>
-      </div>
-      <div class="search-container">
-          <form (ngSubmit)="onSearchButtonClick(search.value, selectedCategory.id)" style="display: inline-table">
-              <div class="category-select-container">
-                  <select [style.width.px]="tmpSelect.offsetWidth" [(ngModel)]="selectedCategory" name="categories">
-                      <option *ngFor="let category of searchCategories" [ngValue]="category">{{category.name}}</option>
-                  </select>
-              </div>
-              <div class="input-container">
-                  <input #search type="text" placeholder="Search" [value]="query">
-              </div>
-              <div class="button-container">
-                  <button type="submit" class="search-button">
-                      <i class="fas fa-search"></i>
-                  </button>
-              </div>
-          </form>
-      </div>
-  </div>
+    <!-- Logo -->
+    <div class="img-container" (click)="onImageClick()" title="Home">
+        <div class="logo"></div>
+    </div>
 
-  <div class="icon-container">
-      <!-- <div class="icon" (click)="onEmailClick()" title="Manage email subscriptions">
+    <div class="menu-search-container">
+        <div class="category-menu-button" (mouseenter)="menu.showMenu = true" (mouseleave)="menu.showMenu = false"
+            (click)="menu.showMenu = !menu.showMenu">
+            <i class="fas fa-bars" style="margin-right: 8px"></i>
+            <span class="categories-text">Categories</span>
+            <menu #menu (click)="$event.stopPropagation()" [categories]="categories"></menu>
+        </div>
+        <div class="search-container">
+            <form (ngSubmit)="onSearchButtonClick(search.value, selectedCategory.id)" style="display: inline-table">
+                <div class="category-select-container">
+                    <select [style.width.px]="tmpSelect.offsetWidth" [(ngModel)]="selectedCategory" name="categories">
+                        <option *ngFor="let category of searchCategories" [ngValue]="category">{{category.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="input-container">
+                    <input #search type="text" placeholder="Search" [value]="query">
+                </div>
+                <div class="button-container">
+                    <button type="submit" class="search-button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="icon-container">
+        <!-- <div class="icon" (click)="onEmailClick()" title="Manage email subscriptions">
           <i class="fas  fa-lg fa-envelope"></i>
       </div> -->
-      <a routerLink="/about" class="icon" title="About us">
-          <i class="fas  fa-lg fa-info-circle"></i>
-      </a>
-      <a href="https://www.clkbank.com" class="icon" title="Order support">
-          <i class="fas  fa-lg fa-question-circle"></i>
-      </a>
-  </div>
+        <a routerLink="/about" class="icon" title="About us">
+            <i class="fas  fa-lg fa-info-circle"></i>
+        </a>
+        <a href="https://www.clkbank.com" class="icon" title="Order support">
+            <i class="fas  fa-lg fa-question-circle"></i>
+        </a>
+    </div>
 </div>

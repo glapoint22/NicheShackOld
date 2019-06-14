@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data/data.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -9,7 +9,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class SearchBarComponent implements OnInit {
   public query: string;
-  public logo: string;
   public categories: Array<any> = [];
   public searchCategories: Array<any> = []
   public selectedCategory: any = {};
@@ -18,7 +17,6 @@ export class SearchBarComponent implements OnInit {
   constructor(private dataService: DataService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    window.dispatchEvent(new Event('resize'));
     this.route.queryParamMap.subscribe(queryParams => {
       //Get params from the url
       this.query = queryParams.get('query');
@@ -61,15 +59,5 @@ export class SearchBarComponent implements OnInit {
   }
   onImageClick() {
     this.router.navigate(['/']);
-  }
-
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event) {
-    if (event.target.innerWidth > 600) {
-      this.logo = 'Logo.png';
-    } else {
-      this.logo = 'Shack.png';
-    }
   }
 }
