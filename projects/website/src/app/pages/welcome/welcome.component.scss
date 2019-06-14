@@ -15,7 +15,8 @@
 }
 h1{
     color: $gold;
-    word-break: break-word;
+    // word-break: break-word;
+    word-wrap: break-word;
 }
 p{
     font-size: 18px;

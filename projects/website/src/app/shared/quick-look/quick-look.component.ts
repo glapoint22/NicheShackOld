@@ -16,7 +16,7 @@ export class QuickLookComponent extends ModalComponent implements OnInit {
   ngOnInit() {
     // TODO: Add description and videos to product in database
     this.product = {
-      description: '"3-Minute Meditations" are super-short, super-simple, uncomplicated introductions to the art and science of meditation. With these breakthrough methods, you\'ll be well on your way to getting all the benefits of meditation while sitting about 1/10th of the time of other programs. "3-Minute Meditations" is guaranteed to lead you to incredible results if you practice daily. And the best part is it only takes 180 seconds a day. "3-Minute Meditations" is built around 7 guided audio meditations/visualizations systematically utilized throughout the four weeks. These include Intentional, Oneness, Mantra, Forgiveness, Mindfulness, Heart & Healing meditations/visualizations. With a simple, intentional, easy-to-implement practice, you\'ll witness an increase in peace, joy & gratitude and a decrease in stress, anxiety & overwhelm in your life.',
+      description: this.modalService.quickLook.product.description,
       videos: [
         {
           url: '//player.vimeo.com/video/219797629?title=0&byline=0&portrait=0&color=ffffff',

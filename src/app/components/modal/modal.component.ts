@@ -38,7 +38,7 @@ export class ModalComponent {
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
     //Escape
-    if (event.code === 'Escape') {
+    if (event.code === 'Escape' || event.keyCode === 27) {
       this.close();
     }
   }
