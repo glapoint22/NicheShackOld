@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { LeadPageSubscriptionFormModule } from 'src/app/components/lead-page-subscription-form/lead-page-subscription-form.module';
-import { LoadingModule } from 'src/app/components/loading/loading.module';
+// import { LoadingModule } from 'src/app/components/loading/loading.module';
 import { ErrorModule } from 'src/app/components/error/error.module';
 import { PageNotFoundModule } from 'src/app/components/page-not-found/page-not-found.module';
 import { SubscriptionFormModule } from 'src/app/components/subscription-form/subscription-form.module';
@@ -24,7 +24,7 @@ import { LeadPageComponent } from './pages/lead-page/lead-page.component';
     AppRoutingModule,
     HttpClientModule,
     LeadPageSubscriptionFormModule,
-    LoadingModule,
+    // LoadingModule,
     ErrorModule,
     PageNotFoundModule,
     SubscriptionFormModule,

@@ -9,6 +9,7 @@ import { ModalService } from '../modal/modal.service';
 })
 export class DataService {
   public data: any = {};
+  public isError: boolean;
 
   constructor(private http: HttpClient, private modalService: ModalService) { }
 
@@ -18,56 +19,24 @@ export class DataService {
     //Set the params
     if (parameters) parameters.forEach(x => params = params.set(x.key, x.value));
 
-    // Show loading screen
-    this.modalService.loading = true;
-
     //Get the data
-    return this.http.get(url, { params: params })
-      .pipe(
-        tap(() => {
-          // Hide loading screen
-          this.modalService.loading = false;
-        }),
-        catchError(this.handleError())
-      );
+    return this.http.get(url, { params: params }).pipe(catchError(this.handleError()));
   }
 
 
   post(url: string, body: any) {
-    // Show loading screen
-    this.modalService.loading = true;
-
-    return this.http.post(url, body)
-      .pipe(
-        tap(() => {
-          // Hide loading screen
-          this.modalService.loading = false;
-        }),
-        catchError(this.handleError())
-      );
+    return this.http.post(url, body).pipe(catchError(this.handleError()));
   }
 
   put(url: string, body: any) {
-    // Show loading screen
-    this.modalService.loading = true;
-
-    return this.http.put(url, body)
-      .pipe(
-        tap(() => {
-          // Hide loading screen
-          this.modalService.loading = false;
-        }),
-        catchError(this.handleError())
-      );
+    return this.http.put(url, body).pipe(catchError(this.handleError()));
   }
 
   handleError() {
     return (error) => {
       // showError
-      if (error.status !== 404) this.modalService.error = true;
+      if (error.status !== 404) this.isError = true;
 
-      // hide loading
-      this.modalService.loading = false;
       return throwError(error);
     }
   }

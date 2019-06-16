@@ -36,49 +36,52 @@ export class SearchComponent implements OnInit {
   constructor(private dataService: DataService, private route: ActivatedRoute, private router: Router, public modalService: ModalService) { }
 
   ngOnInit() {
+    //Set the sort options
+    this.sortOptions = [
+      {
+        name: 'Price: Low to High',
+        value: 'price-asc'
+      },
+      {
+        name: 'Price: High to Low',
+        value: 'price-desc'
+      }
+    ];
+
+    this.perPageOptions = [
+      {
+        name: '24',
+        value: 24
+      },
+      {
+        name: '48',
+        value: 48
+      },
+      {
+        name: '72',
+        value: 72
+      },
+      {
+        name: '96',
+        value: 96
+      },
+    ];
+    
     this.route.queryParamMap.subscribe(queryParams => {
       let parameters: Array<any> = [];
       this.query = queryParams.get('query');
       this.filterString = queryParams.get('filter');
       this.queryParams = queryParams;
 
-      //Set the sort options
-      this.sortOptions = [
-        {
-          name: 'Price: Low to High',
-          value: 'price-asc'
-        },
-        {
-          name: 'Price: High to Low',
-          value: 'price-desc'
-        }
-      ];
 
-      this.perPageOptions = [
-        {
-          name: '24',
-          value: 24
-        },
-        {
-          name: '48',
-          value: 48
-        },
-        {
-          name: '72',
-          value: 72
-        },
-        {
-          name: '96',
-          value: 96
-        },
-
-      ];
-
-      if (this.query) {
+      if (this.query && this.sortOptions[0].name !== 'Relevance') {
         this.sortOptions.unshift({
           name: 'Relevance',
           value: 'relevance'
         });
+      } else if (!this.query && this.sortOptions[0].name === 'Relevance') {
+        this.sortOptions.shift();
+        this.selectedSortOption = this.sortOptions[0];
       }
 
       //Set the parameters array from the query params
@@ -263,9 +266,9 @@ export class SearchComponent implements OnInit {
 
     //Set the query params
     if (this.filterString === '') {
-      this.setQueryParameters({add: [], remove: ['page', 'filter']});
+      this.setQueryParameters({ add: [], remove: ['page', 'filter'] });
     } else {
-      this.setQueryParameters({add: [{ name: 'filter', value: this.filterString }], remove: ['page']});
+      this.setQueryParameters({ add: [{ name: 'filter', value: this.filterString }], remove: ['page'] });
     }
   }
 

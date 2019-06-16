@@ -21,10 +21,10 @@ export class ModalComponent {
   }
 
   ngOnDestroy() {
-    if (!this.modalService.isHoplink) {
+    // if (!this.modalService.isHoplink) {
       document.body.style.overflow = 'visible';
-    }
-    this.modalService.isHoplink = false;
+    // }
+    // this.modalService.isHoplink = false;
   }
 
   close() {

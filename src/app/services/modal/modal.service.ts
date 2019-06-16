@@ -6,9 +6,9 @@ import { Injectable } from '@angular/core';
 export class ModalService {
   public videoPlayer: any = {};
   public quickLook: any = {};
-  public loading: boolean;
+  // public loading: boolean;
   public subscriptionForm: any = {};
-  public error: boolean;
-  public pageNotFound: boolean;
-  public isHoplink: boolean;
+  // public error: boolean;
+  // public pageNotFound: boolean;
+  // public isHoplink: boolean;
 }

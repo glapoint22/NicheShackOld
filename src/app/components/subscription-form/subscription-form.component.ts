@@ -46,9 +46,9 @@ export class SubscriptionFormComponent extends ModalComponent implements OnInit 
 
   close() {
     if (this.modalService.subscriptionForm.product) {
-      this.modalService.loading = true;
+      // this.modalService.loading = true;
       window.location.href = this.modalService.subscriptionForm.product.hopLink;
-      this.modalService.isHoplink = true;
+      // this.modalService.isHoplink = true;
     } else {
       this.router.navigate(['']);
     }

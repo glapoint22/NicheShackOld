@@ -13,9 +13,9 @@ export class AppComponent {
   
   constructor(private modalService: ModalService){}
 
-  ngAfterContentChecked() {
-    this.isLoading = this.modalService.loading;
-    this.error = this.modalService.error;
-    this.subscriptionForm = this.modalService.subscriptionForm;
-  }
+  // ngAfterContentChecked() {
+  //   this.isLoading = this.modalService.loading;
+  //   this.error = this.modalService.error;
+  //   this.subscriptionForm = this.modalService.subscriptionForm;
+  // }
 }
