@@ -6,9 +6,8 @@
     <div>
       <i class="fas fa-exclamation-circle"></i>
       <span [innerHtml]="query ? 'Sorry, no products matched ' + '&quot;' +  query + '&quot;' : 'No results found'">
-        <!-- Sorry, no products matched "{{query}}" -->
       </span>
-      
+
     </div>
     <ul *ngIf="query">
       <li>Check your spelling</li>
@@ -20,18 +19,21 @@
     <!-- Results -->
     <div *ngIf="!showFilters" class="results-container">
       <div class="results-display">{{results}}</div>
-
+      
       <!-- Sort -->
       <div class="dropdown-container" style="right: 0">
-        <select [(ngModel)]="selectedSortOption" (change)="setQueryParameters({add: [{name: 'sort', value: selectedSortOption.value}], remove: ['page']})">
+        <select [(ngModel)]="selectedSortOption"
+          (change)="setQueryParameters({add: [{name: 'sort', value: selectedSortOption.value}], remove: ['page']})">
           <option *ngFor="let sortOption of sortOptions" [ngValue]="sortOption">Sort by {{sortOption.name}}</option>
         </select>
       </div>
 
       <!-- Per Page -->
       <div class="dropdown-container" style="right: 200px;">
-        <select [(ngModel)]="productsPerPage" (change)="setQueryParameters({add: [{name: 'limit', value: productsPerPage.value}], remove: ['page']})">
-          <option *ngFor="let perPageOption of perPageOptions" [ngValue]="perPageOption">{{perPageOption.name}} Products Per Page</option>
+        <select [(ngModel)]="productsPerPage"
+          (change)="setQueryParameters({add: [{name: 'limit', value: productsPerPage.value}], remove: ['page']})">
+          <option *ngFor="let perPageOption of perPageOptions" [ngValue]="perPageOption">{{perPageOption.name}} Products
+            Per Page</option>
         </select>
       </div>
       <button class="filter-button" (click)="showFilters = true">Sort & Filter</button>
@@ -46,30 +48,41 @@
         <div *ngIf="showFilters">
           <!-- Per Page -->
           <filter #perPage [caption]="'Products Per Page'">
-            <radio-filter-options (onOptionChange)="setQueryParameters($event)" [parent]="perPage" [options]="perPageOptions" [selectedOption]="productsPerPage" [paramName]="'limit'"></radio-filter-options>
+            <radio-filter-options (onOptionChange)="setQueryParameters($event)" [parent]="perPage"
+              [options]="perPageOptions" [selectedOption]="productsPerPage" [paramName]="'limit'">
+            </radio-filter-options>
           </filter>
 
           <!-- Sort -->
           <filter #sortFilter [caption]="'Sort By'">
-            <radio-filter-options (onOptionChange)="setQueryParameters($event)" [parent]="sortFilter" [options]="sortOptions" [selectedOption]="selectedSortOption" [paramName]="'sort'"></radio-filter-options>
+            <radio-filter-options (onOptionChange)="setQueryParameters($event)" [parent]="sortFilter"
+              [options]="sortOptions" [selectedOption]="selectedSortOption" [paramName]="'sort'"></radio-filter-options>
           </filter>
         </div>
 
-        <category-filter #categoryFilter [categories]="categories" [caption]="'Categories'" [showContent] = "!showFilters" [show]="!showFilters">
-          <category-filter-content [parent]="categoryFilter" (onCategoryClick)="setQueryParameters($event)"></category-filter-content>
+        <category-filter #categoryFilter [currentCategory]="currentCategory" [currentNiche]="currentNiche"
+          [query]="currentQuery" [categories]="categories" [caption]="'Categories'" [showContent]="!showFilters"
+          [show]="!showFilters">
+          <category-filter-content [parent]="categoryFilter" (onCategoryClick)="setQueryParameters($event)">
+          </category-filter-content>
         </category-filter>
 
         <div *ngFor="let filter of filters; trackBy:trackFilter">
           <!-- Price Filter -->
-          <price-filter #priceFilter *ngIf="filter.caption == 'Price'" [caption]="filter.caption" [hostComponent]="this" (onSetFilter)="setFilter($event)" [showContent] = "!showFilters" [show]="!showFilters">
+          <price-filter #priceFilter *ngIf="filter.caption == 'Price'" [dataComplete]="dataComplete"
+            [caption]="filter.caption" [hostComponent]="this" (onSetFilter)="setFilter($event)"
+            [showContent]="!showFilters" [show]="!showFilters">
             <price-filter-content [parent]="priceFilter">
-              <checkbox-filter-options [hostComponent]="this" (onOptionChange)="setFilter($event)" [parent]="priceFilter" [options]="filter.labels"></checkbox-filter-options>
+              <checkbox-filter-options [hostComponent]="this" (onOptionChange)="setFilter($event)"
+                [parent]="priceFilter" [options]="filter.labels"></checkbox-filter-options>
             </price-filter-content>
           </price-filter>
 
           <!-- Checkbox Filter -->
-          <filter #checkboxFilter *ngIf="filter.caption != 'Price'" [caption]="filter.caption" [showContent] = "!showFilters" [show]="!showFilters">
-            <checkbox-filter-options [hostComponent]="this" (onOptionChange)="setFilter($event)" [parent]="checkboxFilter" [options]="filter.labels"></checkbox-filter-options>
+          <filter #checkboxFilter *ngIf="filter.caption != 'Price'" [caption]="filter.caption"
+            [showContent]="!showFilters" [show]="!showFilters">
+            <checkbox-filter-options [hostComponent]="this" (onOptionChange)="setFilter($event)"
+              [parent]="checkboxFilter" [options]="filter.labels"></checkbox-filter-options>
           </filter>
         </div>
       </div>
@@ -86,10 +99,12 @@
         <div *ngIf="pages > 1" class="pages-container">
           <div class="page-numbers">
             <ul>
-              <li *ngFor="let number of pageList" (click)="onPageClick(number)" [ngClass]="{'selected-page': page == number, 'default-cursor': number == '...'}">{{number}}</li>
+              <li *ngFor="let number of pageList" (click)="onPageClick(number)"
+                [ngClass]="{'selected-page': page == number, 'default-cursor': number == '...'}">{{number}}</li>
             </ul>
           </div>
-          <arrows [showLeftArrow]="page > 1" [showRightArrow]="page < pages" (onArrowClick)="onArrowClick($event)"></arrows>
+          <arrows [showLeftArrow]="page > 1" [showRightArrow]="page < pages" (onArrowClick)="onArrowClick($event)">
+          </arrows>
         </div>
 
       </div>

@@ -31,7 +31,7 @@ export class CategoryFilterContentComponent {
   }
 
   getMargin() {
-    return this.parent.currentCategory == 0 || this.parent.query == undefined ? this.margin : 0;
+    return this.parent.currentCategory == -1 || this.parent.query == undefined ? this.margin : 0;
   }
 
   showHideNiches(category) {

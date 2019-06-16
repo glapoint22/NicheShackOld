@@ -10,6 +10,7 @@ import { ModalService } from '../modal/modal.service';
 export class DataService {
   public data: any = {};
   public isError: boolean;
+  public categories: Array<any> = [];
 
   constructor(private http: HttpClient, private modalService: ModalService) { }
 

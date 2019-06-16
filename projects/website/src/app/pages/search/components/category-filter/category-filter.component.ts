@@ -1,5 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, Input } from '@angular/core';
 import { FilterComponent } from '../filter/filter.component';
 
 @Component({
@@ -7,27 +6,11 @@ import { FilterComponent } from '../filter/filter.component';
   templateUrl: '../filter/filter.component.html',
   styleUrls: ['../filter/filter.component.scss']
 })
-export class CategoryFilterComponent extends FilterComponent implements OnInit {
+export class CategoryFilterComponent extends FilterComponent {
   @Input() categories;
-  public currentCategory;
-  public currentNiche;
-  public query;
-
-  constructor(private route: ActivatedRoute) { super() }
-
-  ngOnInit() {
-    this.route.queryParamMap.subscribe(queryParams => {
-      //Set the properties
-      this.currentCategory = queryParams.get('category');
-      this.currentNiche = queryParams.get('nicheId');
-      this.query = queryParams.get('query');
-
-      //Set categories to not show all niches
-      for (let i = 0; i < this.categories.length; i++) {
-        this.categories[i]['showAllNiches'] = false;
-      }
-    });
-  }
+  @Input() currentCategory;
+  @Input() currentNiche;
+  @Input() query;
 
   getProductCount(category) {
     return category.niches.map(a => a.productCount).reduce((a, b) => a + b);

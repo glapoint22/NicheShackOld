@@ -1,6 +1,6 @@
-<div *ngIf="parent.currentCategory > 0 && parent.query != undefined" class="content" [ngClass]="{'show-content': parent.showContent}">
+<div *ngIf="parent.currentCategory !== null && parent.currentCategory >= 0 && parent.query != undefined" class="content" style="margin-bottom: 10px" [ngClass]="{'show-content': parent.showContent}">
   <i class="fas fa-angle-left"></i>
-  <div class="pointer inline margin-top" (click)="onClick({add: [{name: 'category', value: 0}], remove: ['nicheId', 'page']})">Any Category</div>
+  <div class="pointer inline" (click)="onClick({add: [], remove: ['nicheId', 'page', 'category']})">Any Category</div>
 </div>
 
 <!-- List of categories -->
@@ -11,9 +11,9 @@
 
   <!-- Category name -->
   <div class="text">
-    <i *ngIf="parent.currentNiche > 0" class="fas fa-angle-left"></i>
-    <div style="display: inline-block" (click)="onClick({add: [{name: 'category', value: category.id}], remove: ['nicheId', 'page']})"
-      [ngClass]="{'margin-top' : parent.currentCategory == 0 || parent.query == undefined, 'highlight' : parent.currentNiche == null, 'pointer' : parent.currentCategory == 0 || parent.currentNiche > 0}">{{category.name}}</div>
+    <i *ngIf="parent.currentNiche !== null && parent.currentNiche >= 0" class="fas fa-angle-left"></i>
+    <div style="display: inline-block" (click)="parent.currentCategory == null || (parent.currentNiche !== null && parent.currentNiche >= 0) ? onClick({add: [{name: 'category', value: category.id}], remove: ['nicheId', 'page']}) : null" class="highlight"
+      [ngClass]="{'pointer' : parent.currentCategory == null || (parent.currentNiche !== null && parent.currentNiche >= 0)}">{{category.name}}</div>
     <span *ngIf="parent.currentNiche == null" class="count">({{parent.getProductCount(category)|number}})</span>
   </div>
 
@@ -24,8 +24,8 @@
     (transitionend)="category.niches[maxCount] && category.niches[maxCount].isVisible != undefined && !category.niches[maxCount].isVisible ? category.showAllNiches = false : null">
 
     <!-- Niche name -->
-    <div [ngClass]="{'pointer' : parent.currentNiche == null, 'highlight' : parent.currentNiche != null}" class="margin-left text"
-      (click)="onClick({add: [{name: 'nicheId', value: niche.id}, {name: 'category', value: category.id}], remove: ['page']})">{{niche.name}}
+    <div [ngClass]="{'pointer' : (parent.currentNiche == null && category.niches.length > 1) || parent.categories.length > 1}" class="margin-left text"
+      (click)="(parent.currentNiche == null && category.niches.length > 1) || parent.categories.length > 1 ? onClick({add: [{name: 'nicheId', value: niche.id}, {name: 'category', value: category.id}], remove: ['page']}): null">{{niche.name}}
       <span class="count">({{niche.productCount|number}})</span>
     </div>
   </div>

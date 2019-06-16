@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { DataService } from 'src/app/services/data/data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalService } from 'src/app/services/modal/modal.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'search',
@@ -20,6 +21,10 @@ export class SearchComponent implements OnInit {
   public showFilters: boolean = false;
   public results;
 
+  public currentCategory;
+  public currentNiche;
+  public currentQuery;
+
   //Sort Options
   public selectedSortOption: any;
   public sortOptions = [];
@@ -32,6 +37,9 @@ export class SearchComponent implements OnInit {
   private filterString: string;
   private queryParams: any;
   private separator: string = '^'
+
+  public dataComplete = new Subject<void>();
+
 
   constructor(private dataService: DataService, private route: ActivatedRoute, private router: Router, public modalService: ModalService) { }
 
@@ -127,6 +135,18 @@ export class SearchComponent implements OnInit {
           this.pages = Math.ceil(this.totalProducts / this.productsPerPage.value);
           this.categories = response.categories;
           this.filters = response.filters;
+
+          //Set the properties
+          this.currentCategory = queryParams.get('category');
+          this.currentNiche = queryParams.get('nicheId');
+          this.currentQuery = queryParams.get('query');
+
+          //Set categories to not show all niches
+          for (let i = 0; i < this.categories.length; i++) {
+            this.categories[i]['showAllNiches'] = false;
+          }
+
+          this.dataComplete.next();
 
           //Scroll to top
           body.scrollTop = 0;

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FilterComponent } from '../filter/filter.component';
-import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'price-filter',
@@ -10,14 +10,13 @@ import { ActivatedRoute } from '@angular/router';
 export class PriceFilterComponent extends FilterComponent implements OnInit {
   @Input() hostComponent: any;
   @Output() onSetFilter = new EventEmitter<any>();
+  @Input() dataComplete: Subject<void>;
   public min: string;
   public max: string;
   public showClearPrice: boolean;
 
-  constructor(private route: ActivatedRoute) { super() }
-
   ngOnInit() {
-    this.route.queryParamMap.subscribe(() => {
+    this.dataComplete.subscribe(() => {
       let priceRange = this.getPriceRange();
 
       //If there is a custom price range, set the min and max properties
@@ -25,9 +24,14 @@ export class PriceFilterComponent extends FilterComponent implements OnInit {
         this.min = priceRange.min;
         this.max = priceRange.max;
         this.showClearPrice = true;
+      } else {
+        this.showClearPrice = false;
+        this.min = '';
+        this.max = '';
       }
     });
   }
+
 
   onSubmit(priceForm) {
     if (!priceForm.form.controls.min.value && !priceForm.form.controls.max.value) {

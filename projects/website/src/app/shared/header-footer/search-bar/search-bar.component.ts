@@ -28,15 +28,26 @@ export class SearchBarComponent implements OnInit {
       }
     });
 
-    this.dataService.get('api/Categories')
-      .subscribe((response: any) => {
-        this.categories = response;
-        this.searchCategories = this.categories.slice().map(x => ({ id: x.id, name: x.name }));
-        this.searchCategories.unshift({ name: 'All', id: -1 });
+    if (this.dataService.categories.length === 0) {
+      this.dataService.get('api/Categories')
+        .subscribe((response: any) => {
+          this.categories = this.dataService.categories = response;
+          this.setCategories();
+        });
+    } else {
+      this.categories = this.dataService.categories;
+      this.setCategories();
+    }
 
-        // Get the selected category
-        this.selectedCategory = this.getSelectedCategory();
-      });
+
+  }
+
+  setCategories() {
+    this.searchCategories = this.categories.slice().map(x => ({ id: x.id, name: x.name }));
+    this.searchCategories.unshift({ name: 'All', id: -1 });
+
+    // Get the selected category
+    this.selectedCategory = this.getSelectedCategory();
   }
 
   getSelectedCategory() {
