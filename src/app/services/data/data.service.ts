@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
-import { ModalService } from '../modal/modal.service';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +9,10 @@ import { ModalService } from '../modal/modal.service';
 export class DataService {
   public data: any = {};
   public isError: boolean;
+  public notFound: boolean;
   public categories: Array<any> = [];
 
-  constructor(private http: HttpClient, private modalService: ModalService) { }
+  constructor(private http: HttpClient) { }
 
   get(url: string, parameters?: Array<any>): Observable<any> {
     let params = new HttpParams();
@@ -36,7 +36,7 @@ export class DataService {
   handleError() {
     return (error) => {
       // showError
-      if (error.status !== 404) this.isError = true;
+      this.isError = true;
 
       return throwError(error);
     }
