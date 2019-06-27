@@ -1,5 +1,5 @@
 <div class="modal-background" (click)="close()">
-  <div class="form" [style.width.px]="product.videos.length > 0 ? 710 : 586" (click)="stopPropagation($event)">
+  <div class="window" [style.width.px]="product.videos.length > 0 ? 710 : 586" (click)="stopPropagation($event)">
     <!-- Close -->
     <div class="close" (click)="close()" title="Close">
       <i class="fas fa-times"></i>
@@ -54,7 +54,7 @@
         </div>
 
         <div>
-          <div class="gold-button" style="float: right;">
+          <div class="gold-button">
             View Details
           </div>
         </div>

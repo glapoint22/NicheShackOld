@@ -1,150 +1,220 @@
 <div class="background-container">
   <search-bar></search-bar>
 
-  <div style="width: 1100px; margin: auto; margin-top: 110px; display: flex; font-family:Arial, Helvetica, sans-serif">
+  <div class="container">
+    <div class="product-container">
+      <!-- Videos -->
+      <div *ngIf="product.videos.length > 0" class="videos-container"
+        [style.width.px]="product.videos.length > 5 ? 105 : 88">
+        <div *ngFor="let video of product.videos; let i = index" class="video-thumbnail"
+          [style.background-image]="'url('+ video.thumbnail + ')'" (click)="onVideoClick(i)">
+          <i class="far fa-play-circle"></i>
+        </div>
+      </div>
 
-    <!-- Videos -->
-    <div *ngIf="product.videos.length > 0" class="videos-container"
-      [style.width.px]="product.videos.length > 5 ? 105 : 88">
-      <div *ngFor="let video of product.videos; let i = index" class="video-thumbnail"
-        [style.background-image]="'url('+ video.thumbnail + ')'" (click)="onVideoClick(i)">
-        <i class="far fa-play-circle"></i>
+      <div style="margin: auto; display: flex">
+        <!-- Product Image -->
+        <div class="image-container">
+          <div class="image-background">
+            <img [src]="'/Images/' + product.image">
+          </div>
+        </div>
+
+        <!-- Product Info -->
+        <div class="info-container">
+          <!-- Title -->
+          <div class="product-title">
+            {{product.name}}
+          </div>
+
+          <!-- Rating & Reviews -->
+          <div class="rating-container">
+            <stars [rating]="product.rating"></stars>
+            <span class="reviews-text">
+              {{product.totalReviews | number}} reviews
+            </span>
+          </div>
+
+          <!-- Price -->
+          <div class="price">
+            <div *ngIf="product.maxPrice === 0">
+              {{product.minPrice | currency:'USD'}}
+            </div>
+            <div *ngIf="product.maxPrice > 0">
+              {{product.minPrice | currency:'USD'}} -
+              {{product.maxPrice | currency:'USD'}}
+            </div>
+          </div>
+
+          <div style="margin: 10px 0;" class="gold-button" (click)="onPublisherButtonClick()">
+            Visit Publisher’s Page To Buy
+          </div>
+
+
+          <!-- Description -->
+          <div class="description">
+            {{product.description}}
+          </div>
+
+          <!-- Add to list button -->
+          <div class="purple-button">
+            Add to List
+          </div>
+
+          <!-- Share button -->
+          <div style="margin-left: 25px;" class="purple-button">
+            Share
+          </div>
+
+          <!-- Report item -->
+          <div class="purple-link" style="float: right;">
+            <i style="margin-right: 5px;" class="fas fa-flag"></i>
+            Report this item
+          </div>
+        </div>
       </div>
     </div>
 
-    <div style="margin: auto; display: flex">
-      <!-- Product Image -->
-      <div class="image-container">
-        <div class="image-background">
-          <img [src]="'/Images/' + product.image">
+
+
+    <!-- Contents -->
+    <table>
+      <tr>
+        <th>Here’s what you get</th>
+        <tH *ngFor="let pricePoint of product.content.pricePoints">
+          {{pricePoint.price | currency:'USD'}} - {{pricePoint.frequency}}
+        </tH>
+      </tr>
+      <tr *ngFor="let item of product.content.items">
+        <td>
+          <img [src]="'/assets/' + item.contentType + '.png'">
+          {{item.name}}
+        </td>
+        <td *ngFor="let pricePoint of product.content.pricePoints; let i = index">
+          <i *ngIf="hasPricePoint(item.priceIndices, i)" class="fas fa-check"></i>
+        </td>
+      </tr>
+    </table>
+
+    <!-- Products sliders -->
+    <div *ngFor="let productSlider of product.productSliders" class="products-slider-background">
+      <products-slider [caption]="productSlider.caption" [products]="productSlider.products"></products-slider>
+    </div>
+
+
+    <div class="ratings-container">
+      <div class="caption">Customer Reviews</div>
+
+      <div class="flex-container">
+
+        <!-- Stars and rating -->
+        <div class="stars-container">
+          <span class="rating">{{product.rating}}</span>
+          <span class="star-review-container">
+            <stars [rating]="product.rating"></stars>
+            <div class="reviews-text" style="margin-top: 5px">
+              {{product.totalReviews | number}} reviews
+            </div>
+          </span>
+
+          <div class="review-button-container">
+            <div class="gold-button">
+              Write a Review
+            </div>
+          </div>
+        </div>
+
+        <!-- Bars -->
+        <div style="flex: 1">
+
+          <div *ngFor="let stat of product.reviewStats; let i = index" class="bar-container">
+            <div class="star-text">{{stat.name}}</div>
+            <div class="bar-base" [style.marginLeft.px]="i == 4 ? 12 : 5">
+              <div class="bar" [style.width.px]="stat.percentage * 200"></div>
+            </div>
+
+            <div class="percent-text">
+              {{(stat.percentage * 100)}}%
+            </div>
+          </div>
+
         </div>
       </div>
+    </div>
 
-      <!-- Product Info -->
-      <div class="info-container">
-        <!-- Title -->
-        <div class="product-title">
-          {{product.name}}
-        </div>
 
-        <!-- Rating & Reviews -->
-        <div class="rating-container">
-          <stars [rating]="product.rating"></stars>
-          <span class="reviews">
-            {{product.reviewCount | number}} reviews
+    <!-- Reviews -->
+    <div class="reviews">
+      <div style="font-size: 16px; margin: 20px 0;">
+        Showing 1-{{product.reviews.length}} of {{product.totalReviews}} reviews
+      </div>
+
+      <!-- View all reviews button -->
+      <div *ngIf="product.totalReviews > 10" class="purple-button" style="margin-bottom: 20px;">
+        View all {{product.totalReviews}} reviews
+      </div>
+
+      <!-- Review -->
+      <div *ngFor="let review of product.reviews" class="review">
+
+        <!-- Stars and review title -->
+        <div style="margin-bottom: 4px;">
+          <stars [rating]="review.rating"></stars>
+          <span class="review-title-text">
+            {{review.title}}
           </span>
         </div>
 
-        <!-- Price -->
-        <div class="price">
-          <div *ngIf="product.maxPrice === 0">
-            {{product.minPrice | currency:'USD'}}
-          </div>
-          <div *ngIf="product.maxPrice > 0">
-            {{product.minPrice | currency:'USD'}} -
-            {{product.maxPrice | currency:'USD'}}
-          </div>
+
+        <!-- Username, date, verified purchase -->
+        <div style="margin-bottom: 4px;">
+          {{review.username}}
         </div>
 
-        <div style="margin: 10px 0;" class="gold-button">
-          Visit Publisher’s Page To Buy
+        <div style="margin-bottom: 4px;">
+          {{review.date}}
         </div>
 
-
-        <!-- Description -->
-        <div class="description">
-          {{product.description}}
+        <div *ngIf="review.isVerified" class="verified-text">
+          Verified Purchase
         </div>
 
-        <!-- Add to list button -->
-        <div class="purple-button">
-          Add to List
+        <!-- review text -->
+        <div class="review-text-container">
+          {{review.text}}
         </div>
 
-        <!-- Share button -->
-        <div style="margin-left: 25px;" class="purple-button">
-          Share
-        </div>
-
-        <!-- Report item -->
-        <div class="purple-link" style="float: right;">
-          <i style="margin-right: 5px;" class="fas fa-flag"></i>
-          Report this item
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
-  <!-- Contents -->
-  <table>
-    <tr>
-      <th>Here’s what you get</th>
-      <tH *ngFor="let pricePoint of product.content.pricePoints">
-        {{pricePoint.price | currency:'USD'}} - {{pricePoint.frequency}}
-      </tH>
-    </tr>
-    <tr *ngFor="let item of product.content.items">
-      <td>
-        <img [src]="'/assets/' + item.contentType + '.png'">
-        {{item.name}}
-      </td>
-      <td *ngFor="let pricePoint of product.content.pricePoints; let i = index">
-        <i *ngIf="hasPricePoint(item.priceIndices, i)" class="fas fa-check"></i>
-      </td>
-    </tr>
-  </table>
-
-  <!-- Products sliders -->
-  <div *ngFor="let productSlider of productSliders" class="products-slider-background">
-    <products-slider [caption]="productSlider.caption" [products]="productSlider.products"></products-slider>
-  </div>
-
-
-  <div class="ratings-container">
-    <div class="caption">Customer Reviews</div>
-    
-    <div class="flex-container">
-      
-      <!-- Stars and rating -->
-      <div class="stars-container">
-        <span class="rating">{{product.rating}}</span>
-        <span class="star-review-container">
-          <stars [rating]="product.rating"></stars>
-          <div class="reviews" style="margin-top: 5px">
-            {{product.reviewCount | number}} reviews
-          </div>
+        <!-- Review helpful text -->
+        <span class="review-helpful-text">
+          Was this review helpful?
         </span>
 
-        <div class="review-button-container">
-          <div class="gold-button">
-            Write a Review
-          </div>
-        </div>
-      </div>
+        <!-- Review rating container -->
+        <span class="review-rating-container">
+          <span class="thumb-container">
+            <i class="fas fa-thumbs-up"></i>
+            <span class="rating-text">{{review.like}}</span>
+          </span>
 
-      <!-- Bars -->
-      <div style="flex: 1">
-        <div class="bar-container">
-          <div class="star-text">
-            5 Stars
-          </div>
-          <div class="bar-base">
-            <div class="bar" style="width: 175px;"></div>
-          </div>
+          <span class="thumb-container">
+            <i class="fas fa-thumbs-down"></i>
+            <span class="rating-text">{{review.dislike}}</span>
+          </span>
 
-          <div class="percent-text">
-            64%
-          </div>
-        </div>
+          <span class="purple-link" style="margin-left: 20px;">
+            <i style="margin-right: 5px;" class="fas fa-flag"></i>
+            Report this review
+          </span>
+        </span>
       </div>
     </div>
   </div>
+
 
   <!-- Footer -->
   <div style="margin-top: 100px;">
     <footer></footer>
   </div>
-
 </div>
+<quick-look *ngIf="modalService.quickLook.show && !modalService.videoPlayer.show"></quick-look>
+<video-player *ngIf="modalService.videoPlayer.show"></video-player>

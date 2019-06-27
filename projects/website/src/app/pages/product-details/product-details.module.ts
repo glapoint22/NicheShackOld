@@ -6,6 +6,8 @@ import { ProductDetailsComponent } from "./product-details.component";
 import { HeaderFooterModule } from '../../shared/header-footer/header-footer.module';
 import { StarsModule } from '../../shared/stars/stars.module';
 import { ProductsSliderModule } from '../../shared/products-slider/products-slider.module';
+import { QuickLookModule } from '../../shared/quick-look/quick-look.module';
+import { VideoPlayerModule } from '../../shared/video-player/video-player.module';
 
 @NgModule({
   declarations: [ProductDetailsComponent],
@@ -14,7 +16,9 @@ import { ProductsSliderModule } from '../../shared/products-slider/products-slid
     ProductDetailsRoutingModule,
     HeaderFooterModule,
     StarsModule,
-    ProductsSliderModule
+    ProductsSliderModule,
+    QuickLookModule,
+    VideoPlayerModule
   ]
 })
 export class ProductDetailsModule { }

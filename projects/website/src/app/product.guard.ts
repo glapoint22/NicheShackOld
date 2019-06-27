@@ -12,7 +12,7 @@ export class ProductGuard implements Resolve<any> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
-    return this.dataService.get('api/Products', [{ key: 'urlTitle', value: route.params.product.replace(/\-/g, ' ') }]).pipe(map(product => {
+    return this.dataService.get('api/Products', [{ key: 'urlTitle', value: route.params.product }]).pipe(map(product => {
       if (product == null) {
         this.dataService.notFound = true;
       }

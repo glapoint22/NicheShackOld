@@ -1,6 +1,6 @@
 @import 'theme';
 
-.form {
+.window {
     position: relative;
     font-family:Arial, Helvetica, sans-serif;
     .close {
@@ -89,6 +89,10 @@
             font-size: 15px;
             word-wrap: break-word;
             flex: 1;
+        }
+        .gold-button {
+            margin: 10px 3px;
+            float: right;
         }
     }
 }
