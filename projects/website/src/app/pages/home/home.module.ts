@@ -6,6 +6,7 @@ import { HeaderFooterModule } from '../../shared/header-footer/header-footer.mod
 import { HomeComponentsModule } from './components/home-components.module';
 import { QuickLookModule } from '../../shared/quick-look/quick-look.module';
 import { VideoPlayerModule } from '../../shared/video-player/video-player.module';
+import { ProductsSliderModule } from '../../shared/products-slider/products-slider.module';
 
 @NgModule({
   declarations: [HomeComponent],
@@ -15,7 +16,8 @@ import { VideoPlayerModule } from '../../shared/video-player/video-player.module
     HomeComponentsModule,
     HeaderFooterModule,
     QuickLookModule,
-    VideoPlayerModule
+    VideoPlayerModule,
+    ProductsSliderModule
   ]
 })
 export class HomeModule { }

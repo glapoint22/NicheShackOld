@@ -1,0 +1,192 @@
+@import 'theme';
+
+.videos-container {
+    height: 314px;
+    overflow: auto;
+    margin: 14px 0 14px 14px;
+    .video-thumbnail {
+        width: 88px;
+        height: 50px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        margin-bottom: 16px;
+        text-align: center;
+        color: #e2e2e2;
+        line-height: 50px;
+        font-size: 30px;
+        cursor: pointer;
+    }
+    .video-thumbnail:last-child {
+        margin-bottom: 0;
+    }
+    .video-thumbnail:hover {
+        color: white;
+    }
+}
+.image-container {
+    width: 312px;
+    height: 342px;
+    align-items: center;
+    display: flex;
+    .image-background {
+        width: 312px;
+        height: 312px;
+        background: #181818;
+        text-align: center;
+        line-height: 312px;
+        border: 1px solid #292929;
+        img {
+            vertical-align: middle;
+        }
+    }
+}
+.reviews {
+    font-size: 14px;
+    color: $color5;
+}
+.info-container {
+    margin-left: 25px;
+    .product-title {
+        width: 400px;
+        margin: 10px 0 10px;
+        font-size: 24px;
+        color: white;
+        word-wrap: break-word;
+    }
+    .rating-container {
+        margin-bottom: 5px;
+    }
+    .price {
+        color: $gold;
+        font-size: 18px;
+        margin-top: 10px;
+    }
+    .description {
+        width: 600px;
+        color: white;
+        font-size: 15px;
+        word-wrap: break-word;
+        margin-bottom: 25px;
+    }
+}
+table {
+    border-collapse: collapse;
+    margin: auto;
+    margin-top: 60px;
+    margin-bottom: 80px;
+    th {
+        background: #3a3a3a;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        color: $gold;
+        height: 30px;
+        padding: 0 20px;
+        border-right: 1px solid #4c4c4c;
+    }
+    th:last-child {
+        border: none;
+    }
+    tr {
+        height: 22px;
+        line-height: 22px;
+    }
+    tr:nth-child(odd){
+        background: #313030;
+    }
+    tr:nth-child(even){
+        background: #272727;
+    }
+    td:nth-child(1) {
+        color: white;
+        padding: 0 10px;
+        text-align: left;
+        img {
+            vertical-align: middle;
+            padding-right: 5px;
+        }
+    }
+    td {
+        color: #00ff00;
+        text-align: center;
+        border-right: 1px solid #4c4c4c;
+    }
+    td:last-child {
+        border: none;
+    }
+}
+.products-slider-background:nth-child(even) {
+    background: #212121;
+}
+.products-slider-background:nth-child(odd) {
+    background: #272626;
+}
+.ratings-container {
+    width: 470px;
+    margin: auto;
+    .caption {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 22px;
+        color: $gold;
+        margin-top: 50px;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    .flex-container {
+        width: 100%;
+        display: flex;
+        .stars-container {
+            width: 180px;
+            position: relative;
+            .rating {
+                font-size: 50px;
+                font-family: Arial, Helvetica, sans-serif;
+                color: $gold;
+                font-weight: bold;
+            }
+            .star-review-container {
+                position: absolute;
+                top: 9px;
+                margin-left: 8px;
+                text-align: center;
+            }
+            .review-button-container {
+                margin: auto;
+                text-align:center;
+                margin-top: 15px;
+            }
+        }
+        .bar-container {
+            height: 15px;
+            line-height: 15px;
+            margin-bottom: 10px;
+            margin-top: 7px;
+            .star-text {
+                font-size: 14px;
+                font-family: Arial, Helvetica, sans-serif;
+                color: white;
+                display: inline-block;
+            }
+            .bar-base {
+                width: 200px;
+                height: 15px;
+                background: #333333;
+                display: inline-block;
+                vertical-align: middle;
+                margin-left: 5px;
+                border-radius: 10px;
+                .bar {
+                    height: 15px;
+                    background: $gold;
+                    border-radius: 10px;
+                }
+            }
+            .percent-text {
+                display: inline-block;
+                color: white;
+                font-size: 14px;
+                margin-left: 5px;
+            }
+        }
+    }
+}
