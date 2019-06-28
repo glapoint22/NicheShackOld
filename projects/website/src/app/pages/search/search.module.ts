@@ -7,8 +7,8 @@ import { HeaderFooterModule } from '../../shared/header-footer/header-footer.mod
 import { ArrowsModule } from '../../shared/arrows/arrows.module';
 import { FormsModule } from '@angular/forms';
 import { ProductModule } from '../../shared/product/product.module';
-import { VideoPlayerModule } from '../../shared/video-player/video-player.module';
 import { QuickLookModule } from '../../shared/quick-look/quick-look.module';
+import { MediaViewerModule } from '../../shared/media-viewer/media-viewer.module';
 
 @NgModule({
   declarations: [SearchComponent],
@@ -20,8 +20,8 @@ import { QuickLookModule } from '../../shared/quick-look/quick-look.module';
     ArrowsModule,
     FormsModule,
     ProductModule,
-    VideoPlayerModule,
-    QuickLookModule
+    QuickLookModule,
+    MediaViewerModule
   ]
 })
 export class SearchModule { }

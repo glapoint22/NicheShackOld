@@ -1,10 +1,16 @@
 @import 'theme';
 
+.image {
+    width: 100%;
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
 .window{
     width: 800px;
     position: relative;
 }
-.video-container{
+.media-container{
     width: 100%; 
     height: 600px; 
     background: black; 
@@ -14,6 +20,7 @@
     white-space: nowrap;
     border: 1px solid #2f2f2f;
     border-top: none;
+    display: flex;
 }
 iframe{
     position: relative; 
@@ -24,7 +31,7 @@ iframe{
     background: $background-color;
 }
 @media screen and (max-width: 800px) {
-    .video-container{
+    .media-container{
         height: 75vw; 
     }
 }

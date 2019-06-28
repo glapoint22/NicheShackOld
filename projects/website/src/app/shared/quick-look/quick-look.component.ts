@@ -14,49 +14,59 @@ export class QuickLookComponent extends ModalComponent implements OnInit {
   constructor(modalService: ModalService, router: Router) { super(modalService, router) }
 
   ngOnInit() {
-    // TODO: Add description and videos to product in database
+    // TODO: Add description and media to product in database
     this.product = {
       description: this.modalService.quickLook.product.description,
-      videos: [
+      media: [
         {
           url: '//player.vimeo.com/video/219797629?title=0&byline=0&portrait=0&color=ffffff',
-          thumbnail: 'https://i.vimeocdn.com/video/637660809_88'
+          thumbnail: 'https://i.vimeocdn.com/video/637660809_88',
+          type: 'video'
         },
         {
           url: 'https://www.youtube.com/embed/ReDQoqN5O88',
-          thumbnail: 'https://img.youtube.com/vi/ReDQoqN5O88/default.jpg'
+          thumbnail: 'https://img.youtube.com/vi/ReDQoqN5O88/default.jpg',
+          type: 'video'
         },
         {
           url: 'https://www.youtube.com/embed/O9IRRADnnEk',
-          thumbnail: 'https://img.youtube.com/vi/O9IRRADnnEk/default.jpg'
+          thumbnail: 'https://img.youtube.com/vi/O9IRRADnnEk/default.jpg',
+          type: 'video'
         },
         {
           url: '//player.vimeo.com/video/242450172?title=0&byline=0&portrait=0&color=ffffff',
-          thumbnail: 'https://i.vimeocdn.com/video/666623530_88'
+          thumbnail: 'https://i.vimeocdn.com/video/666623530_88',
+          type: 'video'
         },
         {
           url: 'https://www.youtube.com/embed/cvOMIlFOrh0',
-          thumbnail: 'https://img.youtube.com/vi/cvOMIlFOrh0/default.jpg'
+          thumbnail: 'https://img.youtube.com/vi/cvOMIlFOrh0/default.jpg',
+          type: 'video'
         },
         {
-          url: '//player.vimeo.com/video/234130228?title=0&byline=0&portrait=0&color=ffffff',
-          thumbnail: 'https://i.vimeocdn.com/video/655639835_88'
+          url: '0b935a68e3684bf1a9ec01beab0deea8.png',
+          thumbnail: 'https://i.vimeocdn.com/video/655639835_88',
+          type: 'image'
         },
         {
-          url: '//player.vimeo.com/video/180028667?title=0&byline=0&portrait=0&color=ffffff',
-          thumbnail: 'https://i.vimeocdn.com/video/588134701_88'
+          url: '19c79c266bc04c91bc4947cd3caee5e3.png',
+          thumbnail: 'https://i.vimeocdn.com/video/588134701_88',
+          type: 'image'
         },
         {
-          url: '//player.vimeo.com/video/197072042?title=0&byline=0&portrait=0&color=ffffff',
-          thumbnail: 'https://i.vimeocdn.com/video/609716244_88'
+          url: 'dfca7ec8f7d943d3a8eb1a184918d5d4.jpg',
+          thumbnail: 'https://i.vimeocdn.com/video/609716244_88',
+          type: 'image'
         },
         {
-          url: 'https://www.youtube.com/embed/LLMB5QdDpso',
-          thumbnail: 'https://img.youtube.com/vi/LLMB5QdDpso/default.jpg'
+          url: '78a34d320fed4ca6843721145522dc03.png',
+          thumbnail: 'https://img.youtube.com/vi/LLMB5QdDpso/default.jpg',
+          type: 'image'
         },
         {
-          url: 'https://www.youtube.com/embed/ZCQ7nXAtf4M',
-          thumbnail: 'https://img.youtube.com/vi/ZCQ7nXAtf4M/default.jpg'
+          url: 'cba24ceff327461ab887f10872c163de.png',
+          thumbnail: 'https://img.youtube.com/vi/ZCQ7nXAtf4M/default.jpg',
+          type: 'image'
         }
       ]
     }
@@ -65,10 +75,10 @@ export class QuickLookComponent extends ModalComponent implements OnInit {
     super.ngOnInit();
   }
 
-  onVideoClick(index: number) {
-    this.modalService.videoPlayer.videos = this.product.videos;
-    this.modalService.videoPlayer.productName = this.modalService.quickLook.product.name;
-    this.modalService.videoPlayer.show = true;
-    this.modalService.videoPlayer.index = index;
+  onClick(index: number) {
+    this.modalService.mediaViewer.media = this.product.media;
+    this.modalService.mediaViewer.productName = this.modalService.quickLook.product.name;
+    this.modalService.mediaViewer.show = true;
+    this.modalService.mediaViewer.index = index;
   }
 }

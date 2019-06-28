@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ModalService {
-  public videoPlayer: any = {};
+  public mediaViewer: any = {};
   public quickLook: any = {};
   // public loading: boolean;
   public subscriptionForm: any = {};

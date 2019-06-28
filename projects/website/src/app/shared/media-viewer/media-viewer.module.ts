@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { VideoPlayerComponent } from './video-player.component';
+import { MediaViewerComponent } from './media-viewer.component';
 import { ArrowsModule } from '../arrows/arrows.module';
 import { PaginatorModule } from '../paginator/paginator.module';
 
 @NgModule({
-  declarations: [VideoPlayerComponent],
+  declarations: [MediaViewerComponent],
   imports: [
     CommonModule,
     ArrowsModule,
     PaginatorModule
   ],
-  exports: [VideoPlayerComponent]
+  exports: [MediaViewerComponent]
 })
-export class VideoPlayerModule { }
+export class MediaViewerModule { }

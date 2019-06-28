@@ -13,11 +13,11 @@
     .close:hover {
         color: #ffda73;
     }
-    .videos-container {
+    .media-container {
         height: 314px;
         overflow: auto;
         margin: 14px 0 14px 14px;
-        .video-thumbnail {
+        .media-thumbnail {
             width: 88px;
             height: 50px;
             background-size: cover;
@@ -30,10 +30,10 @@
             font-size: 30px;
             cursor: pointer;
         }
-        .video-thumbnail:last-child {
+        .media-thumbnail:last-child {
             margin-bottom: 0;
         }
-        .video-thumbnail:hover {
+        .media-thumbnail:hover {
             color: white;
         }
     }
@@ -72,6 +72,15 @@
                 font-size: 14px;
                 color: $color5;
             }
+        }
+        .first-review-link {
+            color: $color5;
+            font-size: 14px;
+            cursor: pointer;
+            margin: 0 0 5px 11px;
+        }
+        .first-review-link:hover {
+            text-decoration: underline;
         }
         .price {
             color: $gold;

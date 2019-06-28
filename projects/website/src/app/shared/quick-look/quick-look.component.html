@@ -1,15 +1,14 @@
 <div class="modal-background" (click)="close()">
-  <div class="window" [style.width.px]="product.videos.length > 0 ? 710 : 586" (click)="stopPropagation($event)">
+  <div class="window" [style.width.px]="product.media.length > 0 ? 710 : 586" (click)="stopPropagation($event)">
     <!-- Close -->
     <div class="close" (click)="close()" title="Close">
       <i class="fas fa-times"></i>
     </div>
 
     <div style="display:flex;">
-      <!-- Videos -->
-      <div *ngIf="product.videos.length > 0" class="videos-container" [style.width.px]="product.videos.length > 5 ? 105 : 88">
-        <div *ngFor="let video of product.videos; let i = index" class="video-thumbnail"
-          [style.background-image]="'url('+ video.thumbnail + ')'" (click)="onVideoClick(i)">
+      <!-- Media -->
+      <div *ngIf="product.media.length > 0" class="media-container" [style.width.px]="product.media.length > 5 ? 105 : 88">
+        <div *ngFor="let media of product.media; let i = index" class="media-thumbnail" [style.background-image]="'url('+ media.thumbnail + ')'" (click)="onClick(i)">
           <i class="far fa-play-circle"></i>
         </div>
       </div>
@@ -29,11 +28,14 @@
         </div>
 
         <!-- Rating & Reviews -->
-        <div class="rating-container">
+        <div *ngIf="modalService.quickLook.product.rating > 0" class="rating-container">
           <stars [rating]="modalService.quickLook.product.rating"></stars>
           <span class="reviews">
-            {{modalService.quickLook.product.reviewCount | number}} reviews
+            {{modalService.quickLook.product.totalReviews | number}} reviews
           </span>
+        </div>
+        <div *ngIf="modalService.quickLook.product.rating == 0" class="first-review-link">
+            Be the first to review this item
         </div>
 
         <!-- Price -->

@@ -3,11 +3,9 @@
 
   <div class="container">
     <div class="product-container">
-      <!-- Videos -->
-      <div *ngIf="product.videos.length > 0" class="videos-container"
-        [style.width.px]="product.videos.length > 5 ? 105 : 88">
-        <div *ngFor="let video of product.videos; let i = index" class="video-thumbnail"
-          [style.background-image]="'url('+ video.thumbnail + ')'" (click)="onVideoClick(i)">
+      <!-- Media -->
+      <div *ngIf="product.media.length > 0" class="media-container" [style.width.px]="product.media.length > 5 ? 105 : 88">
+        <div *ngFor="let media of product.media; let i = index" class="media-thumbnail" [style.background-image]="'url('+ media.thumbnail + ')'" (click)="onClick(i)">
           <i class="far fa-play-circle"></i>
         </div>
       </div>
@@ -28,11 +26,14 @@
           </div>
 
           <!-- Rating & Reviews -->
-          <div class="rating-container">
+          <div *ngIf="product.rating > 0" class="rating-container">
             <stars [rating]="product.rating"></stars>
             <span class="reviews-text">
               {{product.totalReviews | number}} reviews
             </span>
+          </div>
+          <div *ngIf="product.rating == 0" class="first-review-link">
+              Be the first to review this item
           </div>
 
           <!-- Price -->
@@ -103,19 +104,27 @@
 
 
     <div class="ratings-container">
-      <div class="caption">Customer Reviews</div>
+      <div [innerHtml]="product.rating > 0 ? 'Customer Reviews' : 'No Customer Reviews'" class="caption"></div>
 
       <div class="flex-container">
 
         <!-- Stars and rating -->
-        <div class="stars-container">
-          <span class="rating">{{product.rating}}</span>
-          <span class="star-review-container">
-            <stars [rating]="product.rating"></stars>
-            <div class="reviews-text" style="margin-top: 5px">
-              {{product.totalReviews | number}} reviews
-            </div>
-          </span>
+        <div class="stars-container" [style.margin]="product.rating == 0 ? 'auto' : 'none'">
+
+          <div *ngIf="product.rating > 0">
+              <span class="rating">{{product.rating | number:'1.1-1'}}</span>
+              <span class="star-review-container">
+                <stars [rating]="product.rating"></stars>
+                <div class="reviews-text" style="margin-top: 5px">
+                  {{product.totalReviews | number}} reviews
+                </div>
+              </span>
+          </div>
+
+          <div *ngIf="product.rating == 0" class="first-review">
+              Be the first to review this item!
+          </div>
+          
 
           <div class="review-button-container">
             <div class="gold-button">
@@ -125,8 +134,7 @@
         </div>
 
         <!-- Bars -->
-        <div style="flex: 1">
-
+        <div *ngIf="product.rating > 0" style="flex: 1">
           <div *ngFor="let stat of product.reviewStats; let i = index" class="bar-container">
             <div class="star-text">{{stat.name}}</div>
             <div class="bar-base" [style.marginLeft.px]="i == 4 ? 12 : 5">
@@ -137,21 +145,20 @@
               {{(stat.percentage * 100)}}%
             </div>
           </div>
-
         </div>
       </div>
     </div>
 
 
     <!-- Reviews -->
-    <div class="reviews">
+    <div *ngIf="product.rating > 0" class="reviews">
       <div style="font-size: 16px; margin: 20px 0;">
-        Showing 1-{{product.reviews.length}} of {{product.totalReviews}} reviews
+        Showing 1-{{product.reviews.length}} of {{product.totalReviews | number}} reviews
       </div>
 
       <!-- View all reviews button -->
       <div *ngIf="product.totalReviews > 10" class="purple-button" style="margin-bottom: 20px;">
-        View all {{product.totalReviews}} reviews
+        View all {{product.totalReviews | number}} reviews
       </div>
 
       <!-- Review -->
@@ -212,9 +219,9 @@
 
 
   <!-- Footer -->
-  <div style="margin-top: 100px;">
+  <div style="margin-top: 134px;">
     <footer></footer>
   </div>
 </div>
-<quick-look *ngIf="modalService.quickLook.show && !modalService.videoPlayer.show"></quick-look>
-<video-player *ngIf="modalService.videoPlayer.show"></video-player>
+<quick-look *ngIf="modalService.quickLook.show && !modalService.mediaViewer.show"></quick-look>
+<media-viewer *ngIf="modalService.mediaViewer.show"></media-viewer>

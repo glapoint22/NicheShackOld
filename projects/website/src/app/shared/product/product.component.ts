@@ -15,9 +15,9 @@ export class ProductComponent {
 
   ngOnInit() {
     // TODO: Add rating, review count, urlTitle, and minPrice/maxPrice to product in database
-    // Remove description, hoplink, and videos
+    // Remove description, hoplink, and media
     this.product.rating = 2.5;
-    this.product.reviewCount = 9999;
+    this.product.totalReviews = 9999;
     this.product.minPrice = 37.48;
     this.product.maxPrice = 122.22;
     this.product.urlTitle = 'fat-loss-activation';
@@ -51,9 +51,6 @@ export class ProductComponent {
   }
 
   onQuickLookButtonClick() {
-    // this.modalService.videoPlayer.videos = this.product.videos;
-    // this.modalService.videoPlayer.productName = this.product.name;
-    // this.modalService.videoPlayer.show = true;
     this.modalService.quickLook.show = true;
     this.modalService.quickLook.product = this.product;
   }
