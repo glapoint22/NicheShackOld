@@ -6,42 +6,50 @@
         <i class="fas fa-times"></i>
       </div>
     </div>
-    <div class="caption">
-      Please tell us about the issue.
+
+    <!-- Submitted -->
+    <div *ngIf="submitted; else content">
+      <div>
+        <h2>Thank You!</h2>
+      </div>
+
+      <div style="margin: 50px 5px 0 10px;
+            font-size: 13px;">
+        Your feedback helps us make Niche Shack shopping better for millions of customers.
+      </div>
+
+      <button class="gold-button done-button" (click)="close()">Done</button>
     </div>
 
-    <select [(ngModel)]="selectedWhereOption" style="margin-bottom: 15px;" (change)="selectedWhatOption = selectedWhereOption.options[0]">
-      <option *ngFor="let whereOption of options" [ngValue]="whereOption">{{whereOption.name}}</option>
-    </select>
+    
 
-    <select [(ngModel)]="selectedWhatOption" [disabled]="selectedWhereOption.name == 'Where is the issue?'">
-      <option *ngFor="let whatOption of selectedWhereOption.options" [ngValue]="whatOption">{{whatOption.name}}</option>
-    </select>
+    <!-- Content -->
+    <ng-template #content>
+      <div class="caption">
+        Please tell us about the issue.
+      </div>
 
-    <div class="caption">
-      Comments (optional)
-    </div>
+      <!-- Where is issue -->
+      <select [(ngModel)]="selectedWhereOption" style="margin-bottom: 15px;"
+        (change)="selectedWhatOption = selectedWhereOption.options[0]">
+        <option *ngFor="let whereOption of options" [ngValue]="whereOption">{{whereOption.name}}</option>
+      </select>
 
-    <textarea rows="0" cols="0" style="width: 288px;
-    height: 100px;
-    resize: none;
-    border: 1px solid #393939;
-    background-color: #282828;
-    color: white;
-    border-radius: 5px;
-    margin-left: 10px;
-    padding: 5px;
-    outline: none;
-    overflow: auto;
-    font-family: Arial, Helvetica, sans-serif"></textarea>
+      <!-- What is issue -->
+      <select [(ngModel)]="selectedWhatOption" [disabled]="selectedWhereOption.name == 'Where is the issue?'">
+        <option *ngFor="let whatOption of selectedWhereOption.options" [ngValue]="whatOption">{{whatOption.name}}
+        </option>
+      </select>
 
-    <button class="gold-button" [disabled]="selectedWhatOption.name === 'What is the issue?'">
-      Submit
-    </button>
+      <!-- Comments -->
+      <div class="caption">Comments (optional)</div>
+      <textarea [(ngModel)]="comments"></textarea>
 
-    <button class="gray-button" (click)="close()">
-      Cancel
-    </button>
+      <!-- Buttons -->
+      <button class="gold-button" (click)="onSubmit()"
+        [disabled]="selectedWhatOption.name === 'What is the issue?'">Submit</button>
+      <button class="gray-button" (click)="close()">Cancel</button>
+    </ng-template>
 
   </div>
 </div>

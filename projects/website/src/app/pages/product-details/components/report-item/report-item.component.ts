@@ -12,6 +12,8 @@ export class ReportItemComponent extends ModalComponent implements OnInit {
   public options: Array<any>;
   public selectedWhereOption: any;
   public selectedWhatOption: any;
+  public comments: any;
+  public submitted: boolean;
 
   constructor(modalService: ModalService, router: Router) { super(modalService, router)}
 
@@ -175,7 +177,10 @@ export class ReportItemComponent extends ModalComponent implements OnInit {
 
     this.selectedWhereOption = this.options[0];
     this.selectedWhatOption = this.options[0].options[0];
+  }
 
+  onSubmit(){
+    this.submitted = true;
   }
 
 }

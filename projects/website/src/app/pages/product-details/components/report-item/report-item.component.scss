@@ -1,3 +1,5 @@
+@import 'theme';
+
 .window {
     width: 320px;
     height: 340px;
@@ -25,4 +27,28 @@ select:disabled {
 .gold-button, .gray-button {
     margin: 10px;
     float: right;
+}
+.done-button {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    clear: right;
+}
+textarea {
+    width: 288px;
+    height: 100px;
+    resize: none;
+    border: 1px solid #393939;
+    background-color: #282828;
+    color: white;
+    border-radius: 5px;
+    margin-left: 10px;
+    padding: 5px;
+    outline: none;
+    overflow: auto;
+    font-family: Arial, Helvetica, sans-serif;
+}
+h2 {
+    margin: 20px 10px;
+    color: $gold;
 }
