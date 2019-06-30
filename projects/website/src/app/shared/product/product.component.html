@@ -2,7 +2,7 @@
 
   <!-- Image Container -->
   <div class="img-container">
-    <img *ngIf="product.image" [src]="'/Images/' + product.image">
+    <div class="img" [style.background-image]="'url(/Images/' + product.image + ')'"></div>
   </div>
 
   <!-- Quick Look -->

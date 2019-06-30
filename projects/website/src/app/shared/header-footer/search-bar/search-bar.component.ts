@@ -15,12 +15,12 @@ export class SearchBarComponent implements OnInit {
   private queryParams: any;
   @ViewChild('tmpSelect') tmpSelect: ElementRef;
   @ViewChild('select') select: ElementRef;
-  
+
 
   constructor(private dataService: DataService, private router: Router, private route: ActivatedRoute) { }
 
-  ngAfterViewChecked() {
-    this.select.nativeElement.style.width = this.tmpSelect.nativeElement.offsetWidth + 'px';
+  ngAfterViewInit() {
+    this.setSelectElementWidth();
   }
 
   ngOnInit() {
@@ -70,12 +70,27 @@ export class SearchBarComponent implements OnInit {
   }
 
 
-  onSearchButtonClick(query, category) {
+  setQuery(query) {
     if (query !== '') {
-      this.router.navigate(['/search'], { queryParams: category > -1 ? { 'query': query, 'category': category } : { 'query': query } });
+      this.router.navigate(['/search'], { queryParams: this.selectedCategory.id > -1 ? { 'query': query, 'category': this.selectedCategory.id } : { 'query': query } });
     }
   }
   onImageClick() {
     this.router.navigate(['/']);
+  }
+
+  setSelectElementWidth() {
+    let interval = window.setInterval(() => {
+      if (this.select.nativeElement.offsetWidth !== this.tmpSelect.nativeElement.offsetWidth) {
+        this.select.nativeElement.style.width = this.tmpSelect.nativeElement.offsetWidth + 'px';
+        clearInterval(interval);
+      }
+    }, 1);
+  }
+
+  onSearchKeydown(event, query) {
+    if (event.code === 'NumpadEnter' || event.code === 'Enter' || event.keyCode === 13) {
+      this.setQuery(query);
+    }
   }
 }

@@ -14,23 +14,22 @@
             (click)="menu.showMenu = !menu.showMenu">
             <i class="fas fa-bars" style="margin-right: 8px"></i>
             <span class="categories-text">Categories</span>
-            <menu #menu (click)="$event.stopPropagation()" [categories]="categories"></menu>
+            <menu #menu (click)="$event.stopPropagation()" [categories]="categories" (categoryClick)="setSelectElementWidth()"></menu>
         </div>
         <div class="search-container">
-            <form (ngSubmit)="onSearchButtonClick(search.value, selectedCategory.id)" style="display: flex">
-                <select #select [(ngModel)]="selectedCategory" name="categories">
-                    <option *ngFor="let category of searchCategories" [ngValue]="category">{{category.name}}
-                    </option>
+            <div style="display: flex">
+                <select #select [(ngModel)]="selectedCategory" name="categories" (change)="setSelectElementWidth()">
+                    <option *ngFor="let category of searchCategories" [ngValue]="category">{{category.name}}</option>
                 </select>
                 <div class="input-container" style="flex: 1">
-                    <input #search type="text" placeholder="Search" [value]="query">
+                    <input #search type="text" placeholder="Search" [value]="query" (keydown)="onSearchKeydown($event, search.value)">
                 </div>
                 <div class="search-button-container">
-                    <div class="search-button" (click)="onSearchButtonClick(search.value, selectedCategory.id)">
+                    <div class="search-button" (click)="setQuery(search.value)">
                         <i class="fas fa-search"></i>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 

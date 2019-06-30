@@ -166,7 +166,7 @@ export class ReportItemComponent extends ModalComponent implements OnInit {
             value: 'inactive'
           },
           {
-            name: 'Publisher\'s site is missing/down' ,
+            name: 'Publisher\'s site is down' ,
             value: 'site-down'
           }
         ]

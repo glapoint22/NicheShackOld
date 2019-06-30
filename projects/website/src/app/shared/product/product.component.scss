@@ -13,16 +13,14 @@
 .product:hover > .quick-look {
     visibility: visible;
 }
-.img-container{
-    height: 320px;
-    line-height: 320px;
-    
-    img{
-        width:auto;
-        height:auto;
-        max-width: 300px;
-        max-height: 300px;
-        vertical-align: middle;
+.img-container {
+    margin: 10px 0;
+    .img {
+        width: 300px;
+        height: 300px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
     }
 }
 .quick-look {
