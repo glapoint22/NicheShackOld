@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { DataService } from 'src/app/services/data/data.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -13,8 +13,15 @@ export class SearchBarComponent implements OnInit {
   public searchCategories: Array<any> = []
   public selectedCategory: any = {};
   private queryParams: any;
+  @ViewChild('tmpSelect') tmpSelect: ElementRef;
+  @ViewChild('select') select: ElementRef;
+  
 
   constructor(private dataService: DataService, private router: Router, private route: ActivatedRoute) { }
+
+  ngAfterViewChecked() {
+    this.select.nativeElement.style.width = this.tmpSelect.nativeElement.offsetWidth + 'px';
+  }
 
   ngOnInit() {
     this.route.queryParamMap.subscribe(queryParams => {

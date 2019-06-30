@@ -7,10 +7,8 @@
 
     <div style="display:flex;">
       <!-- Media -->
-      <div *ngIf="product.media.length > 0" class="media-container" [style.width.px]="product.media.length > 5 ? 105 : 88">
-        <div *ngFor="let media of product.media; let i = index" class="media-thumbnail" [style.background-image]="'url('+ media.thumbnail + ')'" (click)="onClick(i)">
-          <i class="far fa-play-circle"></i>
-        </div>
+      <div *ngIf="product.media.length > 0">
+        <media-group [media]="product.media" [productName]="modalService.quickLook.product.name"></media-group>
       </div>
 
       <!-- Product Image -->
@@ -56,9 +54,9 @@
         </div>
 
         <div>
-          <div class="gold-button">
+          <button class="gold-button">
             View Details
-          </div>
+          </button>
         </div>
       </div>
     </div>

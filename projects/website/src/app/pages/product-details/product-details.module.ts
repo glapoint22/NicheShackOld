@@ -8,6 +8,8 @@ import { StarsModule } from '../../shared/stars/stars.module';
 import { ProductsSliderModule } from '../../shared/products-slider/products-slider.module';
 import { QuickLookModule } from '../../shared/quick-look/quick-look.module';
 import { MediaViewerModule } from '../../shared/media-viewer/media-viewer.module';
+import { MediaGroupModule } from '../../shared/media-group/media-group.module';
+import { ProductDetailsComponentsModule } from './components/product-details-components.module';
 
 @NgModule({
   declarations: [ProductDetailsComponent],
@@ -18,7 +20,9 @@ import { MediaViewerModule } from '../../shared/media-viewer/media-viewer.module
     StarsModule,
     ProductsSliderModule,
     QuickLookModule,
-    MediaViewerModule
+    MediaViewerModule,
+    MediaGroupModule,
+    ProductDetailsComponentsModule
   ]
 })
 export class ProductDetailsModule { }

@@ -1,0 +1,45 @@
+<div class="modal-background" (click)="close()">
+  <div class="window" (click)="stopPropagation($event)">
+    <div class="title-bar">
+      <div class="title">Report this item</div>
+      <div class="close-button" (click)="close()" title="Close">
+        <i class="fas fa-times"></i>
+      </div>
+    </div>
+    <div class="caption">
+      Please tell us about the issue.
+    </div>
+
+    <select [(ngModel)]="selectedWhereOption" style="margin-bottom: 15px;" (change)="selectedWhatOption = selectedWhereOption.options[0]">
+      <option *ngFor="let whereOption of options" [ngValue]="whereOption">{{whereOption.name}}</option>
+    </select>
+
+    <select [(ngModel)]="selectedWhatOption" [disabled]="selectedWhereOption.name == 'Where is the issue?'">
+      <option *ngFor="let whatOption of selectedWhereOption.options" [ngValue]="whatOption">{{whatOption.name}}</option>
+    </select>
+
+    <div class="caption">
+      Comments (optional)
+    </div>
+
+    <textarea rows="0" cols="0" style="width: 288px;
+    height: 100px;
+    resize: none;
+    border: 1px solid #393939;
+    background-color: #282828;
+    color: white;
+    border-radius: 5px;
+    margin-left: 10px;
+    padding: 5px;
+    outline: none;"></textarea>
+
+    <button class="gold-button" [disabled]="selectedWhatOption.name === 'What is the issue?'">
+      Submit
+    </button>
+
+    <button class="gray-button" (click)="close()">
+      Cancel
+    </button>
+
+  </div>
+</div>

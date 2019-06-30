@@ -4,10 +4,8 @@
   <div class="container">
     <div class="product-container">
       <!-- Media -->
-      <div *ngIf="product.media.length > 0" class="media-container" [style.width.px]="product.media.length > 5 ? 105 : 88">
-        <div *ngFor="let media of product.media; let i = index" class="media-thumbnail" [style.background-image]="'url('+ media.thumbnail + ')'" (click)="onClick(i)">
-          <i class="far fa-play-circle"></i>
-        </div>
+      <div *ngIf="product.media.length > 0">
+        <media-group [media]="product.media" [productName]="product.name"></media-group>
       </div>
 
       <div style="margin: auto; display: flex">
@@ -47,9 +45,9 @@
             </div>
           </div>
 
-          <div style="margin: 10px 0;" class="gold-button" (click)="onPublisherButtonClick()">
+          <button style="margin: 10px 0;" class="gold-button" (click)="onPublisherButtonClick()">
             Visit Publisher’s Page To Buy
-          </div>
+          </button>
 
 
           <!-- Description -->
@@ -68,7 +66,7 @@
           </div>
 
           <!-- Report item -->
-          <div class="purple-link" style="float: right;">
+          <div class="purple-link" style="float: right;" (click)="modalService.reportItem.show = true">
             <i style="margin-right: 5px;" class="fas fa-flag"></i>
             Report this item
           </div>
@@ -127,9 +125,9 @@
           
 
           <div class="review-button-container">
-            <div class="gold-button">
+            <button class="gold-button">
               Write a Review
-            </div>
+            </button>
           </div>
         </div>
 
@@ -223,5 +221,6 @@
     <footer></footer>
   </div>
 </div>
+<report-item *ngIf="modalService.reportItem.show"></report-item>
 <quick-look *ngIf="modalService.quickLook.show && !modalService.mediaViewer.show"></quick-look>
 <media-viewer *ngIf="modalService.mediaViewer.show"></media-viewer>

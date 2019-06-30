@@ -18,8 +18,6 @@
     position: relative;
     overflow: hidden;
     white-space: nowrap;
-    border: 1px solid #2f2f2f;
-    border-top: none;
     display: flex;
 }
 iframe{
@@ -30,6 +28,14 @@ iframe{
     height: 100%;
     background: $background-color;
 }
+.modal-background {
+    .title {
+        font-size: 20px;
+        text-align: center;
+        margin: 0;
+    }
+}
+
 @media screen and (max-width: 800px) {
     .media-container{
         height: 75vw; 

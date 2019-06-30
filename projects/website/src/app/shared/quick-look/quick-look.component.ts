@@ -16,7 +16,7 @@ export class QuickLookComponent extends ModalComponent implements OnInit {
   ngOnInit() {
     // TODO: Add description and media to product in database
     this.product = {
-      description: this.modalService.quickLook.product.description,
+      // description: this.modalService.quickLook.product.description,
       media: [
         {
           url: '//player.vimeo.com/video/219797629?title=0&byline=0&portrait=0&color=ffffff',
@@ -73,12 +73,5 @@ export class QuickLookComponent extends ModalComponent implements OnInit {
     this.modalServiceObject = this.modalService.quickLook;
     this.isClosable = true;
     super.ngOnInit();
-  }
-
-  onClick(index: number) {
-    this.modalService.mediaViewer.media = this.product.media;
-    this.modalService.mediaViewer.productName = this.modalService.quickLook.product.name;
-    this.modalService.mediaViewer.show = true;
-    this.modalService.mediaViewer.index = index;
   }
 }

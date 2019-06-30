@@ -1,0 +1,28 @@
+.window {
+    width: 320px;
+    height: 340px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    color: white;
+}
+.caption {
+    margin: 12px 0 10px 10px;
+}
+select {
+    width: 300px;
+    border-radius: 4px;
+    border: 1px solid #393939;
+    height: 23px;
+    background: #282828;
+    color: #ffffff;
+    outline: none;
+    margin-left: 10px;
+}
+
+select:disabled {
+    color: #505050;
+}
+.gold-button, .gray-button {
+    margin: 10px;
+    float: right;
+}

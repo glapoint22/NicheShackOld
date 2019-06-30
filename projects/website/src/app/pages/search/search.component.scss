@@ -97,9 +97,9 @@ select{
     outline: none;
     @include shadow();
 }
-option::selection {
-    color: red;
-}
+// option::selection {
+//     color: red;
+// }
 .dropdown-container{
     position: absolute;
     display: inline;

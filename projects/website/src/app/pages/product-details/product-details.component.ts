@@ -176,12 +176,6 @@ export class ProductDetailsComponent implements OnInit {
     return priceIndices.some(x => x == index);
   }
 
-  onClick(index: number) {
-    this.modalService.mediaViewer.media = this.product.media;
-    this.modalService.mediaViewer.productName = this.product.name;
-    this.modalService.mediaViewer.show = true;
-    this.modalService.mediaViewer.index = index;
-  }
 
   onPublisherButtonClick() {
     window.location.href = this.product.hoplink;

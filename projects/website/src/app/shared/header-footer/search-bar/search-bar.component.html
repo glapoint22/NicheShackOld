@@ -17,29 +17,24 @@
             <menu #menu (click)="$event.stopPropagation()" [categories]="categories"></menu>
         </div>
         <div class="search-container">
-            <form (ngSubmit)="onSearchButtonClick(search.value, selectedCategory.id)" style="display: inline-table">
-                <div class="category-select-container">
-                    <select [style.width.px]="tmpSelect.offsetWidth" [(ngModel)]="selectedCategory" name="categories">
-                        <option *ngFor="let category of searchCategories" [ngValue]="category">{{category.name}}
-                        </option>
-                    </select>
-                </div>
-                <div class="input-container">
+            <form (ngSubmit)="onSearchButtonClick(search.value, selectedCategory.id)" style="display: flex">
+                <select #select [(ngModel)]="selectedCategory" name="categories">
+                    <option *ngFor="let category of searchCategories" [ngValue]="category">{{category.name}}
+                    </option>
+                </select>
+                <div class="input-container" style="flex: 1">
                     <input #search type="text" placeholder="Search" [value]="query">
                 </div>
-                <div class="button-container">
-                    <button type="submit" class="search-button">
+                <div class="search-button-container">
+                    <div class="search-button" (click)="onSearchButtonClick(search.value, selectedCategory.id)">
                         <i class="fas fa-search"></i>
-                    </button>
+                    </div>
                 </div>
             </form>
         </div>
     </div>
 
     <div class="icon-container">
-        <!-- <div class="icon" (click)="onEmailClick()" title="Manage email subscriptions">
-          <i class="fas  fa-lg fa-envelope"></i>
-      </div> -->
         <a routerLink="/about" class="icon" title="About us">
             <i class="fas  fa-lg fa-info-circle"></i>
         </a>

@@ -20,7 +20,7 @@ export class ProductComponent {
     this.product.totalReviews = 9999;
     this.product.minPrice = 37.48;
     this.product.maxPrice = 122.22;
-    this.product.urlTitle = 'fat-loss-activation';
+    // this.product.urlTitle = 'fat-loss-activation';
   }
 
   
