@@ -71,7 +71,6 @@ export class QuickLookComponent extends ModalComponent implements OnInit {
       ]
     }
     this.modalServiceObject = this.modalService.quickLook;
-    this.isClosable = true;
     super.ngOnInit();
   }
 }

@@ -7,7 +7,6 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class ModalComponent {
   public modalServiceObject: any;
-  public isClosable: boolean;
 
   constructor(public modalService: ModalService, public router: Router) { }
 
@@ -21,14 +20,11 @@ export class ModalComponent {
   }
 
   ngOnDestroy() {
-    // if (!this.modalService.isHoplink) {
       document.body.style.overflow = 'visible';
-    // }
-    // this.modalService.isHoplink = false;
   }
 
   close() {
-    if (this.isClosable) this.modalServiceObject.show = false;
+    this.modalServiceObject.show = false;
   }
 
   stopPropagation(event): void {

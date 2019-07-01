@@ -204,7 +204,7 @@
             <span class="rating-text">{{review.dislike}}</span>
           </span>
 
-          <span class="purple-link" style="margin-left: 20px;">
+          <span class="purple-link" style="margin-left: 20px;" (click)="this.modalService.reportReview.show = true;">
             <i style="margin-right: 5px;" class="fas fa-flag"></i>
             Report this review
           </span>
@@ -219,7 +219,9 @@
     <footer></footer>
   </div>
 </div>
+<report-review *ngIf="modalService.reportReview.show"></report-review>
 <report-item *ngIf="modalService.reportItem.show"></report-item>
 <add-to-list *ngIf="modalService.addToList.show" [product]="product"></add-to-list>
+<create-list *ngIf="modalService.createList.show"></create-list>
 <quick-look *ngIf="modalService.quickLook.show && !modalService.mediaViewer.show"></quick-look>
 <media-viewer *ngIf="modalService.mediaViewer.show"></media-viewer>

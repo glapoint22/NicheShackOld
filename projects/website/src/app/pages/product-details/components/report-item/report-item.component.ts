@@ -1,25 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalComponent } from 'src/app/components/modal/modal.component';
-import { ModalService } from 'src/app/services/modal/modal.service';
-import { Router } from '@angular/router';
+import { DialogBoxComponent } from 'projects/website/src/app/shared/dialog-box/dialog-box.component';
 
 @Component({
   selector: 'report-item',
   templateUrl: './report-item.component.html',
-  styleUrls: ['./report-item.component.scss']
+  styleUrls: ['../../../../shared/dialog-box/dialog-box.component.scss']
 })
-export class ReportItemComponent extends ModalComponent implements OnInit {
+export class ReportItemComponent extends DialogBoxComponent implements OnInit {
   public options: Array<any>;
   public selectedWhereOption: any;
   public selectedWhatOption: any;
   public comments: any;
-  public submitted: boolean;
-
-  constructor(modalService: ModalService, router: Router) { super(modalService, router)}
 
   ngOnInit() {
     this.modalServiceObject = this.modalService.reportItem;
-    this.isClosable = true;
     super.ngOnInit();
 
     this.options = [
@@ -179,8 +173,8 @@ export class ReportItemComponent extends ModalComponent implements OnInit {
     this.selectedWhatOption = this.options[0].options[0];
   }
 
-  onSubmit(){
-    this.submitted = true;
+  onSubmit() {
+    // Do stuff
+    super.onSubmit();
   }
-
 }

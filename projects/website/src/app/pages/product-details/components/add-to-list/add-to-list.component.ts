@@ -1,22 +1,49 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ModalComponent } from 'src/app/components/modal/modal.component';
-import { ModalService } from 'src/app/services/modal/modal.service';
-import { Router } from '@angular/router';
+import { DialogBoxComponent } from 'projects/website/src/app/shared/dialog-box/dialog-box.component';
 
 @Component({
   selector: 'add-to-list',
   templateUrl: './add-to-list.component.html',
-  styleUrls: ['./add-to-list.component.scss']
+  styleUrls: ['../../../../shared/dialog-box/dialog-box.component.scss', './add-to-list.component.scss']
 })
-export class AddToListComponent extends ModalComponent implements OnInit {
+export class AddToListComponent extends DialogBoxComponent implements OnInit {
   @Input() product: any;
-
-  constructor(modalService: ModalService, router: Router) { super(modalService, router)}
+  public lists: Array<any>;
+  public selectedList: any = {};
 
   ngOnInit() {
     this.modalServiceObject = this.modalService.addToList;
-    this.isClosable = true;
     super.ngOnInit();
+
+    this.lists = [
+      {
+        name: 'Favorites',
+        id: 'QOGTUMWTSG'
+      },
+      {
+        name: 'Shopping',
+        id: 'KEOFUJWJCE'
+      }
+    ]
+
+    // Add this at the beginning of the list
+    this.lists.unshift({
+      name: 'Select your list',
+      id: ''
+    });
+
+    this.selectedList = this.lists[0];
   }
 
+  createList() {
+    this.modalService.addToList.show = false;
+    this.modalService.createList.show = true;
+    this.modalService.createList.addToListOpen = true;
+    this.close();
+  }
+
+  onSubmit() {
+    // Do stuff
+    super.onSubmit();
+  }
 }

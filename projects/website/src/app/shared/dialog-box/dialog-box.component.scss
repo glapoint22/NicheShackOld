@@ -1,43 +1,39 @@
 @import 'theme';
 
-.window {
-    width: 320px;
-    height: 340px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 13px;
-    color: white;
-}
 .caption {
     margin: 12px 0 10px 10px;
+}
+.text {
+    margin: 20px 5px 0 10px;
+}
+button {
+    margin: 10px;
+    float: right;
+}
+.purple-button {
+    margin: 5px 10px;
+}
+h2 {
+    margin: 20px 10px;
+    color: $gold;
 }
 select {
     width: 300px;
     border-radius: 4px;
     border: 1px solid #393939;
-    height: 23px;
+    height: 24px;
     background: #282828;
     color: #ffffff;
     outline: none;
-    margin-left: 10px;
+    display: block;
+    margin: auto;
+    cursor: pointer;
 }
-
 select:disabled {
     color: #505050;
 }
-.gold-button, .gray-button {
-    margin: 10px;
-    float: right;
-}
-.done-button {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    clear: right;
-}
-textarea {
+textarea, input[type="text"] {
     width: 288px;
-    height: 100px;
-    resize: none;
     border: 1px solid #393939;
     background-color: #282828;
     color: white;
@@ -45,10 +41,10 @@ textarea {
     margin-left: 10px;
     padding: 5px;
     outline: none;
-    overflow: auto;
     font-family: Arial, Helvetica, sans-serif;
 }
-h2 {
-    margin: 20px 10px;
-    color: $gold;
+textarea {
+    height: 100px;
+    resize: none;
+    overflow: auto;
 }

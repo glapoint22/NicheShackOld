@@ -40,6 +40,7 @@
             font-size: 24px;
             color: white;
             word-wrap: break-word;
+            word-break: break-word;
         }
         .rating-container {
             margin-left: 11px;
@@ -73,6 +74,7 @@
             color: white;
             font-size: 15px;
             word-wrap: break-word;
+            word-break: break-word;
             flex: 1;
         }
         .gold-button {

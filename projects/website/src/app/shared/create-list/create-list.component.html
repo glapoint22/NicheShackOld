@@ -1,0 +1,38 @@
+<div class="modal-background" (click)="close()">
+  <div class="window" (click)="stopPropagation($event)">
+
+    <!-- Title Bar -->
+    <div class="title-bar">
+      <div class="title">Create a list</div>
+      <div class="close-button" (click)="close()" title="Close">
+        <i class="fas fa-times"></i>
+      </div>
+    </div>
+
+    <!-- Submitted -->
+    <div *ngIf="submitted; else content">
+      <h2>
+        List Created
+      </h2>
+      <div class="text">
+        {{listName}}
+      </div>
+      <button class="gold-button" (click)="close();">Done</button>
+    </div>
+
+    <!-- Content -->
+    <ng-template #content>
+      <div style="margin: 10px 0 5px 10px;">List Name:</div>
+      <input [(ngModel)]="listName" type="text" style="margin-bottom: 10px;">
+
+      <div style="margin: 10px 0 5px 10px;">Brief Description (optional):</div>
+      <textarea [(ngModel)]="description"></textarea>
+
+
+      <button class="gold-button" (click)="onSubmit()" [disabled]="listName === ''">Submit</button>
+      <button class="gray-button" (click)="close()">Cancel</button>
+    </ng-template>
+
+
+  </div>
+</div>

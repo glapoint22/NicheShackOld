@@ -1,7 +1,7 @@
 <div class="modal-background" (click)="close()">
   <div class="window" (click)="stopPropagation($event)">
     <div class="title-bar">
-      <div class="title">Report this item</div>
+      <div class="title">Report item</div>
       <div class="close-button" (click)="close()" title="Close">
         <i class="fas fa-times"></i>
       </div>
@@ -13,12 +13,11 @@
         <h2>Thank You!</h2>
       </div>
 
-      <div style="margin: 50px 5px 0 10px;
-            font-size: 13px;">
+      <div class="text">
         Your feedback helps us make Niche Shack shopping better for millions of customers.
       </div>
 
-      <button class="gold-button done-button" (click)="close()">Done</button>
+      <button class="gold-button" (click)="close()">Done</button>
     </div>
 
     
@@ -26,7 +25,7 @@
     <!-- Content -->
     <ng-template #content>
       <div class="caption">
-        Please tell us about the issue.
+        Please tell us about the issue:
       </div>
 
       <!-- Where is issue -->
@@ -42,7 +41,7 @@
       </select>
 
       <!-- Comments -->
-      <div class="caption">Comments (optional)</div>
+      <div class="caption">Comments (optional):</div>
       <textarea [(ngModel)]="comments"></textarea>
 
       <!-- Buttons -->

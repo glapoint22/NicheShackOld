@@ -16,7 +16,6 @@ export class SubscriptionFormComponent extends ModalComponent implements OnInit 
   constructor(modalService: ModalService, router: Router, public dataService: DataService) { super(modalService, router) }
 
   ngOnInit() {
-    this.isClosable = true;
     this.modalServiceObject = this.modalService.subscriptionForm;
     super.ngOnInit();
   }

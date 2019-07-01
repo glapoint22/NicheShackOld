@@ -7,20 +7,34 @@
       </div>
     </div>
 
+    <!-- Item added -->
+    <h2 *ngIf="submitted">
+      Item added to {{selectedList.name}}
+    </h2>
+
+    <!-- Image and product title -->
     <div style="display: flex">
       <!-- Product Image -->
       <div class="image-background">
         <div class="img" [style.background-image]="'url(/Images/' + product.image + ')'"></div>
       </div>
 
-      <!-- Title -->
-      <div style="font-size: 16px;
-      margin: 10px 10px 10px 0;
-      flex: 1;">{{product.name}}</div>
-
+      <!-- Product Title -->
+      <div class="product-title">{{product.name}}</div>
     </div>
 
+    <!-- Lists -->
+    <select *ngIf="!submitted" [(ngModel)]="selectedList">
+      <option *ngFor="let list of lists" [ngValue]="list">{{list.name}}</option>
+    </select>
 
+    <!-- Buttons -->
+    <button *ngIf="!submitted" class="gold-button" (click)="onSubmit()" [disabled]="selectedList.name === 'Select your list'">Submit</button>
+    <button *ngIf="!submitted" class="gray-button" (click)="close()">Cancel</button>
+    <div *ngIf="!submitted" class="purple-button" (click)="createList()">Create a List</div>
+
+    <button *ngIf="submitted" class="gold-button" (click)="close()">Done</button>
+    <div *ngIf="submitted" class="purple-button" (click)="modalService.addToList.show=true">View Your List</div>
 
 
   </div>

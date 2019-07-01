@@ -21,7 +21,6 @@ export class MediaViewerComponent extends ModalComponent implements OnInit {
     this.title = this.modalService.mediaViewer.productName;
     this.setCurrentMedia(this.modalService.mediaViewer.index);
     this.modalServiceObject = this.modalService.mediaViewer;
-    this.isClosable = true;
     super.ngOnInit();
   }
 

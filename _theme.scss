@@ -80,6 +80,10 @@ body {
         border: 1px solid #383838;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
+        width: 320px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 13px;
+        color: white;
     }
     @media screen and (max-width: 800px) {
         .title-bar{
@@ -171,6 +175,7 @@ button:disabled {
     cursor: pointer;
     min-width: 70px;
     text-align: center;
+    user-select: none;
 }
 .purple-button:active {
     background-color: #3b002c;

@@ -10,6 +10,8 @@ import { QuickLookModule } from '../../shared/quick-look/quick-look.module';
 import { MediaViewerModule } from '../../shared/media-viewer/media-viewer.module';
 import { MediaGroupModule } from '../../shared/media-group/media-group.module';
 import { ProductDetailsComponentsModule } from './components/product-details-components.module';
+import { CreateListModule } from '../../shared/create-list/create-list.module';
+import { ReportReviewModule } from '../../shared/report-review/report-review.module';
 
 @NgModule({
   declarations: [ProductDetailsComponent],
@@ -22,7 +24,9 @@ import { ProductDetailsComponentsModule } from './components/product-details-com
     QuickLookModule,
     MediaViewerModule,
     MediaGroupModule,
-    ProductDetailsComponentsModule
+    ProductDetailsComponentsModule,
+    CreateListModule,
+    ReportReviewModule
   ]
 })
 export class ProductDetailsModule { }

@@ -9,4 +9,6 @@ export class ModalService {
   public subscriptionForm: any = {};
   public reportItem: any = {};
   public addToList: any = {};
+  public createList: any = {};
+  public reportReview: any = {};
 }
