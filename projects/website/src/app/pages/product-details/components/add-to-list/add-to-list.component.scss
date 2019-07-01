@@ -1,0 +1,29 @@
+@import 'theme';
+
+.window {
+    width: 320px;
+    height: 340px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    color: white;
+}
+.image-background {
+    width: 150px;
+    height: 150px;
+    background: #181818;
+    border: 1px solid #292929;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 50% 50%;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.img {
+    width: 130px;
+    height: 130px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 50% 50%;
+}

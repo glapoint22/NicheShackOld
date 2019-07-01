@@ -1,0 +1,27 @@
+<div class="modal-background" (click)="close()">
+  <div class="window" (click)="stopPropagation($event)">
+    <div class="title-bar">
+      <div class="title">Add to list</div>
+      <div class="close-button" (click)="close()" title="Close">
+        <i class="fas fa-times"></i>
+      </div>
+    </div>
+
+    <div style="display: flex">
+      <!-- Product Image -->
+      <div class="image-background">
+        <div class="img" [style.background-image]="'url(/Images/' + product.image + ')'"></div>
+      </div>
+
+      <!-- Title -->
+      <div style="font-size: 16px;
+      margin: 10px 10px 10px 0;
+      flex: 1;">{{product.name}}</div>
+
+    </div>
+
+
+
+
+  </div>
+</div>

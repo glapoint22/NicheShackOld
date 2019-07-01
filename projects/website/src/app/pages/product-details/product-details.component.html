@@ -56,9 +56,7 @@
           </div>
 
           <!-- Add to list button -->
-          <div class="purple-button">
-            Add to List
-          </div>
+          <div class="purple-button" (click)="modalService.addToList.show=true">Add to List</div>
 
           <!-- Share button -->
           <div style="margin-left: 25px;" class="purple-button">
@@ -222,5 +220,6 @@
   </div>
 </div>
 <report-item *ngIf="modalService.reportItem.show"></report-item>
+<add-to-list *ngIf="modalService.addToList.show" [product]="product"></add-to-list>
 <quick-look *ngIf="modalService.quickLook.show && !modalService.mediaViewer.show"></quick-look>
 <media-viewer *ngIf="modalService.mediaViewer.show"></media-viewer>

@@ -8,4 +8,5 @@ export class ModalService {
   public quickLook: any = {};
   public subscriptionForm: any = {};
   public reportItem: any = {};
+  public addToList: any = {};
 }
