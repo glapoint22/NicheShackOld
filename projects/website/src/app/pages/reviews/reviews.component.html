@@ -1,0 +1,156 @@
+<div class="background-container">
+  <!-- Search Bar -->
+  <search-bar></search-bar>
+
+  <div class="reviews-container">
+    <div class="header">Customer Reviews</div>
+
+    <div class="product-container">
+      <!-- Image -->
+      <div class="image-background">
+        <img [src]="'/Images/' + product.image">
+      </div>
+
+      <!-- Product Info -->
+      <div class="product-info-container">
+
+        <!-- Title -->
+        <div class="product-title">
+          {{product.name}}
+        </div>
+
+        <!-- Price -->
+        <div class="price">
+          <div *ngIf="product.maxPrice === 0">
+            {{product.minPrice | currency:'USD'}}
+          </div>
+          <div *ngIf="product.maxPrice > 0">
+            {{product.minPrice | currency:'USD'}} -
+            {{product.maxPrice | currency:'USD'}}
+          </div>
+        </div>
+
+
+        <!-- Review summary -->
+        <div class="review-summary-container">
+          <review-summary [product]="product"></review-summary>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Positive & Negagive Reviews -->
+    <div class="positive-negative-container">
+
+
+      <!-- Postive Review -->
+      <div class="helpful-review">
+
+        <!-- Header -->
+        <div class="helpful-review-header">
+          Most helpful positive review
+        </div>
+
+        <!-- Likes -->
+        <div class="likes">
+          {{product.positiveReview.likes}} customers found this helpful
+        </div>
+
+        <!-- Stars and review title -->
+        <div style="margin-bottom: 4px;">
+          <stars [rating]="product.positiveReview.rating"></stars>
+          <span class="review-title-text">
+            {{product.positiveReview.title}}
+          </span>
+        </div>
+
+
+        <!-- Username, date, verified purchase -->
+        <div style="margin-bottom: 4px;">
+          {{product.positiveReview.username}}
+        </div>
+
+        <div style="margin-bottom: 4px;">
+          {{product.positiveReview.date}}
+        </div>
+
+        <div *ngIf="product.positiveReview.isVerified" class="verified-text">
+          Verified Purchase
+        </div>
+
+
+        <!-- Review text -->
+        <div class="review-text-container">
+          {{product.positiveReview.text}}
+        </div>
+      </div>
+
+
+
+      <!-- Negative Review -->
+      <div class="helpful-review">
+
+
+        <!-- Header -->
+        <div class="helpful-review-header">
+          Most helpful negative review
+        </div>
+
+        <!-- Likes -->
+        <div class="likes">
+          {{product.negativeReview.likes}} customers found this helpful
+        </div>
+
+        <!-- Stars and review title -->
+        <div style="margin-bottom: 4px;">
+          <stars [rating]="product.negativeReview.rating"></stars>
+          <span class="review-title-text">
+            {{product.negativeReview.title}}
+          </span>
+        </div>
+
+
+        <!-- Username, date, verified purchase -->
+        <div style="margin-bottom: 4px;">
+          {{product.negativeReview.username}}
+        </div>
+
+        <div style="margin-bottom: 4px;">
+          {{product.negativeReview.date}}
+        </div>
+
+        <div *ngIf="product.negativeReview.isVerified" class="verified-text">
+          Verified Purchase
+        </div>
+
+
+        <!-- Review Text -->
+        <div class="review-text-container">
+          {{product.negativeReview.text}}
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="review-count">
+        Showing 1-{{product.reviews.length}} of {{product.totalReviews | number}} reviews
+    </div>
+
+    <div *ngFor="let review of product.reviews">
+      <review [review]="review"></review>
+    </div>
+
+
+
+
+  </div>
+
+
+  <!-- Footer -->
+  <div style="margin-top: 134px;">
+    <footer></footer>
+  </div>
+</div>
+
+<report-review *ngIf="modalService.reportReview.show"></report-review>

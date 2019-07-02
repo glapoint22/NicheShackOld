@@ -12,6 +12,8 @@ import { MediaGroupModule } from '../../shared/media-group/media-group.module';
 import { ProductDetailsComponentsModule } from './components/product-details-components.module';
 import { CreateListModule } from '../../shared/create-list/create-list.module';
 import { ReportReviewModule } from '../../shared/report-review/report-review.module';
+import { ReviewModule } from '../../shared/review/review.module';
+import { ReviewSummaryModule } from '../../shared/review-summary/review-summary.module';
 
 @NgModule({
   declarations: [ProductDetailsComponent],
@@ -26,7 +28,9 @@ import { ReportReviewModule } from '../../shared/report-review/report-review.mod
     MediaGroupModule,
     ProductDetailsComponentsModule,
     CreateListModule,
-    ReportReviewModule
+    ReportReviewModule,
+    ReviewModule,
+    ReviewSummaryModule
   ]
 })
 export class ProductDetailsModule { }

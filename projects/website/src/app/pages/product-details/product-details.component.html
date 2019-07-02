@@ -102,118 +102,31 @@
     <div class="ratings-container">
       <div [innerHtml]="product.rating > 0 ? 'Customer Reviews' : 'No Customer Reviews'" class="caption"></div>
 
-      <div class="flex-container">
+      <!-- Review Summary -->
+      <review-summary [product]="product"></review-summary>
 
-        <!-- Stars and rating -->
-        <div class="stars-container" [style.margin]="product.rating == 0 ? 'auto' : 'none'">
 
-          <div *ngIf="product.rating > 0">
-              <span class="rating">{{product.rating | number:'1.1-1'}}</span>
-              <span class="star-review-container">
-                <stars [rating]="product.rating"></stars>
-                <div class="reviews-text" style="margin-top: 5px">
-                  {{product.totalReviews | number}} reviews
-                </div>
-              </span>
-          </div>
-
-          <div *ngIf="product.rating == 0" class="first-review">
-              Be the first to review this item!
-          </div>
-          
-
-          <div class="review-button-container">
-            <button class="gold-button">
-              Write a Review
-            </button>
-          </div>
-        </div>
-
-        <!-- Bars -->
-        <div *ngIf="product.rating > 0" style="flex: 1">
-          <div *ngFor="let stat of product.reviewStats; let i = index" class="bar-container">
-            <div class="star-text">{{stat.name}}</div>
-            <div class="bar-base" [style.marginLeft.px]="i == 4 ? 12 : 5">
-              <div class="bar" [style.width.px]="stat.percentage * 200"></div>
-            </div>
-
-            <div class="percent-text">
-              {{(stat.percentage * 100)}}%
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
 
 
     <!-- Reviews -->
     <div *ngIf="product.rating > 0" class="reviews">
-      <div style="font-size: 16px; margin: 20px 0;">
+      <div class="review-count">
         Showing 1-{{product.reviews.length}} of {{product.totalReviews | number}} reviews
       </div>
 
       <!-- View all reviews button -->
-      <div *ngIf="product.totalReviews > 10" class="purple-button" style="margin-bottom: 20px;">
+      <div *ngIf="product.totalReviews > 10" class="purple-button" style="margin-bottom: 20px;" (click)="onViewAllReviewsClick()">
         View all {{product.totalReviews | number}} reviews
       </div>
 
       <!-- Review -->
-      <div *ngFor="let review of product.reviews" class="review">
-
-        <!-- Stars and review title -->
-        <div style="margin-bottom: 4px;">
-          <stars [rating]="review.rating"></stars>
-          <span class="review-title-text">
-            {{review.title}}
-          </span>
-        </div>
-
-
-        <!-- Username, date, verified purchase -->
-        <div style="margin-bottom: 4px;">
-          {{review.username}}
-        </div>
-
-        <div style="margin-bottom: 4px;">
-          {{review.date}}
-        </div>
-
-        <div *ngIf="review.isVerified" class="verified-text">
-          Verified Purchase
-        </div>
-
-        <!-- review text -->
-        <div class="review-text-container">
-          {{review.text}}
-        </div>
-
-        <!-- Review helpful text -->
-        <span *ngIf="!review.hasBeenRated" class="review-helpful-text">
-          Was this review helpful?
-        </span>
-        
-        <span *ngIf="review.hasBeenRated" style="color: #00de00">
-            <i class="fas fa-check"></i> Thanks for your feedback.
-        </span>
-
-        <!-- Review rating container -->
-        <span class="review-rating-container">
-          <span *ngIf="!review.hasBeenRated" class="thumb-container" (click)="onRateReviewClick(1, review)">
-            <i class="fas fa-thumbs-up"></i>
-            <span class="rating-text">{{review.like}}</span>
-          </span>
-
-          <span *ngIf="!review.hasBeenRated" class="thumb-container" (click)="onRateReviewClick(-1, review)">
-            <i class="fas fa-thumbs-down"></i>
-            <span class="rating-text">{{review.dislike}}</span>
-          </span>
-
-          <span class="purple-link" style="margin-left: 20px;" (click)="this.modalService.reportReview.show = true;">
-            <i style="margin-right: 5px;" class="fas fa-flag"></i>
-            Report this review
-          </span>
-        </span>
+      <div *ngFor="let review of product.reviews">
+        <review [review]="review"></review>
       </div>
+
+
+
     </div>
   </div>
 

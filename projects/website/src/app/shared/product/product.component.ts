@@ -47,6 +47,8 @@ export class ProductComponent {
     //   this.modalService.subscriptionForm.product = this.product;
     //   this.modalService.subscriptionForm.show = true;
     // }
+
+    // Todo: make urlName
     this.router.navigate([this.product.name]);
   }
 

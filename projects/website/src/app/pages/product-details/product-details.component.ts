@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ModalService } from 'src/app/services/modal/modal.service';
 
 @Component({
@@ -11,10 +11,10 @@ export class ProductDetailsComponent implements OnInit {
   public product: any = {};
 
 
-  constructor(private activatedRoute: ActivatedRoute, public modalService: ModalService) { }
+  constructor(private route: ActivatedRoute, public modalService: ModalService, private router: Router) { }
 
   ngOnInit() {
-    this.activatedRoute.data.subscribe(data => {
+    this.route.data.subscribe(data => {
       let body = document.scrollingElement || document.documentElement;
 
       //Scroll to top
@@ -153,8 +153,8 @@ export class ProductDetailsComponent implements OnInit {
           date: 'Jun 27, 2019',
           isVerified: true,
           text: 'I heard the hype of this game for years and years. Obviously it is regarded highly in the community, but by the time I bought a PS4 it was a bit old. I can only say that this game aged exceptionally well. It still looks great, the gameplay is fun and engaging, but why I came to write this review is the story. HANDS DOWN, the BEST story to any game I\'ve ever played. The characters and their personalities are just perfect. The voice acting, the mannerisms of the characters during gameplay depending on the mood, the cut scenes. They are all just brilliantly done. If for no other reason, buy this game just for the story. For the price it\'s at now, it\'s a steal. This is a game you HAVE to experience. I\'ve never felt so strongly toward the characters of a game. It was more along the lines of reading a book or watching a movie. I urge you to give this game a play through, you won\'t regret it.',
-          like: 10,
-          dislike: 2
+          likes: 10,
+          dislikes: 2
         },
         {
           title: 'Don\'t buy this!',
@@ -163,8 +163,8 @@ export class ProductDetailsComponent implements OnInit {
           date: 'May 22, 2019',
           isVerified: false,
           text: 'This is the worst product I have ever bought. If you want to be dissapointed, then go ahead and buy the stupid thing. It is junk and worthless!',
-          like: 0,
-          dislike: 6
+          likes: 0,
+          dislikes: 6
         }
       ]
 
@@ -181,8 +181,8 @@ export class ProductDetailsComponent implements OnInit {
     window.location.href = this.product.hoplink;
   }
 
-  onRateReviewClick(rating: number, review: any) {
-    review.hasBeenRated = true;
+  onViewAllReviewsClick() {
+    this.router.navigate(['/reviews/' + this.product.name]);
   }
 
 }

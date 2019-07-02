@@ -26,10 +26,15 @@ const routes: Routes = [
     loadChildren: './pages/email-preferences/email-preferences.module#EmailPreferencesModule'
   },
   {
+    path: 'reviews/:product',
+    loadChildren: './pages/reviews/reviews.module#ReviewsModule'
+  },
+  {
     path: ':product',
     loadChildren: './pages/product-details/product-details.module#ProductDetailsModule',
     resolve: {product : ProductGuard}
   },
+  
   { path: '**', component: PageNotFoundComponent }
 ];
 

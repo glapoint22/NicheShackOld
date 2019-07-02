@@ -1,0 +1,40 @@
+<div class="main-container">
+  <!-- Stars and rating -->
+  <div class="stars-container" [style.margin]="product.rating == 0 ? 'auto' : 'none'">
+
+    <div *ngIf="product.rating > 0">
+      <span class="rating">{{product.rating | number:'1.1-1'}}</span>
+      <span class="star-review-container">
+        <stars [rating]="product.rating"></stars>
+        <div class="reviews-text" style="margin-top: 5px">
+          {{product.totalReviews | number}} reviews
+        </div>
+      </span>
+    </div>
+
+    <div *ngIf="product.rating == 0" class="first-review">
+      Be the first to review this item!
+    </div>
+
+
+    <div class="review-button-container">
+      <button class="gold-button">
+        Write a Review
+      </button>
+    </div>
+  </div>
+
+  <!-- Bars -->
+  <div *ngIf="product.rating > 0" style="flex: 1">
+    <div *ngFor="let stat of product.reviewStats; let i = index" class="bar-container">
+      <div class="star-text">{{stat.name}}</div>
+      <div class="bar-base" [style.marginLeft.px]="i == 4 ? 12 : 5">
+        <div class="bar" [style.width.px]="stat.percentage * 200"></div>
+      </div>
+
+      <div class="percent-text">
+        {{(stat.percentage * 100)}}%
+      </div>
+    </div>
+  </div>
+</div>

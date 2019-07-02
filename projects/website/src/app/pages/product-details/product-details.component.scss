@@ -118,65 +118,6 @@ table {
         text-align: center;
         margin-bottom: 10px;
     }
-    .flex-container {
-        width: 100%;
-        display: flex;
-        .stars-container {
-            width: 200px;
-            position: relative;
-            .rating {
-                font-size: 50px;
-                color: $gold;
-                font-weight: bold;
-            }
-            .star-review-container {
-                position: absolute;
-                top: 9px;
-                margin-left: 8px;
-                text-align: center;
-            }
-            .review-button-container {
-                margin: auto;
-                text-align:center;
-                margin-top: 24px;
-            }
-            .first-review {
-                color: $color5;
-                font-size: 14px;
-                text-align: center;
-            }
-        }
-        .bar-container {
-            height: 15px;
-            line-height: 15px;
-            margin-bottom: 5px;
-            margin-top: 7px;
-            .star-text {
-                font-size: 14px;
-                color: white;
-                display: inline-block;
-            }
-            .bar-base {
-                width: 200px;
-                height: 15px;
-                background: #333333;
-                display: inline-block;
-                vertical-align: middle;
-                border-radius: 10px;
-                .bar {
-                    height: 15px;
-                    background: $gold;
-                    border-radius: 10px;
-                }
-            }
-            .percent-text {
-                display: inline-block;
-                color: white;
-                font-size: 14px;
-                margin-left: 5px;
-            }
-        }
-    }
 }
 .first-review-link {
     color: $color5;
@@ -194,42 +135,8 @@ table {
     border-top: 1px solid #3d3d3d;
     color: #ececec;
     font-size: 14px;
-    .review {
-        border-bottom: 1px solid #3d3d3d;
-        padding-bottom: 20px;
-        margin-top: 20px;
-        .review-title-text {
-            font-size: 16px;
-            font-weight: bold;
-            margin-left: 5px;
-        }
-        .verified-text {
-            font-size: 12px;
-            color: $color1;
-        }
-        .review-text-container {
-            margin: 20px 0;
-            width: 680px;
-        }
-        .review-helpful-text {
-            color: $gold;
-        }
-        .review-rating-container {
-            color: $color1;
-            font-size: 16px;
-            margin-left: 10px;
-            .thumb-container {
-                cursor: pointer;
-                .rating-text {
-                    font-size: 14px;
-                    color: #ececec;
-                    margin-left: 4px;
-                }
-            }
-            .thumb-container:nth-child(2) {
-                margin-left: 20px;
-            }
-        }
-        
+    .review-count {
+        font-size: 16px;
+        margin: 20px 0;
     }
 }

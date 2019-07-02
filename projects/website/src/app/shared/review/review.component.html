@@ -1,0 +1,57 @@
+<div class="review">
+  
+  <!-- Stars and review title -->
+  <div style="margin-bottom: 4px;">
+    <stars [rating]="review.rating"></stars>
+    <span class="review-title-text">
+      {{review.title}}
+    </span>
+  </div>
+
+
+  <!-- Username, date, verified purchase -->
+  <div style="margin-bottom: 4px;">
+    {{review.username}}
+  </div>
+
+  <div style="margin-bottom: 4px;">
+    {{review.date}}
+  </div>
+
+  <div *ngIf="review.isVerified" class="verified-text">
+    Verified Purchase
+  </div>
+
+  <!-- review text -->
+  <div class="review-text-container">
+    {{review.text}}
+  </div>
+
+  <!-- Review helpful text -->
+  <span *ngIf="!review.hasBeenRated" class="review-helpful-text">
+    Was this review helpful?
+  </span>
+
+  <!-- Thanks for feedback text -->
+  <span *ngIf="review.hasBeenRated" style="color: #00de00">
+    <i class="fas fa-check"></i> Thanks for your feedback.
+  </span>
+
+  <!-- Review rating container -->
+  <span class="review-rating-container">
+    <span *ngIf="!review.hasBeenRated" class="thumb-container" (click)="onRateReviewClick(1, review)">
+      <i class="fas fa-thumbs-up"></i>
+      <span class="rating-text">{{review.likes}}</span>
+    </span>
+
+    <span *ngIf="!review.hasBeenRated" class="thumb-container" (click)="onRateReviewClick(-1, review)">
+      <i class="fas fa-thumbs-down"></i>
+      <span class="rating-text">{{review.dislikes}}</span>
+    </span>
+
+    <span class="purple-link" style="margin-left: 20px;" (click)="modalService.reportReview.show = true;">
+      <i style="margin-right: 5px;" class="fas fa-flag"></i>
+      Report this review
+    </span>
+  </span>
+</div>
