@@ -181,4 +181,8 @@ export class ProductDetailsComponent implements OnInit {
     window.location.href = this.product.hoplink;
   }
 
+  onRateReviewClick(rating: number, review: any) {
+    review.hasBeenRated = true;
+  }
+
 }
