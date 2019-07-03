@@ -1,0 +1,10 @@
+<div *ngIf="pageCount > 1" class="pages-container">
+  <div class="page-numbers">
+    <ul>
+      <li *ngFor="let number of pageList" (click)="onPageClick(number)"
+        [ngClass]="{'selected-page': currentPage == number, 'default-cursor': number == '...'}">{{number}}</li>
+    </ul>
+  </div>
+  <arrows [showLeftArrow]="currentPage > 1" [showRightArrow]="currentPage < pageCount" (onArrowClick)="onArrowClick($event)">
+  </arrows>
+</div>

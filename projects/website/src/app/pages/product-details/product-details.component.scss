@@ -129,7 +129,7 @@ table {
     text-decoration: underline;
 }
 .reviews {
-    width: 1130px;
+    width: 1222px;
     margin: auto;
     margin-top: 60px;
     border-top: 1px solid #3d3d3d;
@@ -138,5 +138,6 @@ table {
     .review-count {
         font-size: 16px;
         margin: 20px 0;
+        display: inline-block;
     }
 }

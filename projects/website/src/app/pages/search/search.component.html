@@ -96,16 +96,7 @@
         </ul>
 
         <!-- Pages -->
-        <div *ngIf="pages > 1" class="pages-container">
-          <div class="page-numbers">
-            <ul>
-              <li *ngFor="let number of pageList" (click)="onPageClick(number)"
-                [ngClass]="{'selected-page': page == number, 'default-cursor': number == '...'}">{{number}}</li>
-            </ul>
-          </div>
-          <arrows [showLeftArrow]="page > 1" [showRightArrow]="page < pages" (onArrowClick)="onArrowClick($event)">
-          </arrows>
-        </div>
+        <paging [pageCount]="pageCount" [currentPage]="currentPage" [url]="'/search'"></paging>
 
       </div>
     </div>

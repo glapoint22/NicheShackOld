@@ -18,24 +18,37 @@
         padding-bottom: 25px;
         display: flex;
         .image-background {
-            width: 312px;
-            height: 312px;
+            width: 200px;
+            height: 200px;
             background: #181818;
-            text-align: center;
-            line-height: 312px;
             border: 1px solid #292929;
-            img {
-                vertical-align: middle;
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: 50% 50%;
+            margin: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            .img {
+                width: 180px;
+                height: 180px;
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-position: 50% 50%;
             }
         }
         .product-info-container {
             margin-left: 10px;
             .product-title {
-                width: 400px;
                 font-size: 24px;
                 color: white;
                 word-wrap: break-word;
                 word-break: break-word;
+                cursor: pointer;
+            }
+            .product-title:hover {
+                text-decoration: underline;
             }
             .price {
                 color: $gold;
@@ -80,14 +93,17 @@
                 margin-top: 10px;
                 width: 580px;
                 font-size: 15px;
+                color: #dadada;
             }
         }
     }
     .review-count {
         font-size: 16px;
         margin: 20px 0 40px;
+        display: inline-block;
+    }
+    .purple-link {
+        text-align: center;
+        color: $color5;
     }
 }
-
-
-

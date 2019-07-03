@@ -188,3 +188,14 @@ button:disabled {
 .purple-link:hover {
     text-decoration: underline;
 }
+.dark-dropdown {
+    border-radius: 4px;
+    border: 1px solid #393939;
+    height: 24px;
+    background: #282828;
+    color: #ffffff;
+    outline: none;
+    display: block;
+    margin: auto;
+    cursor: pointer;
+}

@@ -7,15 +7,19 @@
 
     <div class="product-container">
       <!-- Image -->
-      <div class="image-background">
-        <img [src]="'/Images/' + product.image">
+      <div>
+        <div class="image-background" (click)="backToItem()">
+          <div class="img" [style.background-image]="'url(/Images/' + product.image + ')'"></div>
+        </div>
+        <div class="purple-link" (click)="backToItem()">Back to item</div>
       </div>
+
 
       <!-- Product Info -->
       <div class="product-info-container">
 
         <!-- Title -->
-        <div class="product-title">
+        <div class="product-title" (click)="backToItem()">
           {{product.name}}
         </div>
 
@@ -40,11 +44,10 @@
 
 
     <!-- Positive & Negagive Reviews -->
-    <div class="positive-negative-container">
-
+    <div *ngIf="product.positiveReview || product.negativeReview" class="positive-negative-container">
 
       <!-- Postive Review -->
-      <div class="helpful-review">
+      <div *ngIf="product.positiveReview" class="helpful-review">
 
         <!-- Header -->
         <div class="helpful-review-header">
@@ -88,8 +91,7 @@
 
 
       <!-- Negative Review -->
-      <div class="helpful-review">
-
+      <div *ngIf="product.negativeReview" class="helpful-review">
 
         <!-- Header -->
         <div class="helpful-review-header">
@@ -132,17 +134,24 @@
     </div>
 
 
-
-    <div class="review-count">
-        Showing 1-{{product.reviews.length}} of {{product.totalReviews | number}} reviews
+    <!-- Showing and Sort -->
+    <div>
+      <div class="review-count">
+        Showing {{reviewsStart}} - {{reviewsEnd}} of {{product.totalReviews}} reviews
+      </div>
+        <review-sort [url]="'reviews/' + product.urlName"></review-sort>
     </div>
 
+
+    <!-- Reviews -->
     <div *ngFor="let review of product.reviews">
       <review [review]="review"></review>
     </div>
 
-
-
+    <!-- Pages -->
+    <div style="margin-top: 20px;">
+      <paging [pageCount]="pageCount" [currentPage]="currentPage" [url]="'/reviews/' + product.urlName"></paging>
+    </div>
 
   </div>
 

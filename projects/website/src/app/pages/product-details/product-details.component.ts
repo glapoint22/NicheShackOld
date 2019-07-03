@@ -14,7 +14,7 @@ export class ProductDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute, public modalService: ModalService, private router: Router) { }
 
   ngOnInit() {
-    this.route.data.subscribe(data => {
+    this.route.queryParamMap.subscribe(data => {
       let body = document.scrollingElement || document.documentElement;
 
       //Scroll to top
@@ -75,7 +75,7 @@ export class ProductDetailsComponent implements OnInit {
       this.product.hoplink = 'https://201behydk0sr8n2-f2jo9qcq9u.hop.clickbank.net/';
       this.product.image = 'e9a794bc40f14f709e6636aefbfe5d43.png';
       this.product.description = '"3-Minute Meditations" are super-short, super-simple, uncomplicated introductions to the art and science of meditation. With these breakthrough methods, you\'ll be well on your way to getting all the benefits of meditation while sitting about 1/10th of the time of other programs. "3-Minute Meditations" is guaranteed to lead you to incredible results if you practice daily. And the best part is it only takes 180 seconds a day. "3-Minute Meditations" is built around 7 guided audio meditations/visualizations systematically utilized throughout the four weeks. These include Intentional, Oneness, Mantra, Forgiveness, Mindfulness, Heart & Healing meditations/visualizations. With a simple, intentional, easy-to-implement practice, you\'ll witness an increase in peace, joy & gratitude and a decrease in stress, anxiety & overwhelm in your life.'
-      this.product.name = data.product;
+      this.product.name = 'Fat Loss Activation';
       this.product.minPrice = 9.99;
       this.product.maxPrice = 0;
 

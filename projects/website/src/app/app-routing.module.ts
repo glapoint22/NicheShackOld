@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from 'src/app/components/page-not-found/page-not-found.component';
-import { ProductGuard } from './product.guard';
 
 const routes: Routes = [
   {
@@ -31,8 +30,7 @@ const routes: Routes = [
   },
   {
     path: ':product',
-    loadChildren: './pages/product-details/product-details.module#ProductDetailsModule',
-    resolve: {product : ProductGuard}
+    loadChildren: './pages/product-details/product-details.module#ProductDetailsModule'
   },
   
   { path: '**', component: PageNotFoundComponent }

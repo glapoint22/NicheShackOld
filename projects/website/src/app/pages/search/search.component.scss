@@ -58,33 +58,6 @@ ul{
 li{
     display: inline-block;
 }
-.pages-container{
-    position: relative;
-    margin: auto;
-    display: table;
-    li:first-child{
-        margin-left: 50px;
-    }
-    li:last-child{
-        margin-right: 50px;
-    }
-    li{
-        margin: 0 8px 0 8px;
-        cursor: pointer;
-    }
-}
-.page-numbers{
-    text-align: center;
-    line-height: 30px;
-    color: white;
-    font-size: 20px;
-}
-.selected-page{
-    background: $color1;
-    padding: 0 5px;
-    border-radius: 5px;
-    border: 1px solid $color2;
-}
 .default-cursor{
     cursor: default !important;
 }
@@ -95,11 +68,9 @@ select{
     background: $color3;
     color: #ffffff;
     outline: none;
+    cursor: pointer;
     @include shadow();
 }
-// option::selection {
-//     color: red;
-// }
 .dropdown-container{
     position: absolute;
     display: inline;
@@ -184,11 +155,6 @@ button {
             margin: 0 20px 40px 20px;
         }
     }
-    .page-numbers {
-        li {
-            margin: 0px 10px;
-        }
-    }
 }
 
 @media screen and (max-width: 680px) {
@@ -203,23 +169,11 @@ button {
         margin: auto;
         margin-top: 80px;
     }
-    .page-numbers {
-        font-size: 14px;
-        li {
-            margin: 0px 5px;
-        }
-    }
 }
 @media screen and (max-width: 360px) {
     .products-container{
         li{
             margin: 0 0 40px 0;
-        }
-    }
-    .page-numbers {
-        font-size: 13px;
-        li {
-            margin: 0 5px;
         }
     }
 }

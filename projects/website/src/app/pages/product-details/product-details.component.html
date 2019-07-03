@@ -72,8 +72,6 @@
       </div>
     </div>
 
-
-
     <!-- Contents -->
     <table>
       <tr>
@@ -104,16 +102,19 @@
 
       <!-- Review Summary -->
       <review-summary [product]="product"></review-summary>
-
-
     </div>
 
 
     <!-- Reviews -->
     <div *ngIf="product.rating > 0" class="reviews">
-      <div class="review-count">
-        Showing 1-{{product.reviews.length}} of {{product.totalReviews | number}} reviews
+      
+      <div>
+        <div class="review-count">
+          Showing 1-{{product.reviews.length}} of {{product.totalReviews | number}} reviews
+        </div>
+        <review-sort [url]="product.name"></review-sort>
       </div>
+      
 
       <!-- View all reviews button -->
       <div *ngIf="product.totalReviews > 10" class="purple-button" style="margin-bottom: 20px;" (click)="onViewAllReviewsClick()">
@@ -124,9 +125,6 @@
       <div *ngFor="let review of product.reviews">
         <review [review]="review"></review>
       </div>
-
-
-
     </div>
   </div>
 

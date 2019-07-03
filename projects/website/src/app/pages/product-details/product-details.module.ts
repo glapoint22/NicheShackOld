@@ -14,6 +14,7 @@ import { CreateListModule } from '../../shared/create-list/create-list.module';
 import { ReportReviewModule } from '../../shared/report-review/report-review.module';
 import { ReviewModule } from '../../shared/review/review.module';
 import { ReviewSummaryModule } from '../../shared/review-summary/review-summary.module';
+import { ReviewSortModule } from '../../shared/review-sort/review-sort.module';
 
 @NgModule({
   declarations: [ProductDetailsComponent],
@@ -30,7 +31,8 @@ import { ReviewSummaryModule } from '../../shared/review-summary/review-summary.
     CreateListModule,
     ReportReviewModule,
     ReviewModule,
-    ReviewSummaryModule
+    ReviewSummaryModule,
+    ReviewSortModule
   ]
 })
 export class ProductDetailsModule { }

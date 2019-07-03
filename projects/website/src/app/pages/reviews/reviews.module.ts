@@ -8,6 +8,8 @@ import { ReviewSummaryModule } from '../../shared/review-summary/review-summary.
 import { StarsModule } from '../../shared/stars/stars.module';
 import { ReviewModule } from '../../shared/review/review.module';
 import { ReportReviewModule } from '../../shared/report-review/report-review.module';
+import { PagingModule } from '../../shared/paging/paging.module';
+import { ReviewSortModule } from '../../shared/review-sort/review-sort.module';
 
 @NgModule({
   declarations: [ReviewsComponent],
@@ -18,7 +20,9 @@ import { ReportReviewModule } from '../../shared/report-review/report-review.mod
     ReviewSummaryModule,
     StarsModule,
     ReviewModule,
-    ReportReviewModule
+    ReportReviewModule,
+    PagingModule,
+    ReviewSortModule
   ]
 })
 export class ReviewsModule { }
