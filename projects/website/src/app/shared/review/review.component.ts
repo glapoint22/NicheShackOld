@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ModalService } from 'src/app/services/modal/modal.service';
+import { Review } from './review';
 
 @Component({
   selector: 'review',
@@ -7,11 +8,16 @@ import { ModalService } from 'src/app/services/modal/modal.service';
   styleUrls: ['./review.component.scss']
 })
 export class ReviewComponent {
-  @Input() review: any;
+  @Input() review: Review;
 
-  constructor(public modalService: ModalService) { }
+  constructor(private modalService: ModalService) { }
 
   onRateReviewClick(rating: number, review: any) {
     review.hasBeenRated = true;
+  }
+
+  onReportReviewClick() {
+    this.modalService.reportReview.show = true;
+    this.modalService.reportReview.reviewId = this.review.id;
   }
 }

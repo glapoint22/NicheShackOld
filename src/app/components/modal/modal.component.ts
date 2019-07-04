@@ -1,12 +1,13 @@
 import { Component, HostListener } from '@angular/core';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { Router, NavigationEnd } from '@angular/router';
+import { Modal } from './modal';
 
 @Component({
   template: '',
 })
 export class ModalComponent {
-  public modalServiceObject: any;
+  public modalServiceObject: Modal;
 
   constructor(public modalService: ModalService, public router: Router) { }
 

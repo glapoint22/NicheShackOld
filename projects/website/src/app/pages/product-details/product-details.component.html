@@ -5,7 +5,7 @@
     <div class="product-container">
       <!-- Media -->
       <div *ngIf="product.media.length > 0">
-        <media-group [media]="product.media" [productName]="product.name"></media-group>
+        <media-group [media]="product.media" [productTitle]="product.title"></media-group>
       </div>
 
       <div style="margin: auto; display: flex">
@@ -20,7 +20,7 @@
         <div class="info-container">
           <!-- Title -->
           <div class="product-title">
-            {{product.name}}
+            {{product.title}}
           </div>
 
           <!-- Rating & Reviews -->
@@ -92,7 +92,7 @@
     </table>
 
     <!-- Products sliders -->
-    <div *ngFor="let productSlider of product.productSliders" class="products-slider-background">
+    <div *ngFor="let productSlider of productsSlider" class="products-slider-background">
       <products-slider [caption]="productSlider.caption" [products]="productSlider.products"></products-slider>
     </div>
 
@@ -112,7 +112,7 @@
         <div class="review-count">
           Showing 1-{{product.reviews.length}} of {{product.totalReviews | number}} reviews
         </div>
-        <review-sort [url]="product.name"></review-sort>
+        <review-sort [url]="product.urlTitle"></review-sort>
       </div>
       
 
@@ -135,7 +135,7 @@
   </div>
 </div>
 <report-review *ngIf="modalService.reportReview.show"></report-review>
-<report-item *ngIf="modalService.reportItem.show"></report-item>
+<report-item *ngIf="modalService.reportItem.show" [productId]="product.id"></report-item>
 <add-to-list *ngIf="modalService.addToList.show" [product]="product"></add-to-list>
 <create-list *ngIf="modalService.createList.show"></create-list>
 <quick-look *ngIf="modalService.quickLook.show && !modalService.mediaViewer.show"></quick-look>

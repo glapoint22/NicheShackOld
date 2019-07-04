@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { DialogBoxComponent } from 'projects/website/src/app/shared/dialog-box/dialog-box.component';
 
 @Component({
@@ -7,6 +7,7 @@ import { DialogBoxComponent } from 'projects/website/src/app/shared/dialog-box/d
   styleUrls: ['../../../../shared/dialog-box/dialog-box.component.scss']
 })
 export class ReportItemComponent extends DialogBoxComponent implements OnInit {
+  @Input() productId: string;
   public options: Array<any>;
   public selectedWhereOption: any;
   public selectedWhatOption: any;

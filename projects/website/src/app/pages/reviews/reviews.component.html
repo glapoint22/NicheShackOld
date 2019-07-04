@@ -20,7 +20,7 @@
 
         <!-- Title -->
         <div class="product-title" (click)="backToItem()">
-          {{product.name}}
+          {{product.title}}
         </div>
 
         <!-- Price -->
@@ -139,7 +139,7 @@
       <div class="review-count">
         Showing {{reviewsStart}} - {{reviewsEnd}} of {{product.totalReviews}} reviews
       </div>
-        <review-sort [url]="'reviews/' + product.urlName"></review-sort>
+        <review-sort [url]="'reviews/' + product.urlTitle"></review-sort>
     </div>
 
 
@@ -150,7 +150,7 @@
 
     <!-- Pages -->
     <div style="margin-top: 20px;">
-      <paging [pageCount]="pageCount" [currentPage]="currentPage" [url]="'/reviews/' + product.urlName"></paging>
+      <paging [pageCount]="pageCount" [currentPage]="currentPage" [url]="'/reviews/' + product.urlTitle"></paging>
     </div>
 
   </div>

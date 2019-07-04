@@ -8,7 +8,7 @@
     <div style="display:flex;">
       <!-- Media -->
       <div *ngIf="product.media.length > 0">
-        <media-group [media]="product.media" [productName]="product.name"></media-group>
+        <media-group [media]="product.media" [productTitle]="product.title"></media-group>
       </div>
 
       <!-- Product Image -->
@@ -22,7 +22,7 @@
       <div class="info-container">
         <!-- Title -->
         <div class="product-title">
-          {{product.name}}
+          {{product.title}}
         </div>
 
         <!-- Rating & Reviews -->

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DialogBoxComponent } from 'projects/website/src/app/shared/dialog-box/dialog-box.component';
+import { DisplayProduct } from 'projects/website/src/app/shared/product/display-product';
 
 @Component({
   selector: 'add-to-list',
@@ -7,7 +8,7 @@ import { DialogBoxComponent } from 'projects/website/src/app/shared/dialog-box/d
   styleUrls: ['../../../../shared/dialog-box/dialog-box.component.scss', './add-to-list.component.scss']
 })
 export class AddToListComponent extends DialogBoxComponent implements OnInit {
-  @Input() product: any;
+  @Input() product: DisplayProduct;
   public lists: Array<any>;
   public selectedList: any = {};
 
@@ -38,7 +39,7 @@ export class AddToListComponent extends DialogBoxComponent implements OnInit {
   createList() {
     this.modalService.addToList.show = false;
     this.modalService.createList.show = true;
-    this.modalService.createList.addToListOpen = true;
+    this.modalService.createList.showAddToList = true;
     this.close();
   }
 

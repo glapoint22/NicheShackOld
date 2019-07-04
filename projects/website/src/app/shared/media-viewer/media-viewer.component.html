@@ -7,13 +7,13 @@
       </div>
     </div>
     <div class="media-container">
-      <iframe *ngIf="currentMedia.type == 'video'" [src]="currentMedia.url" frameborder="0"></iframe>
+      <iframe *ngIf="currentMedia.type == 'video'" [src]="desanitize(currentMedia.url)" frameborder="0"></iframe>
       <div *ngIf="currentMedia.type == 'image'" class="image"
         [style.background-image]="'url(Images/'+ currentMedia.url + ')'"></div>
 
-      <arrows [showLeftArrow]="currentMedia.index != 0" [showRightArrow]="currentMedia.index != media.length - 1"
+      <arrows [showLeftArrow]="index != 0" [showRightArrow]="index != media.length - 1"
         (onArrowClick)="showNextMedia($event)"></arrows>
     </div>
-    <paginator [pages]="media" [currentPage]="currentMedia.index" (onPaginatorClick)="showMedia($event)"></paginator>
+    <paginator [pages]="media" [currentPage]="index" (onPaginatorClick)="showMedia($event)"></paginator>
   </div>
 </div>

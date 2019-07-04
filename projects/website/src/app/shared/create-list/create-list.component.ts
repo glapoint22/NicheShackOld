@@ -16,7 +16,7 @@ export class CreateListComponent extends DialogBoxComponent implements OnInit {
   }
 
   close() {
-    if(this.modalService.createList.addToListOpen) this.modalService.addToList.show = true;
+    if(this.modalService.createList.showAddToList) this.modalService.addToList.show = true;
     super.close();
   }
 

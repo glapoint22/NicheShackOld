@@ -3,6 +3,7 @@ import { ModalComponent } from 'src/app/components/modal/modal.component';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { Router } from '@angular/router';
+import { ProductMedia } from '../product/product-media';
 
 @Component({
   selector: 'media-viewer',
@@ -10,24 +11,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./media-viewer.component.scss']
 })
 export class MediaViewerComponent extends ModalComponent implements OnInit {
-  public currentMedia: any = {};
+  public currentMedia: ProductMedia;
   public title: string;
-  public media: Array<any>;
+  public media: Array<ProductMedia>;
+  public index: number;
 
   constructor(private sanitizer: DomSanitizer, modalService: ModalService, router: Router) { super(modalService, router)}
 
   ngOnInit() {
     this.media = this.modalService.mediaViewer.media;
-    this.title = this.modalService.mediaViewer.productName;
-    this.setCurrentMedia(this.modalService.mediaViewer.index);
+    this.currentMedia = this.modalService.mediaViewer.currentMedia;
+    this.title = this.modalService.mediaViewer.productTitle;
+    this.index = this.getIndex();
     this.modalServiceObject = this.modalService.mediaViewer;
     super.ngOnInit();
-  }
-
-  setCurrentMedia(index: number) {
-    this.currentMedia.index = index;
-    this.currentMedia.url = this.media[index].type == 'video' ? this.desanitize(this.media[index].url) : this.media[index].url;
-    this.currentMedia.type = this.media[index].type;
   }
 
   desanitize(string: string): SafeUrl {
@@ -35,15 +32,16 @@ export class MediaViewerComponent extends ModalComponent implements OnInit {
   }
 
   showNextMedia(direction: number) {
-    this.setCurrentMedia(this.currentMedia.index + direction);
+    this.index = this.getIndex() + direction;
+    this.currentMedia = this.media[this.index];
   }
 
   showMedia(index: number) {
-    this.setCurrentMedia(index);
+    this.index = index;
+    this.currentMedia = this.media[index];
   }
 
-  close() {
-    this.currentMedia.url = this.desanitize('');
-    super.close();
+  getIndex() {
+    return this.media.findIndex(x => x == this.currentMedia);
   }
 }

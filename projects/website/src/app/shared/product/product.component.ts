@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { Router } from '@angular/router';
 import { DisplayProduct } from './display-product';
+import { QuickLookProduct } from './quick-look-product';
 
 @Component({
   selector: 'product',
@@ -21,6 +22,7 @@ export class ProductComponent {
     this.product.totalReviews = 9999;
     this.product.minPrice = 37.48;
     this.product.maxPrice = 122.22;
+    this.product.title = 'Fat Loss Activation';
     this.product.urlTitle = 'fat-loss-activation';
   }
 
@@ -55,6 +57,6 @@ export class ProductComponent {
 
   onQuickLookButtonClick() {
     this.modalService.quickLook.show = true;
-    this.modalService.quickLook.product = this.product;
+    this.modalService.quickLook.product = this.product as QuickLookProduct;
   }
 }
