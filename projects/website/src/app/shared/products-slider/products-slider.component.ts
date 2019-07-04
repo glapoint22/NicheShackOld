@@ -1,4 +1,5 @@
 import { Component, Input, HostListener } from '@angular/core';
+import { DisplayProduct } from '../product/display-product';
 
 @Component({
   selector: 'products-slider',
@@ -10,7 +11,7 @@ export class ProductsSliderComponent {
   public lastPage: boolean = false;
   public ShowAllProducts: boolean;
   @Input() caption: string;
-  @Input() products;
+  @Input() products: Array<DisplayProduct>;
 
   public translate: number = 0;
   private currentPage: number = 1;

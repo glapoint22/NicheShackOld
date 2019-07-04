@@ -82,8 +82,8 @@
       </tr>
       <tr *ngFor="let item of product.content.items">
         <td>
-          <img [src]="'/assets/' + item.contentType + '.png'">
-          {{item.name}}
+          <img [src]="'/assets/' + item.type + '.png'">
+          {{item.title}}
         </td>
         <td *ngFor="let pricePoint of product.content.pricePoints; let i = index">
           <i *ngIf="hasPricePoint(item.priceIndices, i)" class="fas fa-check"></i>

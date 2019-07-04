@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalComponent } from 'src/app/components/modal/modal.component';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { Router } from '@angular/router';
+import { QuickLookProduct } from '../product/quick-look-product';
 
 @Component({
   selector: 'quick-look',
@@ -9,15 +10,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./quick-look.component.scss']
 })
 export class QuickLookComponent extends ModalComponent implements OnInit {
-  public product: any;
+  public product: QuickLookProduct;
 
   constructor(modalService: ModalService, router: Router) { super(modalService, router) }
 
   ngOnInit() {
+    this.product = this.modalService.quickLook.product;
+
     // TODO: Add description and media to product in database
-    this.product = {
-      // description: this.modalService.quickLook.product.description,
-      media: [
+    this.product.media = [
         {
           url: '//player.vimeo.com/video/219797629?title=0&byline=0&portrait=0&color=ffffff',
           thumbnail: 'https://i.vimeocdn.com/video/637660809_88',
@@ -68,8 +69,9 @@ export class QuickLookComponent extends ModalComponent implements OnInit {
           thumbnail: 'https://img.youtube.com/vi/ZCQ7nXAtf4M/default.jpg',
           type: 'image'
         }
-      ]
-    }
+      ];
+      this.product.description = 'My description';
+    
     this.modalServiceObject = this.modalService.quickLook;
     super.ngOnInit();
   }

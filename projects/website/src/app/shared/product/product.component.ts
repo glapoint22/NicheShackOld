@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { Router } from '@angular/router';
+import { DisplayProduct } from './display-product';
 
 @Component({
   selector: 'product',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./product.component.scss']
 })
 export class ProductComponent {
-  @Input() product: any;
+  @Input() product: DisplayProduct;
   
 
   constructor(private modalService: ModalService, private router: Router) { }
@@ -20,7 +21,7 @@ export class ProductComponent {
     this.product.totalReviews = 9999;
     this.product.minPrice = 37.48;
     this.product.maxPrice = 122.22;
-    // this.product.urlTitle = 'fat-loss-activation';
+    this.product.urlTitle = 'fat-loss-activation';
   }
 
   
@@ -49,7 +50,7 @@ export class ProductComponent {
     // }
 
     // Todo: make urlName
-    this.router.navigate([this.product.name]);
+    this.router.navigate([this.product.urlTitle]);
   }
 
   onQuickLookButtonClick() {

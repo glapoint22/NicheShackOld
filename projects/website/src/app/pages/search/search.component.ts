@@ -3,6 +3,7 @@ import { DataService } from 'src/app/services/data/data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { Subject } from 'rxjs';
+import { DisplayProduct } from '../../shared/product/display-product';
 
 @Component({
   selector: 'search',
@@ -11,7 +12,7 @@ import { Subject } from 'rxjs';
 })
 export class SearchComponent implements OnInit {
   public totalProducts: number;
-  public products;
+  public products: Array<DisplayProduct>;
   public pageCount: number;
   public query: string;
   public currentPage: number;

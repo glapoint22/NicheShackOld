@@ -82,13 +82,13 @@ export class ProductDetailsComponent implements OnInit {
       this.product.content = {
         items: [
           {
-            contentType: 'pdf',
-            name: 'Isometrics Mass Main Manual',
+            type: 'pdf',
+            title: 'Isometrics Mass Main Manual',
             priceIndices: [0, 2]
           },
           {
-            contentType: 'dvd',
-            name: 'Isometrics Mass Quick Start Video Guide',
+            type: 'dvd',
+            title: 'Isometrics Mass Quick Start Video Guide',
             priceIndices: [0, 1, 3]
           }
         ],

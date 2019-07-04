@@ -8,13 +8,13 @@
     <div style="display:flex;">
       <!-- Media -->
       <div *ngIf="product.media.length > 0">
-        <media-group [media]="product.media" [productName]="modalService.quickLook.product.name"></media-group>
+        <media-group [media]="product.media" [productName]="product.name"></media-group>
       </div>
 
       <!-- Product Image -->
       <div class="image-container">
         <div class="image-background">
-          <img [src]="'/Images/' + modalService.quickLook.product.image">
+          <img [src]="'/Images/' + product.image">
         </div>
       </div>
 
@@ -22,28 +22,28 @@
       <div class="info-container">
         <!-- Title -->
         <div class="product-title">
-          {{modalService.quickLook.product.name}}
+          {{product.name}}
         </div>
 
         <!-- Rating & Reviews -->
-        <div *ngIf="modalService.quickLook.product.rating > 0" class="rating-container">
-          <stars [rating]="modalService.quickLook.product.rating"></stars>
+        <div *ngIf="product.rating > 0" class="rating-container">
+          <stars [rating]="product.rating"></stars>
           <span class="reviews">
-            {{modalService.quickLook.product.totalReviews | number}} reviews
+            {{product.totalReviews | number}} reviews
           </span>
         </div>
-        <div *ngIf="modalService.quickLook.product.rating == 0" class="first-review-link">
+        <div *ngIf="product.rating == 0" class="first-review-link">
             Be the first to review this item
         </div>
 
         <!-- Price -->
         <div class="price">
-          <div *ngIf="modalService.quickLook.product.maxPrice === 0">
-            {{modalService.quickLook.product.minPrice | currency:'USD'}}
+          <div *ngIf="product.maxPrice === 0">
+            {{product.minPrice | currency:'USD'}}
           </div>
-          <div *ngIf="modalService.quickLook.product.maxPrice > 0">
-            {{modalService.quickLook.product.minPrice | currency:'USD'}} -
-            {{modalService.quickLook.product.maxPrice | currency:'USD'}}
+          <div *ngIf="product.maxPrice > 0">
+            {{product.minPrice | currency:'USD'}} -
+            {{product.maxPrice | currency:'USD'}}
           </div>
         </div>
 
