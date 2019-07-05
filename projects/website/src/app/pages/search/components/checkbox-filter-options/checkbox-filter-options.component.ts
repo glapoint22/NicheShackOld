@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, Output, EventEmitter } from '@angular/core';
+import { Component, OnChanges } from '@angular/core';
 import { FilterOptionsComponent } from '../filter-options/filter-options.component';
 
 @Component({
@@ -7,15 +7,12 @@ import { FilterOptionsComponent } from '../filter-options/filter-options.compone
   styleUrls: ['../filter/filter.component.scss']
 })
 export class CheckboxFilterOptionsComponent extends FilterOptionsComponent implements OnChanges {
-  @Input() hostComponent: any;
-  @Output() onOptionChange = new EventEmitter<any>();
-
   onChange(filter) {
-    this.onOptionChange.emit(filter);
+    this.filter.setFilter(filter);
   }
 
   ngOnChanges() {
-    let optionsArray = this.hostComponent.getOptionsFromQueryParams(this.parent.caption);
+    let optionsArray = this.filter.getFilterOptions(this.filter.caption);
 
     //Check or uncheck the options
     for (let i = 0; i < this.options.length; i++) {

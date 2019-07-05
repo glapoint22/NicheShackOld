@@ -1,14 +1,14 @@
 <!-- Custom price range -->
 <div>
-  <form (ngSubmit)="parent.onSubmit(priceForm)" #priceForm="ngForm" class="content"
-    [style.maxHeight.px]="parent.showContent ? 76: 0" [ngClass]="{'opacity': parent.showContent}">
+  <form (ngSubmit)="priceFilter.onSubmit(priceForm)" #priceForm="ngForm" class="content"
+    [style.maxHeight.px]="priceFilter.showContent ? 76: 0" [ngClass]="{'opacity': priceFilter.showContent}">
     <span style="display: flex">
       <span>
         $
-        <input required pattern="(\d+)?\.?(\d+)?" [(ngModel)]="parent.min" name="min" #minNum="ngModel"
+        <input required pattern="(\d+)?\.?(\d+)?" [(ngModel)]="priceFilter.min" name="min" #minNum="ngModel"
           [ngClass]="{'error-display': priceForm.submitted && !minNum.valid}">
         <span style="margin-left: 5px">to</span> $
-        <input required pattern="(\d+)?\.?(\d+)?" [(ngModel)]="parent.max" name="max" #maxNum="ngModel"
+        <input required pattern="(\d+)?\.?(\d+)?" [(ngModel)]="priceFilter.max" name="max" #maxNum="ngModel"
           [ngClass]="{'error-display': priceForm.submitted && !maxNum.valid}">
       </span>
       <button type="submit" class="gold-button">Go</button>
@@ -18,7 +18,7 @@
 
     <div [hidden]="!priceForm.submitted || (minNum.valid && maxNum.valid)" class="error">Please enter a valid price
       range</div>
-    <div *ngIf="parent.showClearPrice" class="clear-price" (click)="parent.clearPrice(priceForm)">Clear Price Range
+    <div *ngIf="priceFilter.showClearPrice" class="clear-price" (click)="priceFilter.clearPrice(priceForm)">Clear Price Range
     </div>
 
   </form>

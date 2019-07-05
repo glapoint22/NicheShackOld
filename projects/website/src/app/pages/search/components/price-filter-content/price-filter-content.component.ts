@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { PriceFilterComponent } from '../price-filter/price-filter.component';
 
 @Component({
   selector: 'price-filter-content',
@@ -6,5 +7,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['../filter/filter.component.scss', '../price-filter/price-filter.component.scss']
 })
 export class PriceFilterContentComponent {
-  @Input() parent: any = {};
+  @Input() priceFilter: PriceFilterComponent;
 }

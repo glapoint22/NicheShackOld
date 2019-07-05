@@ -1,16 +1,17 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, AfterViewInit } from '@angular/core';
 import { DataService } from 'src/app/services/data/data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalService } from 'src/app/services/modal/modal.service';
-import { Subject } from 'rxjs';
 import { DisplayProduct } from '../../shared/product/display-product';
+import { QueryParametersService } from '../../query-parameters.service';
+import { PriceFilterComponent } from './components/price-filter/price-filter.component';
 
 @Component({
   selector: 'search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, AfterViewInit {
   public totalProducts: number;
   public products: Array<DisplayProduct>;
   public pageCount: number;
@@ -19,7 +20,7 @@ export class SearchComponent implements OnInit {
   public categories;
   public filters;
   public showFilters: boolean = false;
-  public results;
+  public results: string;
 
   public currentCategory;
   public currentNiche;
@@ -33,15 +34,20 @@ export class SearchComponent implements OnInit {
   public productsPerPage: any;
   public perPageOptions = [];
 
-  // Filters
-  private filterString: string;
-  private queryParams: any;
-  private separator: string = '^'
-
-  public dataComplete = new Subject<void>();
+  @ViewChild(PriceFilterComponent) priceFilter: PriceFilterComponent;
 
 
-  constructor(private dataService: DataService, private route: ActivatedRoute, private router: Router, public modalService: ModalService) { }
+  constructor(private dataService: DataService, private route: ActivatedRoute, private router: Router, public modalService: ModalService, private queryParametersService: QueryParametersService) { }
+
+  ngAfterViewInit() {
+    // set the custom price range when the price filter component is defined
+    let interval = window.setInterval(() => {
+      if (this.priceFilter) {
+        this.priceFilter.setCustomPriceRange();
+        window.clearInterval(interval);
+      }
+    }, 1);
+  }
 
   ngOnInit() {
     //Set the sort options
@@ -74,12 +80,11 @@ export class SearchComponent implements OnInit {
         value: 96
       },
     ];
-    
+
     this.route.queryParamMap.subscribe(queryParams => {
       let parameters: Array<any> = [];
       this.query = queryParams.get('query');
-      this.filterString = queryParams.get('filter');
-      this.queryParams = queryParams;
+      this.queryParametersService.queryParams = queryParams;
 
 
       if (this.query && this.sortOptions[0].name !== 'Relevance') {
@@ -115,18 +120,19 @@ export class SearchComponent implements OnInit {
           let productStart: number;
           let productEnd: number;
           let index = this.perPageOptions.findIndex(x => x.value === perPage);
-          let body = document.scrollingElement || document.documentElement;
 
           //Scroll to top
+          let body = document.scrollingElement || document.documentElement;
           body.scrollTop = 0;
 
+          // Products per page
           this.productsPerPage = this.perPageOptions[index == -1 ? 0 : index];
 
           //Sort
           index = this.sortOptions.findIndex(x => x.value === queryParams.get('sort'));
           this.selectedSortOption = this.sortOptions[index == -1 ? 0 : index];
 
-          //Assign properties and variables
+          //Assign properties
           this.currentPage = response.page;
           this.products = response.products;
           this.totalProducts = response.totalProducts;
@@ -148,7 +154,8 @@ export class SearchComponent implements OnInit {
             this.categories[i]['showAllNiches'] = false;
           }
 
-          this.dataComplete.next();
+          // Set the price filter's custom price range
+          if (this.priceFilter) this.priceFilter.setCustomPriceRange();
         });
     });
   }
@@ -164,136 +171,5 @@ export class SearchComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     if (event.target.innerWidth > 970) this.showFilters = false;
-  }
-
-  setFilter(filter: any) {
-    let result, startString, midString, endString;
-
-    //If there are any filters
-    if (this.filterString) {
-      //Search for the filter in the string
-      result = this.getFilter(filter.filterName);
-
-      //If the filter was found within the filter string
-      if (result) {
-        /* Split the filter string into 3 sections. The first two sections are the
-        start and end of the filter string. */
-        startString = this.filterString.slice(0, result.index) + result[1];
-        endString = this.filterString.slice(result.index + result[0].length);
-
-        //Split the results into an array
-        let array = result[2].split(this.separator);
-
-        //Test to see if the option is a user defined price range
-        if (filter.option.substr(0, 1) === '[') {
-          let found = false;
-
-          //Iterate through the array to see if there is an existing price range
-          for (let i = 0; i < array.length; i++) {
-            //If found...
-            if (array[i].substr(0, 1) === '[') {
-              //If the passed in price range is different, replace
-              if (array[i] != filter.option) {
-                array[i] = filter.option;
-              } else {
-                //Otherwise, remove the price range
-                array.splice(i, 1);
-              }
-              found = true;
-              break;
-            }
-          }
-          //Assign to the mid string
-          if (found) {
-            midString = array.join(this.separator);
-          } else {
-            midString = result[2] + this.separator + filter.option;
-          }
-
-        } else {
-          //The option is not a user defined price range
-          let index = array.indexOf(filter.option);
-
-          //If the option is not found, add it to the mid string
-          if (index == -1) {
-            midString = result[2] + this.separator + filter.option;
-          } else {
-            //The option was found, so remove it from the string
-            array.splice(index, 1);
-            midString = array.join(this.separator);
-          }
-        }
-
-
-        //Combine all three strings together
-        this.filterString = startString + midString + endString;
-
-        //If the midstring is empty, this means there are no more options in this filter.
-        //Remove this filter from the filter string
-        if (midString === '') {
-          this.filterString = this.filterString.replace(filter.filterName + '||', '');
-        }
-      } else {
-        //The filter was not found within the filter string so we add it here
-        this.filterString += filter.filterName + '|' + filter.option + '|';
-      }
-    } else {
-      //There are no filters in the filter string, so add the first one here
-      this.filterString = filter.filterName + '|' + filter.option + '|';
-    }
-
-
-    //Set the query params
-    if (this.filterString === '') {
-      this.setQueryParameters({ add: [], remove: ['page', 'filter'] });
-    } else {
-      this.setQueryParameters({ add: [{ name: 'filter', value: this.filterString }], remove: ['page'] });
-    }
-  }
-
-
-
-  setQueryParameters(queryParameters: any) {
-    let params = {};
-
-    //Remove the query parameters
-    for (let i = 0; i < this.queryParams.keys.length; i++) {
-      if (queryParameters.remove.every(x => {
-        return x !== this.queryParams.keys[i];
-      })) {
-        params[this.queryParams.keys[i]] = this.queryParams.params[this.queryParams.keys[i]];
-      }
-    }
-
-    //Add the query parameters
-    for (let i = 0; i < queryParameters.add.length; i++) {
-      params[queryParameters.add[i].name] = queryParameters.add[i].value;
-    }
-
-    //Update the url
-    this.router.navigate(['/search'], {
-      queryParams: params
-    });
-  }
-
-  getFilter(filter: string) {
-    let regEx = new RegExp('(' + filter + '\\|)([a-zA-Z0-9`~!@#$%^&*()\-_+={[}\\]\\:;"\'<,>.?/\\s]+)', 'g');
-    return regEx.exec(this.filterString);
-  }
-
-  getOptionsFromQueryParams(caption: string) {
-    let optionsArray = [], filterString = this.queryParams.params['filter'];
-
-    //If there are any filters
-    if (filterString) {
-      //See if the current filter is in the list
-      let filter = this.getFilter(caption);
-
-      //If the current filter is in the list
-      if (filter) {
-        optionsArray = filter[2].split(this.separator);
-      }
-    }
-    return optionsArray;
   }
 }

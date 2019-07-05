@@ -1,6 +1,6 @@
-<div *ngFor="let option of options" class="content" [ngClass]="{'show-content': parent.showContent}"
-  (transitionend)="parent.onTransitionEnd()">
-  <radio-button [name]="parent.caption" [type]="'radio'" [value]="option.value" [label]="option.name"
+<div *ngFor="let option of options" class="content" [ngClass]="{'show-content': filter.showContent}"
+  (transitionend)="filter.onTransitionEnd()">
+  <radio-button [name]="filter.caption" [type]="'radio'" [value]="option.value" [label]="option.name"
     [checked]="selectedOption === option"
     (change)="onChange({add: [{name: paramName, value: option.value}], remove: ['page']})"></radio-button>
   <br>

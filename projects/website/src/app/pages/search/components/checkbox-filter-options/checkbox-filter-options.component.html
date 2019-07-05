@@ -1,4 +1,3 @@
-<div *ngFor="let option of options" class="content" [ngClass]="{'show-content': parent.showContent}" (transitionend)="parent.onTransitionEnd()">
-  <checkbox [type]="'checkbox'" [label]="option.name" [checked]="option.checked" (change)="onChange({filterName: parent.caption, option: option.name})"></checkbox>
-  <span class="count">({{option.productCount|number}})</span>
+<div *ngFor="let option of options" class="content" [ngClass]="{'show-content': filter.showContent}" (transitionend)="filter.onTransitionEnd()">
+  <checkbox [type]="'checkbox'" [label]="option.name" [checked]="option.checked" (change)="onChange({filterName: filter.caption, option: option.name})"></checkbox>
 </div>

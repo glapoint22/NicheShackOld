@@ -1,5 +1,6 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FilterOptionsComponent } from '../filter-options/filter-options.component';
+import { QueryParametersService } from 'projects/website/src/app/query-parameters.service';
 
 @Component({
   selector: 'radio-filter-options',
@@ -9,9 +10,10 @@ import { FilterOptionsComponent } from '../filter-options/filter-options.compone
 export class RadioFilterOptionsComponent extends FilterOptionsComponent {
   @Input() selectedOption: any = {};
   @Input() paramName: string = '';
-  @Output() onOptionChange = new EventEmitter<any>();
 
-  onChange(queryParams) {
-    this.onOptionChange.emit(queryParams);
+  constructor(private queryParametersService: QueryParametersService) { super() }
+
+  onChange(addRemoveParams) {
+    this.queryParametersService.updateUrl('/search', addRemoveParams);
   }
 }

@@ -11,8 +11,4 @@ export class CategoryFilterComponent extends FilterComponent {
   @Input() currentCategory;
   @Input() currentNiche;
   @Input() query;
-
-  getProductCount(category) {
-    return category.niches.map(a => a.productCount).reduce((a, b) => a + b);
-  }
 }

@@ -1,4 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { QueryParametersService } from 'projects/website/src/app/query-parameters.service';
+import { CategoryFilterComponent } from '../category-filter/category-filter.component';
 
 @Component({
   selector: 'category-filter-content',
@@ -6,17 +8,20 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['../filter/filter.component.scss', '../category-filter/category-filter.component.scss']
 })
 export class CategoryFilterContentComponent {
-  @Input() parent: any = {};
-  @Output() onCategoryClick = new EventEmitter<any>();
+  @Input() categoryFilter: CategoryFilterComponent;
   public maxCount = 4;
   public showAllCategories: boolean;
   public allCategoriesVisible: boolean;
   public seeMoreCategories: boolean;
   public lineHeight: number = 18;
   public margin: number = 10;
+  @Output() onChange = new EventEmitter<void>();
 
-  onClick(queryParams) {
-    this.onCategoryClick.emit(queryParams);
+  constructor(private queryParametersService: QueryParametersService) {  }
+
+  onClick(addRemoveParams) {
+    this.queryParametersService.updateUrl('/search', addRemoveParams);
+    this.onChange.emit();
   }
 
   getMaxHeight(category) {
@@ -31,7 +36,7 @@ export class CategoryFilterContentComponent {
   }
 
   getMargin() {
-    return this.parent.currentCategory == -1 || this.parent.query == undefined ? this.margin : 0;
+    return this.categoryFilter.currentCategory == -1 || this.categoryFilter.query == undefined ? this.margin : 0;
   }
 
   showHideNiches(category) {
@@ -69,8 +74,8 @@ export class CategoryFilterContentComponent {
   }
 
   onCategoryTransitionEnd() {
-    if (!this.parent.showContent && this.parent.show) {
-      this.parent.show = false;
+    if (!this.categoryFilter.showContent && this.categoryFilter.show) {
+      this.categoryFilter.show = false;
     }
 
     if (!this.allCategoriesVisible) {

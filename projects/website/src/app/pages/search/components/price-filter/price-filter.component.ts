@@ -1,35 +1,29 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 import { FilterComponent } from '../filter/filter.component';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'price-filter',
   templateUrl: '../filter/filter.component.html',
   styleUrls: ['../filter/filter.component.scss']
 })
-export class PriceFilterComponent extends FilterComponent implements OnInit {
-  @Input() hostComponent: any;
-  @Output() onSetFilter = new EventEmitter<any>();
-  @Input() dataComplete: Subject<void>;
+export class PriceFilterComponent extends FilterComponent {
   public min: string;
   public max: string;
   public showClearPrice: boolean;
 
-  ngOnInit() {
-    this.dataComplete.subscribe(() => {
-      let priceRange = this.getPriceRange();
+  setCustomPriceRange() {
+    let priceRange = this.getPriceRange();
 
-      //If there is a custom price range, set the min and max properties
-      if (priceRange) {
-        this.min = priceRange.min;
-        this.max = priceRange.max;
-        this.showClearPrice = true;
-      } else {
-        this.showClearPrice = false;
-        this.min = '';
-        this.max = '';
-      }
-    });
+    //If there is a custom price range, set the min and max properties
+    if (priceRange) {
+      this.min = priceRange.min;
+      this.max = priceRange.max;
+      this.showClearPrice = true;
+    } else {
+      this.showClearPrice = false;
+      this.min = '';
+      this.max = '';
+    }
   }
 
 
@@ -42,7 +36,8 @@ export class PriceFilterComponent extends FilterComponent implements OnInit {
 
     //If price range is valid, set the filter
     if (priceForm.valid) {
-      this.onSetFilter.emit({ filterName: 'Price', option: '[' + Math.min(Number(this.min), Number(this.max)) + '-' + Math.max(Number(this.min), Number(this.max)) + ']' });
+      this.setFilter({ filterName: 'Price', option: '[' + Math.min(Number(this.min), Number(this.max)) + '-' + Math.max(Number(this.min), Number(this.max)) + ']' });
+
       priceForm.submitted = false;
     } else {
       if (priceForm.form.controls.min.value || priceForm.form.controls.max.value) this.showClearPrice = true;
@@ -50,11 +45,13 @@ export class PriceFilterComponent extends FilterComponent implements OnInit {
   }
 
   getPriceRange() {
-    let priceRange: any, optionsArray = this.hostComponent.getOptionsFromQueryParams(this.caption), regEx = new RegExp(/\[(\d+\.?(?:\d+)?)-(\d+\.?(?:\d+)?)\]/, 'g');
+    let priceRange: any
+    let filterOptions = this.getFilterOptions(this.caption);
+    let regEx = new RegExp(/\[(\d+\.?(?:\d+)?)-(\d+\.?(?:\d+)?)\]/, 'g');
 
     //Iterate through all the options
-    for (let i = 0; i < optionsArray.length; i++) {
-      let result = regEx.exec(optionsArray[i]);
+    for (let i = 0; i < filterOptions.length; i++) {
+      let result = regEx.exec(filterOptions[i]);
 
       //If result contains a custom price range, set the min and max to the price range object
       if (result) {
@@ -77,7 +74,7 @@ export class PriceFilterComponent extends FilterComponent implements OnInit {
 
     //If there is an custom price range, set the filter with the same price range and it will clear it from the url
     if (priceRange) {
-      this.onSetFilter.emit({ filterName: 'Price', option: '[' + priceRange.min + '-' + priceRange.max + ']' });
+      this.setFilter({ filterName: 'Price', option: '[' + priceRange.min + '-' + priceRange.max + ']' });
     }
   }
 }
