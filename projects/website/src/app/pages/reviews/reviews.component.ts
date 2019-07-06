@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalService } from 'src/app/services/modal/modal.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { DetailReviewProduct } from '../../shared/product/detail-review-product';
 import { Review } from '../../shared/review/review';
+import { QueryParametersService } from '../../query-parameters.service';
 
 @Component({
   selector: 'reviews',
@@ -17,16 +18,18 @@ export class ReviewsComponent implements OnInit {
   public reviewsStart: number;
   public reviewsEnd: number;
 
-  constructor(public modalService: ModalService, private route: ActivatedRoute, private router: Router) { }
+  constructor(public modalService: ModalService, private route: ActivatedRoute, private router: Router, private queryParametersService: QueryParametersService) { }
 
   ngOnInit() {
-    this.route.queryParamMap.subscribe(queryParams => {
+    this.route.queryParamMap.subscribe((queryParams: ParamMap) => {
       //Scroll to top
       let body = document.scrollingElement || document.documentElement;
       body.scrollTop = 0;
 
+      this.queryParametersService.queryParams = queryParams;
+
       // Current page
-      this.currentPage = Number.parseInt(queryParams.get('page')); // This should be from database
+      this.currentPage = Number.parseInt(queryParams.get('page')) || 1; // This should be from database
 
       // **TEMP**
       let reviews: Array<Review> = [];

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { DetailProduct } from '../../shared/product/detail-product';
 import { ProductsSlider } from '../../shared/products-slider/products-slider';
+import { QueryParametersService } from '../../query-parameters.service';
 
 @Component({
   selector: 'product-details',
@@ -14,13 +15,15 @@ export class ProductDetailsComponent implements OnInit {
   public productsSlider: Array<ProductsSlider>;
 
 
-  constructor(private route: ActivatedRoute, public modalService: ModalService, private router: Router) { }
+  constructor(private route: ActivatedRoute, public modalService: ModalService, private router: Router, private queryParametersService: QueryParametersService) { }
 
   ngOnInit() {
-    this.route.queryParamMap.subscribe(() => {
+    this.route.queryParamMap.subscribe((queryParams: ParamMap) => {
       //Scroll to top
       let body = document.scrollingElement || document.documentElement;
       body.scrollTop = 0;
+
+      this.queryParametersService.queryParams = queryParams;
 
       this.product = {
         id: 'FRT6YHJE4J',

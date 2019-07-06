@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { QueryParametersService } from '../../query-parameters.service';
 
 @Component({
   selector: 'review-sort',
@@ -11,7 +11,7 @@ export class ReviewSortComponent implements OnInit {
   public sortOptions: Array<any>;
   public selectedSortOption: any = {};
 
-  constructor(private router: Router) { }
+  constructor(private queryParametersService: QueryParametersService) { }
 
   ngOnInit() {
     this.sortOptions = [
@@ -41,9 +41,6 @@ export class ReviewSortComponent implements OnInit {
   }
 
   setSort() {
-    this.router.navigate([this.url], {
-      queryParams: { 'sort': this.selectedSortOption.value },
-      queryParamsHandling: 'merge'
-    });
+    this.queryParametersService.updateUrl(this.url, { add: [{ name: 'sort', value: this.selectedSortOption.value }], remove: ['page'] });
   }
 }

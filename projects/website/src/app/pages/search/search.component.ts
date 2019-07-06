@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener, ViewChild, AfterViewInit } from '@angular/core';
 import { DataService } from 'src/app/services/data/data.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { DisplayProduct } from '../../shared/product/display-product';
 import { QueryParametersService } from '../../query-parameters.service';
@@ -81,7 +81,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
       },
     ];
 
-    this.route.queryParamMap.subscribe(queryParams => {
+    this.route.queryParamMap.subscribe((queryParams: ParamMap) => {
       let parameters: Array<any> = [];
       this.query = queryParams.get('query');
       this.queryParametersService.queryParams = queryParams;

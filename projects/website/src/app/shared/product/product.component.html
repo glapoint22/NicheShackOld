@@ -19,11 +19,11 @@
     </div>
 
     <!-- Stars -->
-    <div *ngIf="product.rating > 0" style="padding-bottom: 5px;">
+    <div style="padding-bottom: 5px;">
       <stars [rating]="product.rating"></stars>
 
       <!-- Reviews -->
-      <span class="reviews">
+      <span *ngIf="rating > 0" class="reviews">
         {{product.totalReviews | number}} reviews
       </span>
     </div>
