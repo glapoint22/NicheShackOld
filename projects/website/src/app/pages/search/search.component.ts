@@ -5,6 +5,7 @@ import { ModalService } from 'src/app/services/modal/modal.service';
 import { DisplayProduct } from '../../shared/product/display-product';
 import { QueryParametersService } from '../../query-parameters.service';
 import { PriceFilterComponent } from './components/price-filter/price-filter.component';
+import { Filter } from './components/filter/filter';
 
 @Component({
   selector: 'search',
@@ -18,7 +19,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
   public query: string;
   public currentPage: number;
   public categories;
-  public filters;
+  public filters: Array<Filter>;
   public showFilters: boolean = false;
   public results: string;
 

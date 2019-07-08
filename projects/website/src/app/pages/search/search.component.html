@@ -68,13 +68,13 @@
           <!-- Price Filter -->
           <price-filter #priceFilter *ngIf="filter.caption == 'Price'" [caption]="filter.caption" [showContent]="!showFilters" [show]="!showFilters">
             <price-filter-content [priceFilter]="priceFilter">
-              <checkbox-filter-options [filter]="priceFilter" [options]="filter.labels"></checkbox-filter-options>
+              <checkbox-price-filter-options [filter]="priceFilter" [options]="filter.options"></checkbox-price-filter-options>
             </price-filter-content>
           </price-filter>
 
           <!-- Checkbox Filter -->
           <filter #checkboxFilter *ngIf="filter.caption != 'Price'" [caption]="filter.caption" [showContent]="!showFilters" [show]="!showFilters">
-            <checkbox-filter-options [filter]="checkboxFilter" [options]="filter.labels"></checkbox-filter-options>
+            <checkbox-filter-options [filter]="checkboxFilter" [options]="filter.options"></checkbox-filter-options>
           </filter>
         </div>
       </div>

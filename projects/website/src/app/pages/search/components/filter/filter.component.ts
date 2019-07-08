@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { QueryParametersService } from 'projects/website/src/app/query-parameters.service';
+import { FilterSelection } from '../filter-selection';
 
 @Component({
   selector: 'filter',
@@ -29,8 +30,7 @@ export class FilterComponent {
     if (!this.showContent) this.show = false;
   }
 
-
-  getFilterString(filter: any): string {
+  getFilterString(filterSelection: FilterSelection): string {
     let startString: string;
     let midString: string;
     let endString: string;
@@ -39,51 +39,33 @@ export class FilterComponent {
     //If there are any filters
     if (filterString) {
       //Search for the filter in the string
-      let filterResult: RegExpExecArray = this.getFilterFromQueryParams(filter.filterName);
+      let filterResult: RegExpExecArray = this.getFilterFromQueryParams(filterSelection.filterName);
 
       //If the filter was found within the filter string
       if (filterResult) {
         /* Split the filter string into 3 sections. The first two sections are the
         start and end of the filter string. */
-        startString = filterString.slice(0, filterResult.index) + filterResult[1];
+        startString = filterString.slice(0, filterResult.index) + filterResult[1] + '|';
         endString = filterString.slice(filterResult.index + filterResult[0].length);
 
         //Split the results into an array
         let array = filterResult[2].split(this.separator);
 
-        //Test to see if the option is a user defined price range
-        if (filter.option.substr(0, 1) === '[') {
-          let found = false;
-
-          //Iterate through the array to see if there is an existing price range
-          for (let i = 0; i < array.length; i++) {
-            //If found...
-            if (array[i].substr(0, 1) === '[') {
-              //If the passed in price range is different, replace
-              if (array[i] != filter.option) {
-                array[i] = filter.option;
-              } else {
-                //Otherwise, remove the price range
-                array.splice(i, 1);
-              }
-              found = true;
-              break;
-            }
-          }
-          //Assign to the mid string
-          if (found) {
-            midString = array.join(this.separator);
+        //Test to see if the option is a price range
+        if (filterSelection.filterName == 'Price') {
+          if (array[0] != filterSelection.option) {
+            midString = filterSelection.option;
           } else {
-            midString = filterResult[2] + this.separator + filter.option;
+            //Otherwise, remove the price range
+            midString = '';
           }
-
         } else {
-          //The option is not a user defined price range
-          let index = array.indexOf(filter.option);
+          //The option is not a price range
+          let index = array.indexOf(filterSelection.option);
 
           //If the option is not found, add it to the mid string
           if (index == -1) {
-            midString = filterResult[2] + this.separator + filter.option;
+            midString = filterResult[2] + this.separator + filterSelection.option;
           } else {
             //The option was found, so remove it from the string
             array.splice(index, 1);
@@ -98,15 +80,15 @@ export class FilterComponent {
         //If the midstring is empty, this means there are no more options in this filter.
         //Remove this filter from the filter string
         if (midString === '') {
-          filterString = filterString.replace(filter.filterName + '||', '');
+          filterString = filterString.replace(filterSelection.filterName + '||', '');
         }
       } else {
         //The filter was not found within the filter string so we add it here
-        filterString += filter.filterName + '|' + filter.option + '|';
+        filterString += filterSelection.filterName + '|' + filterSelection.option + '|';
       }
     } else {
       //There are no filters in the filter string, so add the first one here
-      filterString = filter.filterName + '|' + filter.option + '|';
+      filterString = filterSelection.filterName + '|' + filterSelection.option + '|';
     }
 
     return filterString;
@@ -115,7 +97,7 @@ export class FilterComponent {
 
 
   getFilterFromQueryParams(filterName: string): RegExpExecArray {
-    let regEx = new RegExp('(' + filterName + '\\|)([a-zA-Z0-9`~!@#$%^&*()\-_+={[}\\]\\:;"\'<,>.?/\\s]+)', 'g');
+    let regEx = new RegExp('(' + filterName + ')\\|([a-zA-Z0-9`~!@#$%^&*()\-_+={[}\\]\\:;"\'<,>.?/\\s]+)', 'g');
     return regEx.exec(this.queryParametersService.queryParams.get('filter'));
   }
 
@@ -139,6 +121,7 @@ export class FilterComponent {
   getAddRemoveParams(filterString: string) {
     let params;
 
+    // This is used to tell which parameters are to be added and which parameters are to be removed from the url
     if (filterString === '') {
       params = { add: [], remove: ['page', 'filter'] };
     } else {
@@ -147,8 +130,9 @@ export class FilterComponent {
     return params;
   }
 
-  
-  setFilter(filterSelection: any) {
+
+  updateFilterParams(filterSelection: FilterSelection) {
+    // Update the filter parameters in the URL
     let filterString: string = this.getFilterString(filterSelection);
     let addRemoveParams = this.getAddRemoveParams(filterString);
 

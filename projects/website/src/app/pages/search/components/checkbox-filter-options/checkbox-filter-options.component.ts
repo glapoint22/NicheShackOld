@@ -7,8 +7,8 @@ import { FilterOptionsComponent } from '../filter-options/filter-options.compone
   styleUrls: ['../filter/filter.component.scss']
 })
 export class CheckboxFilterOptionsComponent extends FilterOptionsComponent implements OnChanges {
-  onChange(filter) {
-    this.filter.setFilter(filter);
+  onChange(selectedOption: string) {
+    this.filter.updateFilterParams({ filterName: this.filter.caption, option: selectedOption });
   }
 
   ngOnChanges() {

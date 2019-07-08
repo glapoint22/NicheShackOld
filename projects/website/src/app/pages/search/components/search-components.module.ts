@@ -11,6 +11,7 @@ import { RadioFilterOptionsComponent } from './radio-filter-options/radio-filter
 import { MaxItemsPipe } from './max-items.pipe';
 import { FormsModule } from '@angular/forms';
 import { InputsModule } from 'src/app/components/inputs/inputs.module';
+import { CheckboxPriceFilterOptionsComponent } from './checkbox-price-filter-options/checkbox-price-filter-options.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { InputsModule } from 'src/app/components/inputs/inputs.module';
     PriceFilterComponent,
     PriceFilterContentComponent,
     RadioFilterOptionsComponent,
-    MaxItemsPipe
+    MaxItemsPipe,
+    CheckboxPriceFilterOptionsComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +40,8 @@ import { InputsModule } from 'src/app/components/inputs/inputs.module';
     PriceFilterComponent,
     PriceFilterContentComponent,
     RadioFilterOptionsComponent,
-    MaxItemsPipe
+    MaxItemsPipe,
+    CheckboxPriceFilterOptionsComponent
   ]
 })
 export class SearchComponentsModule { }

@@ -12,12 +12,12 @@ export class PriceFilterComponent extends FilterComponent {
   public showClearPrice: boolean;
 
   setCustomPriceRange() {
-    let priceRange = this.getPriceRange();
+    let customPriceRange = this.getPriceRange();
 
     //If there is a custom price range, set the min and max properties
-    if (priceRange) {
-      this.min = priceRange.min;
-      this.max = priceRange.max;
+    if (customPriceRange) {
+      this.min = customPriceRange.min;
+      this.max = customPriceRange.max;
       this.showClearPrice = true;
     } else {
       this.showClearPrice = false;
@@ -36,9 +36,12 @@ export class PriceFilterComponent extends FilterComponent {
 
     //If price range is valid, set the filter
     if (priceForm.valid) {
-      this.setFilter({ filterName: 'Price', option: '[' + Math.min(Number(this.min), Number(this.max)) + '-' + Math.max(Number(this.min), Number(this.max)) + ']' });
+      let priceRange = this.getPriceRange();
 
-      priceForm.submitted = false;
+      if (!priceRange || priceRange.min != this.min || priceRange.max != this.max) {
+        this.updateFilterParams({ filterName: 'Price', option: Math.min(Number(this.min), Number(this.max)) + '-' + Math.max(Number(this.min), Number(this.max)) });
+        priceForm.submitted = false;
+      }
     } else {
       if (priceForm.form.controls.min.value || priceForm.form.controls.max.value) this.showClearPrice = true;
     }
@@ -47,7 +50,7 @@ export class PriceFilterComponent extends FilterComponent {
   getPriceRange() {
     let priceRange: any
     let filterOptions = this.getFilterOptions(this.caption);
-    let regEx = new RegExp(/\[(\d+\.?(?:\d+)?)-(\d+\.?(?:\d+)?)\]/, 'g');
+    let regEx = new RegExp(/(\d+\.?(?:\d+)?)-(\d+\.?(?:\d+)?)/, 'g');
 
     //Iterate through all the options
     for (let i = 0; i < filterOptions.length; i++) {
@@ -72,9 +75,9 @@ export class PriceFilterComponent extends FilterComponent {
     this.showClearPrice = false;
     priceForm.submitted = false;
 
-    //If there is an custom price range, set the filter with the same price range and it will clear it from the url
+    //Set the filter with the same price range and it will clear it from the url
     if (priceRange) {
-      this.setFilter({ filterName: 'Price', option: '[' + priceRange.min + '-' + priceRange.max + ']' });
+      this.updateFilterParams({ filterName: 'Price', option: priceRange.min + '-' + priceRange.max });
     }
   }
 }
