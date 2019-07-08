@@ -25,6 +25,10 @@ const routes: Routes = [
     loadChildren: './pages/email-preferences/email-preferences.module#EmailPreferencesModule'
   },
   {
+    path: 'reviews/write-review',
+    loadChildren: './pages/write-review/write-review.module#WriteReviewModule'
+  },
+  {
     path: 'reviews/:product',
     loadChildren: './pages/reviews/reviews.module#ReviewsModule'
   },
