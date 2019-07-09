@@ -23,10 +23,10 @@
     <!-- Content -->
     <ng-template #content>
       <div style="margin: 10px 0 5px 10px;">List Name:</div>
-      <input [(ngModel)]="listName" type="text" style="margin-bottom: 10px;">
+      <input class="dark" [(ngModel)]="listName" type="text" style="margin-bottom: 10px;">
 
       <div style="margin: 10px 0 5px 10px;">Brief Description (optional):</div>
-      <textarea [(ngModel)]="description"></textarea>
+      <textarea class="dark" [(ngModel)]="description"></textarea>
 
 
       <button class="gold-button" (click)="onSubmit()" [disabled]="listName === ''">Submit</button>

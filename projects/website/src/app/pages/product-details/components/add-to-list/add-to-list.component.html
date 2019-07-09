@@ -24,7 +24,7 @@
     </div>
 
     <!-- Lists -->
-    <select *ngIf="!submitted" [(ngModel)]="selectedList" class="dark-dropdown">
+    <select *ngIf="!submitted" [(ngModel)]="selectedList" class="dark">
       <option *ngFor="let list of lists" [ngValue]="list">{{list.name}}</option>
     </select>
 

@@ -1,48 +1,165 @@
 @import 'theme';
 
-// body {
-//     margin: 0;
-//     ::-webkit-scrollbar-track {
-//         box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-//         border-radius: 10px;
-//         background-color: #131212;
-//     }
-//     ::-webkit-scrollbar {
-//         width: 12px;
-//         background-color: #131212;
-//     }
-//     ::-webkit-scrollbar-thumb {
-//         border-radius: 10px;
-//         box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-//         background-color: #444;
-//     }
-// }
-// button {
-//     @include gradient($color1, $color2);
-//     min-height: 40px;
-//     font-size: 24px;
-//     font-weight:bold;
-//     border: none;
-//     outline: none;
-//     color: #C3C3C3;
-//     margin: 10px;
-//     display: inline-block;
-//     margin-bottom: 20px;
-//     padding: 0 10px 0 10px;
-//     border-radius: 5px;
-// }
-// button:hover {
-//     color: #FFFFFF;
-//     cursor: pointer;
-// }
-// button:disabled{
-//     background: rgb(110, 110, 110);
-//     color: rgb(151, 151, 151);
-//     cursor: default;
-// }
-// .background-container {
-//     position:absolute;
-//     width: 100%;
-//     min-height: 100%;
-//     background: $background-color;
-// }
+body {
+    margin: 0;
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        border-radius: 10px;
+        background-color: #131212;
+    }
+    ::-webkit-scrollbar {
+        width: 12px;
+        background-color: #131212;
+    }
+    ::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+        background-color: #444;
+    }
+}
+.modal-background {
+    background: rgba(0, 0, 0, 0.9); 
+    z-index: 100; 
+    position: fixed; 
+    top: 0px; 
+    left: 0px; 
+    width: 100%; 
+    height: 100%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    .title-bar{
+        @include gradient($color1, $color2);
+        position: relative; 
+        top: 0; 
+        width: 100%; 
+        height: 40px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+    .title{
+        text-align: left; 
+        color: white;
+        line-height: 40px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        font-size: 13px;
+        margin-left: 15px;
+    }
+    .close-button{
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        color: #d1d1d1;
+         padding: 0px 15px;
+        cursor: pointer;
+        position: absolute;
+        right: 0;
+        top: 0;
+        line-height: 40px;
+    }
+    .close-button:hover{
+        color: #ffffff;
+    }
+    .window {
+        position: relative;
+        background-color: $background-color;
+        border: 1px solid #383838;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        width: 320px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 13px;
+        color: white;
+    }
+    @media screen and (max-width: 800px) {
+        .title-bar{
+            height: 30px; 
+        }
+        .title{
+            line-height: 30px;
+        }
+        .close-button{
+            line-height: 30px;
+        }
+    }
+}
+.background-container {
+    position:absolute;
+    width: 100%;
+    min-height: 100%;
+    background: $background-color;
+}
+button {
+    height: 30px;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 30px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-block;
+    padding: 0 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    user-select: none;
+    border: none;
+    outline: none;
+}
+button:active {
+    line-height: 34px;
+}
+button:disabled {
+    background: #393939;
+    color: #1c1c1c;
+    cursor: default;
+}
+.gold-button {
+    @include gradient(#ffdd81, $gold);
+    color: #2d2100;
+}
+.gold-button:active {
+    @include gradient($gold, #ffdd81);
+}
+.gray-button {
+    @include gradient(#7f7f7f, #494949);
+    color: #dcdcdc;
+}
+.gray-button:active {
+    @include gradient(#494949, #7f7f7f);
+}
+.purple-button {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    display: inline-block;
+    background-color: $color2;
+    border-radius: 4px;
+    border: 1px solid $color1;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    min-width: 70px;
+    text-align: center;
+    user-select: none;
+}
+.purple-button:active {
+    background-color: #3b002c;
+}
+.purple-link {
+    font-size: 12px;
+    color: $color1;
+    cursor: pointer;
+}
+.purple-link:hover {
+    text-decoration: underline;
+}
+.dark {
+    border-radius: 4px;
+    border: 1px solid #393939;
+    background: #282828;
+    color: #ffffff;
+    outline: none;
+}
+textarea {
+    resize: none;
+    overflow: auto;
+}

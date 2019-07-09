@@ -1,3 +1,44 @@
-<p>
-  write-review works!
-</p>
+<div class="background-container">
+  <div style="margin: auto; width: 800px;">
+    <form (ngSubmit)="onSubmit(form)" #form="ngForm">
+
+      <!-- Title -->
+      <div *ngIf="notValid(title); else reviewTitle" class="not-valid">
+        Please provide a title for your review.
+      </div>
+
+      <ng-template #reviewTitle>
+        <div>
+          Review title
+        </div>
+      </ng-template>
+      <input class="dark" required [(ngModel)]="review.title" name="title" #title="ngModel" autocomplete="off">
+
+      <!-- Username -->
+      <div *ngIf="notValid(username); else name" class="not-valid">
+        Please enter a name for yourself.
+      </div>
+      <ng-template #name>
+        <div>
+          Your name (name that will show with your review)
+        </div>
+      </ng-template>
+      <input class="dark" required [(ngModel)]="review.username" name="username" #username="ngModel" autocomplete="off">
+
+
+      <!-- Review text -->
+      <div *ngIf="notValid(text); else reviewText" class="not-valid">
+        Please write something about the item.
+      </div>
+
+      <ng-template #reviewText>
+        <div>
+          Write your review
+        </div>
+      </ng-template>
+      <textarea class="dark" required [(ngModel)]="review.text" name="text" #text="ngModel"></textarea>
+
+      <button class="gold-button" type="submit">Submit Review</button>
+    </form>
+  </div>
+</div>

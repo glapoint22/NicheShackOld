@@ -19,23 +19,20 @@ h2 {
 }
 select {
     width: 300px;
+    height: 24px;
+    display: block;
+    margin: auto;
+    cursor: pointer;
 }
 select:disabled {
     color: #505050;
 }
 textarea, input[type="text"] {
     width: 288px;
-    border: 1px solid #393939;
-    background-color: #282828;
-    color: white;
-    border-radius: 5px;
     margin-left: 10px;
     padding: 5px;
-    outline: none;
     font-family: Arial, Helvetica, sans-serif;
 }
 textarea {
     height: 100px;
-    resize: none;
-    overflow: auto;
 }
