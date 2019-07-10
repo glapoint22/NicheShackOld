@@ -1,44 +1,122 @@
 <div class="background-container">
-  <div style="margin: auto; width: 800px;">
-    <form (ngSubmit)="onSubmit(form)" #form="ngForm">
+  <!-- Search Bar -->
+  <search-bar></search-bar>
 
-      <!-- Title -->
-      <div *ngIf="notValid(title); else reviewTitle" class="not-valid">
-        Please provide a title for your review.
+  <div class="container">
+    <div *ngIf="!submitted; else reviewSubmitted">
+      <!-- Header -->
+      <div class="header">Write a Review</div>
+
+      <!-- Image and product title -->
+      <div style="display: flex;">
+        <div class="image-background" (click)="backToItem()">
+          <div class="img" [style.background-image]="'url(/Images/' + product.image + ')'"></div>
+        </div>
+
+        <div class="product-title">
+          {{product.title}}
+        </div>
       </div>
 
-      <ng-template #reviewTitle>
-        <div>
+      <!-- Form -->
+      <form (ngSubmit)="onSubmit()" #form="ngForm">
+        <!-- Rating -->
+        <div *ngIf="!form.submitted || review.rating > 0; else noRating" class="caption">
+          <div *ngIf="review.rating == undefined">
+            How would you rate this?
+          </div>
+
+          <div *ngIf="review.rating == 1">
+            You are very dissatisfied.
+          </div>
+          <div *ngIf="review.rating == 2">
+            Not what you were hoping for.
+          </div>
+
+          <div *ngIf="review.rating == 3">
+            You think this item is fair.
+          </div>
+
+          <div *ngIf="review.rating == 4">
+            It meets your expectations.
+          </div>
+
+          <div *ngIf="review.rating == 5">
+            You are very satisfied.
+          </div>
+        </div>
+
+        <ng-template #noRating>
+          <div class="caption not-valid">
+            Please rate this item.
+          </div>
+        </ng-template>
+
+        <div class="stars-container">
+          <input type="hidden" required [(ngModel)]="review.rating" name="rating">
+          <span *ngFor="let i of [1,2,3,4,5]" class="star" (click)="review.rating = i">
+            <i [class]="getStar(i)"></i>
+          </span>
+        </div>
+
+
+        <!-- Title -->
+        <div *ngIf="valid(title); else invalidTitle" class="caption">
           Review title
         </div>
-      </ng-template>
-      <input class="dark" required [(ngModel)]="review.title" name="title" #title="ngModel" autocomplete="off">
 
-      <!-- Username -->
-      <div *ngIf="notValid(username); else name" class="not-valid">
-        Please enter a name for yourself.
-      </div>
-      <ng-template #name>
-        <div>
+        <!-- Invalid title -->
+        <ng-template #invalidTitle>
+          <div class="not-valid caption">
+            Please provide a title for your review.
+          </div>
+        </ng-template>
+        <input class="dark" required [(ngModel)]="review.title" name="title" #title="ngModel" autocomplete="off"
+          placeholder="What's most important to know?">
+
+        <!-- Username -->
+        <div *ngIf="valid(username); else invalidName" class="caption">
           Your name (name that will show with your review)
         </div>
-      </ng-template>
-      <input class="dark" required [(ngModel)]="review.username" name="username" #username="ngModel" autocomplete="off">
 
+        <!-- Invalid name -->
+        <ng-template #invalidName>
+          <div class="not-valid caption">
+            Please enter a name for yourself.
+          </div>
+        </ng-template>
+        <input class="dark" required [(ngModel)]="review.username" name="username" #username="ngModel"
+          autocomplete="off" placeholder="What's your name?">
 
-      <!-- Review text -->
-      <div *ngIf="notValid(text); else reviewText" class="not-valid">
-        Please write something about the item.
-      </div>
-
-      <ng-template #reviewText>
-        <div>
+        <!-- Review text -->
+        <div *ngIf="valid(text); else invalidText" class="caption">
           Write your review
         </div>
-      </ng-template>
-      <textarea class="dark" required [(ngModel)]="review.text" name="text" #text="ngModel"></textarea>
 
-      <button class="gold-button" type="submit">Submit Review</button>
-    </form>
+        <!-- Invalid review text -->
+        <ng-template #invalidText>
+          <div class="not-valid caption">
+            Please write something about the item.
+          </div>
+        </ng-template>
+        <textarea class="dark" required [(ngModel)]="review.text" name="text" #text="ngModel"
+          placeholder="Share some details to help other shoppers."></textarea>
+
+        <!-- Submit button -->
+        <button class="gold-button" type="submit">Submit Review</button>
+      </form>
+    </div>
+
+    <ng-template #reviewSubmitted>
+      <div style="text-align: center; color: #dadada; font-size: 22px; margin-bottom: 20px;">
+          Thanks for your review!
+      </div>
+      <button class="gold-button" style="margin: auto; display: block;" (click)="goHome()">Continue Shopping</button>
+    </ng-template>
+
+  </div>
+
+  <div style="margin-top: 120px;">
+    <footer></footer>
   </div>
 </div>

@@ -17,18 +17,18 @@ export abstract class ValidationFormComponent implements AfterViewInit {
     }, 1);
   }
 
-  onSubmit(form: NgForm) {
-    if (form.valid) {
+  onSubmit() {
+    if (this.form.valid) {
       this.submitData();
     } else {
       Object.keys(this.form.controls).forEach(key => {
-        if (!form.controls[key].valid) form.controls[key].markAsDirty();
+        if (!this.form.controls[key].valid) this.form.controls[key].markAsDirty();
       });
     }
   }
 
-  notValid(control: NgModel) {
-    return !control.valid && control.dirty;
+  valid(control: NgModel) {
+    return control.pristine;
   }
 
   abstract submitData(): void
