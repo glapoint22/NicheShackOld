@@ -1,4 +1,4 @@
-<div class="product" [title]="product.name" (click)="onClick()">
+<div class="product" [title]="product.title" (click)="onClick()">
 
   <!-- Image Container -->
   <div class="img-container">
@@ -15,7 +15,7 @@
 
     <!-- Product Name -->
     <div class="product-name">
-      {{product.name}}
+      {{product.title}}
     </div>
 
     <!-- Stars -->
@@ -23,7 +23,7 @@
       <stars [rating]="product.rating"></stars>
 
       <!-- Reviews -->
-      <span *ngIf="rating > 0" class="reviews">
+      <span *ngIf="product.rating > 0" class="reviews">
         {{product.totalReviews | number}} reviews
       </span>
     </div>

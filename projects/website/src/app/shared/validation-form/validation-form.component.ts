@@ -3,7 +3,7 @@ import { NgForm, NgModel } from '@angular/forms';
 
 @Component({ template: '' })
 
-export abstract class ValidationFormComponent implements AfterViewInit {
+export class ValidationFormComponent implements AfterViewInit {
   @ViewChild('form') form: NgForm;
 
   ngAfterViewInit() {
@@ -31,5 +31,5 @@ export abstract class ValidationFormComponent implements AfterViewInit {
     return control.pristine;
   }
 
-  abstract submitData(): void
+  submitData(): void { }
 }

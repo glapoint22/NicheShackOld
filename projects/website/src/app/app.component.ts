@@ -9,7 +9,7 @@ import { DataService } from 'src/app/services/data/data.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private cookieService: CookieService, private dataService: DataService) { }
+  constructor(private cookieService: CookieService, public dataService: DataService) { }
 
   ngOnInit() {
     if (!this.cookieService.check('_session')) {

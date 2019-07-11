@@ -8,4 +8,5 @@ export class Review {
     text: string;
     likes: number;
     dislikes: number;
+    hasBeenRated?: boolean;
 }
