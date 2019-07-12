@@ -35,7 +35,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
   public productsPerPage: any;
   public perPageOptions = [];
 
-  @ViewChild(PriceFilterComponent) priceFilter: PriceFilterComponent;
+  @ViewChild(PriceFilterComponent, { static: false }) priceFilter: PriceFilterComponent;
 
 
   constructor(private dataService: DataService, private route: ActivatedRoute, private router: Router, public modalService: ModalService, private queryParametersService: QueryParametersService) { }

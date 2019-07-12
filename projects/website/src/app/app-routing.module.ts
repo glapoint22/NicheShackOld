@@ -5,36 +5,36 @@ import { PageNotFoundComponent } from 'src/app/components/page-not-found/page-no
 const routes: Routes = [
   {
     path: '',
-    loadChildren: './pages/home/home.module#HomeModule',
+    loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule),
     pathMatch: 'full'
   },
   {
     path: 'about',
-    loadChildren: './pages/about/about.module#AboutModule'
+    loadChildren: () => import('./pages/about/about.module').then(m => m.AboutModule)
   },
   {
     path: 'search',
-    loadChildren: './pages/search/search.module#SearchModule'
+    loadChildren: () => import('./pages/search/search.module').then(m => m.SearchModule)
   },
   {
     path: 'welcome',
-    loadChildren: './pages/welcome/welcome.module#WelcomeModule'
+    loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule)
   },
   {
     path: 'preferences',
-    loadChildren: './pages/email-preferences/email-preferences.module#EmailPreferencesModule'
+    loadChildren: () => import('./pages/email-preferences/email-preferences.module').then(m => m.EmailPreferencesModule)
   },
   {
     path: 'reviews/write-review',
-    loadChildren: './pages/write-review/write-review.module#WriteReviewModule'
+    loadChildren: () => import('./pages/write-review/write-review.module').then(m => m.WriteReviewModule)
   },
   {
     path: 'reviews/:product',
-    loadChildren: './pages/reviews/reviews.module#ReviewsModule'
+    loadChildren: () => import('./pages/reviews/reviews.module').then(m => m.ReviewsModule)
   },
   {
     path: ':product',
-    loadChildren: './pages/product-details/product-details.module#ProductDetailsModule'
+    loadChildren: () => import('./pages/product-details/product-details.module').then(m => m.ProductDetailsModule)
   },
   
   { path: '**', component: PageNotFoundComponent }

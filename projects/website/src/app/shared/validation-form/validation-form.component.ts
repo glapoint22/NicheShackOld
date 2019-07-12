@@ -4,7 +4,7 @@ import { NgForm, NgModel } from '@angular/forms';
 @Component({ template: '' })
 
 export class ValidationFormComponent implements AfterViewInit {
-  @ViewChild('form') form: NgForm;
+  @ViewChild('form', { static: false }) form: NgForm;
 
   ngAfterViewInit() {
     let interval = window.setInterval(() => {

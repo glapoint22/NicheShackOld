@@ -13,8 +13,8 @@ export class SearchBarComponent implements OnInit {
   public searchCategories: Array<any> = []
   public selectedCategory: any = {};
   private queryParams: any;
-  @ViewChild('tmpSelect') tmpSelect: ElementRef;
-  @ViewChild('select') select: ElementRef;
+  @ViewChild('tmpSelect', { static: true }) tmpSelect: ElementRef;
+  @ViewChild('select', { static: true }) select: ElementRef;
 
 
   constructor(private dataService: DataService, private router: Router, private route: ActivatedRoute) { }
