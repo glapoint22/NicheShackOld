@@ -5,7 +5,6 @@ import { WriteReviewRoutingModule } from './write-review-routing.module';
 import { WriteReviewComponent } from './write-review.component';
 import { FormsModule } from '@angular/forms';
 import { HeaderFooterModule } from '../../shared/header-footer/header-footer.module';
-import { ValidationFormModule } from '../../shared/validation-form/validation-form.module';
 
 @NgModule({
   declarations: [WriteReviewComponent],
@@ -14,7 +13,6 @@ import { ValidationFormModule } from '../../shared/validation-form/validation-fo
     WriteReviewRoutingModule,
     FormsModule,
     HeaderFooterModule,
-    ValidationFormModule
   ]
 })
 export class WriteReviewModule { }

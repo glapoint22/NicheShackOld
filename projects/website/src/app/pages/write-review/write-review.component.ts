@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Review } from '../../shared/review/review';
-import { ValidationFormComponent } from '../../shared/validation-form/validation-form.component';
+import { ValidationBase } from '../../shared/validation-base/validation-base';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 @Component({
   selector: 'write-review',
   templateUrl: './write-review.component.html',
-  styleUrls: ['./write-review.component.scss', '../../shared/validation-form/validation-form.component.scss']
+  styleUrls: ['./write-review.component.scss', '../../shared/validation-base/validation-base.scss']
 })
-export class WriteReviewComponent extends ValidationFormComponent implements OnInit {
+export class WriteReviewComponent extends ValidationBase implements OnInit {
   public review: Review = new Review();
   public product: any = {};
   public submitted: boolean;

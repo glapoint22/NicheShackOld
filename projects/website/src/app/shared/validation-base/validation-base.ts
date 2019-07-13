@@ -1,9 +1,7 @@
-import { Component, AfterViewInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ViewChild } from '@angular/core';
 import { NgForm, NgModel } from '@angular/forms';
 
-@Component({ template: '' })
-
-export class ValidationFormComponent implements AfterViewInit {
+export abstract class ValidationBase implements AfterViewInit {
   @ViewChild('form', { static: false }) form: NgForm;
 
   ngAfterViewInit() {
@@ -31,5 +29,5 @@ export class ValidationFormComponent implements AfterViewInit {
     return control.pristine;
   }
 
-  submitData(): void { }
+  abstract submitData(): void;
 }

@@ -138,3 +138,15 @@ table {
         display: inline-block;
     }
 }
+.share-container {
+    height: 16px;
+    display: inline-block;
+    margin-left: 22px;
+}
+.share-icon {
+    padding: 0 10px 0 10px;
+    display: inline-block;
+    img {
+        cursor: pointer;
+    }
+}
