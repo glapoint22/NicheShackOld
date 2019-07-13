@@ -60,16 +60,14 @@
         <!-- Share -->
         <div class="share-container">
           <div class="share-icon">
-              <img src="assets/Facebook.png" title="Share on Facebook">
+            <img src="assets/Facebook.png" title="Share on Facebook">
           </div>
           <div class="share-icon">
-              <img src="assets/Twitter.png" title="Share on Twitter">
+            <img src="assets/Twitter.png" title="Share on Twitter">
           </div>
           <div class="share-icon">
-              <img src="assets/Pinterest.png" title="Share on Pinterest">
+            <img src="assets/Pinterest.png" title="Share on Pinterest">
           </div>
-          
-          
         </div>
 
         <!-- Report item -->
@@ -139,10 +137,9 @@
 
 
   <!-- Footer -->
-  <div style="margin-top: 134px;">
-    <footer></footer>
-  </div>
+  <footer></footer>
 </div>
+
 <report-review *ngIf="modalService.reportReview.show"></report-review>
 <report-item *ngIf="modalService.reportItem.show" [productId]="product.id"></report-item>
 <add-to-list *ngIf="modalService.addToList.show" [product]="product"></add-to-list>

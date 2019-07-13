@@ -1,0 +1,117 @@
+@import 'theme';
+
+.container {
+    width: 1170px;
+    margin: auto;
+    margin-top: 140px;
+    display: flex;
+}
+.lists-container {
+    width: 210px;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+.list {
+    border-bottom: 1px solid #3d3d3d;
+    padding-bottom: 10px;
+}
+.description {
+    color: #cccccc;
+    margin-top: 10px;
+    font-size: 14px;
+}
+.share-container {
+    height: 16px;
+    display: inline-block;
+    margin-top: 10px;
+    .share-icon {
+        padding: 0 10px 0 10px;
+        display: inline-block;
+        img {
+            cursor: pointer;
+        }
+    }
+    .share-icon:nth-child(1) {
+        padding-left: 0;
+    }
+}
+select {
+    float: right;
+    margin-top: 10px;
+    height: 24px;
+}
+.image-background {
+    width: 150px;
+    height: 150px;
+    background: #181818;
+    border: 1px solid #292929;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 50% 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    .img {
+        width: 130px;
+        height: 130px;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: 50% 50%;
+    }
+}
+.product-title {
+    width: 400px;
+    margin: 10px 0 10px;
+    font-size: 18px;
+    color: white;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+.rating-container {
+    margin-bottom: 5px;
+}
+.price {
+    color: $gold;
+    font-size: 18px;
+    margin-top: 10px;
+}
+.reviews-text {
+    font-size: 14px;
+    color: $color5;
+}
+.list-title {
+    font-size: 14px;
+    margin-top: 20px;
+    color: white;
+    cursor: pointer;
+}
+.list-title:hover {
+    text-decoration: underline;
+}
+.selected-list {
+    color: $gold;
+}
+h2 {
+    color: $gold;
+}
+.total-items {
+    color: $color1;
+    font-size: 14px;
+    margin-top: 10px;
+}
+.main-title {
+    font-size: 34px;
+    color: $gold;
+    border-bottom: 1px solid #3d3d3d;
+    padding-bottom: 10px;
+}
+.product-container {
+    margin-top: 30px;
+    border-bottom: 1px solid #3d3d3d;
+    padding-bottom: 20px;
+}
+.product-info {
+    margin-left: 20px;
+    flex: 1;
+}

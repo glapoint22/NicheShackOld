@@ -139,7 +139,7 @@
       <div class="review-count">
         Showing {{reviewsStart}} - {{reviewsEnd}} of {{product.totalReviews}} reviews
       </div>
-        <review-sort [url]="'reviews/' + product.urlTitle"></review-sort>
+      <review-sort [url]="'reviews/' + product.urlTitle"></review-sort>
     </div>
 
 
@@ -157,9 +157,7 @@
 
 
   <!-- Footer -->
-  <div style="margin-top: 134px;">
-    <footer></footer>
-  </div>
+  <footer></footer>
 </div>
 
 <report-review *ngIf="modalService.reportReview.show"></report-review>

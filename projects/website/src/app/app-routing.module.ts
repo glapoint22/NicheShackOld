@@ -25,6 +25,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/email-preferences/email-preferences.module').then(m => m.EmailPreferencesModule)
   },
   {
+    path: 'lists',
+    loadChildren: () => import('./pages/lists/lists.module').then(m => m.ListsModule)
+  },
+  {
     path: 'reviews/write-review',
     loadChildren: () => import('./pages/write-review/write-review.module').then(m => m.WriteReviewModule)
   },
