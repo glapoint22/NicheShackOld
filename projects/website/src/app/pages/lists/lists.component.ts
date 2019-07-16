@@ -76,6 +76,11 @@ export class ListsComponent implements OnInit {
 
     this.selectedSortOption = this.sortOptions[0];
   }
+
+
+  setSort(){
+    
+  }
   
 
 }

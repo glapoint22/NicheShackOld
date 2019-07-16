@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { PageNotFoundModule } from 'src/app/components/page-not-found/page-not-found.module';
 import { ErrorModule } from 'src/app/components/error/error.module';
+import {TransferHttpCacheModule} from '@nguniversal/common';
 
 // Services
 import { CookieService } from 'ngx-cookie-service';
@@ -18,11 +19,12 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     HttpClientModule,
     PageNotFoundModule,
     ErrorModule,
+    TransferHttpCacheModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

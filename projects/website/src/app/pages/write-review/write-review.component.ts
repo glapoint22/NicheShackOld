@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { Review } from '../../shared/review/review';
 import { ValidationBase } from '../../shared/validation-base/validation-base';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
@@ -13,7 +13,7 @@ export class WriteReviewComponent extends ValidationBase implements OnInit {
   public product: any = {};
   public submitted: boolean;
 
-  constructor(private route: ActivatedRoute, private router: Router) { super(); }
+  constructor(@Inject(PLATFORM_ID) platformId: Object, private route: ActivatedRoute, private router: Router) { super(platformId); }
 
   ngOnInit() {
     this.route.queryParamMap.subscribe((queryParams: ParamMap) => {
@@ -36,7 +36,7 @@ export class WriteReviewComponent extends ValidationBase implements OnInit {
     }
   }
 
-  goHome(){
+  goHome() {
     this.router.navigate(['']);
   }
 }

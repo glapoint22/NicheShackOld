@@ -12,6 +12,6 @@ export class AppComponent {
   constructor(private modalService: ModalService){}
 
   ngAfterContentChecked() {
-    this.error = this.modalService.error;
+    // this.error = this.modalService.error;
   }
 }

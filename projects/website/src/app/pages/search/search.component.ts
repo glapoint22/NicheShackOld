@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, AfterViewInit, Inject, PLATFORM_ID } from '@angular/core';
 import { DataService } from 'src/app/services/data/data.service';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { ModalService } from 'src/app/services/modal/modal.service';
@@ -6,6 +6,7 @@ import { DisplayProduct } from '../../shared/product/display-product';
 import { QueryParametersService } from '../../query-parameters.service';
 import { PriceFilterComponent } from './components/price-filter/price-filter.component';
 import { Filter } from './components/filter/filter';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'search',
@@ -38,16 +39,24 @@ export class SearchComponent implements OnInit, AfterViewInit {
   @ViewChild(PriceFilterComponent, { static: false }) priceFilter: PriceFilterComponent;
 
 
-  constructor(private dataService: DataService, private route: ActivatedRoute, private router: Router, public modalService: ModalService, private queryParametersService: QueryParametersService) { }
+  constructor(
+    private dataService: DataService,
+    private route: ActivatedRoute,
+    private router: Router,
+    public modalService: ModalService,
+    private queryParametersService: QueryParametersService,
+    @Inject(PLATFORM_ID) private platformId: Object) { }
 
   ngAfterViewInit() {
     // set the custom price range when the price filter component is defined
-    let interval = window.setInterval(() => {
-      if (this.priceFilter) {
-        this.priceFilter.setCustomPriceRange();
-        window.clearInterval(interval);
-      }
-    }, 1);
+    if (isPlatformBrowser(this.platformId)) {
+      let interval = window.setInterval(() => {
+        if (this.priceFilter) {
+          this.priceFilter.setCustomPriceRange();
+          window.clearInterval(interval);
+        }
+      }, 1);
+    }
   }
 
   ngOnInit() {
@@ -83,6 +92,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
     ];
 
     this.route.queryParamMap.subscribe((queryParams: ParamMap) => {
+
       let parameters: Array<any> = [];
       this.query = queryParams.get('query');
       this.queryParametersService.queryParams = queryParams;
@@ -123,8 +133,11 @@ export class SearchComponent implements OnInit, AfterViewInit {
           let index = this.perPageOptions.findIndex(x => x.value === perPage);
 
           //Scroll to top
-          let body = document.scrollingElement || document.documentElement;
-          body.scrollTop = 0;
+          if (isPlatformBrowser(this.platformId)) {
+            let body = document.scrollingElement || document.documentElement;
+            body.scrollTop = 0;
+          }
+
 
           // Products per page
           this.productsPerPage = this.perPageOptions[index == -1 ? 0 : index];

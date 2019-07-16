@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { DetailReviewProduct } from '../../shared/product/detail-review-product';
 import { Review } from '../../shared/review/review';
 import { QueryParametersService } from '../../query-parameters.service';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'reviews',
@@ -18,13 +19,22 @@ export class ReviewsComponent implements OnInit {
   public reviewsStart: number;
   public reviewsEnd: number;
 
-  constructor(public modalService: ModalService, private route: ActivatedRoute, private router: Router, private queryParametersService: QueryParametersService) { }
+  constructor(
+    public modalService: ModalService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private queryParametersService: QueryParametersService,
+    @Inject(PLATFORM_ID) private platformId: Object) { }
 
   ngOnInit() {
     this.route.queryParamMap.subscribe((queryParams: ParamMap) => {
-      //Scroll to top
-      let body = document.scrollingElement || document.documentElement;
-      body.scrollTop = 0;
+
+      if (isPlatformBrowser(this.platformId)) {
+        //Scroll to top
+        let body = document.scrollingElement || document.documentElement;
+        body.scrollTop = 0;
+      }
+
 
       this.queryParametersService.queryParams = queryParams;
 

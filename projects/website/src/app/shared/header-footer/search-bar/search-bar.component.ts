@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Inject, PLATFORM_ID } from '@angular/core';
 import { DataService } from 'src/app/services/data/data.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'search-bar',
@@ -17,7 +18,7 @@ export class SearchBarComponent implements OnInit {
   @ViewChild('select', { static: true }) select: ElementRef;
 
 
-  constructor(private dataService: DataService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private dataService: DataService, private router: Router, private route: ActivatedRoute, @Inject(PLATFORM_ID) private platformId: Object) { }
 
   ngAfterViewInit() {
     this.setSelectElementWidth();
@@ -80,12 +81,15 @@ export class SearchBarComponent implements OnInit {
   }
 
   setSelectElementWidth() {
-    let interval = window.setInterval(() => {
-      if (this.select.nativeElement.offsetWidth !== this.tmpSelect.nativeElement.offsetWidth) {
-        this.select.nativeElement.style.width = this.tmpSelect.nativeElement.offsetWidth + 'px';
-        clearInterval(interval);
-      }
-    }, 1);
+    if (isPlatformBrowser(this.platformId)) {
+      let interval = window.setInterval(() => {
+        if (this.select.nativeElement.offsetWidth !== this.tmpSelect.nativeElement.offsetWidth) {
+          this.select.nativeElement.style.width = this.tmpSelect.nativeElement.offsetWidth + 'px';
+          clearInterval(interval);
+        }
+      }, 1);
+    }
+
   }
 
   onSearchKeydown(event, query) {
