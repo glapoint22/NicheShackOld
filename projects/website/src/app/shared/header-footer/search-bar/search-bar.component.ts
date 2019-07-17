@@ -28,6 +28,7 @@ export class SearchBarComponent implements OnInit {
     this.route.queryParamMap.subscribe(queryParams => {
       //Get params from the url
       this.query = queryParams.get('query');
+      if (this.query == null) this.query = '';
       this.queryParams = queryParams;
 
       // Get the selected category

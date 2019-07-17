@@ -18,7 +18,7 @@
         </div>
         <div class="search-container">
             <div style="display: flex">
-                <select #select [(ngModel)]="selectedCategory" name="categories" (change)="setSelectElementWidth()">
+                <select #select class="category-dropdown" [(ngModel)]="selectedCategory" name="categories" (change)="setSelectElementWidth()">
                     <option *ngFor="let category of searchCategories" [ngValue]="category">{{category.name}}</option>
                 </select>
                 <div class="input-container" style="flex: 1">

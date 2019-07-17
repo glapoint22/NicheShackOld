@@ -42,7 +42,6 @@ export class SearchComponent implements OnInit, AfterViewInit {
   constructor(
     private dataService: DataService,
     private route: ActivatedRoute,
-    private router: Router,
     public modalService: ModalService,
     private queryParametersService: QueryParametersService,
     @Inject(PLATFORM_ID) private platformId: Object) { }

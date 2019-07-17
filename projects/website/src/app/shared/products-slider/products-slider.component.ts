@@ -1,12 +1,13 @@
-import { Component, Input, HostListener } from '@angular/core';
+import { Component, Input, HostListener, Inject, PLATFORM_ID, OnInit } from '@angular/core';
 import { DisplayProduct } from '../product/display-product';
+import { isPlatformServer } from '@angular/common';
 
 @Component({
   selector: 'products-slider',
   templateUrl: './products-slider.component.html',
   styleUrls: ['./products-slider.component.scss']
 })
-export class ProductsSliderComponent {
+export class ProductsSliderComponent implements OnInit {
   public margin: number = 20;
   public lastPage: boolean = false;
   public ShowAllProducts: boolean;
@@ -18,6 +19,13 @@ export class ProductsSliderComponent {
   private currentTranslation: number = 0;
   private translations: Array<number> = [this.currentTranslation];
   private productWidth: number = 300;
+  public isServer: boolean;
+
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
+
+  ngOnInit(){
+    this.isServer = isPlatformServer(this.platformId);
+  }
 
   onArrowClick(direction: number, productCount: number, containerWidth: number) {
     // Execute the correct arrow function based on the direction
