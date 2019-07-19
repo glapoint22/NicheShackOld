@@ -1,46 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { DetailProduct } from '../../shared/product/detail-product';
 import { ProductsSlider } from '../../shared/products-slider/products-slider';
 import { QueryParametersService } from '../../query-parameters.service';
-import { SocialMediaService } from '../../social-media.service';
-import { Meta, Title } from '@angular/platform-browser';
+import { SharePage } from '../share-page';
+import { Title, Meta } from '@angular/platform-browser';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'product-details',
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.scss']
 })
-export class ProductDetailsComponent implements OnInit {
+export class ProductDetailsComponent extends SharePage implements OnInit {
   public product: DetailProduct;
   public productsSlider: Array<ProductsSlider>;
 
-
   constructor(
+    titleService: Title,
+    metaService: Meta,
+    @Inject(DOCUMENT) document,
     private route: ActivatedRoute,
     public modalService: ModalService,
     private router: Router,
-    private queryParametersService: QueryParametersService,
-    private meta: Meta,
-    private titleService: Title,
-    public socialMediaService: SocialMediaService) { }
+    private queryParametersService: QueryParametersService) { super(titleService, metaService, document) }
 
   ngOnInit() {
-    // Set the facebook SDK
-    this.socialMediaService.setFacebookSDK();
-    this.meta.addTag({name: 'og:title', content: 'NicheShack.com: Fat Loss Activation'});
-    this.titleService.setTitle( 'NicheShack.com: Fat Loss Activation' );
-    this.meta.addTag({name: 'og:site_name', content: 'Niche Shack'});
-    this.meta.addTag({name: 'og:type', content: 'website'});
-    this.meta.addTag({name: 'og:locale', content: 'en_US'});
-    this.meta.addTag({name: 'fb:app_id', content: '1399604666855152'});
-    this.meta.addTag({name: 'og:url', content: 'http://172.100.235.238/fat-loss-activation'});
-    this.meta.addTag({name: 'og:image', content: 'http://172.100.235.238/fat-loss-activation/Images/e9a794bc40f14f709e6636aefbfe5d43.png'});
-    this.meta.addTag({name: 'og:image:width', content: '300'});
-    this.meta.addTag({name: 'og:image:height', content: '300'});
-    this.meta.addTag({name: 'og:description', content: '"3-Minute Meditations" are super-short, super-simple, uncomplicated introductions to the art and science of meditation. With these breakthrough methods, you\'ll be well on your way to getting all the benefits of meditation.'});
-    this.meta.addTag({name: 'description', content: '"3-Minute Meditations" are super-short, super-simple, uncomplicated introductions to the art and science of meditation. With these breakthrough methods, you\'ll be well on your way to getting all the benefits of meditation.'});
 
     this.product = {
       id: 'FRT6YHJE4J',
@@ -184,6 +170,14 @@ export class ProductDetailsComponent implements OnInit {
         }
       ]
     }
+
+    this.title = this.product.title;
+    this.description = this.product.description;
+    this.pageRoute = this.product.urlTitle;
+    this.image = '/Images/' + this.product.image;
+    super.ngOnInit();
+    
+    
     this.route.queryParamMap.subscribe((queryParams: ParamMap) => {
       //Scroll to top
       // let body = document.scrollingElement || document.documentElement;
@@ -208,20 +202,5 @@ export class ProductDetailsComponent implements OnInit {
 
   onViewAllReviewsClick() {
     this.router.navigate(['/reviews/' + this.product.urlTitle]);
-  }
-
-  onFacebookClick(){
-    this.socialMediaService.onFacebookClick(location.href);
-  }
-
-  onTwitterClick(){
-    this.socialMediaService.onTwitterClick('Check out what I found at NicheShack.com!', location.href)
-  }
-
-  onPinterestClick(){
-    let url = location.href;
-    let media = location.origin + '/Images/' + this.product.image;
-
-    this.socialMediaService.onPinterestClick(url, media, this.product.description);
   }
 }

@@ -1,12 +1,14 @@
 import { AfterViewInit, ViewChild, Inject, PLATFORM_ID } from '@angular/core';
 import { NgForm, NgModel } from '@angular/forms';
 import { isPlatformBrowser } from '@angular/common';
+import { Page } from '../page';
+import { Title, Meta } from '@angular/platform-browser';
 
 
-export abstract class ValidationBase implements AfterViewInit {
+export abstract class ValidationPage extends Page implements AfterViewInit {
   @ViewChild('form', { static: false }) form: NgForm;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
+  constructor(titleService: Title, metaService: Meta, @Inject(PLATFORM_ID) private platformId: Object) { super(titleService, metaService) }
 
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
