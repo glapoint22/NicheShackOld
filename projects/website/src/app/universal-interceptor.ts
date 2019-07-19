@@ -17,14 +17,12 @@ export class UniversalInterceptor implements HttpInterceptor {
       if (!req.url.startsWith('/')) {
         newUrl += '/';
       }
+
       newUrl += req.url;
       serverReq = req.clone({
         url: newUrl,
         headers: new HttpHeaders({
-          host: this.request.headers.host,
-          connection: this.request.headers.connection,
-          accept: this.request.headers.accept,
-          cookie: this.request.headers.cookie
+          cookie: this.request.headers.cookie ? this.request.headers.cookie : {}
         })
       });
     }
