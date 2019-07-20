@@ -3,6 +3,7 @@ import { Review } from '../../shared/review/review';
 import { ValidationPage } from '../validation-page/Validation-page';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'write-review',
@@ -14,12 +15,11 @@ export class WriteReviewComponent extends ValidationPage implements OnInit {
   public product: any = {};
   public submitted: boolean;
 
-  constructor(titleService: Title, metaService: Meta, @Inject(PLATFORM_ID) platformId: Object, private route: ActivatedRoute, private router: Router) { super(titleService, metaService, platformId); }
+  constructor(titleService: Title, metaService: Meta, @Inject(DOCUMENT) document, @Inject(PLATFORM_ID) platformId: Object, private route: ActivatedRoute, private router: Router) { super(titleService, metaService, document, platformId); }
 
   ngOnInit() {
     this.title = 'Write a Review';
-    this.description = 'This page will allow customers to write about the pros and cons of an item, ' +
-      'helping other shoppers determine if it is the right product or service for them.';
+    this.share = false;
 
     this.route.queryParamMap.subscribe((queryParams: ParamMap) => {
       let productId = queryParams.get('id');

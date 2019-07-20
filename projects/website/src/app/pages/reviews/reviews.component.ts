@@ -4,14 +4,16 @@ import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { DetailReviewProduct } from '../../shared/product/detail-review-product';
 import { Review } from '../../shared/review/review';
 import { QueryParametersService } from '../../query-parameters.service';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, DOCUMENT } from '@angular/common';
+import { Page } from '../page';
+import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'reviews',
   templateUrl: './reviews.component.html',
   styleUrls: ['./reviews.component.scss']
 })
-export class ReviewsComponent implements OnInit {
+export class ReviewsComponent extends Page implements OnInit {
   public product: DetailReviewProduct;
   public pageCount: number;
   public reviewsPerPage = 10;
@@ -20,11 +22,14 @@ export class ReviewsComponent implements OnInit {
   public reviewsEnd: number;
 
   constructor(
+    titleService: Title,
+    metaService: Meta,
+    @Inject(DOCUMENT) document,
     public modalService: ModalService,
     private route: ActivatedRoute,
     private router: Router,
     private queryParametersService: QueryParametersService,
-    @Inject(PLATFORM_ID) private platformId: Object) { }
+    @Inject(PLATFORM_ID) private platformId: Object) { super(titleService, metaService, document) }
 
   ngOnInit() {
     this.route.queryParamMap.subscribe((queryParams: ParamMap) => {
@@ -117,6 +122,11 @@ export class ReviewsComponent implements OnInit {
       this.reviewsStart = this.reviewsPerPage * (this.currentPage - 1) + 1;
       this.reviewsEnd = this.reviewsStart + this.product.reviews.length - 1;
       this.pageCount = Math.ceil(this.product.totalReviews / this.reviewsPerPage);
+
+      this.title = 'Customer Reviews: ' + this.product.title;
+      this.description = 'Read customer reviews for ' + this.product.title + ' and learn more about this item from our customers before you buy at NicheShack.com.';
+      this.share = false;
+      super.ngOnInit();
     });
   }
 

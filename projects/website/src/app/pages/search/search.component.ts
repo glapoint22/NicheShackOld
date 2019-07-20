@@ -6,14 +6,16 @@ import { DisplayProduct } from '../../shared/product/display-product';
 import { QueryParametersService } from '../../query-parameters.service';
 import { PriceFilterComponent } from './components/price-filter/price-filter.component';
 import { Filter } from './components/filter/filter';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, DOCUMENT } from '@angular/common';
+import { Page } from '../page';
+import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit, AfterViewInit {
+export class SearchComponent extends Page implements OnInit, AfterViewInit {
   public totalProducts: number;
   public products: Array<DisplayProduct>;
   public pageCount: number;
@@ -40,11 +42,14 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
 
   constructor(
+    titleService: Title,
+    metaService: Meta,
+    @Inject(DOCUMENT) document,
     private dataService: DataService,
     private route: ActivatedRoute,
     public modalService: ModalService,
     private queryParametersService: QueryParametersService,
-    @Inject(PLATFORM_ID) private platformId: Object) { }
+    @Inject(PLATFORM_ID) private platformId: Object) { super(titleService, metaService, document) }
 
   ngAfterViewInit() {
     // set the custom price range when the price filter component is defined
@@ -169,6 +174,25 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
           // Set the price filter's custom price range
           if (this.priceFilter) this.priceFilter.setCustomPriceRange();
+
+          
+          // Set the title and description for this page
+          this.title = this.query ? this.query : '';
+          this.description = 'Search for items in your niche';
+
+          if (this.categories.length > 0) {
+            if(this.query && this.currentCategory != null){
+              this.title += ': '
+            }
+
+            this.title += (this.currentCategory != null ? this.categories[0].name : '');
+            this.description += (this.currentCategory != null ? ' in ' + this.categories[0].name : '') + '.';
+          } else {
+            this.description += '.';
+          }
+
+          this.share = false;
+          super.ngOnInit();
         });
     });
   }

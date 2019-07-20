@@ -84,6 +84,7 @@ export class ProductDetailsComponent extends SharePage implements OnInit {
       ],
       hoplink: 'https://201behydk0sr8n2-f2jo9qcq9u.hop.clickbank.net/',
       image: 'e9a794bc40f14f709e6636aefbfe5d43.png',
+      shareImage: 'tlou2.jpg',
       description: '"3-Minute Meditations" are super-short, super-simple, uncomplicated introductions to the art and science of meditation. With these breakthrough methods, you\'ll be well on your way to getting all the benefits of meditation while sitting about 1/10th of the time of other programs. "3-Minute Meditations" is guaranteed to lead you to incredible results if you practice daily. And the best part is it only takes 180 seconds a day. "3-Minute Meditations" is built around 7 guided audio meditations/visualizations systematically utilized throughout the four weeks. These include Intentional, Oneness, Mantra, Forgiveness, Mindfulness, Heart & Healing meditations/visualizations. With a simple, intentional, easy-to-implement practice, you\'ll witness an increase in peace, joy & gratitude and a decrease in stress, anxiety & overwhelm in your life.',
       title: 'Fat Loss Activation',
       urlTitle: 'fat-loss-activation',
@@ -173,8 +174,7 @@ export class ProductDetailsComponent extends SharePage implements OnInit {
 
     this.title = this.product.title;
     this.description = this.product.description;
-    this.pageRoute = this.product.urlTitle;
-    this.image = '/Images/' + this.product.image;
+    this.image = '/Images/' + this.product.shareImage;
     super.ngOnInit();
     
     

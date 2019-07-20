@@ -1,13 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from 'src/app/services/data/data.service';
+import { Page } from '../page';
+import { Title, Meta } from '@angular/platform-browser';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'welcome',
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.scss']
 })
-export class WelcomeComponent implements OnInit {
+export class WelcomeComponent extends Page implements OnInit {
   public isExistingCustomer: boolean;
   public customer: string;
   public leadMagnet: string;
@@ -16,11 +19,19 @@ export class WelcomeComponent implements OnInit {
   public productName: string;
   public serializedCustomerId;
 
-  constructor(private route: ActivatedRoute, private dataService: DataService) { }
+  constructor(
+    titleService: Title,
+    metaService: Meta,
+    @Inject(DOCUMENT) document,
+    private route: ActivatedRoute,
+    private dataService: DataService) { super(titleService, metaService, document) }
 
   ngOnInit() {
     this.route.queryParamMap.subscribe(queryParams => {
       let parameters = queryParams.get('p');
+
+      this.title = 'Welcome';
+      this.share = false;
 
       this.dataService.get('api/Subscriptions/Content', [{ key: 'parameters', value: parameters }])
         .subscribe((response: any) => {

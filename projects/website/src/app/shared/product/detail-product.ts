@@ -5,4 +5,5 @@ import { ReviewProduct } from './review-product';
 export interface DetailProduct extends QuickLookProduct, ReviewProduct {
     hoplink: string;
     content: ProductContent;
+    shareImage: string;
 }

@@ -1,6 +1,6 @@
 import { AfterViewInit, ViewChild, Inject, PLATFORM_ID } from '@angular/core';
 import { NgForm, NgModel } from '@angular/forms';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, DOCUMENT } from '@angular/common';
 import { Page } from '../page';
 import { Title, Meta } from '@angular/platform-browser';
 
@@ -8,7 +8,7 @@ import { Title, Meta } from '@angular/platform-browser';
 export abstract class ValidationPage extends Page implements AfterViewInit {
   @ViewChild('form', { static: false }) form: NgForm;
 
-  constructor(titleService: Title, metaService: Meta, @Inject(PLATFORM_ID) private platformId: Object) { super(titleService, metaService) }
+  constructor(titleService: Title, metaService: Meta, @Inject(DOCUMENT) document, @Inject(PLATFORM_ID) private platformId: Object) { super(titleService, metaService, document) }
 
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {

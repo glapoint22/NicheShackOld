@@ -4,15 +4,13 @@ import { Title, Meta } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
 
 export class SharePage extends Page implements OnInit {
-    
 
-    constructor(titleService: Title, metaService: Meta, @Inject(DOCUMENT) private document) {
-        super(titleService, metaService);
+    constructor(titleService: Title, metaService: Meta, @Inject(DOCUMENT) document) {
+        super(titleService, metaService, document);
     }
 
     ngOnInit() {
         super.ngOnInit();
-
         this.setFacebookSDK();
     }
 
@@ -34,16 +32,16 @@ export class SharePage extends Page implements OnInit {
     onFacebookClick() {
         window['FB'].ui({
             method: 'share',
-            href: this.domain + this.pageRoute
+            href: this.domain + this.document.location.pathname
         }, function (response) { });
     }
 
     onTwitterClick(text: string) {
-        this.openWindow('https://twitter.com/intent/tweet?text=' + text + '&url=' + this.domain + this.pageRoute);
+        this.openWindow('https://twitter.com/intent/tweet?text=' + text + '&url=' + this.domain + this.document.location.pathname);
     }
 
     onPinterestClick() {
-        this.openWindow('https://www.pinterest.com/pin/create/button/?url='+ this.domain + this.pageRoute
+        this.openWindow('https://www.pinterest.com/pin/create/button/?url='+ this.domain + this.document.location.pathname
         + '&media=' + this.domain + this.image
         + '&description=' + this.description)
     }

@@ -1,13 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { DataService } from 'src/app/services/data/data.service';
 import { ActivatedRoute } from '@angular/router';
+import { Page } from '../page';
+import { Title, Meta } from '@angular/platform-browser';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'email-preferences',
   templateUrl: './email-preferences.component.html',
   styleUrls: ['./email-preferences.component.scss']
 })
-export class EmailPreferencesComponent implements OnInit {
+export class EmailPreferencesComponent extends Page implements OnInit {
   public subscriptions;
   private customerId: string;
   private sessionId: string
@@ -22,24 +25,31 @@ export class EmailPreferencesComponent implements OnInit {
   public isUpdated: boolean = false;
   public showConfirmation: boolean;
 
-  constructor(private dataService: DataService, private route: ActivatedRoute) { }
+  constructor(titleService: Title,
+    metaService: Meta,
+    @Inject(DOCUMENT) document,
+    private dataService: DataService,
+    private route: ActivatedRoute) { super(titleService, metaService, document) }
 
   ngOnInit() {
+    this.title = 'Email Preferences';
+    this.share = false;
+    super.ngOnInit();
     //Get the preferences
-    this.route.queryParamMap.subscribe(queryParams => {
-      let customerId = queryParams.get('p');
+    // this.route.queryParamMap.subscribe(queryParams => {
+    //   let customerId = queryParams.get('p');
 
-      this.dataService.get('api/Subscriptions/', [{ key: 'customerId', value: customerId }])
-        .subscribe((response: any) => {
-          this.customerId = response.customer.id;
-          this.sessionId = response.customer.sessionId;
-          this.subscriptions = response.subscriptions;
-          this.originalName = this.name = response.customer.name;
-          this.originalEmail = this.email = response.customer.email;
-          this.originalEmailSendFrequency = this.emailSendFrequency = response.customer.emailSendFrequency;
-          this.emailSentDate = response.customer.emailSentDate;
-        });
-    });
+    //   this.dataService.get('api/Subscriptions/', [{ key: 'customerId', value: customerId }])
+    //     .subscribe((response: any) => {
+    //       this.customerId = response.customer.id;
+    //       this.sessionId = response.customer.sessionId;
+    //       this.subscriptions = response.subscriptions;
+    //       this.originalName = this.name = response.customer.name;
+    //       this.originalEmail = this.email = response.customer.email;
+    //       this.originalEmailSendFrequency = this.emailSendFrequency = response.customer.emailSendFrequency;
+    //       this.emailSentDate = response.customer.emailSentDate;
+    //     });
+    // });
   }
 
   onUpdate(emailSendFrequency) {
