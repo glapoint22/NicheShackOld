@@ -5,7 +5,8 @@ const PROXY_CONFIG = [
             "/Images"
         ],
         // target: "http://www.nicheshack.com/",
-        target: "http://localhost:49699/",
+        // target: "http://localhost:49699/",
+        target: "http://localhost:81/",
         secure: false,
         "changeOrigin": true
     }

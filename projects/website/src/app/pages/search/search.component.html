@@ -1,5 +1,5 @@
 <div class="background-container">
-  <search-bar #searchBar></search-bar>
+  <search-bar></search-bar>
 
   <!-- No match -->
   <div *ngIf="totalProducts === 0" class="no-match-container">
@@ -61,7 +61,7 @@
         <category-filter #categoryFilter [currentCategory]="currentCategory" [currentNiche]="currentNiche"
           [query]="currentQuery" [categories]="categories" [caption]="'Categories'" [showContent]="!showFilters"
           [show]="!showFilters">
-          <category-filter-content [categoryFilter]="categoryFilter" (onChange)="searchBar.setSelectElementWidth()"></category-filter-content>
+          <category-filter-content [categoryFilter]="categoryFilter"></category-filter-content>
         </category-filter>
 
         <div *ngFor="let filter of filters; trackBy:trackFilter">

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input} from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,7 +10,6 @@ export class MenuComponent {
   public showMenu: boolean;
   public showNicheList: boolean;
   @Input() categories: any;
-  @Output() categoryClick = new EventEmitter<void>();
 
   public currentCategory: any;
 
@@ -28,7 +27,6 @@ export class MenuComponent {
     this.router.navigate(['/search'], {
       queryParams: { 'category': this.currentCategory.id }
     });
-    this.categoryClick.emit();
   }
 
   hideMenu() {

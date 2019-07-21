@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { QueryParametersService } from 'projects/website/src/app/query-parameters.service';
 import { CategoryFilterComponent } from '../category-filter/category-filter.component';
 
@@ -15,13 +15,11 @@ export class CategoryFilterContentComponent {
   public seeMoreCategories: boolean;
   public lineHeight: number = 18;
   public margin: number = 10;
-  @Output() onChange = new EventEmitter<void>();
 
   constructor(private queryParametersService: QueryParametersService) {  }
 
   onClick(addRemoveParams) {
     this.queryParametersService.updateUrl('/search', addRemoveParams);
-    this.onChange.emit();
   }
 
   getMaxHeight(category) {

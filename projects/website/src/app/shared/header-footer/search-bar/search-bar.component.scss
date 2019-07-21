@@ -78,19 +78,6 @@ input{
     float: left;
     margin-right: 10px;
 }
-.img-container {
-    min-width: 175px;
-    min-height: 60px;
-    margin: 0 25px 0 25px;
-    cursor: pointer;
-    .logo {
-        background-image: url(../../../../assets/Logo.png);
-        height: 60px;
-        background-position: 50% 50%;
-        background-repeat: no-repeat;
-        background-size: contain;
-    }
-}
 .icon-container {
     height: 60px;
     flex-shrink: 0;
@@ -145,16 +132,7 @@ input{
     .search-container{
         margin-right: 10px;
     }
-    select{
-        width: 44px !important;
-    }
-}
-@media screen and (max-width: 600px) {
-    .img-container {
-        min-width: 21px;
-        min-height: 21px;
-        .logo {
-            background-image: url(../../../../assets/Shack.png);
-        }
+    .category-dropdown{
+        width: 25px !important;
     }
 }

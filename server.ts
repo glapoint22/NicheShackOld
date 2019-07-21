@@ -18,7 +18,7 @@
 import 'zone.js/dist/zone-node';
 
 import * as express from 'express';
-import {join} from 'path';
+import { join } from 'path';
 
 import * as proxy from 'http-proxy-middleware';
 
@@ -31,7 +31,7 @@ const PORT = process.env.PORT || 2222;
 const DIST_FOLDER = join(process.cwd(), 'dist/browser');
 
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
-const {AppServerModuleNgFactory, LAZY_MODULE_MAP, ngExpressEngine, provideModuleMap} = require('./dist/server/main');
+const { AppServerModuleNgFactory, LAZY_MODULE_MAP, ngExpressEngine, provideModuleMap } = require('./dist/server/main');
 
 // gzip
 app.use(compression());
@@ -49,12 +49,12 @@ app.set('views', DIST_FOLDER);
 
 app.use(
   '/api',
-  proxy('/api',{ target: 'http://localhost:81' })
+  proxy('/api', { target: 'http://localhost:81' })
 );
 
 app.use(
   '/Images',
-  proxy('/Images',{ target: 'http://localhost:81' })
+  proxy('/Images', { target: 'http://localhost:81' })
 );
 
 // Example Express Rest API endpoints

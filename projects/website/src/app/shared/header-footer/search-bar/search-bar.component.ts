@@ -21,19 +21,15 @@ export class SearchBarComponent implements OnInit {
   constructor(private dataService: DataService, private router: Router, private route: ActivatedRoute, @Inject(PLATFORM_ID) private platformId: Object) { }
 
   ngAfterViewInit() {
-    this.setSelectElementWidth();
+    if (isPlatformBrowser(this.platformId)) this.setSelectElementWidth();
   }
 
   ngOnInit() {
     this.route.queryParamMap.subscribe(queryParams => {
-      //Get params from the url
-      this.query = queryParams.get('query');
-      if (this.query == null) this.query = '';
       this.queryParams = queryParams;
-
-      // Get the selected category
       if (this.categories.length > 0) {
-        this.selectedCategory = this.getSelectedCategory();
+        this.setSelectedCategory();
+        this.setSelectElementWidth();
       }
     });
 
@@ -47,8 +43,13 @@ export class SearchBarComponent implements OnInit {
       this.categories = this.dataService.categories;
       this.setCategories();
     }
+  }
 
-
+  getQuery() {
+    if (this.route.snapshot.queryParams.query) {
+      return this.route.snapshot.queryParams['query'];
+    }
+    return '';
   }
 
   setCategories() {
@@ -56,19 +57,22 @@ export class SearchBarComponent implements OnInit {
     this.searchCategories.unshift({ name: 'All', id: -1 });
 
     // Get the selected category
-    this.selectedCategory = this.getSelectedCategory();
+    this.setSelectedCategory();
   }
 
-  getSelectedCategory() {
-    let category = this.queryParams.get('category');
+  setSelectedCategory() {
+    let category;
     let id;
+
+    category = this.queryParams.get('category');
+
 
     if (!category) {
       id = 0;
     } else {
       id = this.searchCategories.findIndex(x => x.id == Number(category));
     }
-    return this.searchCategories[id];
+    this.selectedCategory = this.searchCategories[id];
   }
 
 
@@ -82,15 +86,15 @@ export class SearchBarComponent implements OnInit {
   }
 
   setSelectElementWidth() {
-    if (isPlatformBrowser(this.platformId)) {
-      let interval = window.setInterval(() => {
-        if (this.select.nativeElement.offsetWidth !== this.tmpSelect.nativeElement.offsetWidth) {
-          this.select.nativeElement.style.width = this.tmpSelect.nativeElement.offsetWidth + 'px';
-          clearInterval(interval);
-        }
-      }, 1);
-    }
+    let interval = window.setInterval(() => {
+      if (this.select.nativeElement.offsetWidth !== this.tmpSelect.nativeElement.offsetWidth) {
+        this.select.nativeElement.style.width = this.tmpSelect.nativeElement.offsetWidth + 'px';
 
+      }
+      if (this.select.nativeElement.offsetWidth == this.tmpSelect.nativeElement.offsetWidth) {
+        clearInterval(interval);
+      }
+    }, 1);
   }
 
   onSearchKeydown(event, query) {

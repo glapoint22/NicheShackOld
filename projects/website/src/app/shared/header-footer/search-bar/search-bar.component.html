@@ -5,7 +5,7 @@
 <div class="search-bar">
 
     <!-- Logo -->
-    <div class="img-container" (click)="onImageClick()" title="Home">
+    <div class="logo-container" (click)="onImageClick()" title="Home">
         <div class="logo"></div>
     </div>
 
@@ -14,7 +14,7 @@
             (click)="menu.showMenu = !menu.showMenu">
             <i class="fas fa-bars" style="margin-right: 8px"></i>
             <span class="categories-text">Categories</span>
-            <menu #menu (click)="$event.stopPropagation()" [categories]="categories" (categoryClick)="setSelectElementWidth()"></menu>
+            <menu #menu (click)="$event.stopPropagation()" [categories]="categories"></menu>
         </div>
         <div class="search-container">
             <div style="display: flex">
@@ -22,7 +22,7 @@
                     <option *ngFor="let category of searchCategories" [ngValue]="category">{{category.name}}</option>
                 </select>
                 <div class="input-container" style="flex: 1">
-                    <input #search type="text" placeholder="Search" [value]="query" (keydown)="onSearchKeydown($event, search.value)">
+                    <input #search type="text" placeholder="Search" [value]="getQuery()" (keydown)="onSearchKeydown($event, search.value)">
                 </div>
                 <div class="search-button-container">
                     <div class="search-button" (click)="setQuery(search.value)">

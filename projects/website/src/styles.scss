@@ -160,3 +160,25 @@ textarea {
     overflow: auto;
     font-family: Arial, Helvetica, sans-serif;
 }
+.logo-container {
+    min-width: 175px;
+    min-height: 60px;
+    margin: 0 25px 0 25px;
+    cursor: pointer;
+    .logo {
+        background-image: url(./assets/Logo.png);
+        height: 60px;
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+}
+@media screen and (max-width: 600px) {
+    .logo-container {
+        min-width: 21px;
+        min-height: 21px;
+        .logo {
+            background-image: url(./assets/Shack.png);
+        }
+    }
+}
