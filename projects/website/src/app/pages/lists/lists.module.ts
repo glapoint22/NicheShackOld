@@ -6,10 +6,11 @@ import { ListsComponent } from './lists.component';
 import { HeaderFooterModule } from '../../shared/header-footer/header-footer.module';
 import { FormsModule } from '@angular/forms';
 import { StarsModule } from '../../shared/stars/stars.module';
+import { ShareListComponent } from './share-list/share-list.component';
 
 
 @NgModule({
-  declarations: [ListsComponent],
+  declarations: [ListsComponent, ShareListComponent],
   imports: [
     CommonModule,
     ListsRoutingModule,

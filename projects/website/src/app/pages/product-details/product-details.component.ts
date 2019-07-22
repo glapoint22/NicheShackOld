@@ -203,4 +203,12 @@ export class ProductDetailsComponent extends SharePage implements OnInit {
   onViewAllReviewsClick() {
     this.router.navigate(['/reviews/' + this.product.urlTitle]);
   }
+
+  onFacebookClick(){
+    super.onFacebookClick(location.pathname, '');
+  }
+
+  onTwitterClick(){
+    super.onTwitterClick(location.pathname, 'Check out what I found at NicheShack.com!')
+  }
 }

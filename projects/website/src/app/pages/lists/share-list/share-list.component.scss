@@ -1,0 +1,52 @@
+@import 'theme';
+
+.caption {
+    color: $gold;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+.text {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+.gold-button {
+    float: none;
+    margin-top: 5px;
+    display: block;
+}
+hr {
+    border-color: #3d3d3d;
+    width: 300px;
+}
+.share-container {
+    height: 20px;
+    margin-bottom: 10px;
+    width: 110px;
+    display: inline-block;
+    margin-left: 110px;
+    background: #353535;
+    border: 1px solid #5d5d5d;
+    border-radius: 4px;
+    line-height: 20px;
+    .share-icon {
+        padding: 2px 14px 0 10px;
+        display: inline-block;
+        vertical-align: middle;
+        img {
+            cursor: pointer;
+        }
+    }
+}
+.link {
+    color: $color5;
+    font-size: 16px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+.link-copied {
+    color: #00ff00;
+    float: right;
+    margin-right: 10px;
+    margin-top: 4px;
+    font-size: 12px;
+} 

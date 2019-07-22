@@ -12,11 +12,11 @@ export class AppComponent implements OnInit {
   constructor(private cookieService: CookieService, public dataService: DataService) { }
 
   ngOnInit() {
-    if (!this.cookieService.check('_session')) {
-      this.cookieService.set('_session', '');
-      this.dataService.get('api/Customers/Session').subscribe((response) => {
-        response;
-      });
-    }
+    // if (!this.cookieService.check('_session')) {
+    //   this.cookieService.set('_session', '');
+    //   this.dataService.get('api/Customers/Session').subscribe((response) => {
+    //     response;
+    //   });
+    // }
   }
 } 

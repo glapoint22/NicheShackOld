@@ -29,15 +29,16 @@ export class SharePage extends Page implements OnInit {
         this.document.body.insertBefore(script, this.document.body.childNodes[1]);
     }
 
-    onFacebookClick() {
+    onFacebookClick(pathname: string, quote: string) {
         window['FB'].ui({
             method: 'share',
-            href: this.domain + this.document.location.pathname
+            href: this.domain + pathname,
+            quote: quote
         }, function (response) { });
     }
 
-    onTwitterClick(text: string) {
-        this.openWindow('https://twitter.com/intent/tweet?text=' + text + '&url=' + this.domain + this.document.location.pathname);
+    onTwitterClick(pathname: string, text: string) {
+        this.openWindow('https://twitter.com/intent/tweet?text=' + text + '&url=' + this.domain + pathname);
     }
 
     onPinterestClick() {

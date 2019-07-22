@@ -1,3 +1,5 @@
+
+
 <div class="background-container">
     <!-- Search Bar -->
     <search-bar></search-bar>
@@ -34,27 +36,24 @@
 
 
         <div style="flex: 1; margin-left: 20px;">
-            <div class="main-title">
-                {{title}}
-                <div class="purple-button" style="float: right;">
-                    Edit List
+
+            <!-- Heading -->
+            <div class="heading-container">
+                <div class="main-title">{{title}}</div>
+                <div class="links-sort-container">
+
+                    <select class="dark" [(ngModel)]="selectedSortOption" (change)="setSort()">
+                        <option *ngFor="let sortOption of sortOptions" [ngValue]="sortOption">Sort by
+                            {{sortOption.name}}
+                        </option>
+                    </select>
+
+                    <div class="link" style="right: 0;" (click)="modalService.shareList.show = true">Share List</div>
+                    <div class="link">Edit List</div>
                 </div>
             </div>
 
-            <!-- Share -->
-            <div class="share-container">
-                <div class="share-icon">
-                    <img src="assets/Facebook.png" title="Share on Facebook">
-                </div>
-                <div class="share-icon">
-                    <img src="assets/Twitter.png" title="Share on Twitter">
-                </div>
-            </div>
 
-            <select class="dark" [(ngModel)]="selectedSortOption" (change)="setSort()">
-                <option *ngFor="let sortOption of sortOptions" [ngValue]="sortOption">Sort by {{sortOption.name}}
-                </option>
-            </select>
 
             <!-- Products -->
             <div *ngFor="let product of products" class="product-container">
@@ -113,4 +112,7 @@
 
     <!-- Footer -->
     <footer></footer>
+    
 </div>
+<share-list *ngIf="modalService.shareList.show" (onShareClick)="onShareClick($event)"></share-list>
+<input id="copy" type="text" *ngIf="modalService.shareList.show">

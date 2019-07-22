@@ -15,5 +15,6 @@ export class ModalService {
   public addToList: Modal = new Modal();
   public createList: CreateList = new CreateList();
   public reportReview: ReportReview = new ReportReview();
+  public shareList: Modal = new Modal();
   public subscriptionForm: any = {};
 }

@@ -1,0 +1,64 @@
+<div class="modal-background" (click)="close()">
+    <div class="window" (click)="stopPropagation($event)">
+        <div class="title-bar">
+            <div class="title">Share List</div>
+            <div class="close-button" (click)="close()" title="Close">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+
+        <div class="caption">Invite Collaborators</div>
+
+        <div class="text">
+            People you invite can veiw and edit this list.
+        </div>
+
+        <button class="gold-button" (click)="viewEdit = true; viewOnly = false; viewOnlyLinkCopied = false;">View & Edit</button>
+
+        <!-- View & Edit -->
+        <div *ngIf="viewEdit" class="share-container">
+            <div class="share-icon" (click)="onClick('Facebook', 'Collaborate')">
+                <img src="assets/Facebook.png" title="Share on Facebook">
+            </div>
+            <div class="share-icon" (click)="onClick('Twitter', 'Collaborate')">
+                <img src="assets/Twitter.png" title="Share on Twitter">
+            </div>
+            <i class="fas fa-link link" (click)="viewEditLinkCopied = true; onClick('Link', 'Collaborate')" title="Copy Link"></i>
+
+        </div>
+        <div *ngIf="viewEditLinkCopied" class="link-copied">
+            <i class="fas fa-check"></i> Link Copied
+        </div>
+
+        <hr>
+
+
+        <div class="caption">Share List with Others</div>
+
+        <div class="text">
+            People you share with can only view this list.
+        </div>
+
+        <button class="gold-button" (click)="viewOnly = true; viewEdit = false; viewEditLinkCopied = false;">View Only</button>
+
+
+        <!-- Share -->
+        <div *ngIf="viewOnly" class="share-container" style="margin-bottom: 15px;">
+            <div class="share-icon" (click)="onClick('Facebook', 'View')">
+                <img src="assets/Facebook.png" title="Share on Facebook">
+            </div>
+            <div class="share-icon" (click)="onClick('Twitter', 'View')">
+                <img src="assets/Twitter.png" title="Share on Twitter">
+            </div>
+            <i class="fas fa-link link" (click)="viewOnlyLinkCopied = true; onClick('Link', 'View')" title="Copy Link"></i>
+        </div>
+        <div *ngIf="viewOnlyLinkCopied" class="link-copied">
+            <i class="fas fa-check"></i> Link Copied
+        </div>
+
+
+
+
+
+    </div>
+</div>

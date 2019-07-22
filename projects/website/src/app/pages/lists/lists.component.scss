@@ -20,26 +20,6 @@
     margin-top: 10px;
     font-size: 14px;
 }
-.share-container {
-    height: 16px;
-    display: inline-block;
-    margin-top: 10px;
-    .share-icon {
-        padding: 0 10px 0 10px;
-        display: inline-block;
-        img {
-            cursor: pointer;
-        }
-    }
-    .share-icon:nth-child(1) {
-        padding-left: 0;
-    }
-}
-select {
-    float: right;
-    margin-top: 10px;
-    height: 24px;
-}
 .image-background {
     width: 150px;
     height: 150px;
@@ -100,12 +80,7 @@ h2 {
     font-size: 14px;
     margin-top: 10px;
 }
-.main-title {
-    font-size: 34px;
-    color: $gold;
-    border-bottom: 1px solid #3d3d3d;
-    padding-bottom: 10px;
-}
+
 .product-container {
     margin-top: 30px;
     border-bottom: 1px solid #3d3d3d;
@@ -114,4 +89,36 @@ h2 {
 .product-info {
     margin-left: 20px;
     flex: 1;
+}
+.heading-container {
+    width: 100%;
+    position: relative;
+    border-bottom: 1px solid gray;
+    .main-title {
+        font-size: 35px;
+        color: $gold;
+        width: 500px;
+        display: inline-block;
+    }
+    .links-sort-container {
+        width: 340px;
+        height: 40px;
+        float: right;
+        select {
+            position: absolute;
+            height: 24px;
+            bottom: 5px;
+            right: 0;
+        }
+        
+        .link {
+            position: absolute;
+            bottom: 5px;
+            margin-right: 200px;
+            font-size: 14px;
+            color: $color1;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
 }

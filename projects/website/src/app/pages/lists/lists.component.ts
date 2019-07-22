@@ -1,28 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { ModalService } from 'src/app/services/modal/modal.service';
+import { Title, Meta } from '@angular/platform-browser';
+import { DOCUMENT } from '@angular/common';
+import { SharePage } from '../share-page';
 
 @Component({
   selector: 'app-lists',
   templateUrl: './lists.component.html',
   styleUrls: ['./lists.component.scss']
 })
-export class ListsComponent implements OnInit {
+export class ListsComponent extends SharePage implements OnInit {
   public sortOptions: Array<any>;
   public selectedSortOption: any = {};
   public title = 'Christmas List';
+  public viewListId: string = '36d247421e654d87bd627c';
+  public collaborateListId: string = '1SRHA3LjXDYIRHbXcGx24D';
+
   public lists: Array<any> = [
     {
       title: 'Christmas List',
       description: 'This is the best list in the whole entire world!',
       totalItems: 2,
-      selected: true,
-      image: 'e9a794bc40f14f709e6636aefbfe5d43.png'
+      selected: true
     },
     {
       title: 'Wish List',
       description: 'These are the items I wish I could get',
       totalItems: 1,
-      selected: false,
-      image: 'e9a794bc40f14f709e6636aefbfe5d43.png'
+      selected: false
     }
   ];
   public products: Array<any> = [
@@ -48,7 +53,11 @@ export class ListsComponent implements OnInit {
     }
   ];
 
-  constructor() { }
+  constructor(
+    titleService: Title,
+    metaService: Meta,
+    @Inject(DOCUMENT) document,
+    public modalService: ModalService) { super(titleService, metaService, document) }
 
   ngOnInit() {
     this.sortOptions = [
@@ -75,12 +84,45 @@ export class ListsComponent implements OnInit {
     ];
 
     this.selectedSortOption = this.sortOptions[0];
+    super.ngOnInit();
   }
 
 
-  setSort(){
-    
+  setSort() {
+
   }
-  
+
+  onShareClick(share: any) {
+    let pathName: string;
+    let text: string;
+
+    if (share.type === 'Collaborate') {
+      pathName = '/lists/collaborate/' + this.collaborateListId;
+      text = 'You\'re invited to help me with my list at NicheShack.com!';
+    } else {
+      pathName = '/lists/view/' + this.viewListId;
+      text = 'Check out my list at NicheShack.com!';
+    }
+
+    switch (share.action) {
+      case 'Facebook':
+        this.onFacebookClick(pathName, text);
+        break;
+
+      case 'Twitter':
+        this.onTwitterClick(pathName, text);
+        break;
+
+      case 'Link':
+        let copyText: any = document.getElementById("copy");
+
+        copyText.value = this.domain + pathName;
+
+        copyText.select();
+
+        document.execCommand("copy");
+    }
+  }
+
 
 }
