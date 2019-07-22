@@ -56,7 +56,6 @@ export class SearchBarComponent implements OnInit {
     this.searchCategories = this.categories.slice().map(x => ({ id: x.id, name: x.name }));
     this.searchCategories.unshift({ name: 'All', id: -1 });
 
-    // Get the selected category
     this.setSelectedCategory();
   }
 
@@ -89,7 +88,6 @@ export class SearchBarComponent implements OnInit {
     let interval = window.setInterval(() => {
       if (this.select.nativeElement.offsetWidth !== this.tmpSelect.nativeElement.offsetWidth) {
         this.select.nativeElement.style.width = this.tmpSelect.nativeElement.offsetWidth + 'px';
-
       }
       if (this.select.nativeElement.offsetWidth == this.tmpSelect.nativeElement.offsetWidth) {
         clearInterval(interval);
@@ -101,5 +99,10 @@ export class SearchBarComponent implements OnInit {
     if (event.code === 'NumpadEnter' || event.code === 'Enter' || event.keyCode === 13) {
       this.setQuery(query);
     }
+  }
+
+  getPlaceHolder() {
+    if (this.selectedCategory.id == -1) return 'Search';
+    return 'Search in ' + this.selectedCategory.name;
   }
 }

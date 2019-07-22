@@ -173,12 +173,8 @@ textarea {
         background-size: contain;
     }
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
     .logo-container {
-        min-width: 21px;
-        min-height: 21px;
-        .logo {
-            background-image: url(./assets/Shack.png);
-        }
+        display: none;
     }
 }

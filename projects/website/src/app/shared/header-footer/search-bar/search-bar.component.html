@@ -22,10 +22,11 @@
                     <option *ngFor="let category of searchCategories" [ngValue]="category">{{category.name}}</option>
                 </select>
                 <div class="input-container" style="flex: 1">
-                    <input #search type="text" placeholder="Search" [value]="getQuery()" (keydown)="onSearchKeydown($event, search.value)">
+                    <input #search type="text" class="main-input" placeholder="Search" [value]="getQuery()" (keydown)="onSearchKeydown($event, search.value)">
+                    <input #mobileSearch type="text" class="mobile-input" [placeholder]="getPlaceHolder()" [value]="getQuery()" (keydown)="onSearchKeydown($event, mobileSearch.value)">
                 </div>
                 <div class="search-button-container">
-                    <div class="search-button" (click)="setQuery(search.value)">
+                    <div class="search-button" (click)="setQuery(search.value || mobileSearch.value)">
                         <i class="fas fa-search"></i>
                     </div>
                 </div>
