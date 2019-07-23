@@ -3,6 +3,7 @@ import { ModalService } from 'src/app/services/modal/modal.service';
 import { Title, Meta } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
 import { SharePage } from '../share-page';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lists',
@@ -12,7 +13,7 @@ import { SharePage } from '../share-page';
 export class ListsComponent extends SharePage implements OnInit {
   public sortOptions: Array<any>;
   public selectedSortOption: any = {};
-  public title = 'Christmas List';
+  public listTitle = 'Christmas List';
   public viewListId: string = '36d247421e654d87bd627c';
   public collaborateListId: string = '1SRHA3LjXDYIRHbXcGx24D';
 
@@ -39,7 +40,8 @@ export class ListsComponent extends SharePage implements OnInit {
       maxPrice: 0,
       dateAdded: 'June 3, 2019',
       hoplink: 'https://201behydk0sr8n2-f2jo9qcq9u.hop.clickbank.net/',
-      image: 'e9a794bc40f14f709e6636aefbfe5d43.png'
+      image: 'e9a794bc40f14f709e6636aefbfe5d43.png',
+      urlTitle: 'fat-loss-activation'
     },
     {
       title: 'Muscle Building 101',
@@ -49,7 +51,8 @@ export class ListsComponent extends SharePage implements OnInit {
       maxPrice: 20.22,
       dateAdded: 'July 13, 2019',
       hoplink: 'https://201behydk0sr8n2-f2jo9qcq9u.hop.clickbank.net/',
-      image: 'e9a794bc40f14f709e6636aefbfe5d43.png'
+      image: 'e9a794bc40f14f709e6636aefbfe5d43.png',
+      urlTitle: 'fat-loss-activation'
     }
   ];
 
@@ -57,9 +60,14 @@ export class ListsComponent extends SharePage implements OnInit {
     titleService: Title,
     metaService: Meta,
     @Inject(DOCUMENT) document,
-    public modalService: ModalService) { super(titleService, metaService, document) }
+    public modalService: ModalService,
+    private router: Router) 
+    { super(titleService, metaService, document) }
 
   ngOnInit() {
+    this.title = 'Your Lists'
+    this.share = false;
+
     this.sortOptions = [
       {
         name: 'Added Date',
@@ -90,6 +98,10 @@ export class ListsComponent extends SharePage implements OnInit {
 
   setSort() {
 
+  }
+
+  onItemClick(urlTitle: string){
+    this.router.navigate([urlTitle]);
   }
 
   onShareClick(share: any) {

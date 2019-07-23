@@ -93,7 +93,7 @@ h2 {
 .heading-container {
     width: 100%;
     position: relative;
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid #3d3d3d;
     .main-title {
         font-size: 35px;
         color: $gold;
@@ -101,7 +101,7 @@ h2 {
         display: inline-block;
     }
     .links-sort-container {
-        width: 340px;
+        width: 360px;
         height: 40px;
         float: right;
         select {
