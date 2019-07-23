@@ -1,0 +1,94 @@
+<div class="modal-background" (click)="close()">
+    <div class="window" (click)="stopPropagation($event)">
+
+        <!-- Title Bar -->
+        <div class="title-bar">
+            <div class="title">Manage List</div>
+            <div class="close-button" (click)="close()" title="Close">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+
+
+
+        <!-- Content -->
+        <div style="height: 200px; overflow:auto">
+            
+            
+            <div class="caption">List Name:</div>
+        
+
+        <div class="text">
+            {{listName}}
+        </div>
+        <div class="edit" title="Edit List Name">
+            <i class="fas fa-edit"></i>
+        </div>
+
+        <hr>
+        
+        <!-- <input class="dark" [(ngModel)]="listName" type="text" style="margin-bottom: 10px;"> -->
+
+        <div class="caption">Description:</div>
+        <div class="text" style="width: 260px;">
+            {{description}}
+        </div>
+        <div class="edit" title="Edit Description">
+            <i class="fas fa-edit"></i>
+        </div>
+        <!-- <textarea class="dark" [(ngModel)]="description"></textarea> -->
+
+        <hr>
+
+        <div class="caption">Collaborators:</div>
+        
+        <div class="collaborator">
+            <div class="text">
+                Gabe LaPoint
+            </div>
+            <div class="owner-text">
+                Owner
+            </div>
+        </div>
+
+
+
+        <div class="collaborator">
+            <div class="text">
+                Zorioth
+            </div>
+            <div class="remove-link">
+                Remove
+            </div>
+        </div>
+
+        <div class="collaborator">
+            <div class="text">
+                Nightah
+            </div>
+            <div class="remove-link">
+                Remove
+            </div>
+        </div>
+
+        
+
+        <hr>
+
+        <button class="gold-button delete-list-button">Delete List</button>
+        </div>
+
+        
+        
+        <div style="background: #272727;
+        height: 49px;
+        border: 1px solid #444444;">
+            <button class="gold-button" (click)="onSubmit()" [disabled]="listName === ''">Save Changes</button>
+        <button class="gray-button" (click)="close()">Cancel</button>
+        </div>
+        
+
+
+
+    </div>
+</div>

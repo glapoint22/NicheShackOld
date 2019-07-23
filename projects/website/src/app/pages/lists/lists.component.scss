@@ -20,6 +20,11 @@
     margin-top: 10px;
     font-size: 14px;
 }
+.owner {
+    color: $gold;
+    font-size: 12px;
+    margin-top: 4px;
+}
 .image-background {
     width: 150px;
     height: 150px;
@@ -121,4 +126,11 @@ h2 {
             cursor: pointer;
         }
     }
+}
+.buttons-container {
+    width: 205px;
+}
+.gray {
+    font-size: 14px;
+    color: #b5b5b5;
 }

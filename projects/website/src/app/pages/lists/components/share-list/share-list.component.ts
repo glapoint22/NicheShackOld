@@ -1,10 +1,10 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { DialogBoxComponent } from '../../../shared/dialog-box/dialog-box.component';
+import { DialogBoxComponent } from "../../../../shared/dialog-box/dialog-box.component";
 
 @Component({
   selector: 'share-list',
   templateUrl: './share-list.component.html',
-  styleUrls: ['../../../shared/dialog-box/dialog-box.component.scss', './share-list.component.scss']
+  styleUrls: ['../../../../shared/dialog-box/dialog-box.component.scss', './share-list.component.scss']
 })
 export class ShareListComponent extends DialogBoxComponent implements OnInit {
   public viewEdit: boolean;

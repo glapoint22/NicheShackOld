@@ -36,6 +36,8 @@ export class Page implements OnInit {
             this.metaService.addTag({ property: 'fb:app_id', content: this.facebookAppId });
             this.metaService.addTag({ property: 'og:url', content: this.document.location.href });
             this.metaService.addTag({ property: 'og:image', content: this.domain + this.image });
+            this.metaService.addTag({ property: 'og:image:width', content: '600' });
+            this.metaService.addTag({ property: 'og:image:height', content: '315' });
             this.metaService.addTag({ property: 'og:description', content: this.description });
 
             // Twitter

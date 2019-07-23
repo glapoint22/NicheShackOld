@@ -16,19 +16,30 @@ export class ListsComponent extends SharePage implements OnInit {
   public listTitle = 'Christmas List';
   public viewListId: string = '36d247421e654d87bd627c';
   public collaborateListId: string = '1SRHA3LjXDYIRHbXcGx24D';
+  public ownerName: string;
+  public owner: boolean = true;
 
   public lists: Array<any> = [
     {
       title: 'Christmas List',
       description: 'This is the best list in the whole entire world!',
       totalItems: 2,
-      selected: true
+      selected: true,
+      ownerName: ''
     },
     {
       title: 'Wish List',
       description: 'These are the items I wish I could get',
       totalItems: 1,
-      selected: false
+      selected: false,
+      ownerName: ''
+    },
+    {
+      title: 'Favorites',
+      description: 'These items are awesome!',
+      totalItems: 10,
+      selected: false,
+      ownerName: 'Zorioth'
     }
   ];
   public products: Array<any> = [
@@ -61,12 +72,13 @@ export class ListsComponent extends SharePage implements OnInit {
     metaService: Meta,
     @Inject(DOCUMENT) document,
     public modalService: ModalService,
-    private router: Router) 
-    { super(titleService, metaService, document) }
+    private router: Router) { super(titleService, metaService, document) }
 
   ngOnInit() {
-    this.title = 'Your Lists'
-    this.share = false;
+    if (this.title == undefined) {
+      this.title = 'Your Lists';
+      this.share = false;
+    }
 
     this.sortOptions = [
       {
@@ -100,7 +112,7 @@ export class ListsComponent extends SharePage implements OnInit {
 
   }
 
-  onItemClick(urlTitle: string){
+  onItemClick(urlTitle: string) {
     this.router.navigate([urlTitle]);
   }
 
@@ -129,12 +141,12 @@ export class ListsComponent extends SharePage implements OnInit {
         let copyText: any = document.getElementById("copy");
 
         copyText.value = this.domain + pathName;
-
         copyText.select();
-
         document.execCommand("copy");
     }
   }
 
-
+  onPublisherButtonClick(product) {
+    window.location.href = product.hoplink;
+  }
 }
