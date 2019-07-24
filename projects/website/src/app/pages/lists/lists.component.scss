@@ -102,28 +102,26 @@ h2 {
     .main-title {
         font-size: 35px;
         color: $gold;
-        width: 500px;
+        width: 400px;
         display: inline-block;
     }
-    .links-sort-container {
-        width: 360px;
-        height: 40px;
+    select {
+        height: 24px;
+        margin-left: 5px;
+    }
+    .sort-link-container {
+        display: flex;
         float: right;
-        select {
-            position: absolute;
-            height: 24px;
-            bottom: 5px;
-            right: 0;
-        }
-        
+        margin-top: 10px;
         .link {
-            position: absolute;
-            bottom: 5px;
-            margin-right: 200px;
             font-size: 14px;
             color: $color1;
             text-decoration: underline;
             cursor: pointer;
+            margin: 8px 12px 0 10px;
+        }
+        .link:hover {
+            color: $color5;
         }
     }
 }

@@ -17,5 +17,6 @@ export class ModalService {
   public reportReview: ReportReview = new ReportReview();
   public shareList: Modal = new Modal();
   public manageList: Modal = new Modal();
+  public manageCollaborators: Modal = new Modal();
   public subscriptionForm: any = {};
 }

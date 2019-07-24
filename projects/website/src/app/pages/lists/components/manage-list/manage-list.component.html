@@ -12,81 +12,47 @@
 
 
         <!-- Content -->
-        <div style="height: 200px; overflow:auto">
-            
-            
+        <!-- <div style="height: 200px; overflow:auto"> -->
+
+            <!-- List Name -->
             <div class="caption">List Name:</div>
-        
+            <input class="dark" type="text" [(ngModel)]="listName">
 
-        <div class="text">
-            {{listName}}
-        </div>
-        <div class="edit" title="Edit List Name">
-            <i class="fas fa-edit"></i>
-        </div>
 
-        <hr>
-        
-        <!-- <input class="dark" [(ngModel)]="listName" type="text" style="margin-bottom: 10px;"> -->
+            <!-- Description -->
+            <div class="caption">Description:</div>
+            <textarea class="dark" [(ngModel)]="description"></textarea>
 
-        <div class="caption">Description:</div>
-        <div class="text" style="width: 260px;">
-            {{description}}
-        </div>
-        <div class="edit" title="Edit Description">
-            <i class="fas fa-edit"></i>
-        </div>
-        <!-- <textarea class="dark" [(ngModel)]="description"></textarea> -->
+            <!-- Collaborators -->
+            <!-- <div class="caption">Collaborators:</div>
+            <div *ngFor="let collaborator of collaborators; let i = index" class="collaborator">
+                <div class="text">
+                    {{collaborator.name}}
+                </div>
+                <div *ngIf="collaborator.owner" class="owner-text">Owner</div>
+                <div *ngIf="!collaborator.owner" class="remove-link" (click)="collaboratorIndex = i; scrollTo('collaborator')">Remove</div>
+                <div id="collaborator" *ngIf="i == collaboratorIndex" style="width: 272px; margin-left: 10px;">
+                    <div>Are you sure you want to remove {{collaborator.name}} from this list?</div>
+                    <div style="display: flex">
+                        <button class="gold-button" style="float: none; margin: 10px 0;">Remove</button>
+                        <button class="gray-button" style="float: none; margin: 10px 0 0 10px;" (click)="collaboratorIndex = undefined">Cancel</button>
+                    </div>
 
-        <hr>
+                </div>
 
-        <div class="caption">Collaborators:</div>
-        
-        <div class="collaborator">
-            <div class="text">
-                Gabe LaPoint
-            </div>
-            <div class="owner-text">
-                Owner
-            </div>
-        </div>
+            </div> -->
+
+
+            <button class="gold-button delete-list-button">Delete List</button>
+        <!-- </div> -->
 
 
 
-        <div class="collaborator">
-            <div class="text">
-                Zorioth
-            </div>
-            <div class="remove-link">
-                Remove
-            </div>
-        </div>
+        <!-- <div class="button-container"> -->
+            <button class="gold-button">Save</button>
+            <button class="gray-button" (click)="close()">Close</button>
+        <!-- </div> -->
 
-        <div class="collaborator">
-            <div class="text">
-                Nightah
-            </div>
-            <div class="remove-link">
-                Remove
-            </div>
-        </div>
-
-        
-
-        <hr>
-
-        <button class="gold-button delete-list-button">Delete List</button>
-        </div>
-
-        
-        
-        <div style="background: #272727;
-        height: 49px;
-        border: 1px solid #444444;">
-            <button class="gold-button" (click)="onSubmit()" [disabled]="listName === ''">Save Changes</button>
-        <button class="gray-button" (click)="close()">Cancel</button>
-        </div>
-        
 
 
 

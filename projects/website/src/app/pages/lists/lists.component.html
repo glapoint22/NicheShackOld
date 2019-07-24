@@ -13,7 +13,7 @@
             <!-- Each list -->
             <div *ngFor="let list of lists" class="list">
                 <div [ngClass]="{'selected-list': list.selected, 'list-title': !list.selected}">
-                    {{list.title}}
+                    {{list.name}}
                 </div>
                 <div *ngIf="list.ownerName" class="owner">
                     Owner: {{list.ownerName}}
@@ -38,22 +38,21 @@
             <!-- Heading -->
             <div class="gray" *ngIf="ownerName">{{ownerName}}'s list</div>
             <div class="heading-container">
-                <div class="main-title">{{listTitle}}</div>
-                <div class="links-sort-container">
+                <div class="main-title">{{listName}}</div>
 
-                    <!-- Sort -->
+
+                <div class="sort-link-container">
+                    <div *ngIf="owner && collaborators.length > 0" class="link" (click)="modalService.manageCollaborators.show = true">Manage Collaborators</div>
+                    <div *ngIf="owner" class="link" (click)="modalService.manageList.show = true">Manage List</div>
+                    <div *ngIf="!share" class="link" (click)="modalService.shareList.show = true">Share List</div>
                     <select class="dark" [(ngModel)]="selectedSortOption" (change)="setSort()">
                         <option *ngFor="let sortOption of sortOptions" [ngValue]="sortOption">Sort by
                             {{sortOption.name}}
                         </option>
                     </select>
 
-                    <!-- Manage & share list -->
-                    <div *ngIf="!share">
-                        <div class="link" style="right: 0;" (click)="modalService.shareList.show = true">Share List
-                        </div>
-                        <div class="link" (click)="modalService.manageList.show = true">Manage List</div>
-                    </div>
+
+
 
                 </div>
             </div>
@@ -105,7 +104,7 @@
                         </div>
                         <button class="gold-button" style="margin-top: 10px;"
                             (click)="onPublisherButtonClick(product)">Visit Publisher’s Page To Buy</button>
-                        <div *ngIf="owner" style="margin-top: 10px; display: flex">
+                        <div style="margin-top: 10px; display: flex">
                             <button class="gray-button" style="flex: 1; margin-right: 10px;">Move</button>
                             <button class="gray-button" style="flex: 1">Delete</button>
                         </div>
@@ -119,5 +118,6 @@
 
 </div>
 <share-list *ngIf="modalService.shareList.show" (onShareClick)="onShareClick($event)"></share-list>
-<manage-list *ngIf="modalService.manageList.show"></manage-list>
+<manage-list *ngIf="modalService.manageList.show" [listName]="listName" [description]="description"></manage-list>
+<manage-collaborators [collaborators]="collaborators" *ngIf="modalService.manageCollaborators.show"></manage-collaborators>
 <input id="copy" type="text" *ngIf="modalService.shareList.show">

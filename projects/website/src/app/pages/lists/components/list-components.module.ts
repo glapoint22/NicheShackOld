@@ -3,13 +3,15 @@ import { CommonModule } from '@angular/common';
 import { ShareListComponent } from './share-list/share-list.component';
 import { ManageListComponent } from './manage-list/manage-list.component';
 import { FormsModule } from '@angular/forms';
+import { ManageCollaboratorsComponent } from './manage-collaborators/manage-collaborators.component';
 
 
 
 @NgModule({
   declarations: [
     ShareListComponent,
-    ManageListComponent
+    ManageListComponent,
+    ManageCollaboratorsComponent
   ],
   imports: [
     CommonModule,
@@ -17,7 +19,8 @@ import { FormsModule } from '@angular/forms';
   ],
   exports: [
     ShareListComponent,
-    ManageListComponent
+    ManageListComponent,
+    ManageCollaboratorsComponent
   ]
 })
 export class ListComponentsModule { }

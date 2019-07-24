@@ -1,57 +1,16 @@
 @import 'theme';
 
-.edit {
-    float: right;
-    margin-right: 10px;
-    color: $gold;
-    cursor: pointer;
-}
-.edit:hover {
-    color: #ffd96f;
-}
-hr {
-    border-color: #3d3d3d;
-    width: 300px;
-    margin-top: 10px;
-}
 .caption {
     margin-bottom: 5px;
     color: $gold;
-}
-.text {
-    display: inline-block;
-    color: #cecece;
-    margin: 0 0 0 10px;
-    word-wrap: break-word;
-    word-break: break-word; width: 230px;
-}
-.owner-text {
-    float: right;
-    margin-right: 10px;
-    color: $gold;
-}
-.remove-link {
-    float: right;
-    margin-right: 10px;
-    color: $color1;
-    text-decoration: underline;
-    cursor: pointer;
-}
-.collaborator {
-    height: 20px;
-    line-height: 20px;
-}
-.collaborator:nth-child(odd){
-    background: #2b2b2b;
-}
-.collaborator:nth-child(even){
-    background: #252525;
 }
 .delete-list-button {
     float: none;
     display: block;
     margin: auto;
-    width: 280px;
+    width: 300px;
     margin-top: 10px;
-    margin-bottom: 10px;
+}
+input[type=text], textarea {
+    width: 290px;
 }

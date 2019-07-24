@@ -13,7 +13,26 @@ import { Router } from '@angular/router';
 export class ListsComponent extends SharePage implements OnInit {
   public sortOptions: Array<any>;
   public selectedSortOption: any = {};
-  public listTitle = 'Christmas List';
+  public listName: string = 'Christmas List';
+  public description: string = 'This is the best list in the whole entire world!';
+  public collaborators = [
+    {
+      customerId: 'F6HJ8E9GOQ',
+      name: 'Gabe LaPoint'
+    },
+    {
+      customerId: '9OWJP1TKDT',
+      name: 'Zorioth'
+    },
+    {
+      customerId: 'I6SG0PWGMA',
+      name: 'Nightah'
+    },
+    {
+      customerId: 'TS472G9MQF',
+      name: 'Gabey Gump'
+    }
+  ]
   public viewListId: string = '36d247421e654d87bd627c';
   public collaborateListId: string = '1SRHA3LjXDYIRHbXcGx24D';
   public ownerName: string;
@@ -21,21 +40,21 @@ export class ListsComponent extends SharePage implements OnInit {
 
   public lists: Array<any> = [
     {
-      title: 'Christmas List',
+      name: 'Christmas List',
       description: 'This is the best list in the whole entire world!',
       totalItems: 2,
       selected: true,
       ownerName: ''
     },
     {
-      title: 'Wish List',
+      name: 'Wish List',
       description: 'These are the items I wish I could get',
       totalItems: 1,
       selected: false,
       ownerName: ''
     },
     {
-      title: 'Favorites',
+      name: 'Favorites',
       description: 'These items are awesome!',
       totalItems: 10,
       selected: false,
