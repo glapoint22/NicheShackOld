@@ -14,3 +14,9 @@
 input[type=text], textarea {
     width: 290px;
 }
+.prompt-button {
+    float: none; margin-left: 0;
+}
+.prompt-button:nth-child(2) {
+    margin-left: 10px;
+}

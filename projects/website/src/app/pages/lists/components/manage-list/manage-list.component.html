@@ -9,52 +9,30 @@
             </div>
         </div>
 
+        <!-- List Name -->
+        <div class="caption">List Name:</div>
+        <input class="dark" type="text" [(ngModel)]="listName">
 
 
-        <!-- Content -->
-        <!-- <div style="height: 200px; overflow:auto"> -->
-
-            <!-- List Name -->
-            <div class="caption">List Name:</div>
-            <input class="dark" type="text" [(ngModel)]="listName">
+        <!-- Description -->
+        <div class="caption">Description:</div>
+        <textarea class="dark" [(ngModel)]="description"></textarea>
 
 
-            <!-- Description -->
-            <div class="caption">Description:</div>
-            <textarea class="dark" [(ngModel)]="description"></textarea>
+        <!-- Delete list -->
+        <button class="gold-button delete-list-button" (click)="promptDelete = true">Delete List</button>
+        <div *ngIf="promptDelete" style="margin: 10px;">
+            <div>Are you sure you want to delete this list?</div>
+            <div style="display: flex">
+                <button class="gold-button prompt-button" (click)="onDelete()">Delete</button>
+                <button class="gray-button prompt-button" (click)="promptDelete = false;">Cancel</button>
+            </div>
 
-            <!-- Collaborators -->
-            <!-- <div class="caption">Collaborators:</div>
-            <div *ngFor="let collaborator of collaborators; let i = index" class="collaborator">
-                <div class="text">
-                    {{collaborator.name}}
-                </div>
-                <div *ngIf="collaborator.owner" class="owner-text">Owner</div>
-                <div *ngIf="!collaborator.owner" class="remove-link" (click)="collaboratorIndex = i; scrollTo('collaborator')">Remove</div>
-                <div id="collaborator" *ngIf="i == collaboratorIndex" style="width: 272px; margin-left: 10px;">
-                    <div>Are you sure you want to remove {{collaborator.name}} from this list?</div>
-                    <div style="display: flex">
-                        <button class="gold-button" style="float: none; margin: 10px 0;">Remove</button>
-                        <button class="gray-button" style="float: none; margin: 10px 0 0 10px;" (click)="collaboratorIndex = undefined">Cancel</button>
-                    </div>
-
-                </div>
-
-            </div> -->
+        </div>
 
 
-            <button class="gold-button delete-list-button">Delete List</button>
-        <!-- </div> -->
-
-
-
-        <!-- <div class="button-container"> -->
-            <button class="gold-button">Save</button>
-            <button class="gray-button" (click)="close()">Close</button>
-        <!-- </div> -->
-
-
-
-
+        <!-- Buttons -->
+        <button class="gold-button" (click)="onSave()">Save</button>
+        <button class="gray-button" (click)="close()">Close</button>
     </div>
 </div>

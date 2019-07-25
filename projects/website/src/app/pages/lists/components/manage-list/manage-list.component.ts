@@ -9,10 +9,21 @@ import { DialogBoxComponent } from "../../../../shared/dialog-box/dialog-box.com
 export class ManageListComponent extends DialogBoxComponent implements OnInit {
   @Input() listName: string;
   @Input() description: string;
+  public promptDelete: boolean;
 
 
   ngOnInit() {
     this.modalServiceObject = this.modalService.manageList;
     super.ngOnInit();
+  }
+
+  onDelete(){
+    // Update database
+    location.reload();
+  }
+
+  onSave(){
+    // Update database
+    location.reload();
   }
 }

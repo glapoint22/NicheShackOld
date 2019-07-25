@@ -1,0 +1,38 @@
+@import 'theme';
+
+.collaborators-container {
+    max-height: 230px;
+    overflow: auto;
+    .collaborator {
+        margin: 10px;
+        .name {
+            color: $gold;
+            display: inline;
+            user-select: none;
+        }
+        .delete-collaborator {
+            float: right;
+            color: $color1;
+            cursor: pointer;
+        }
+        .delete-collaborator:hover {
+            color: $color5;
+        }
+        .prompt-container {
+            width: 260px;
+            margin-top: 10px;
+            .prompt-button {
+                float: none; margin: 10px 0;
+            }
+            .prompt-button:nth-child(2) {
+                margin-left: 10px;
+            }
+        }
+    }
+}
+.button-container {
+    background: #292929;
+    height: 50px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}

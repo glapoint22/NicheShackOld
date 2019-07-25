@@ -18,7 +18,7 @@ export class ManageCollaboratorsComponent extends DialogBoxComponent implements 
 
   scrollTo() {
     let interval = window.setInterval(() => {
-      let elmnt = document.getElementById("collaborator");
+      let elmnt = document.getElementById("prompt");
       if (elmnt) {
         elmnt.scrollIntoView(false);
         window.clearInterval(interval);
