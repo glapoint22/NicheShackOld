@@ -1,20 +1,22 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, HostListener } from '@angular/core';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { Title, Meta } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
 import { SharePage } from '../share-page';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-lists',
+  selector: 'lists',
   templateUrl: './lists.component.html',
   styleUrls: ['./lists.component.scss']
 })
 export class ListsComponent extends SharePage implements OnInit {
+  public productIndex: number = -1;
   public sortOptions: Array<any>;
   public selectedSortOption: any = {};
   public listName: string = 'Christmas List';
-  public description: string = 'This is the best list in the whole entire world!';
+  public listDescription: string = 'This is the best list in the whole entire world!';
   public collaborators = [
     {
       customerId: 'F6HJ8E9GOQ',
@@ -41,6 +43,7 @@ export class ListsComponent extends SharePage implements OnInit {
 
   public lists: Array<any> = [
     {
+      id: 'f5tyujhde4ujkiosdr3j0s',
       name: 'Christmas List',
       description: 'This is the best list in the whole entire world!',
       totalItems: 2,
@@ -48,6 +51,7 @@ export class ListsComponent extends SharePage implements OnInit {
       ownerName: ''
     },
     {
+      id: 'tyhd4t7uij9okge4rfgyt6',
       name: 'Wish List',
       description: 'These are the items I wish I could get',
       totalItems: 1,
@@ -55,6 +59,7 @@ export class ListsComponent extends SharePage implements OnInit {
       ownerName: ''
     },
     {
+      id: '35th8io0ohui03hs678j9k',
       name: 'Favorites',
       description: 'These items are awesome!',
       totalItems: 10,
@@ -73,7 +78,9 @@ export class ListsComponent extends SharePage implements OnInit {
       collaborator: '',
       hoplink: 'https://201behydk0sr8n2-f2jo9qcq9u.hop.clickbank.net/',
       image: 'e9a794bc40f14f709e6636aefbfe5d43.png',
-      urlTitle: 'fat-loss-activation'
+      urlTitle: 'fat-loss-activation',
+      deleted: false,
+      movedToList: null
     },
     {
       title: 'Muscle Building 101',
@@ -85,7 +92,9 @@ export class ListsComponent extends SharePage implements OnInit {
       collaborator: 'Zorioth',
       hoplink: 'https://201behydk0sr8n2-f2jo9qcq9u.hop.clickbank.net/',
       image: 'e9a794bc40f14f709e6636aefbfe5d43.png',
-      urlTitle: 'fat-loss-activation'
+      urlTitle: 'fat-loss-activation',
+      deleted: false,
+      movedToList: null
     }
   ];
 
@@ -131,7 +140,10 @@ export class ListsComponent extends SharePage implements OnInit {
 
 
   setSort() {
-
+    this.router.navigate([location.pathname], {
+      queryParams: { 'sort': this.selectedSortOption.value },
+      queryParamsHandling: 'merge'
+    });
   }
 
   onItemClick(urlTitle: string) {
@@ -170,5 +182,60 @@ export class ListsComponent extends SharePage implements OnInit {
 
   onPublisherButtonClick(product) {
     window.location.href = product.hoplink;
+  }
+
+  onListClick(list) {
+    if (!list.selected) {
+      this.router.navigate(['lists/' + list.id]);
+    }
+  }
+
+  @HostListener('document:mousedown', ['$event'])
+  onMousedown(event) {
+    this.removePopup();
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  onKeydown(event) {
+    if (event.code === 'Escape' || event.keyCode === 27) {
+      this.removePopup();
+    }
+  }
+
+  removePopup() {
+    this.productIndex = -1;
+  }
+
+  onMoveProduct(list: any, product: any) {
+    product.movedToList = list;
+
+    // Update database!
+    this.removePopup();
+  }
+
+  onDelete(product: any) {
+    product.deleted = true;
+  }
+
+  undo(action: string, product: any) {
+    if (action == 'deleted') {
+      product.deleted = false;
+      // Update database
+    } else {
+      product.movedToList = null;
+      // Update database
+    }
+  }
+
+  onCreateListClick() {
+    this.modalService.createList.show = true;
+    let onCloseSubscription: Subscription = this.modalService.createList.onClose.subscribe((newList: any) => {
+      onCloseSubscription.unsubscribe();
+      if (newList.listName) {
+        // Make a post request to the database and get the list id from the response
+        let listId = 'foofoofoofoo'
+        this.router.navigate(['lists/' + listId]);
+      }
+    });
   }
 }

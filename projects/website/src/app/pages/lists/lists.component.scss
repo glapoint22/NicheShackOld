@@ -137,3 +137,55 @@ h2 {
     font-size: 14px;
     margin-top: 5px;
 }
+.arrow::after {
+    content: "";
+    border-top: solid 8px #dcdcdc;
+    border-left: solid 6px transparent;
+    border-right: solid 6px transparent;
+    position: relative;
+    top: 12px;
+    left: 5px;
+}
+.product-removed-text {
+    color: #cccccc;
+    font-size: 14px;
+}
+.undo-text {
+    color: $color5;
+    font-size: 14px;
+    cursor: pointer;
+}
+.undo-text:hover {
+    text-decoration: underline;
+}
+.moved-to-text {
+    color: $gold;
+    cursor: pointer;
+}
+.moved-to-text:hover {
+    text-decoration: underline;
+}
+
+.popup {
+    min-width: 100px;
+    min-height: 24px;
+    padding-top: 5px;
+    position: absolute;
+    .popup-item {
+        font-size: 13px;
+        height: 22px;
+        line-height: 22px;
+        padding-left: 5px;
+        user-select: none;
+        cursor: pointer;
+    }
+    .popup-item:hover {
+        background: #4a4a4a;
+    }
+}
+.fa-check {
+    color: #00ff00;
+    margin-right: 5px;
+}
+
+

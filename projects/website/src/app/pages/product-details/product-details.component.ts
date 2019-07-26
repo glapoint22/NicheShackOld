@@ -7,6 +7,7 @@ import { QueryParametersService } from '../../query-parameters.service';
 import { SharePage } from '../share-page';
 import { Title, Meta } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'product-details',
@@ -16,6 +17,7 @@ import { DOCUMENT } from '@angular/common';
 export class ProductDetailsComponent extends SharePage implements OnInit {
   public product: DetailProduct;
   public productsSlider: Array<ProductsSlider>;
+  private onCloseSubscription: Subscription;
 
   constructor(
     titleService: Title,
@@ -25,6 +27,7 @@ export class ProductDetailsComponent extends SharePage implements OnInit {
     public modalService: ModalService,
     private router: Router,
     private queryParametersService: QueryParametersService) { super(titleService, metaService, document) }
+
 
   ngOnInit() {
 
@@ -176,8 +179,8 @@ export class ProductDetailsComponent extends SharePage implements OnInit {
     this.description = this.product.description;
     this.image = '/Images/' + this.product.shareImage;
     super.ngOnInit();
-    
-    
+
+
     this.route.queryParamMap.subscribe((queryParams: ParamMap) => {
       //Scroll to top
       // let body = document.scrollingElement || document.documentElement;
@@ -204,11 +207,27 @@ export class ProductDetailsComponent extends SharePage implements OnInit {
     this.router.navigate(['/reviews/' + this.product.urlTitle]);
   }
 
-  onFacebookClick(){
+  onFacebookClick() {
     super.onFacebookClick(location.pathname, '');
   }
 
-  onTwitterClick(){
+  onTwitterClick() {
     super.onTwitterClick(location.pathname, 'Check out what I found at NicheShack.com!')
+  }
+
+  onAddToListClick() {
+    if (this.onCloseSubscription) {
+      this.onCloseSubscription.unsubscribe();
+    }
+
+    this.modalService.addToList.show = true;
+    this.onCloseSubscription = this.modalService.createList.onClose.subscribe((newList: any) => {
+      if (newList.listName) {
+        // Make a post request to the database
+        this.modalService.addToList.show = true;
+      }
+
+      this.modalService.addToList.show = true;
+    });
   }
 }

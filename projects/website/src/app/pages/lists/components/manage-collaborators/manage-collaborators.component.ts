@@ -27,6 +27,7 @@ export class ManageCollaboratorsComponent extends DialogBoxComponent implements 
   }
 
   onRemoveCollaborator() {
+    // Update database!
     this.collaborators.splice(this.collaboratorIndex, 1);
     this.collaboratorIndex = undefined;
     if (this.collaborators.length == 0) this.close();

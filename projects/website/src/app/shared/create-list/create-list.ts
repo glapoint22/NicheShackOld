@@ -1,5 +1,6 @@
 import { Modal } from 'src/app/components/modal/modal';
+import { Subject } from 'rxjs';
 
 export class CreateList extends Modal {
-    showAddToList: boolean;
+    public onClose = new Subject<any>();
 }

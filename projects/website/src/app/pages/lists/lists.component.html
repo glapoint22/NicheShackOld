@@ -12,7 +12,8 @@
 
             <!-- Each list -->
             <div *ngFor="let list of lists" class="list">
-                <div [ngClass]="{'selected-list': list.selected, 'list-title': !list.selected}">
+                <div [ngClass]="{'selected-list': list.selected, 'list-title': !list.selected}"
+                    (click)="onListClick(list)">
                     {{list.name}}
                 </div>
                 <div *ngIf="list.ownerName" class="owner">
@@ -28,7 +29,7 @@
 
 
             <!-- Create list button -->
-            <div class="purple-button" style="margin-top: 20px;">
+            <div class="purple-button" style="margin-top: 20px;" (click)="onCreateListClick()">
                 Create a List
             </div>
         </div>
@@ -44,10 +45,14 @@
                 <div class="sort-link-container">
 
                     <!-- Links -->
-                    <div *ngIf="(isOwner) && collaborators.length > 0" class="link" (click)="modalService.manageCollaborators.show = true">Manage Collaborators</div>
+                    <div *ngIf="(isOwner) && collaborators.length > 0" class="link"
+                        (click)="modalService.manageCollaborators.show = true">Manage Collaborators</div>
                     <div *ngIf="isOwner" class="link" (click)="modalService.manageList.show = true">Manage List</div>
-                    <div *ngIf="isOwner || isCollaborator" class="link" (click)="modalService.shareList.show = true">Share List</div>
-                    
+                    <div *ngIf="isOwner || isCollaborator" class="link" (click)="modalService.shareList.show = true">
+                        Share List</div>
+
+
+
                     <!-- Sort -->
                     <select class="dark" [(ngModel)]="selectedSortOption" (change)="setSort()">
                         <option *ngFor="let sortOption of sortOptions" [ngValue]="sortOption">Sort by
@@ -57,71 +62,106 @@
                 </div>
             </div>
 
-
-
             <!-- Products -->
-            <div *ngFor="let product of products" class="product-container">
-
-                <div style="display: flex; ">
-                    <!-- Image -->
-                    <div class="image-background" (click)="onItemClick(product.urlTitle)">
-                        <div class="img" [style.background-image]="'url(/Images/' + product.image + ')'"></div>
-                    </div>
-
-
-                    <div class="product-info">
-                        <!-- Title -->
-                        <div class="product-title">
-                            {{product.title}}
-                        </div>
-
-                        <!-- Rating & Reviews -->
-                        <div *ngIf="product.rating > 0" class="rating-container">
-                            <stars [rating]="product.rating"></stars>
-                            <span class="reviews-text">
-                                {{product.totalReviews | number}} reviews
+            <div *ngIf="products.length > 0; else noProducts">
+                <div *ngFor="let product of products; let i = index" class="product-container">
+                    <div *ngIf="product.deleted || product.movedToList; else displayProduct"
+                        class="product-removed-text">
+                        <i class="fas fa-check"></i>
+                        <span *ngIf="product.deleted">{{product.title}} has been deleted. </span>
+                        <span *ngIf="product.movedToList">
+                            {{product.title}} has been moved to
+                            <span class="moved-to-text"
+                                (click)="onListClick(product.movedToList)">{{product.movedToList.name}}</span><span>.
                             </span>
-                        </div>
-                        <div *ngIf="product.rating == 0" class="first-review-link">
-                            Be the first to review this item
-                        </div>
-
-                        <!-- Price -->
-                        <div class="price">
-                            <div *ngIf="product.maxPrice === 0">
-                                {{product.minPrice | currency:'USD'}}
-                            </div>
-                            <div *ngIf="product.maxPrice > 0">
-                                {{product.minPrice | currency:'USD'}} -
-                                {{product.maxPrice | currency:'USD'}}
-                            </div>
-                        </div>
+                        </span>
+                        <span class="undo-text"
+                            (click)="undo(product.deleted ? 'deleted' : 'movedTo', product)">Undo</span>
                     </div>
 
-                    <div class="buttons-container">
-                        <div class="gray">
-                            Item added {{product.dateAdded}}
+                    <ng-template #displayProduct>
+                        <div style="display: flex; ">
+                            <!-- Image -->
+                            <div class="image-background" (click)="onItemClick(product.urlTitle)">
+                                <div class="img" [style.background-image]="'url(/Images/' + product.image + ')'"></div>
+                            </div>
+
+
+                            <div class="product-info">
+                                <!-- Title -->
+                                <div class="product-title">
+                                    {{product.title}}
+                                </div>
+
+                                <!-- Rating & Reviews -->
+                                <div *ngIf="product.rating > 0" class="rating-container">
+                                    <stars [rating]="product.rating"></stars>
+                                    <span class="reviews-text">
+                                        {{product.totalReviews | number}} reviews
+                                    </span>
+                                </div>
+                                <div *ngIf="product.rating == 0" class="first-review-link">
+                                    Be the first to review this item
+                                </div>
+
+                                <!-- Price -->
+                                <div class="price">
+                                    <div *ngIf="product.maxPrice === 0">
+                                        {{product.minPrice | currency:'USD'}}
+                                    </div>
+                                    <div *ngIf="product.maxPrice > 0">
+                                        {{product.minPrice | currency:'USD'}} -
+                                        {{product.maxPrice | currency:'USD'}}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="buttons-container">
+                                <div class="gray">
+                                    Item added {{product.dateAdded}}
+                                </div>
+                                <div *ngIf="product.collaborator" class="collaborator">
+                                    Added by {{product.collaborator}}
+                                </div>
+                                <button class="gold-button" style="margin-top: 10px;"
+                                    (click)="onPublisherButtonClick(product)">Visit Publisher’s Page To Buy</button>
+                                <div *ngIf="isOwner || isCollaborator" style="margin-top: 10px; display: flex">
+
+                                    <button class="gray-button arrow" style="flex: 1; margin-right: 10px;"
+                                        (click)="productIndex = i">Move</button>
+                                    <div *ngIf="i == productIndex" class="popup dark">
+                                        <div *ngFor="let list of lists">
+                                            <div *ngIf="!list.selected" class="popup-item"
+                                                (mousedown)="$event.stopPropagation()"
+                                                (click)="onMoveProduct(list, product)">
+                                                {{list.name}}</div>
+                                        </div>
+
+                                    </div>
+                                    <button class="gray-button" style="flex: 1"
+                                        (click)="onDelete(product)">Delete</button>
+                                </div>
+                            </div>
                         </div>
-                        <div *ngIf="product.collaborator" class="collaborator">
-                            Added by {{product.collaborator}}
-                        </div>
-                        <button class="gold-button" style="margin-top: 10px;"
-                            (click)="onPublisherButtonClick(product)">Visit Publisher’s Page To Buy</button>
-                        <div *ngIf="isOwner || isCollaborator" style="margin-top: 10px; display: flex">
-                            <button class="gray-button" style="flex: 1; margin-right: 10px;">Move</button>
-                            <button class="gray-button" style="flex: 1">Delete</button>
-                        </div>
-                    </div>
+                    </ng-template>
                 </div>
             </div>
+
+            <ng-template #noProducts>
+                <div style="margin-top: 10px; color: #d4d4d4;">
+                    0 items in this list
+                </div>
+            </ng-template>
+
         </div>
     </div>
     <!-- Footer -->
     <footer></footer>
 
 </div>
+<create-list *ngIf="modalService.createList.show"></create-list>
 <share-list *ngIf="modalService.shareList.show" (onShareClick)="onShareClick($event)"></share-list>
-<manage-list *ngIf="modalService.manageList.show" [listName]="listName" [description]="description"></manage-list>
+<manage-list *ngIf="modalService.manageList.show" [listName]="listName" [description]="listDescription"></manage-list>
 <manage-collaborators [collaborators]="collaborators" *ngIf="modalService.manageCollaborators.show">
 </manage-collaborators>
 <input id="copy" type="text" *ngIf="modalService.shareList.show">

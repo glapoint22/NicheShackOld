@@ -9,14 +9,17 @@ import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 export class CreateListComponent extends DialogBoxComponent implements OnInit {
   public listName: string = '';
   public description: string;
-  
+
   ngOnInit() {
     this.modalServiceObject = this.modalService.createList;
     super.ngOnInit();
   }
 
   close() {
-    if(this.modalService.createList.showAddToList) this.modalService.addToList.show = true;
+    this.modalService.createList.onClose.next({
+      listName: this.listName,
+      description: this.description
+    });
     super.close();
   }
 
