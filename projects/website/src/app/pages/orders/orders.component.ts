@@ -8,49 +8,8 @@ import { Subject } from 'rxjs';
 })
 export class OrdersComponent implements OnInit {
   public event = new Subject<void>();
-
-  public filter: Array<any> = [
-    {
-      name: 'Last 30 days',
-      value: 'last30'
-    },
-    {
-      name: 'Past 6 months',
-      value: '6-months'
-    },
-    {
-      name: '2019',
-      value: 'year-2019'
-    },
-    {
-      name: '2018',
-      value: 'year-2018'
-    },
-    {
-      name: '2017',
-      value: 'year-2017'
-    },
-    {
-      name: '2016',
-      value: 'year-2016'
-    },
-    {
-      name: '2015',
-      value: 'year-2015'
-    },
-    {
-      name: '2014',
-      value: 'year-2014'
-    },
-    {
-      name: '2013',
-      value: 'year-2013'
-    },
-    {
-      name: '2012',
-      value: 'year-2012'
-    }
-  ]
+  public origin: number = 2019;
+  public filter: Array<any>;
 
   public orders = [
     {
@@ -121,11 +80,35 @@ export class OrdersComponent implements OnInit {
     }
   ]
 
-  public selectedFilter = this.filter[0];
+  public selectedFilter;
 
   constructor() { }
 
   ngOnInit() {
+    this.filter = [
+      {
+        name: 'Last 30 days',
+        value: 'last30'
+      },
+      {
+        name: 'Past 6 months',
+        value: '6-months'
+      }
+    ]
+
+    let currentYear = new Date().getFullYear();
+    do {
+      this.filter.push({
+        name: currentYear.toString(),
+        value: 'year-' + currentYear
+      });
+      currentYear--;
+    }
+    while (currentYear >= this.origin)
+
+
+    this.selectedFilter = this.filter[1];
+
   }
 
   onFilterClick(item) {
@@ -144,26 +127,30 @@ export class OrdersComponent implements OnInit {
     }
   }
 
-  getPaymentMethodImg(method: string){
-    if(method == 'PYPL') return 'paypal.png';
-    if(method == 'VISA') return 'visa.png';
-    if(method == 'MSTR') return 'master_card.png';
-    if(method == 'DISC') return 'discover.png';
-    if(method == 'AMEX') return 'amex.png';
-    if(method == 'SOLO') return 'solo.png';
-    if(method == 'DNRS') return 'diners_club.png';
-    if(method == 'MAES') return 'maestro.png';
+  getPaymentMethodImg(method: string) {
+    if (method == 'PYPL') return 'paypal.png';
+    if (method == 'VISA') return 'visa.png';
+    if (method == 'MSTR') return 'master_card.png';
+    if (method == 'DISC') return 'discover.png';
+    if (method == 'AMEX') return 'amex.png';
+    if (method == 'SOLO') return 'solo.png';
+    if (method == 'DNRS') return 'diners_club.png';
+    if (method == 'MAES') return 'maestro.png';
   }
 
-  getPaymentMethodTitle(method: string){
-    if(method == 'PYPL') return 'Paypal';
-    if(method == 'VISA') return 'Visa';
-    if(method == 'MSTR') return 'Mastercard';
-    if(method == 'DISC') return 'Discover';
-    if(method == 'AMEX') return 'American Express';
-    if(method == 'SOLO') return 'Solo';
-    if(method == 'DNRS') return 'Diners Club';
-    if(method == 'MAES') return 'Maestro';
+  getPaymentMethodTitle(method: string) {
+    if (method == 'PYPL') return 'Paypal';
+    if (method == 'VISA') return 'Visa';
+    if (method == 'MSTR') return 'Mastercard';
+    if (method == 'DISC') return 'Discover';
+    if (method == 'AMEX') return 'American Express';
+    if (method == 'SOLO') return 'Solo';
+    if (method == 'DNRS') return 'Diners Club';
+    if (method == 'MAES') return 'Maestro';
+  }
+
+  getDefaultIndex(){
+    return this.filter.findIndex(x => x == this.selectedFilter);
   }
 
 }

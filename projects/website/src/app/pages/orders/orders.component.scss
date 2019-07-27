@@ -63,16 +63,15 @@ input {
 }
 .product-container {
     width: 100%;
-    height: 100px;
     display: flex;
     margin-top: 10px;
 }
 .image-background {
-    width: 100px;
-    height: 100px;
+    width: 99px;
+    height: 99px;
     background: #181818;
     text-align: center;
-    line-height: 100px;
+    line-height: 96px;
     border: 1px solid #292929;
     margin-left: 10px;
     flex-shrink: 0;
@@ -83,7 +82,6 @@ input {
 }
 .product-info {
     width: 400px;
-    height: 100px;
     margin-left: 10px;
 }
 .caption {
@@ -91,6 +89,8 @@ input {
     color: #e6e6e6;
     font-weight: bold;
     margin-bottom: 5px;
+    word-wrap: break-word;
+    word-break: break-word;
 }
 .gold-font {
     color: $gold;

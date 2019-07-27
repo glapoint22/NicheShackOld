@@ -6,9 +6,9 @@
         <div class="main-title">Orders</div>
         <div class="top-container">
             <div class="filter-container">
-                <div class="gray-text" style="margin-right: 5px;">9,999 orders placed in</div>
+                <div class="gray-text" style="margin-right: 5px;">{{orders.length}} order{{orders.length == 1 ? '' : 's'}} placed in</div>
                 <popup-button [title]="selectedFilter.name" [items]="filter" (onClick)="onFilterClick($event)"
-                    [onClose]="event" [defaultIndex]="0"></popup-button>
+                    [onClose]="event" [defaultIndex]="getDefaultIndex()"></popup-button>
             </div>
 
             <div class="search-container">
