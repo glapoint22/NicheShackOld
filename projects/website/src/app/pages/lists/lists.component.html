@@ -126,18 +126,9 @@
                                 <button class="gold-button" style="margin-top: 10px;"
                                     (click)="onPublisherButtonClick(product)">Visit Publisher’s Page To Buy</button>
                                 <div *ngIf="isOwner || isCollaborator" style="margin-top: 10px; display: flex">
-
-                                    <button class="gray-button arrow" style="flex: 1; margin-right: 10px;"
-                                        (click)="productIndex = i">Move</button>
-                                    <div *ngIf="i == productIndex" class="popup dark">
-                                        <div *ngFor="let list of lists">
-                                            <div *ngIf="!list.selected" class="popup-item"
-                                                (mousedown)="$event.stopPropagation()"
-                                                (click)="onMoveProduct(list, product)">
-                                                {{list.name}}</div>
-                                        </div>
-
-                                    </div>
+                                    <popup-button [title]="'Move'" [items]="getMoveToList()"
+                                        (onClick)="onMoveProduct($event, product)" [onClose]="event" [width]="98">
+                                    </popup-button>
                                     <button class="gray-button" style="flex: 1"
                                         (click)="onDelete(product)">Delete</button>
                                 </div>

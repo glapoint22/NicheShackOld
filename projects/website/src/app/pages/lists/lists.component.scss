@@ -115,13 +115,13 @@ h2 {
         margin-top: 10px;
         .link {
             font-size: 14px;
-            color: $color1;
+            color: #b18100;
             text-decoration: underline;
             cursor: pointer;
             margin: 8px 12px 0 10px;
         }
         .link:hover {
-            color: $color5;
+            color: $gold;
         }
     }
 }
@@ -136,15 +136,6 @@ h2 {
     color: $gold;
     font-size: 14px;
     margin-top: 5px;
-}
-.arrow::after {
-    content: "";
-    border-top: solid 8px #dcdcdc;
-    border-left: solid 6px transparent;
-    border-right: solid 6px transparent;
-    position: relative;
-    top: 12px;
-    left: 5px;
 }
 .product-removed-text {
     color: #cccccc;
@@ -165,27 +156,13 @@ h2 {
 .moved-to-text:hover {
     text-decoration: underline;
 }
-
-.popup {
-    min-width: 100px;
-    min-height: 24px;
-    padding-top: 5px;
-    position: absolute;
-    .popup-item {
-        font-size: 13px;
-        height: 22px;
-        line-height: 22px;
-        padding-left: 5px;
-        user-select: none;
-        cursor: pointer;
-    }
-    .popup-item:hover {
-        background: #4a4a4a;
-    }
-}
 .fa-check {
     color: #00ff00;
     margin-right: 5px;
 }
-
-
+.gray-button {
+    width: 100px;
+}
+.gray-button:nth-child(2){
+    margin-left: 10px;
+}

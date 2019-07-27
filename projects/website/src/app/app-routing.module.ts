@@ -25,6 +25,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/email-preferences/email-preferences.module').then(m => m.EmailPreferencesModule)
   },
   {
+    path: 'orders',
+    loadChildren: () => import('./pages/orders/orders.module').then(m => m.OrdersModule)
+  },
+  {
     path: 'lists/:listId',
     loadChildren: () => import('./pages/lists/lists.module').then(m => m.ListsModule)
   },

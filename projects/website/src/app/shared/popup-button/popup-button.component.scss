@@ -1,0 +1,33 @@
+@import 'theme';
+
+.popup {
+    position: absolute;
+    z-index: 1;
+    min-height: 24px;
+    padding-top: 5px;
+    .popup-item {
+        font-size: 13px;
+        height: 22px;
+        line-height: 22px;
+        user-select: none;
+        padding: 0 6px;
+        cursor: pointer;
+    }
+    .popup-item:hover:not(.selected) {
+        background: #4a4a4a;
+    }
+    .selected {
+        background: $gold;
+        color: #181818;
+        font-weight: bold;
+    }
+}
+.arrow::after {
+    content: "";
+    border-top: solid 8px #dcdcdc;
+    border-left: solid 6px transparent;
+    border-right: solid 6px transparent;
+    position: relative;
+    top: 12px;
+    left: 4px;
+}

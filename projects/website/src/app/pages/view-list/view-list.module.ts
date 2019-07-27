@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { StarsModule } from '../../shared/stars/stars.module';
 import { ListComponentsModule } from '../lists/components/list-components.module';
 import { CreateListModule } from '../../shared/create-list/create-list.module';
+import { PopupButtonModule } from '../../shared/popup-button/popup-button.module';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { CreateListModule } from '../../shared/create-list/create-list.module';
     FormsModule,
     StarsModule,
     ListComponentsModule,
-    CreateListModule
+    CreateListModule,
+    PopupButtonModule
   ]
 })
 export class ViewListModule { }

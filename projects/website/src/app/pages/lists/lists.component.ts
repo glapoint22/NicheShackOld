@@ -4,7 +4,7 @@ import { Title, Meta } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
 import { SharePage } from '../share-page';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 
 @Component({
   selector: 'lists',
@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./lists.component.scss']
 })
 export class ListsComponent extends SharePage implements OnInit {
-  public productIndex: number = -1;
+  public event = new Subject<void>();
   public sortOptions: Array<any>;
   public selectedSortOption: any = {};
   public listName: string = 'Christmas List';
@@ -191,26 +191,22 @@ export class ListsComponent extends SharePage implements OnInit {
   }
 
   @HostListener('document:mousedown', ['$event'])
-  onMousedown(event) {
-    this.removePopup();
+  onMousedown() {
+    this.event.next();
   }
 
   @HostListener('document:keydown', ['$event'])
-  onKeydown(event) {
-    if (event.code === 'Escape' || event.keyCode === 27) {
-      this.removePopup();
+  onKeydown(keydownEvent) {
+    if (keydownEvent.code === 'Escape' || keydownEvent.keyCode === 27) {
+      this.event.next();
     }
   }
 
-  removePopup() {
-    this.productIndex = -1;
-  }
 
   onMoveProduct(list: any, product: any) {
     product.movedToList = list;
 
     // Update database!
-    this.removePopup();
   }
 
   onDelete(product: any) {
@@ -237,5 +233,9 @@ export class ListsComponent extends SharePage implements OnInit {
         this.router.navigate(['lists/' + listId]);
       }
     });
+  }
+
+  getMoveToList(){
+    return this.lists.filter(x => !x.selected);
   }
 }

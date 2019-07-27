@@ -1,0 +1,103 @@
+<div class="background-container">
+    <!-- Search Bar -->
+    <search-bar></search-bar>
+
+    <div class="container">
+        <div class="main-title">Orders</div>
+        <div class="top-container">
+            <div class="filter-container">
+                <div class="gray-text" style="margin-right: 5px;">9,999 orders placed in</div>
+                <popup-button [title]="selectedFilter.name" [items]="filter" (onClick)="onFilterClick($event)"
+                    [onClose]="event" [defaultIndex]="0"></popup-button>
+            </div>
+
+            <div class="search-container">
+                <button class="gray-button" style="float: right;">Search Orders</button>
+                <i class="fas fa-search"></i>
+                <input class="dark" type="text" placeholder="Search orders">
+            </div>
+        </div>
+        <div class="link">Order Support</div>
+
+        <div *ngFor="let order of orders" class="order-container">
+            <div class="gray-text" style="display: inline-block;">Ordered on {{order.date}}</div>
+            <div class="gray-text" style="float: right">Order number: {{order.orderNumber}}</div>
+            <div class="order-container-border">
+
+                <!-- Products -->
+                <div>
+                    <div *ngFor="let product of order.products" class="products-container">
+                        <div class="product-container">
+                            <div class="image-background">
+                                <img [src]="product.image ? '/Images/' + product.image : 'assets/no_image.png'" style="width: 75px;">
+                            </div>
+                            <div class="product-info">
+                                <div class="caption">{{product.title}}</div>
+                                <div class="gray-text" style="margin-bottom: 5px;">{{product.type}}</div>
+                                <div class="gray-text">Quantity: {{product.quantity}}</div>
+                                <div class="gold-font" style="margin-top: 5px;">{{product.price | currency:'USD'}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <hr>
+
+                <!-- Purchase info -->
+                <div class="purchase-info-container">
+
+
+                    <div class="purchase-info">
+                        <div class="caption" style="display: inline-block">Payment Method</div>
+                        <img [src]="'assets/'+ getPaymentMethodImg(order.paymentMethod)" class="payment-method-img"
+                            [title]="getPaymentMethodTitle(order.paymentMethod)">
+                        <div class="caption" style="margin-top: 20px;">Order Summary</div>
+
+                        <div class="info">
+                            <div class="gray-text" style="display: inline-block">Item(s) Subtotal:</div>
+                            <div class="gold-font" style="float: right">{{order.subtotal | currency:'USD'}}</div>
+                        </div>
+
+                        <div class="info">
+                            <div class="gray-text" style="display: inline-block">Shipping & Handling:</div>
+                            <div class="gold-font" style="float: right">{{order.shippingHandling | currency:'USD'}}
+                            </div>
+                        </div>
+
+
+                        <div class="info">
+                            <div class="gray-text" style="display: inline-block">Discount:</div>
+                            <div class="gold-font" style="float: right">{{order.discount | currency:'USD'}}</div>
+                        </div>
+
+
+                        <div class="info">
+                            <div class="gray-text" style="display: inline-block">Tax:</div>
+                            <div class="gold-font" style="float: right">{{order.tax | currency:'USD'}}</div>
+                        </div>
+
+
+                        <div class="info">
+                            <div class="gold-font" style="display: inline-block">Total:</div>
+                            <div class="gold-font" style="float: right">{{order.total | currency:'USD'}}</div>
+                        </div>
+                    </div>
+
+                    <!-- Button container -->
+                    <div class="button-container">
+                        <button class="gold-button">Visit Publisher’s Page To Buy Again</button>
+                        <button class="gray-button">Write a review</button>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer></footer>
+
+</div>
