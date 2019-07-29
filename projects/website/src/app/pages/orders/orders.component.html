@@ -17,7 +17,7 @@
                 <input class="dark" type="text" placeholder="Search orders">
             </div>
         </div>
-        <div class="link">Order Support</div>
+        <a href="https://www.clkbank.com">Order support</a>
 
         <div *ngFor="let order of orders" class="order-container">
             <div class="gray-text" style="display: inline-block;">Ordered on {{order.date}}</div>
@@ -86,8 +86,8 @@
 
                     <!-- Button container -->
                     <div class="button-container">
-                        <button class="gold-button">Visit Publisher’s Page To Buy Again</button>
-                        <button class="gray-button">Write a review</button>
+                        <button class="gold-button" (click)="onPublisherButtonClick(order.mainProduct.hoplink)">Visit Publisher’s Page To Buy Again</button>
+                        <button class="gray-button" (click)="onWriteReviewClick(order.mainProduct.id)">Write a review</button>
                     </div>
 
 

@@ -1,12 +1,16 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, Inject } from '@angular/core';
 import { Subject } from 'rxjs';
+import { Page } from '../page';
+import { Title, Meta } from '@angular/platform-browser';
+import { DOCUMENT } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'orders',
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.scss']
 })
-export class OrdersComponent implements OnInit {
+export class OrdersComponent extends Page implements OnInit {
   public event = new Subject<void>();
   public origin: number = 2019;
   public filter: Array<any>;
@@ -15,6 +19,11 @@ export class OrdersComponent implements OnInit {
     {
       date: 'May 22, 2019',
       orderNumber: 'CWOGBZLN',
+      mainProduct: {
+        id: 'FRT6YHJE4J',
+        hoplink: 'https://201behydk0sr8n2-f2jo9qcq9u.hop.clickbank.net/',
+        urlTitle: 'fat-loss-activation'
+      },
       products: [
         {
           title: 'The 2 Week Diet Audiobook Companion (Listen On Any Device!)',
@@ -82,9 +91,15 @@ export class OrdersComponent implements OnInit {
 
   public selectedFilter;
 
-  constructor() { }
+  constructor(
+    titleService: Title,
+    metaService: Meta,
+    @Inject(DOCUMENT) document,
+    private router: Router
+  ) {super(titleService, metaService, document) }
 
   ngOnInit() {
+    this.title = 'Your Orders';
     this.filter = [
       {
         name: 'Last 30 days',
@@ -108,11 +123,16 @@ export class OrdersComponent implements OnInit {
 
 
     this.selectedFilter = this.filter[1];
-
+    this.share = false;
+    super.ngOnInit();
   }
 
   onFilterClick(item) {
     this.selectedFilter = item;
+    this.router.navigate([location.pathname], {
+      queryParams: { 'orderFilter': this.selectedFilter.value },
+      queryParamsHandling: 'merge'
+    });
   }
 
   @HostListener('document:mousedown', ['$event'])
@@ -151,6 +171,14 @@ export class OrdersComponent implements OnInit {
 
   getDefaultIndex(){
     return this.filter.findIndex(x => x == this.selectedFilter);
+  }
+
+  onWriteReviewClick(productId: string){
+    this.router.navigate(['/reviews/write-review'], { queryParams: { 'id': productId } });
+  }
+
+  onPublisherButtonClick(hoplink) {
+    window.location.href = hoplink;
   }
 
 }

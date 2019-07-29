@@ -12,6 +12,6 @@ export class ReviewSummaryComponent {
   constructor(private router: Router){}
 
   onWriteReview() {
-    this.router.navigate(['/reviews/write-review']);
+    this.router.navigate(['/reviews/write-review'], { queryParams: { 'id': this.product.id } });
   }
 }
