@@ -18,12 +18,19 @@
         </div>
         <div class="search-container">
             <div style="display: flex">
-                <select #select class="category-dropdown" [(ngModel)]="selectedCategory" name="categories" (change)="setSelectElementWidth()">
+                <select #select class="category-dropdown" [(ngModel)]="selectedCategory" name="categories"
+                    (change)="setSelectElementWidth()">
                     <option *ngFor="let category of searchCategories" [ngValue]="category">{{category.name}}</option>
                 </select>
                 <div class="input-container" style="flex: 1">
-                    <input #search type="text" class="main-input" placeholder="Search" [value]="getQuery()" (keydown)="onSearchKeydown($event, search.value)">
-                    <input #mobileSearch type="text" class="mobile-input" [placeholder]="getPlaceHolder()" [value]="getQuery()" (keydown)="onSearchKeydown($event, mobileSearch.value)">
+                    <input #search type="text" class="main-input" placeholder="Search" [value]="getQuery()"
+                        (keydown)="onSearchKeydown($event, search.value)">
+                    <input #mobileSearch type="text" class="mobile-input" [placeholder]="getPlaceHolder()"
+                        [value]="getQuery()" (keydown)="onSearchKeydown($event, mobileSearch.value)">
+
+                    <div *ngIf="searchSuggestions.length > 0" class="search-suggestion-box">
+                        <div *ngFor="let suggestion of searchSuggestions" class="suggestion-item" (click)="setQuery(suggestion)">{{suggestion}}</div>
+                    </div>
                 </div>
                 <div class="search-button-container">
                     <div class="search-button" (click)="setQuery(search.value || mobileSearch.value)">
@@ -34,12 +41,47 @@
         </div>
     </div>
 
-    <div class="icon-container">
-        <a routerLink="/about" class="icon" title="About us">
-            <i class="fas  fa-lg fa-info-circle"></i>
-        </a>
-        <a href="https://www.clkbank.com" class="icon" title="Order support">
-            <i class="fas  fa-lg fa-question-circle"></i>
-        </a>
+    <div>
+        <div class="customer-name">Hello, Zorioth</div>
+        <div class="menu-container">
+            <div class="account-container">
+
+                <div class="menu arrow">Account</div>
+                <div class="dropdown-menu dropdown-menu-arrow">
+                    <a routerLink="/sign-in">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span>Sign In</span>
+                    </a>
+                    <a routerLink="/account">
+                        <i class="fas fa-user"></i>
+                        <span>Your Account</span>
+                    </a>
+                    <a routerLink="/orders">
+                        <i class="fas fa-file-invoice"></i>
+                        <span>Your Orders</span>
+                    </a>
+                    <a routerLink="/lists/somelistid">
+                        <i class="fas fa-clipboard-list"></i>
+                        <span>Your Lists</span>
+                    </a>
+                    <a routerLink="/preferences">
+                        <i class="fas fa-envelope"></i>
+                        <span>Your Email Preferences</span>
+                    </a>
+                    <a routerLink="/sign-in">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Sign Out</span>
+                    </a>
+                    <a routerLink="/create-account">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Create Account</span>
+                    </a>
+                </div>
+            </div>
+
+            <a routerLink="/orders">Orders</a>
+            <a href="https://www.clkbank.com" class="icon">Order support</a>
+        </div>
     </div>
+
 </div>

@@ -13,6 +13,7 @@ export class SearchBarComponent implements OnInit {
   public categories: Array<any> = [];
   public searchCategories: Array<any> = []
   public selectedCategory: any = {};
+  public searchSuggestions: Array<string> = [];
   private queryParams: any;
   @ViewChild('tmpSelect', { static: true }) tmpSelect: ElementRef;
   @ViewChild('select', { static: true }) select: ElementRef;
@@ -75,7 +76,7 @@ export class SearchBarComponent implements OnInit {
   }
 
 
-  setQuery(query) {
+  setQuery(query: string) {
     if (query !== '') {
       this.router.navigate(['/search'], { queryParams: this.selectedCategory.id > -1 ? { 'query': query, 'category': this.selectedCategory.id } : { 'query': query } });
     }
@@ -99,6 +100,19 @@ export class SearchBarComponent implements OnInit {
     if (event.code === 'NumpadEnter' || event.code === 'Enter' || event.keyCode === 13) {
       this.setQuery(query);
     }
+
+    this.searchSuggestions = [
+      'food',
+      'food scale',
+      'food Processor',
+      'foot massager',
+      'foot peel',
+      'foot scrubber',
+      'food coloring',
+      'foot file',
+      'foot spa',
+      'football'
+    ]
   }
 
   getPlaceHolder() {

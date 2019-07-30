@@ -12,15 +12,14 @@
 .menu-search-container {
     height: 100%;
     margin: auto;
-    width: 922px;
-    max-width: 922px;
+    width: 1250px;
 }
 .search-container{
     height: 32px;
     top: 14px;
-    max-width: 800px;
-    margin-left: 110px;
+    margin-left: 120px;
     position: relative;
+    width: 1130px;
 }
 select{
     height: 31px;
@@ -57,6 +56,16 @@ select{
 }
 .input-container{
     width: 100%;
+    .search-suggestion-box {
+        background: white;
+        .suggestion-item {
+            padding: 5px;
+            cursor: pointer;
+        }
+        .suggestion-item:hover {
+            background: #d6d6d6;
+        }
+    }
 }
 input{
     border: 1px solid #ababab;
@@ -76,27 +85,120 @@ input{
     color: #ffba00;
     cursor: pointer;
     float: left;
-    margin-right: 10px;
 }
-.icon-container {
-    height: 60px;
-    flex-shrink: 0;
-    margin-right: 22px;
-    margin-left: 22px;
+.customer-name {
+    font-size: 12px;
+    color: #f0f0f0;
+    margin-left: 30px;
+    margin-top: 25px;
+    white-space: nowrap;
 }
-.icon {
-    position: relative;
-    float: right;
-    line-height: 60px;
-    color: #ffba00;
-    cursor: pointer;
-    margin-right: 25px;
+.menu-container {
+    display: flex;
+    margin-right: 30px;
+    a, .menu {
+        color: $gold;
+        font-size: 14px;
+        font-weight: bold;
+        margin: 0 30px 0;
+        cursor: pointer;
+    }
+    .menu:first-child {
+        margin-right: 35px;
+    }
+    .account-container {
+        position: relative;
+        height: 21px;
+        cursor: pointer;
+        .dropdown-menu {
+            position: absolute;
+            width: 248px;
+            background: rgba(19, 18, 18, 0.949);
+            border: 1px solid #ab0395;
+            left: -45px;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            top: 21px;
+            display: none;
+            a {
+                width: 100%;
+                height: 32px;
+                margin-bottom: 10px;
+                margin-left: 0;
+                line-height: 32px;
+                display: block;
+                font-weight: normal;
+                cursor: pointer;
+                i {
+                    font-size: 16px;
+                    margin-left: 10px;
+                    color: $color1;
+                }
+                span {
+                    color: #f2f2f2;
+                    font-size: 14px;
+                    margin-left: 5px;
+                }
+            }
+            a:last-child {
+                margin-bottom: 0;
+            }
+            a:hover {
+                background-color: $color1;
+                text-decoration: none;
+            }
+            a:hover i {
+                color: $color5;
+            }
+        }
+    }
+    .account-container:hover  .dropdown-menu {
+        display: block;
+    }
+    a {
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+    .arrow::after {
+        content: "";
+        border-top: solid 8px $gold;
+        border-left: solid 6px transparent;
+        border-right: solid 6px transparent;
+        position: relative;
+        top: 13px;
+        left: 5px;
+    }
+    .dropdown-menu-arrow::after{
+        content: "";
+        width: 0;
+        height: 0;
+        border-left: 12px solid transparent;
+        border-right: 12px solid transparent;
+        border-bottom: 12px solid rgba(19, 18, 18, 0.9);
+        position: absolute;
+        top: -11px;
+        left: 129px;
+    }
+    .dropdown-menu-arrow::before{
+        content: "";
+        width: 0;
+        height: 0;
+        border-left: 12px solid transparent;
+        border-right: 12px solid transparent;
+        border-bottom: 12px solid #ab0395;
+        position: absolute;
+        top: -12px;
+        left: 129px;
+    }
 }
 .mobile-input {
     display: none;
     font-size: 13px;
 }
-
 @media screen and (max-width: 1280px) {
     .icon-container {
         margin-right: 10px;
