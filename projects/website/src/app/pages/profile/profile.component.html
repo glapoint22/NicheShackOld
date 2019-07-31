@@ -9,9 +9,9 @@
         <div class="property-container">
             <div class="data-container">
                 <div class="caption">Name:</div>
-                <div class="value">Gabe LaPoint</div>
+                <div class="value">{{profile.firstName}} {{profile.lastName}}</div>
             </div>
-            <button class="gray-button">Edit</button>
+            <button class="gray-button" (click)="navigate('account/profile/change-name')">Edit</button>
         </div>
 
 
@@ -19,18 +19,18 @@
         <div class="property-container">
             <div class="data-container">
                 <div class="caption">Email:</div>
-                <div class="value">glapoint22@gmail.com</div>
+                <div class="value">{{profile.email}}</div>
             </div>
-            <button class="gray-button">Edit</button>
+            <button class="gray-button" (click)="navigate('account/profile/change-email')">Edit</button>
         </div>
 
         <!-- Password -->
         <div class="property-container">
             <div class="data-container">
                 <div class="caption">Password:</div>
-                <div class="value">****</div>
+                <input type="password" disabled class="value" [value]="profile.password">
             </div>
-            <button class="gray-button">Edit</button>
+            <button class="gray-button" (click)="navigate('account/profile/change-password')">Edit</button>
         </div>
     </div>
 

@@ -33,7 +33,12 @@
 .value {
     font-size: 13px;
     color: #d7d7d7;
+    user-select: none;
 }
 .gray-button {
     margin-right: 10px;
+}
+input {
+    background: $background-color;
+    border: none;
 }
