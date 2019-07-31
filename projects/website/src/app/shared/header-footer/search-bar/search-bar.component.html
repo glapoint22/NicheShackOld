@@ -24,12 +24,12 @@
                 </select>
                 <div class="input-container" style="flex: 1">
                     <input #search type="text" class="main-input" placeholder="Search" [value]="getQuery()"
-                        (keydown)="onSearchKeydown($event, search.value)">
+                        (keydown)="onSearchKeydown($event, search.value)" (blur)="onInputBlur()">
                     <input #mobileSearch type="text" class="mobile-input" [placeholder]="getPlaceHolder()"
                         [value]="getQuery()" (keydown)="onSearchKeydown($event, mobileSearch.value)">
 
                     <div *ngIf="searchSuggestions.length > 0" class="search-suggestion-box">
-                        <div *ngFor="let suggestion of searchSuggestions" class="suggestion-item" (click)="setQuery(suggestion)">{{suggestion}}</div>
+                        <div *ngFor="let suggestion of searchSuggestions; let i = index" class="suggestion-item" (mousedown)="suggestionClicked = true" (click)="setQuery(suggestion)" [ngClass]="{'selected-item' : searchSuggestionIndex == i}">{{suggestion}}</div>
                     </div>
                 </div>
                 <div class="search-button-container">

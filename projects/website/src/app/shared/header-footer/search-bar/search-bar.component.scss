@@ -19,7 +19,7 @@
     top: 14px;
     margin-left: 120px;
     position: relative;
-    width: 1130px;
+    width: 1160px;
 }
 select{
     height: 31px;
@@ -62,7 +62,7 @@ select{
             padding: 5px;
             cursor: pointer;
         }
-        .suggestion-item:hover {
+        .suggestion-item:hover, .selected-item {
             background: #d6d6d6;
         }
     }
@@ -89,22 +89,22 @@ input{
 .customer-name {
     font-size: 12px;
     color: #f0f0f0;
-    margin-left: 30px;
+    margin-left: 20px;
     margin-top: 25px;
     white-space: nowrap;
 }
 .menu-container {
     display: flex;
-    margin-right: 30px;
+    margin-right: 20px;
     a, .menu {
         color: $gold;
         font-size: 14px;
         font-weight: bold;
-        margin: 0 30px 0;
+        margin: 0 20px 0;
         cursor: pointer;
     }
     .menu:first-child {
-        margin-right: 35px;
+        margin-right: 25px;
     }
     .account-container {
         position: relative;

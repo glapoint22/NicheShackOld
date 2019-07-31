@@ -22,7 +22,7 @@ export class ModalComponent {
 
   ngOnDestroy() {
       document.body.style.overflow = 'visible';
-      document.body.style.overflowY = 'overlay';
+      // document.body.style.overflowY = 'overlay';
   }
 
   close() {
