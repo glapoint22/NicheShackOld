@@ -1,1 +1,53 @@
-<p>change-email works!</p>
+<div class="background-container">
+    <!-- Search Bar -->
+    <search-bar></search-bar>
+
+    <!-- Logo -->
+    <img src="assets/Logo.png">
+
+    <form (ngSubmit)="onSubmit()" #form="ngForm" [matchValue]="['newEmail', 'reEnteredEmail']">
+        <div class="form-title">Change Email</div>
+
+        <!-- Old email -->
+        <div class="caption">Old email:</div>
+        <input class="old-email" [(ngModel)]="oldEmail" name="oldEmail" #oldEmailAddress="ngModel" autocomplete="off"
+            disabled>
+
+        <!-- New email -->
+        <div *ngIf="valid(newEmailAddress); else invalidNewEmail" class="caption">New email:</div>
+
+        <!-- Invalid new email -->
+        <ng-template #invalidNewEmail>
+            <div *ngIf="newEmailAddress.errors.oldEmailMatch" class="not-valid caption">
+                The new email address is the same as your current email address.
+            </div>
+
+            <div *ngIf="newEmailAddress.errors.email" class="not-valid caption">
+                Please provide a valid email address.
+            </div>
+        </ng-template>
+        <input class="dark" required email [(ngModel)]="newEmail" name="newEmail" #newEmailAddress="ngModel"
+            autocomplete="off">
+
+
+        <!-- Re-enter email -->
+        <div *ngIf="valid(reEnteredEmailAddress); else invalidReEnteredEmail" class="caption">Re-enter new email:</div>
+
+        <!-- Invalid re-entered email -->
+        <ng-template #invalidReEnteredEmail>
+            <div class="not-valid caption">
+                Please make sure emails match.
+            </div>
+        </ng-template>
+        <input class="dark" [(ngModel)]="reEnteredEmail" name="reEnteredEmail" #reEnteredEmailAddress="ngModel"
+            autocomplete="off">
+
+
+        <!-- Save button -->
+        <button class="gold-button">Save</button>
+    </form>
+
+
+    <!-- Footer -->
+    <footer></footer>
+</div>

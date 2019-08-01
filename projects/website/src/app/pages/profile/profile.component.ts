@@ -26,12 +26,11 @@ export class ProfileComponent extends Page implements OnInit {
     this.profile = {
       firstName: 'Gabe',
       lastName: 'LaPoint',
-      email: 'glapoint22@gmail.com',
-      password: 'Cyb668622'
+      email: 'glapoint22@gmail.com'
     }
   }
 
-  navigate(path: string){
+  navigate(path: string) {
     this.router.navigate([path]);
   }
 }

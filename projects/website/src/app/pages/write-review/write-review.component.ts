@@ -8,14 +8,20 @@ import { DOCUMENT } from '@angular/common';
 @Component({
   selector: 'write-review',
   templateUrl: './write-review.component.html',
-  styleUrls: ['./write-review.component.scss', '../validation-page/validation-page.scss']
+  styleUrls: ['./write-review.component.scss']
 })
 export class WriteReviewComponent extends ValidationPage implements OnInit {
   public review: Review = new Review();
   public product: any = {};
   public submitted: boolean;
 
-  constructor(titleService: Title, metaService: Meta, @Inject(DOCUMENT) document, @Inject(PLATFORM_ID) platformId: Object, private route: ActivatedRoute, private router: Router) { super(titleService, metaService, document, platformId); }
+  constructor(
+    titleService: Title,
+    metaService: Meta,
+    @Inject(DOCUMENT) document,
+    @Inject(PLATFORM_ID) platformId: Object,
+    private route: ActivatedRoute,
+    private router: Router) { super(titleService, metaService, document, platformId); }
 
   ngOnInit() {
     this.title = 'Write a Review';
