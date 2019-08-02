@@ -3,39 +3,37 @@ import { ValidationPage } from '../validation-page/Validation-page';
 import { Title, Meta } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
-import { DataService } from 'src/app/services/data/data.service';
 
 @Component({
-  selector: 'change-name',
-  templateUrl: './change-name.component.html',
-  styleUrls: ['../validation-page/validation-page.scss']
+  selector: 'create-account',
+  templateUrl: './create-account.component.html',
+  styleUrls: ['../validation-page/validation-page.scss', './create-account.component.scss']
 })
-export class ChangeNameComponent extends ValidationPage implements OnInit {
-  public account: any;
+export class CreateAccountComponent extends ValidationPage implements OnInit {
+  public account: any = {}
+  public reEnteredPassword: string;
 
   constructor(
     titleService: Title,
     metaService: Meta,
     @Inject(DOCUMENT) document,
     @Inject(PLATFORM_ID) platformId: Object,
-    public router: Router,
-    private dataService: DataService) {
+    public router: Router) {
     super(titleService, metaService, document, platformId);
   }
 
   ngOnInit() {
-    this.title = 'Change Name';
+    this.title = 'Create Account';
     this.share = false;
     super.ngOnInit();
-
-    this.account = {
-      firstName: 'Gabe',
-      lastName: 'LaPoint'
-    }
   }
 
   submitData(): void {
-    this.dataService.data.hasChanges = true;
-    this.router.navigate(['account', 'profile']);
+    this.router.navigate(['']);
   }
+
+  onSignInClick() {
+    this.router.navigate(['/sign-in']);
+  }
+
 }

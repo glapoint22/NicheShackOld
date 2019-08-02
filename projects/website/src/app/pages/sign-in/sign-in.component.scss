@@ -1,0 +1,21 @@
+@import 'theme';
+
+.gold-link {
+    float: right;
+    font-size: 13px;
+    margin-right: 20px;
+    color: $gold;
+    text-decoration: none;
+}
+.gold-link:hover {
+    text-decoration: underline;
+}
+hr {
+    border: 1px solid #464646;
+    width: 280px;
+    margin-bottom: 20px;
+}
+a {
+    color: #b3b3b3;
+    font-size: 12px;
+}

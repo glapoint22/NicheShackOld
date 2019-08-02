@@ -1,0 +1,108 @@
+<div class="background-container">
+
+
+    <div class="container">
+
+
+        <!-- Logo -->
+        <img src="assets/Logo.png" routerLink="">
+
+        <form (ngSubmit)="onSubmit()" #form="ngForm" [matchValue]="['password', 'reEnteredPassword']">
+            <div class="form-title">Create Account</div>
+
+            <!-- First Name -->
+            <div *ngIf="valid(firstName); else invalidFirstName" class="caption">First name:</div>
+
+            <!-- Invalid first name -->
+            <ng-template #invalidFirstName>
+                <div class="not-valid caption">
+                    Please provide a first name.
+                </div>
+            </ng-template>
+            <input class="dark" required [(ngModel)]="account.firstName" name="firstName" #firstName="ngModel"
+                autocomplete="off">
+
+            <!-- Last Name -->
+            <div *ngIf="valid(lastName); else invalidLastName" class="caption">Last name:</div>
+
+            <!-- Invalid last name -->
+            <ng-template #invalidLastName>
+                <div class="not-valid caption">
+                    Please provide a last name.
+                </div>
+            </ng-template>
+            <input class="dark" required [(ngModel)]="account.lastName" name="lastName" #lastName="ngModel"
+                autocomplete="off">
+
+
+            <!-- Email -->
+            <div *ngIf="valid(emailAddress); else invalidEmail" class="caption">Email:</div>
+
+            <!-- Invalid email -->
+            <ng-template #invalidEmail>
+                <div class="not-valid caption">
+                    Please provide a valid email address.
+                </div>
+            </ng-template>
+            <input class="dark" required email [(ngModel)]="account.email" name="email" #emailAddress="ngModel"
+                autocomplete="off">
+
+
+
+            <!-- Password -->
+            <div *ngIf="valid(_password); else invalidPassword" class="caption">Password:</div>
+
+            <!-- Invalid password -->
+            <ng-template #invalidPassword>
+                <div class="not-valid caption">
+                    Passwords must be at least 6 characters.
+                </div>
+            </ng-template>
+            <input type="password" class="dark" required pattern=".{6,}" [(ngModel)]="account.password" name="password"
+                #_password="ngModel" autocomplete="off">
+
+            <div class="info-container">
+                <i class="fas fa-info"></i>
+                <span class="info-text">Passwords must be at least 6 characters.</span>
+            </div>
+
+
+            <!-- Re-enter password -->
+            <div *ngIf="valid(re_enter_password); else invalidReEnteredPassword" class="caption">Re-enter password:
+            </div>
+
+            <!-- Invalid re-entered password -->
+            <ng-template #invalidReEnteredPassword>
+                <div class="not-valid caption">
+                    Please make sure passwords match.
+                </div>
+            </ng-template>
+            <input type="password" class="dark" [(ngModel)]="reEnteredPassword" name="reEnteredPassword"
+                #re_enter_password="ngModel" autocomplete="off">
+
+            <div class="disclaimer">
+                <span>By clicking Create Account, you acknowledge you have read and agreed to our </span><a routerLink="/terms">Terms of Use</a><span> and </span><a routerLink="/privacy-policy">Privacy Policy</a>
+            </div>
+
+            <!-- Save button -->
+            <button type="submit" class="gold-button">Create Account</button>
+
+            <hr>
+
+            <div class="caption" style="text-align: center; margin-bottom: 10px;">Already have an account?</div>
+            <button type="button" class="gray-button" (click)="onSignInClick()">Sign in</button>
+        </form>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <a routerLink="/terms" style="margin-right: 20px;">Terms of Use</a>
+            <a routerLink="/privacy-policy">Privacy Policy</a>
+        </div>
+
+        
+    </div>
+
+
+
+
+
+</div>

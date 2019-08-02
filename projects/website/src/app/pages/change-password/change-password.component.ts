@@ -20,7 +20,7 @@ export class ChangePasswordComponent extends ValidationPage implements OnInit {
     metaService: Meta,
     @Inject(DOCUMENT) document,
     @Inject(PLATFORM_ID) platformId: Object,
-    private router: Router,
+    public router: Router,
     private dataService: DataService) { super(titleService, metaService, document, platformId); }
 
   ngOnInit() {
