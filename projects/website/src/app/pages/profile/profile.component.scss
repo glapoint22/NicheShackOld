@@ -4,11 +4,12 @@
     width: 540px;
     margin: auto;
     margin-top: 140px;
+    position: relative;
 }
 .page-title {
     font-size: 35px;
     color: $gold;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 .property-container {
     width: 100%;
@@ -17,11 +18,10 @@
     align-items: center;
     border-bottom: 1px solid #3c3c3c;
 }
-.property-container:nth-child(2) {
+.property-container:nth-child(3) {
     border-top: 1px solid #3c3c3c;
 }
 .data-container {
-    margin-left: 10px;
     flex: 1;
 }
 .caption {
@@ -37,4 +37,15 @@
 }
 .gray-button {
     margin-right: 10px;
+}
+.changes {
+    margin-bottom: 30px;
+    color: white;
+    border: 1px solid $gold;
+    border-radius: 5px;
+    padding: 20px;
+}
+.fa-check {
+    margin-right: 5px;
+    color: #00ff00;
 }

@@ -1,9 +1,13 @@
 @import 'theme';
 
+.container {
+    margin: auto;
+    margin-top: 140px;
+    width: 360px;
+}
 img {
     margin: auto;
     display: block;
-    margin-top: 140px;
     margin-bottom: 30px;
 }
 form {

@@ -2,50 +2,64 @@
     <!-- Search Bar -->
     <search-bar></search-bar>
 
-    <!-- Logo -->
-    <img src="assets/Logo.png">
+    <div class="container">
+        <!-- Breadcrumb -->
+      <div class="breadcrumb-container">
+            <a routerLink="/account">Your Account</a>
+            <i class="fas fa-caret-right" style="margin: 0 10px;"></i>
+            <a routerLink="/account/profile">Profile</a>
+            <i class="fas fa-caret-right" style="margin: 0 10px;"></i>
+            <span class="path">Change Email</span>
+        </div>
 
-    <form (ngSubmit)="onSubmit()" #form="ngForm" [matchValue]="['newEmail', 'reEnteredEmail']">
-        <div class="form-title">Change Email</div>
+        <!-- Logo -->
+        <img src="assets/Logo.png">
 
-        <!-- Old email -->
-        <div class="caption">Old email:</div>
-        <input class="old-email" [(ngModel)]="oldEmail" name="oldEmail" #oldEmailAddress="ngModel" autocomplete="off"
-            disabled>
+        <form (ngSubmit)="onSubmit()" #form="ngForm" [matchValue]="['newEmail', 'reEnteredEmail']">
+            <div class="form-title">Change Email</div>
 
-        <!-- New email -->
-        <div *ngIf="valid(newEmailAddress); else invalidNewEmail" class="caption">New email:</div>
+            <!-- Old email -->
+            <div class="caption">Old email:</div>
+            <input class="old-email" [(ngModel)]="oldEmail" name="oldEmail" #oldEmailAddress="ngModel"
+                autocomplete="off" disabled>
 
-        <!-- Invalid new email -->
-        <ng-template #invalidNewEmail>
-            <div *ngIf="newEmailAddress.errors.oldEmailMatch" class="not-valid caption">
-                The new email address is the same as your current email address.
+            <!-- New email -->
+            <div *ngIf="valid(newEmailAddress); else invalidNewEmail" class="caption">New email:</div>
+
+            <!-- Invalid new email -->
+            <ng-template #invalidNewEmail>
+                <div *ngIf="newEmailAddress.errors.oldEmailMatch" class="not-valid caption">
+                    The new email address is the same as your current email address.
+                </div>
+
+                <div *ngIf="newEmailAddress.errors.email" class="not-valid caption">
+                    Please provide a valid email address.
+                </div>
+            </ng-template>
+            <input class="dark" required email [(ngModel)]="newEmail" name="newEmail" #newEmailAddress="ngModel"
+                autocomplete="off">
+
+
+            <!-- Re-enter email -->
+            <div *ngIf="valid(reEnteredEmailAddress); else invalidReEnteredEmail" class="caption">Re-enter new email:
             </div>
 
-            <div *ngIf="newEmailAddress.errors.email" class="not-valid caption">
-                Please provide a valid email address.
-            </div>
-        </ng-template>
-        <input class="dark" required email [(ngModel)]="newEmail" name="newEmail" #newEmailAddress="ngModel"
-            autocomplete="off">
+            <!-- Invalid re-entered email -->
+            <ng-template #invalidReEnteredEmail>
+                <div class="not-valid caption">
+                    Please make sure emails match.
+                </div>
+            </ng-template>
+            <input class="dark" [(ngModel)]="reEnteredEmail" name="reEnteredEmail" #reEnteredEmailAddress="ngModel"
+                autocomplete="off">
 
 
-        <!-- Re-enter email -->
-        <div *ngIf="valid(reEnteredEmailAddress); else invalidReEnteredEmail" class="caption">Re-enter new email:</div>
-
-        <!-- Invalid re-entered email -->
-        <ng-template #invalidReEnteredEmail>
-            <div class="not-valid caption">
-                Please make sure emails match.
-            </div>
-        </ng-template>
-        <input class="dark" [(ngModel)]="reEnteredEmail" name="reEnteredEmail" #reEnteredEmailAddress="ngModel"
-            autocomplete="off">
+            <!-- Save button -->
+            <button class="gold-button">Save</button>
+        </form>
+    </div>
 
 
-        <!-- Save button -->
-        <button class="gold-button">Save</button>
-    </form>
 
 
     <!-- Footer -->

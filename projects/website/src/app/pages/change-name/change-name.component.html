@@ -1,40 +1,55 @@
 <div class="background-container">
-    <!-- Search Bar -->
-    <search-bar></search-bar>
+  <!-- Search Bar -->
+  <search-bar></search-bar>
+
+  <div class="container">
+      <!-- Breadcrumb -->
+      <div class="breadcrumb-container">
+          <a routerLink="/account">Your Account</a>
+          <i class="fas fa-caret-right" style="margin: 0 10px;"></i>
+          <a routerLink="/account/profile">Profile</a>
+          <i class="fas fa-caret-right" style="margin: 0 10px;"></i>
+          <span class="path">Change Name</span>
+      </div>
 
     <!-- Logo -->
     <img src="assets/Logo.png">
 
     <form (ngSubmit)="onSubmit()" #form="ngForm">
-        <div class="form-title">Change Name</div>
+      <div class="form-title">Change Name</div>
 
-        <!-- First Name -->
-        <div *ngIf="valid(firstName); else invalidFirstName" class="caption">First name:</div>
+      <!-- First Name -->
+      <div *ngIf="valid(firstName); else invalidFirstName" class="caption">First name:</div>
 
-        <!-- Invalid first name -->
-        <ng-template #invalidFirstName>
-            <div class="not-valid caption">
-              Please provide a first name.
-            </div>
-          </ng-template>
-        <input class="dark" required [(ngModel)]="account.firstName" name="firstName" #firstName="ngModel" autocomplete="off">
+      <!-- Invalid first name -->
+      <ng-template #invalidFirstName>
+        <div class="not-valid caption">
+          Please provide a first name.
+        </div>
+      </ng-template>
+      <input class="dark" required [(ngModel)]="account.firstName" name="firstName" #firstName="ngModel"
+        autocomplete="off">
 
-         <!-- Last Name -->
-         <div *ngIf="valid(lastName); else invalidLastName" class="caption">Last name:</div>
+      <!-- Last Name -->
+      <div *ngIf="valid(lastName); else invalidLastName" class="caption">Last name:</div>
 
-         <!-- Invalid last name -->
-         <ng-template #invalidLastName>
-             <div class="not-valid caption">
-               Please provide a last name.
-             </div>
-           </ng-template>
-         <input class="dark" required [(ngModel)]="account.lastName" name="lastName" #lastName="ngModel" autocomplete="off">
+      <!-- Invalid last name -->
+      <ng-template #invalidLastName>
+        <div class="not-valid caption">
+          Please provide a last name.
+        </div>
+      </ng-template>
+      <input class="dark" required [(ngModel)]="account.lastName" name="lastName" #lastName="ngModel"
+        autocomplete="off">
 
-        <!-- Save button -->
-        <button class="gold-button">Save</button>
+      <!-- Save button -->
+      <button class="gold-button">Save</button>
     </form>
+  </div>
 
 
-    <!-- Footer -->
-    <footer></footer>
+
+
+  <!-- Footer -->
+  <footer></footer>
 </div>

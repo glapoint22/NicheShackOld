@@ -182,3 +182,22 @@ textarea {
         display: none;
     }
 }
+.breadcrumb-container {
+    position: relative;
+    top: -60px;
+    font-size: 13px;
+    margin-bottom: 30px;
+    a {
+        color: $color5;
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+    .fa-caret-right {
+        color: #c1c1c1;
+    }
+    .path {
+        color: $gold;
+    }
+}

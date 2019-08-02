@@ -2,6 +2,8 @@ import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { ValidationPage } from '../validation-page/Validation-page';
 import { Title, Meta } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
+import { DataService } from 'src/app/services/data/data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'change-email',
@@ -17,7 +19,11 @@ export class ChangeEmailComponent extends ValidationPage implements OnInit {
     titleService: Title,
     metaService: Meta,
     @Inject(DOCUMENT) document,
-    @Inject(PLATFORM_ID) platformId: Object) { super(titleService, metaService, document, platformId); }
+    @Inject(PLATFORM_ID) platformId: Object,
+    private router: Router,
+    private dataService: DataService) {
+    super(titleService, metaService, document, platformId);
+  }
 
   ngOnInit() {
     this.title = 'Change Email';
@@ -28,14 +34,15 @@ export class ChangeEmailComponent extends ValidationPage implements OnInit {
     this.newEmail = 'glapoint22@gmail.com';
   }
 
-  onSubmit(){
-    if(this.form.controls['oldEmail'].value == this.form.controls['newEmail'].value){
+  onSubmit() {
+    if (this.form.controls['oldEmail'].value == this.form.controls['newEmail'].value) {
       this.form.controls['newEmail'].setErrors({ oldEmailMatch: true })
     }
     super.onSubmit();
   }
 
   submitData(): void {
-    
+    this.dataService.data.hasChanges = true;
+    this.router.navigate(['account', 'profile']);
   }
 }
