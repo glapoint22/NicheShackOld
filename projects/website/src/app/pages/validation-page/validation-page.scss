@@ -41,3 +41,51 @@ form {
         width: 320px;
     }
 }
+a {
+    color: #b3b3b3;
+    font-size: 12px;
+}
+.fa-exclamation-triangle {
+    font-size: 50px;
+    color: $gold;
+    margin: 20px 10px;
+}
+.warning {
+    width: 360px;
+    border: 1px solid $gold;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    .warning-text {
+        display: inline-block;
+        width: 260px;
+        color: red;
+        font-size: 14px;
+    }
+}
+.info-container {
+    margin: -15px 0 20px 20px;
+    .fa-info {
+        font-size: 13px;
+        color: $color1;
+        font-style: italic;
+        margin-right: 10px;
+    }
+    .info-text {
+        color: $gold;
+        font-size: 13px;
+    }
+}
+.checkmark-container {
+    margin-bottom: 30px;
+    color: white;
+    border: 1px solid $gold;
+    border-radius: 5px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+.fa-check {
+    color: #00ff00;
+}

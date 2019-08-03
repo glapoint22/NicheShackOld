@@ -5,13 +5,15 @@ import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'sign-in',
-  templateUrl: './sign-in.component.html',
-  styleUrls: ['../validation-page/validation-page.scss', './sign-in.component.scss']
+  selector: 'verification',
+  templateUrl: './verification.component.html',
+  styleUrls: ['../validation-page/validation-page.scss', './verification.component.scss']
 })
-export class SignInComponent extends ValidationPage implements OnInit {
-  public account: any = {}
+export class VerificationComponent extends ValidationPage implements OnInit {
+  public code: string;
+  public email: string;
   public isError: boolean;
+  public resend: boolean;
 
   constructor(
     titleService: Title,
@@ -23,22 +25,20 @@ export class SignInComponent extends ValidationPage implements OnInit {
   }
 
   ngOnInit() {
-    this.title = 'Sign In';
+    this.title = 'Verification';
     this.share = false;
     super.ngOnInit();
+
+    this.email = 'glapoint22@gmail.com';
   }
 
   submitData(): void {
     this.isError = true;
-    if(!this.isError) this.router.navigate(['']);
+    this.resend = false;
   }
 
-  onChange(){
-
+  onResendCodeClick(){
+    this.resend = true;
+    this.isError = false;
   }
-
-  onCreateAccountClick(){
-    this.router.navigate(['/create-account']);
-  }
-
 }

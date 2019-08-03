@@ -25,6 +25,18 @@ const routes: Routes = [
     loadChildren: () => import('./pages/sign-in/sign-in.module').then(m => m.SignInModule)
   },
   {
+    path: 'forgot-password',
+    loadChildren: () => import('./pages/forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule)
+  },
+  {
+    path: 'verification',
+    loadChildren: () => import('./pages/verification/verification.module').then(m => m.VerificationModule)
+  },
+  {
+    path: 'create-password',
+    loadChildren: () => import('./pages/create-password/create-password.module').then(m => m.CreatePasswordModule)
+  },
+  {
     path: 'search',
     loadChildren: () => import('./pages/search/search.module').then(m => m.SearchModule)
   },

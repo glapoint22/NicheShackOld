@@ -5,12 +5,12 @@ import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'sign-in',
-  templateUrl: './sign-in.component.html',
-  styleUrls: ['../validation-page/validation-page.scss', './sign-in.component.scss']
+  selector: 'forgot-password',
+  templateUrl: './forgot-password.component.html',
+  styleUrls: ['../validation-page/validation-page.scss']
 })
-export class SignInComponent extends ValidationPage implements OnInit {
-  public account: any = {}
+export class ForgotPasswordComponent extends ValidationPage implements OnInit {
+  public emailAddress: string;
   public isError: boolean;
 
   constructor(
@@ -23,22 +23,13 @@ export class SignInComponent extends ValidationPage implements OnInit {
   }
 
   ngOnInit() {
-    this.title = 'Sign In';
+    this.title = 'Forgot Password';
     this.share = false;
     super.ngOnInit();
   }
 
   submitData(): void {
     this.isError = true;
-    if(!this.isError) this.router.navigate(['']);
-  }
-
-  onChange(){
-
-  }
-
-  onCreateAccountClick(){
-    this.router.navigate(['/create-account']);
   }
 
 }

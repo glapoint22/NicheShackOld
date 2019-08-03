@@ -1,0 +1,11 @@
+@import 'theme';
+
+.gold-text {
+    color: $gold;
+    font-size: 14px;
+    margin: 0 0 10px 20px;
+    cursor: pointer;
+}
+.gold-text:hover {
+    text-decoration: underline;
+}

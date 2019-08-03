@@ -5,13 +5,14 @@ import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'sign-in',
-  templateUrl: './sign-in.component.html',
-  styleUrls: ['../validation-page/validation-page.scss', './sign-in.component.scss']
+  selector: 'create-password',
+  templateUrl: './create-password.component.html',
+  styleUrls: ['../validation-page/validation-page.scss']
 })
-export class SignInComponent extends ValidationPage implements OnInit {
+export class CreatePasswordComponent extends ValidationPage implements OnInit {
   public account: any = {}
-  public isError: boolean;
+  public success: boolean;
+  public reEnteredPassword: string;
 
   constructor(
     titleService: Title,
@@ -23,22 +24,15 @@ export class SignInComponent extends ValidationPage implements OnInit {
   }
 
   ngOnInit() {
-    this.title = 'Sign In';
+    this.title = 'Create New Password';
     this.share = false;
     super.ngOnInit();
+
+    
   }
 
   submitData(): void {
-    this.isError = true;
-    if(!this.isError) this.router.navigate(['']);
-  }
-
-  onChange(){
-
-  }
-
-  onCreateAccountClick(){
-    this.router.navigate(['/create-account']);
+    this.success = true;
   }
 
 }

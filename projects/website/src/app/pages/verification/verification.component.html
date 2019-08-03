@@ -1,0 +1,55 @@
+<div class="background-container">
+    <div class="container">
+
+        <!-- Logo -->
+        <img src="assets/Logo.png" routerLink="">
+
+        <div *ngIf="isError" class="warning">
+            <i class="fas fa-exclamation-triangle"></i>
+            <div class="warning-text">
+                You've entered an invalid code. Please try again.
+            </div>
+        </div>
+
+        <div *ngIf="resend" class="checkmark-container">
+            <div style="margin: 20px 10px;">
+                <i class="fas fa-check"></i>
+            </div>
+            
+            <div style="margin: 10px 10px 10px 0;">
+                A code has been sent to {{email}}.
+            </div>
+            
+        </div>
+
+        <form (ngSubmit)="onSubmit()" #form="ngForm">
+            <div class="form-title">Verification</div>
+
+            <div class="caption" style="margin-bottom: 20px;">Please enter the code we sent to {{email}} to verify your identity.</div>
+
+            <!-- Code -->
+            <div *ngIf="valid(verificationCode); else invalidCode" class="caption">Enter code:</div>
+
+            <!-- Invalid Code -->
+            <ng-template #invalidCode>
+                <div class="not-valid caption">
+                    Please enter the code.
+                </div>
+            </ng-template>
+            <input class="dark" required [(ngModel)]="code" name="code" #verificationCode="ngModel"
+                autocomplete="off">
+
+
+            <!-- Continue button -->
+            <button class="gold-button">Continue</button>
+            <div class="gold-text" (click)="onResendCodeClick()">
+                Resend code
+            </div>
+        </form>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <a routerLink="/terms" style="margin-right: 20px;">Terms of Use</a>
+            <a routerLink="/privacy-policy">Privacy Policy</a>
+        </div>
+    </div>
+</div>
