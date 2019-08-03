@@ -27,8 +27,6 @@ export class CreatePasswordComponent extends ValidationPage implements OnInit {
     this.title = 'Create New Password';
     this.share = false;
     super.ngOnInit();
-
-    
   }
 
   submitData(): void {

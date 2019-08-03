@@ -1,0 +1,61 @@
+<div class="background-container">
+    <div class="container">
+
+        <!-- Logo -->
+        <img src="assets/Logo.png" routerLink="">
+
+        <div *ngIf="submitted" class="checkmark-container">
+                <div style="margin: 20px 10px;">
+                    <i class="fas fa-check"></i>
+                </div>
+    
+                <div style="margin: 10px 10px 10px 0;">
+                    Your message has been sent.
+                </div>
+            </div>
+
+        <form (ngSubmit)="onSubmit()" #form="ngForm">
+            <div class="form-title">Contact Us</div>
+
+            <!-- Email -->
+            <div *ngIf="valid(email); else invalidEmail" class="caption">Email:</div>
+
+            <!-- Invalid email -->
+            <ng-template #invalidEmail>
+                <div class="not-valid caption">
+                    Please enter a valid email address.
+                </div>
+            </ng-template>
+            <input class="dark" required email [(ngModel)]="sender.email" name="email" #email="ngModel"
+                autocomplete="off">
+
+
+            <!-- Name -->
+            <div *ngIf="valid(name); else invalidName" class="caption">Name:</div>
+
+            <!-- Invalid name -->
+            <ng-template #invalidName>
+                <div class="not-valid caption">
+                    Please provide your name.
+                </div>
+            </ng-template>
+            <input class="dark" required [(ngModel)]="sender.name" name="name" #name="ngModel" autocomplete="off">
+
+            <!-- Message -->
+            <div *ngIf="valid(message); else invalidMessage" class="caption">Message:</div>
+
+            <!-- Invalid message -->
+            <ng-template #invalidMessage>
+                <div class="not-valid caption">
+                    Please provide a message.
+                </div>
+            </ng-template>
+            <textarea class="dark" required [(ngModel)]="sender.message" name="message" #message="ngModel" autocomplete="off"></textarea>
+
+
+
+            <!-- submit button -->
+            <button class="gold-button">Submit</button>
+        </form>
+    </div>
+</div>
