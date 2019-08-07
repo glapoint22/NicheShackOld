@@ -1,5 +1,5 @@
 <div class="media-container" [style.width.px]="media.length > 5 ? 105 : 88">
   <div *ngFor="let media of media" class="media-thumbnail" [style.background-image]="'url('+ media.thumbnail + ')'" (click)="onClick(media)">
-    <i *ngIf="media.type == 'video'" class="far fa-play-circle"></i>
+    <i *ngIf="media.type == 'Video'" class="far fa-play-circle"></i>
   </div>
 </div>

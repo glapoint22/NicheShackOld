@@ -1,6 +1,6 @@
 import { Modal } from 'src/app/components/modal/modal';
-import { QuickLookProduct } from '../product/quick-look-product';
+import { Product } from '../product/product';
 
 export class QuickLook extends Modal {
-    product: QuickLookProduct;
+    product: Product;
 }

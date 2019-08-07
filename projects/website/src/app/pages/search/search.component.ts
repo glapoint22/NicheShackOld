@@ -2,7 +2,7 @@ import { Component, OnInit, HostListener, ViewChild, AfterViewInit, Inject, PLAT
 import { DataService } from 'src/app/services/data/data.service';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { ModalService } from 'src/app/services/modal/modal.service';
-import { DisplayProduct } from '../../shared/product/display-product';
+import { Product } from '../../shared/product/product';
 import { QueryParametersService } from '../../query-parameters.service';
 import { PriceFilterComponent } from './components/price-filter/price-filter.component';
 import { Filter } from './components/filter/filter';
@@ -17,7 +17,7 @@ import { Title, Meta } from '@angular/platform-browser';
 })
 export class SearchComponent extends Page implements OnInit, AfterViewInit {
   public totalProducts: number;
-  public products: Array<DisplayProduct>;
+  public products: Array<Product>;
   public pageCount: number;
   public query: string;
   public currentPage: number;

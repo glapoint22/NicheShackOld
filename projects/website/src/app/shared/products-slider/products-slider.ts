@@ -1,6 +1,6 @@
-import { DisplayProduct } from '../product/display-product';
+import { Product } from '../product/product';
 
 export interface ProductsSlider {
     caption: string;
-    products: Array<DisplayProduct>;
+    products: Array<Product>;
 }

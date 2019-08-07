@@ -83,16 +83,16 @@
   <table>
     <tr>
       <th>Here’s what you get</th>
-      <tH *ngFor="let pricePoint of product.content.pricePoints">
+      <tH *ngFor="let pricePoint of product.pricePoints">
         {{pricePoint.price | currency:'USD'}} - {{pricePoint.frequency}}
       </tH>
     </tr>
-    <tr *ngFor="let item of product.content.items">
+    <tr *ngFor="let item of product.content">
       <td>
         <img [src]="'/assets/' + item.type + '.png'">
         {{item.title}}
       </td>
-      <td *ngFor="let pricePoint of product.content.pricePoints; let i = index">
+      <td *ngFor="let pricePoint of product.pricePoints; let i = index">
         <i *ngIf="hasPricePoint(item.priceIndices, i)" class="fas fa-check"></i>
       </td>
     </tr>

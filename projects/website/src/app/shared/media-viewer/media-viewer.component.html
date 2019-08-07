@@ -7,8 +7,8 @@
       </div>
     </div>
     <div class="media-container">
-      <iframe *ngIf="currentMedia.type == 'video'" [src]="desanitize(currentMedia.url)" frameborder="0"></iframe>
-      <div *ngIf="currentMedia.type == 'image'" class="image"
+      <iframe *ngIf="currentMedia.type == 'Video'" [src]="desanitize(currentMedia.url)" frameborder="0"></iframe>
+      <div *ngIf="currentMedia.type == 'Image'" class="image"
         [style.background-image]="'url(Images/'+ currentMedia.url + ')'"></div>
 
       <arrows [showLeftArrow]="index != 0" [showRightArrow]="index != media.length - 1"

@@ -18,10 +18,12 @@
             </div>
 
             <div class="search-container">
-                <button (click)="onSearch(searchInput.value)" class="gray-button" style="float: right;">Search Orders</button>
+                <button (click)="onSearch(searchInput.value)" class="gray-button" style="float: right;">Search
+                    Orders</button>
                 <div style="float: right; position: relative;">
                     <i class="fas fa-search"></i>
-                    <input #searchInput class="dark" type="text" placeholder="Search orders" (keydown)="onSearchKeydown($event, searchInput.value)">
+                    <input #searchInput class="dark" type="text" placeholder="Search orders"
+                        (keydown)="onSearchKeydown($event, searchInput.value)">
                 </div>
 
             </div>
@@ -82,7 +84,7 @@
 
                             <div class="info">
                                 <div class="gray-text" style="display: inline-block">Discount:</div>
-                                <div class="gold-font" style="float: right">{{order.discount | currency:'USD'}}</div>
+                                <div class="gold-font" style="float: right">-{{order.discount | currency:'USD'}}</div>
                             </div>
 
 
@@ -127,7 +129,8 @@
                     </div>
 
                     <div class="caption">{{result.title}}</div>
-                    <button class="gold-button" (click)="onPublisherButtonClick(result.hoplink)">Visit Publisher's Page</button>
+                    <button class="gold-button" (click)="onPublisherButtonClick(result.hoplink)">Visit Publisher's
+                        Page</button>
                 </div>
             </div>
 

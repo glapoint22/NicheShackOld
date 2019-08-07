@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
-import { DetailReviewProduct } from '../../shared/product/detail-review-product';
 import { Review } from '../../shared/review/review';
 import { QueryParametersService } from '../../query-parameters.service';
 import { isPlatformBrowser, DOCUMENT } from '@angular/common';
@@ -14,7 +13,7 @@ import { Title, Meta } from '@angular/platform-browser';
   styleUrls: ['./reviews.component.scss']
 })
 export class ReviewsComponent extends Page implements OnInit {
-  public product: DetailReviewProduct;
+  public product: any;
   public pageCount: number;
   public reviewsPerPage = 10;
   public currentPage: number;
@@ -72,28 +71,11 @@ export class ReviewsComponent extends Page implements OnInit {
         maxPrice: 0,
         totalReviews: 222,
         rating: 5,
-        reviewStats: [
-          {
-            name: '5 Stars',
-            percentage: .64
-          },
-          {
-            name: '4 Stars',
-            percentage: .22
-          },
-          {
-            name: '3 Stars',
-            percentage: .08
-          },
-          {
-            name: '2 Stars',
-            percentage: .04
-          },
-          {
-            name: '1 Star',
-            percentage: 0
-          }
-        ],
+        oneStar: 0,
+        twoStars: 0.04,
+        threeStars: 0.08,
+        fourStars: 0.22,
+        fiveStars: 0.64,
         reviews: reviews,
         positiveReview: {
           id: 0,

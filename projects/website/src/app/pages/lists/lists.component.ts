@@ -15,8 +15,18 @@ export class ListsComponent extends SharePage implements OnInit {
   public event = new Subject<void>();
   public sortOptions: Array<any>;
   public selectedSortOption: any = {};
+  public ownerName: string;
+  public isOwner: boolean = true;
+  public isCollaborator: boolean = false;;
+
+
+
+  public listId: string = '36d247421e654d87bd627c';
   public listName: string = 'Christmas List';
   public listDescription: string = 'This is the best list in the whole entire world!';
+  public collaborateListId: string = '1SRHA3LjXDYIRHbXcGx24D';
+  
+  
   public collaborators = [
     {
       customerId: 'F6HJ8E9GOQ',
@@ -35,11 +45,9 @@ export class ListsComponent extends SharePage implements OnInit {
       name: 'Gabey Gump'
     }
   ]
-  public viewListId: string = '36d247421e654d87bd627c';
-  public collaborateListId: string = '1SRHA3LjXDYIRHbXcGx24D';
-  public ownerName: string;
-  public isOwner: boolean = true;
-  public isCollaborator: boolean = false;;
+  
+  
+  
 
   public lists: Array<any> = [
     {
@@ -158,7 +166,7 @@ export class ListsComponent extends SharePage implements OnInit {
       pathName = '/lists/collaborate/' + this.collaborateListId;
       text = 'You\'re invited to help me with my list at NicheShack.com!';
     } else {
-      pathName = '/lists/view/' + this.viewListId;
+      pathName = '/lists/view/' + this.listId;
       text = 'Check out my list at NicheShack.com!';
     }
 

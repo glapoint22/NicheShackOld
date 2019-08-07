@@ -1,13 +1,13 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { ModalService } from 'src/app/services/modal/modal.service';
-import { DetailProduct } from '../../shared/product/detail-product';
 import { ProductsSlider } from '../../shared/products-slider/products-slider';
 import { QueryParametersService } from '../../query-parameters.service';
 import { SharePage } from '../share-page';
 import { Title, Meta } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
 import { Subscription } from 'rxjs';
+import { Product } from '../../shared/product/product';
 
 @Component({
   selector: 'product-details',
@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./product-details.component.scss']
 })
 export class ProductDetailsComponent extends SharePage implements OnInit {
-  public product: DetailProduct;
+  public product: Product;
   public productsSlider: Array<ProductsSlider>;
   private onCloseSubscription: Subscription;
 
@@ -37,52 +37,52 @@ export class ProductDetailsComponent extends SharePage implements OnInit {
         {
           url: '//player.vimeo.com/video/219797629?title=0&byline=0&portrait=0&color=ffffff',
           thumbnail: 'https://i.vimeocdn.com/video/637660809_88',
-          type: 'video'
+          type: 'Video'
         },
         {
           url: 'https://www.youtube.com/embed/ReDQoqN5O88',
           thumbnail: 'https://img.youtube.com/vi/ReDQoqN5O88/default.jpg',
-          type: 'video'
+          type: 'Video'
         },
         {
           url: 'https://www.youtube.com/embed/O9IRRADnnEk',
           thumbnail: 'https://img.youtube.com/vi/O9IRRADnnEk/default.jpg',
-          type: 'video'
+          type: 'Video'
         },
         {
           url: '//player.vimeo.com/video/242450172?title=0&byline=0&portrait=0&color=ffffff',
           thumbnail: 'https://i.vimeocdn.com/video/666623530_88',
-          type: 'video'
+          type: 'Video'
         },
         {
           url: 'https://www.youtube.com/embed/cvOMIlFOrh0',
           thumbnail: 'https://img.youtube.com/vi/cvOMIlFOrh0/default.jpg',
-          type: 'video'
+          type: 'Video'
         },
         {
           url: '0b935a68e3684bf1a9ec01beab0deea8.png',
           thumbnail: 'https://i.vimeocdn.com/video/655639835_88',
-          type: 'image'
+          type: 'Image'
         },
         {
           url: '19c79c266bc04c91bc4947cd3caee5e3.png',
           thumbnail: 'https://i.vimeocdn.com/video/588134701_88',
-          type: 'image'
+          type: 'Image'
         },
         {
           url: 'dfca7ec8f7d943d3a8eb1a184918d5d4.jpg',
           thumbnail: 'https://i.vimeocdn.com/video/609716244_88',
-          type: 'image'
+          type: 'Image'
         },
         {
           url: '78a34d320fed4ca6843721145522dc03.png',
           thumbnail: 'https://img.youtube.com/vi/LLMB5QdDpso/default.jpg',
-          type: 'image'
+          type: 'Image'
         },
         {
           url: 'cba24ceff327461ab887f10872c163de.png',
           thumbnail: 'https://img.youtube.com/vi/ZCQ7nXAtf4M/default.jpg',
-          type: 'image'
+          type: 'Image'
         }
       ],
       hoplink: 'https://201behydk0sr8n2-f2jo9qcq9u.hop.clickbank.net/',
@@ -93,62 +93,43 @@ export class ProductDetailsComponent extends SharePage implements OnInit {
       urlTitle: 'fat-loss-activation',
       minPrice: 9.99,
       maxPrice: 22,
-      content: {
-        items: [
-          {
-            type: 'pdf',
-            title: 'Isometrics Mass Main Manual',
-            priceIndices: [0, 2]
-          },
-          {
-            type: 'dvd',
-            title: 'Isometrics Mass Quick Start Video Guide',
-            priceIndices: [0, 1, 3]
-          }
-        ],
-        pricePoints: [
-          {
-            price: 9.99,
-            frequency: 'Single Payment'
-          },
-          {
-            price: 27.99,
-            frequency: 'Monthly'
-          },
-          {
-            price: 58.99,
-            frequency: 'Quarterly'
-          },
-          {
-            price: 101.99,
-            frequency: 'Yearly'
-          }
-        ]
-      },
-      totalReviews: 20,
-      rating: 5,
-      reviewStats: [
+      content:  [
         {
-          name: '5 Stars',
-          percentage: .64
+          type: 'PDF',
+          title: 'Isometrics Mass Main Manual',
+          priceIndices: [0, 2]
         },
         {
-          name: '4 Stars',
-          percentage: .22
-        },
-        {
-          name: '3 Stars',
-          percentage: .08
-        },
-        {
-          name: '2 Stars',
-          percentage: .04
-        },
-        {
-          name: '1 Star',
-          percentage: 0
+          type: 'DVD',
+          title: 'Isometrics Mass Quick Start Video Guide',
+          priceIndices: [0, 1, 3]
         }
       ],
+      pricePoints: [
+        {
+          price: 9.99,
+          frequency: 'Single Payment'
+        },
+        {
+          price: 27.99,
+          frequency: 'Monthly'
+        },
+        {
+          price: 58.99,
+          frequency: 'Quarterly'
+        },
+        {
+          price: 101.99,
+          frequency: 'Yearly'
+        }
+      ],
+      totalReviews: 20,
+      rating: 5,
+      oneStar: 0.01,
+      twoStars: 0.04,
+      threeStars: 0.08,
+      fourStars: 0.22,
+      fiveStars: 0.65,
       reviews: [
         {
           id: 0,

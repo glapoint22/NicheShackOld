@@ -26,7 +26,7 @@
 
   <!-- Bars -->
   <div *ngIf="product.rating > 0" style="flex: 1">
-    <div *ngFor="let stat of product.reviewStats; let i = index" class="bar-container">
+    <div *ngFor="let stat of reviewStats; let i = index" class="bar-container">
       <div class="star-text">{{stat.name}}</div>
       <div class="bar-base" [style.marginLeft.px]="i == 4 ? 12 : 5">
         <div class="bar" [style.width.px]="stat.percentage * 200"></div>

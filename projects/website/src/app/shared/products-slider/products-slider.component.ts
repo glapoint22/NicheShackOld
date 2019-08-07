@@ -1,5 +1,5 @@
 import { Component, Input, HostListener, Inject, PLATFORM_ID, OnInit } from '@angular/core';
-import { DisplayProduct } from '../product/display-product';
+import { Product } from '../product/product';
 import { isPlatformServer } from '@angular/common';
 
 @Component({
@@ -12,7 +12,7 @@ export class ProductsSliderComponent implements OnInit {
   public lastPage: boolean = false;
   public ShowAllProducts: boolean;
   @Input() caption: string;
-  @Input() products: Array<DisplayProduct>;
+  @Input() products: Array<Product>;
 
   public translate: number = 0;
   private currentPage: number = 1;

@@ -1,8 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { Router } from '@angular/router';
-import { DisplayProduct } from './display-product';
-import { QuickLookProduct } from './quick-look-product';
+import { Product } from './product';
 
 @Component({
   selector: 'product',
@@ -10,7 +9,7 @@ import { QuickLookProduct } from './quick-look-product';
   styleUrls: ['./product.component.scss']
 })
 export class ProductComponent {
-  @Input() product: DisplayProduct;
+  @Input() product: Product;
   
 
   constructor(private modalService: ModalService, private router: Router) { }
@@ -57,6 +56,6 @@ export class ProductComponent {
 
   onQuickLookButtonClick() {
     this.modalService.quickLook.show = true;
-    this.modalService.quickLook.product = this.product as QuickLookProduct;
+    this.modalService.quickLook.product = this.product as Product;
   }
 }

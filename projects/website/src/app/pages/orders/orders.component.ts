@@ -78,63 +78,69 @@ export class OrdersComponent extends Page implements OnInit {
           products: [
             {
               title: 'The 2 Week Diet Audiobook Companion (Listen On Any Device!)',
-              type: 'Physical product',
+              type: 'Physical',
               quantity: 2,
               price: 4.95,
-              image: 'e9a794bc40f14f709e6636aefbfe5d43.png'
+              image: 'e9a794bc40f14f709e6636aefbfe5d43.png',
             },
             {
               title: 'The 2 Week Diet Audiobook Companion (Listen On Any Device!)',
-              type: 'Physical product',
+              type: 'Digital',
               quantity: 2,
               price: 4.95,
-              image: null
+              image: null,
             },
             {
               title: 'The 2 Week Diet Audiobook Companion (Listen On Any Device!)',
-              type: 'Physical product',
+              type: 'Digital',
               quantity: 2,
               price: 4.95,
-              image: null
+              image: null,
             }
           ],
           paymentMethod: 'MAES',
           subtotal: 65.04,
           shippingHandling: 5,
-          discount: -2,
+          discount: 2.22,
           tax: 1.07,
           total: 69.11
         },
+
         {
-          date: 'May 22, 2019',
-          orderNumber: 'CWOGBZLN',
+          date: 'January 2, 2019',
+          orderNumber: '5TFYID4T',
+          mainProduct: {
+            id: 'D4GKW7DHEF',
+            hoplink: 'https://201behydk0sr8n2-f2jo9qcq9u.hop.clickbank.net/',
+            urlTitle: 'fat-loss-activation'
+          },
           products: [
             {
               title: 'The 2 Week Diet Audiobook Companion (Listen On Any Device!)',
-              type: 'Physical product',
+              type: 'Physical',
               quantity: 2,
               price: 4.95,
-              image: 'e9a794bc40f14f709e6636aefbfe5d43.png'
+              image: 'e9a794bc40f14f709e6636aefbfe5d43.png',
             },
             {
               title: 'The 2 Week Diet Audiobook Companion (Listen On Any Device!)',
-              type: 'Physical product',
+              type: 'Digital',
               quantity: 2,
               price: 4.95,
-              image: null
+              image: null,
             },
             {
               title: 'The 2 Week Diet Audiobook Companion (Listen On Any Device!)',
-              type: 'Physical product',
+              type: 'Digital',
               quantity: 2,
               price: 4.95,
-              image: null
+              image: null,
             }
           ],
           paymentMethod: 'MAES',
           subtotal: 65.04,
           shippingHandling: 5,
-          discount: -2,
+          discount: 1.77,
           tax: 1.07,
           total: 69.11
         }
