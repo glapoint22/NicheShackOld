@@ -52,10 +52,10 @@ app.use(
   proxy('/api', { target: 'http://localhost:81' })
 );
 
-app.use(
-  '/Images',
-  proxy('/Images', { target: 'http://localhost:81' })
-);
+// app.use(
+//   '/Images',
+//   proxy('/Images', { target: 'http://localhost:81' })
+// );
 
 // Example Express Rest API endpoints
 // app.get('/api/**', (req, res) => { });

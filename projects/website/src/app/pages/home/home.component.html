@@ -1,6 +1,6 @@
 <div class="background-container">
   <search-bar #searchBar></search-bar>
-  <carousel></carousel>
+  <carousel [carouselItems]="carouselItems"></carousel>
   <div class="content">
       <products-slider *ngFor="let productSlider of productSliders" [caption]="productSlider.caption" [products]="productSlider.products"></products-slider>
       <featured-categories [categories]="searchBar.categories"></featured-categories>

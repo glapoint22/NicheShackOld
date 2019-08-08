@@ -5,6 +5,7 @@ import { ProductsSlider } from '../../shared/products-slider/products-slider';
 import { Page } from '../page';
 import { Title, Meta } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
+import { CarouselItem } from './components/carousel/carousel-Item';
 
 @Component({
   selector: 'home',
@@ -13,6 +14,7 @@ import { DOCUMENT } from '@angular/common';
 })
 export class HomeComponent extends Page implements OnInit {
   public productSliders: Array<ProductsSlider>;
+  public carouselItems: Array<CarouselItem>;
 
   constructor(
     titleService: Title,
@@ -28,9 +30,10 @@ export class HomeComponent extends Page implements OnInit {
 
     super.ngOnInit();
 
-    this.dataService.get('api/Products')
-      .subscribe((productSliders: Array<ProductsSlider>) => {
-        this.productSliders = productSliders;
+    this.dataService.get('api/Home')
+      .subscribe(result => {
+        this.productSliders = result.productGroups;
+        this.carouselItems = result.carouselItems;
       });
   }
 }

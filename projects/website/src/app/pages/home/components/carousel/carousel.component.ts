@@ -1,5 +1,6 @@
 import { Component, OnChanges, Input } from '@angular/core';
 import { CarouselItem } from './carousel-Item';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'carousel',
@@ -18,19 +19,24 @@ export class CarouselComponent implements OnChanges {
   public play: boolean = true;
   public curve: string = 'ease-in-out';
   public speed: number = this.defaultSpeed;
-  
+
+
+  constructor(private router: Router){}
 
   ngOnChanges() {
-    for (let i = 0; i < this.carouselItems.length; i++) {
-      this.carouselItems[i].position = i * 100;
-    }
+    // If there are carousel items
+    if (this.carouselItems && this.carouselItems.length > 0) {
+      for (let i = 0; i < this.carouselItems.length; i++) {
+        this.carouselItems[i].position = i * 100;
+      }
 
-    //Start the timer
-    if (this.carouselItems.length > 0) this.startTimer(this.currentDirection);
+      //Start the timer
+      this.startTimer(this.currentDirection);
+    }
   }
 
-  onClick() {
-    
+  onClick(url) {
+    this.router.navigate([url]);
   }
 
   moveSlider(direction: number) {

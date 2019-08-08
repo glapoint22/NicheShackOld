@@ -39,7 +39,7 @@ export class SearchBarComponent implements OnInit {
     });
 
     if (this.dataService.categories.length === 0) {
-      this.dataService.get('api/Categories')
+      this.dataService.get('api/SearchBar')
         .subscribe((response: any) => {
           this.categories = this.dataService.categories = response;
           this.setCategories();

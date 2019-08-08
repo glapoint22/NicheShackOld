@@ -1,5 +1,5 @@
 <div class="container" *ngIf="categories.length > 0">
-  <div class="caption">Featured Categories</div>
+  <div class="caption">Browse our categories</div>
   <div class="category" *ngFor="let category of featuredCategories" (click)="onClick(category.id)">
       <img *ngIf="category.icon" src="/Images/{{category.icon}}" height="170" width="170">
       <div class="title">{{category.name}}</div>
