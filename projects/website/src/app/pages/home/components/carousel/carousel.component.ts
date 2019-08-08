@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { DataService } from 'src/app/services/data/data.service';
+import { Component, OnChanges, Input } from '@angular/core';
+import { CarouselItem } from './carousel-Item';
 
 @Component({
   selector: 'carousel',
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.scss']
 })
-export class CarouselComponent implements OnInit {
+export class CarouselComponent implements OnChanges {
+  @Input() carouselItems: Array<CarouselItem>;
   public interval: number = 0;
   public currentDirection = -1;
   public iterations: number = 1;
@@ -17,29 +18,19 @@ export class CarouselComponent implements OnInit {
   public play: boolean = true;
   public curve: string = 'ease-in-out';
   public speed: number = this.defaultSpeed;
-  public productBanners: Array<any>;
+  
 
-  constructor(private dataService: DataService) { }
+  ngOnChanges() {
+    for (let i = 0; i < this.carouselItems.length; i++) {
+      this.carouselItems[i].position = i * 100;
+    }
 
-  ngOnInit() {
-    this.dataService.get('api/ProductBanners')
-      .subscribe((response: any) => {
-        this.productBanners = response;
-
-        //Add the pos property
-        for (let i = 0; i < this.productBanners.length; i++) {
-          this.productBanners[i]['pos'] = i * 100;
-        }
-
-        //Start the timer
-        if (this.productBanners.length > 0) this.startTimer(this.currentDirection);
-      });
+    //Start the timer
+    if (this.carouselItems.length > 0) this.startTimer(this.currentDirection);
   }
 
-  onProductBannerClick(product) {
-    // let productComponent = new ProductComponent(this.cookieService, this.modalService);
-    // productComponent.product = product;
-    // productComponent.onClick();
+  onClick() {
+    
   }
 
   moveSlider(direction: number) {
@@ -51,15 +42,15 @@ export class CarouselComponent implements OnInit {
     let nextIndex = this.getIndex(this.translate + 100 * direction);
 
     //Change the position of the images so it creates a continous loop
-    if (this.productBanners[nextIndex].pos < this.productBanners[this.index].pos) {
-      this.productBanners[this.findIndex(direction)].pos = this.getPosition(direction) - 100 * direction;
+    if (this.carouselItems[nextIndex].position < this.carouselItems[this.index].position) {
+      this.carouselItems[this.findIndex(direction)].position = this.getPosition(direction) - 100 * direction;
     }
   }
 
   getIndex(translate): number {
-    let index = (Math.abs(translate) / 100) % this.productBanners.length;
+    let index = (Math.abs(translate) / 100) % this.carouselItems.length;
     if (translate > 0 && index != 0) {
-      index = this.productBanners.length - index;
+      index = this.carouselItems.length - index;
     }
     return index;
   }
@@ -70,11 +61,11 @@ export class CarouselComponent implements OnInit {
     let pos: number;
 
     //Get either the min or max position from the images based on the direction passed in
-    for (let i = 0; i < this.productBanners.length; i++) {
+    for (let i = 0; i < this.carouselItems.length; i++) {
       if (direction === -1) {
-        pos = maxPos = Math.max(maxPos, this.productBanners[i].pos);
+        pos = maxPos = Math.max(maxPos, this.carouselItems[i].position);
       } else {
-        pos = minPos = Math.min(minPos, this.productBanners[i].pos);
+        pos = minPos = Math.min(minPos, this.carouselItems[i].position);
       }
     }
     return pos;
@@ -82,7 +73,7 @@ export class CarouselComponent implements OnInit {
 
   findIndex(direction: number) {
     //Find the index of the image that will be shifting
-    return this.productBanners.findIndex(x => x.pos === this.getPosition(-direction));
+    return this.carouselItems.findIndex(x => x.position === this.getPosition(-direction));
   }
 
   onArrowClick(direction: number) {
