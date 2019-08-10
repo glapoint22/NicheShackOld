@@ -26,4 +26,8 @@ export class QuickLookComponent extends ModalComponent implements OnInit {
         this.product.description = product.description;
       });
   }
+
+  OnClick(){
+    this.router.navigate([this.product.urlTitle]);
+  }
 }
