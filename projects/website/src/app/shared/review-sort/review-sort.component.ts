@@ -16,8 +16,12 @@ export class ReviewSortComponent implements OnInit {
   ngOnInit() {
     this.sortOptions = [
       {
-        name: 'Most helpful',
-        value: 'most-helpful'
+        name: 'High to Low Rating',
+        value: 'high-low-rating'
+      },
+      {
+        name: 'Low to High Rating',
+        value: 'low-high-rating'
       },
       {
         name: 'Newest to Oldest',
@@ -28,13 +32,10 @@ export class ReviewSortComponent implements OnInit {
         value: 'old-new'
       },
       {
-        name: 'Hight to Low Rating',
-        value: 'high-low-rating'
-      },
-      {
-        name: 'Low to High Rating',
-        value: 'low-high-rating'
+        name: 'Most helpful',
+        value: 'most-helpful'
       }
+      
     ];
 
     this.selectedSortOption = this.sortOptions[0];

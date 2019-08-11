@@ -9,6 +9,7 @@ import { DOCUMENT } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { Product } from '../../shared/product/product';
 import { DataService } from 'src/app/services/data/data.service';
+import { Review } from '../../shared/review/review';
 
 @Component({
   selector: 'product-details',
@@ -16,9 +17,10 @@ import { DataService } from 'src/app/services/data/data.service';
   styleUrls: ['./product-details.component.scss']
 })
 export class ProductDetailsComponent extends SharePage implements OnInit {
-  public product: Product;
+  public product: Product = new Product();
   public productsSlider: Array<ProductsSlider>;
   private onCloseSubscription: Subscription;
+  public reviews: Array<Review> = [];
 
   constructor(
     titleService: Title,
@@ -32,6 +34,10 @@ export class ProductDetailsComponent extends SharePage implements OnInit {
 
 
   ngOnInit() {
+    //Scroll to top
+    // let body = document.scrollingElement || document.documentElement;
+    // body.scrollTop = 0;
+
     this.dataService
       .get('api/ProductDetails', [{ key: 'urlTitle', value: this.route.snapshot.params['product'] }])
       .subscribe(product => {
@@ -43,18 +49,18 @@ export class ProductDetailsComponent extends SharePage implements OnInit {
       });
 
 
-
+    this.productsSlider = null;
 
     this.route.queryParamMap.subscribe((queryParams: ParamMap) => {
-      //Scroll to top
-      // let body = document.scrollingElement || document.documentElement;
-      // body.scrollTop = 0;
-
       this.queryParametersService.queryParams = queryParams;
 
+      this.dataService
+        .get('api/ProductReviews', [{ key: 'urlTitle', value: this.route.snapshot.params['product'] }, { key: 'orderBy', value: queryParams.get('sort') }])
+        .subscribe(reviews => {
+          this.reviews = reviews;
+        });
 
 
-      this.productsSlider = null;
     });
   }
 

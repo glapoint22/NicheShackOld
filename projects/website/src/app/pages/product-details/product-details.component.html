@@ -29,7 +29,7 @@
             {{product.totalReviews | number}} reviews
           </span>
         </div>
-        <div *ngIf="product.rating == 0" class="first-review-link">
+        <div *ngIf="product.rating == 0" class="first-review-link" routerLink="/reviews/write-review" [queryParams]="{'id': product.id}">
           Be the first to review this item
         </div>
 
@@ -113,11 +113,11 @@
 
 
   <!-- Reviews -->
-  <div *ngIf="product.rating > 0" class="reviews">
+  <div *ngIf="reviews.length > 0" class="reviews">
 
     <div>
       <div class="review-count">
-        Showing 1-{{product.reviews.length}} of {{product.totalReviews | number}} reviews
+        Showing 1-{{reviews.length}} of {{product.totalReviews | number}} reviews
       </div>
       <review-sort [url]="product.urlTitle"></review-sort>
     </div>
@@ -130,7 +130,7 @@
     </div>
 
     <!-- Review -->
-    <div *ngFor="let review of product.reviews">
+    <div *ngFor="let review of reviews">
       <review [review]="review"></review>
     </div>
   </div>

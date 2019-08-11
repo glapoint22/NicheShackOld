@@ -107,7 +107,7 @@ export class ReviewsComponent extends Page implements OnInit {
 
       this.title = 'Customer Reviews: ' + this.product.title;
       this.description = 'Read customer reviews for ' + this.product.title + ' and learn more about this item from our customers before you buy at NicheShack.com.';
-      this.share = false;
+      this.image = '/Images/' + this.product.shareImage;
       super.ngOnInit();
     });
   }
