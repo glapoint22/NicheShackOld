@@ -7,7 +7,7 @@
       <span class="star-review-container">
         <stars [rating]="product.rating"></stars>
         <div class="reviews-text" style="margin-top: 5px">
-          {{product.totalReviews | number}} reviews
+          {{product.totalReviews | number}} review{{product.totalReviews > 1 ? 's' : ''}}
         </div>
       </span>
     </div>
@@ -29,11 +29,11 @@
     <div *ngFor="let stat of reviewStats; let i = index" class="bar-container">
       <div class="star-text">{{stat.name}}</div>
       <div class="bar-base" [style.marginLeft.px]="i == 4 ? 12 : 5">
-        <div class="bar" [style.width.px]="stat.percentage * 200"></div>
+        <div class="bar" [style.width.px]="stat.percentage * 2"></div>
       </div>
 
       <div class="percent-text">
-        {{(stat.percentage * 100)}}%
+        {{(stat.percentage)}}%
       </div>
     </div>
   </div>

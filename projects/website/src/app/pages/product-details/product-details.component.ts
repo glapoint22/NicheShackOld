@@ -45,6 +45,7 @@ export class ProductDetailsComponent extends SharePage implements OnInit {
         this.title = this.product.title;
         this.description = this.product.description;
         this.image = '/Images/' + this.product.shareImage;
+        this.getReviews();
         super.ngOnInit();
       });
 
@@ -53,15 +54,18 @@ export class ProductDetailsComponent extends SharePage implements OnInit {
 
     this.route.queryParamMap.subscribe((queryParams: ParamMap) => {
       this.queryParametersService.queryParams = queryParams;
-
-      this.dataService
-        .get('api/ProductReviews', [{ key: 'urlTitle', value: this.route.snapshot.params['product'] }, { key: 'orderBy', value: queryParams.get('sort') }])
-        .subscribe(reviews => {
-          this.reviews = reviews;
-        });
-
-
+      if (this.product.id) {
+        this.getReviews(queryParams.get('sort'));
+      }
     });
+  }
+
+  getReviews(sort?: string) {
+    this.dataService
+      .get('api/ProductReviews', [{ key: 'productId', value: this.product.id }, { key: 'orderBy', value: sort }])
+      .subscribe(reviews => {
+        this.reviews = reviews;
+      });
   }
 
   hasPricePoint(priceIndices: Array<number>, index: number): boolean {

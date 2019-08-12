@@ -26,7 +26,7 @@
         <div *ngIf="product.rating > 0" class="rating-container">
           <stars [rating]="product.rating"></stars>
           <span class="reviews-text">
-            {{product.totalReviews | number}} reviews
+            {{product.totalReviews | number}} review{{product.totalReviews > 1 ? 's' : ''}}
           </span>
         </div>
         <div *ngIf="product.rating == 0" class="first-review-link" routerLink="/reviews/write-review" [queryParams]="{'id': product.id}">
@@ -105,7 +105,7 @@
 
 
   <div class="ratings-container">
-    <div [innerHtml]="product.rating > 0 ? 'Customer Reviews' : 'No Customer Reviews'" class="caption"></div>
+    <div class="caption">{{product.rating > 0 ? 'Customer Reviews' : 'No Customer Reviews'}}</div>
 
     <!-- Review Summary -->
     <review-summary [product]="product"></review-summary>
@@ -117,7 +117,7 @@
 
     <div>
       <div class="review-count">
-        Showing 1-{{reviews.length}} of {{product.totalReviews | number}} reviews
+        Showing 1-{{reviews.length}} of {{product.totalReviews | number}} review{{product.totalReviews > 1 ? 's' : ''}}
       </div>
       <review-sort [url]="product.urlTitle"></review-sort>
     </div>

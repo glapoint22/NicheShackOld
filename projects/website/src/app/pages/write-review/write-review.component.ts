@@ -4,6 +4,8 @@ import { ValidationPage } from '../validation-page/Validation-page';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
+import { DataService } from 'src/app/services/data/data.service';
+import { Product } from '../../shared/product/product';
 
 @Component({
   selector: 'write-review',
@@ -12,7 +14,7 @@ import { DOCUMENT } from '@angular/common';
 })
 export class WriteReviewComponent extends ValidationPage implements OnInit {
   public review: Review = new Review();
-  public product: any = {};
+  public product: Product;
   public submitted: boolean;
 
   constructor(
@@ -21,23 +23,35 @@ export class WriteReviewComponent extends ValidationPage implements OnInit {
     @Inject(DOCUMENT) document,
     @Inject(PLATFORM_ID) platformId: Object,
     private route: ActivatedRoute,
-    private router: Router) { super(titleService, metaService, document, platformId); }
+    private router: Router,
+    private dataService: DataService) { super(titleService, metaService, document, platformId); }
 
   ngOnInit() {
     this.title = 'Write a Review';
     this.share = false;
 
-    this.route.queryParamMap.subscribe((queryParams: ParamMap) => {
-      let productId = queryParams.get('id');
 
-      this.product.title = 'The Best Bodyweight Exercises You\'ve Never Heard Of';
-      this.product.image = 'e9a794bc40f14f709e6636aefbfe5d43.png'
-    });
+    this.dataService
+      .get('api/ProductReviews/Product', [{ key: 'productId', value: this.route.snapshot.queryParams['id'] }])
+      .subscribe(product => {
+        this.product = product;
+      });
     super.ngOnInit();
   }
 
   submitData() {
-    this.submitted = true;
+    let review = {
+      ProductId: this.product.id,
+      Title: this.review.title,
+      Rating: this.review.rating,
+      Username: this.review.username,
+      Text: this.review.text
+    }
+
+    this.dataService.post('api/ProductReviews', review).subscribe((response: any) => {
+      this.submitted = true;
+    });
+
   }
 
   getStar(i: number) {
