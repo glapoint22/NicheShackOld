@@ -38,7 +38,9 @@ export class ReviewSortComponent implements OnInit {
       
     ];
 
-    this.selectedSortOption = this.sortOptions[0];
+    let index = Math.max(0, this.sortOptions.findIndex(x => x.value == this.queryParametersService.queryParams.get('sort')));
+
+    this.selectedSortOption = this.sortOptions[index];
   }
 
   setSort() {

@@ -1,5 +1,5 @@
 <div class="modal-background" (click)="close()">
-  <div class="window" [style.width.px]="product.media.length > 0 ? 710 : 586" (click)="stopPropagation($event)">
+  <div class="window" [style.width.px]="media.length > 0 ? 710 : 586" (click)="stopPropagation($event)">
     <!-- Close -->
     <div class="close" (click)="close()" title="Close">
       <i class="fas fa-times"></i>
@@ -7,8 +7,8 @@
 
     <div style="display:flex;">
       <!-- Media -->
-      <div *ngIf="product.media.length > 0">
-        <media-group [media]="product.media" [productTitle]="product.title"></media-group>
+      <div *ngIf="media.length > 0">
+        <media-group [media]="media" [productTitle]="product.title"></media-group>
       </div>
 
       <!-- Product Image -->
@@ -32,7 +32,7 @@
             {{product.totalReviews | number}} reviews
           </span>
         </div>
-        <div *ngIf="product.rating == 0" class="first-review-link">
+        <div *ngIf="product.rating == 0" class="first-review-link" (click)="onReviewItemClick()">
             Be the first to review this item
         </div>
 
@@ -54,7 +54,7 @@
         </div>
 
         <div>
-          <button class="gold-button" (click)="OnClick()">
+          <button class="gold-button" (click)="onViewDetailsClick()">
             View Details
           </button>
         </div>

@@ -44,10 +44,10 @@
 
 
     <!-- Positive & Negagive Reviews -->
-    <div *ngIf="product.positiveReview || product.negativeReview" class="positive-negative-container">
+    <div *ngIf="positiveReview || negativeReview" class="positive-negative-container">
 
       <!-- Postive Review -->
-      <div *ngIf="product.positiveReview" class="helpful-review">
+      <div *ngIf="positiveReview" class="helpful-review">
 
         <!-- Header -->
         <div class="helpful-review-header">
@@ -55,43 +55,16 @@
         </div>
 
         <!-- Likes -->
-        <div class="likes">
-          {{product.positiveReview.likes}} customers found this helpful
-        </div>
+        <div class="likes">{{positiveReview.likes}} customers found this helpful</div>
 
-        <!-- Stars and review title -->
-        <div style="margin-bottom: 4px;">
-          <stars [rating]="product.positiveReview.rating"></stars>
-          <span class="review-title-text">
-            {{product.positiveReview.title}}
-          </span>
-        </div>
-
-
-        <!-- Username, date, verified purchase -->
-        <div style="margin-bottom: 4px;">
-          {{product.positiveReview.username}}
-        </div>
-
-        <div style="margin-bottom: 4px;">
-          {{product.positiveReview.date}}
-        </div>
-
-        <div *ngIf="product.positiveReview.isVerified" class="verified-text">
-          Verified Purchase
-        </div>
-
-
-        <!-- Review text -->
-        <div class="review-text-container">
-          {{product.positiveReview.text}}
-        </div>
+        <!-- Review -->
+        <review [review]="positiveReview" [showReviewHelpful]="false"></review>
       </div>
 
 
 
       <!-- Negative Review -->
-      <div *ngIf="product.negativeReview" class="helpful-review">
+      <div *ngIf="negativeReview" class="helpful-review">
 
         <!-- Header -->
         <div class="helpful-review-header">
@@ -99,43 +72,16 @@
         </div>
 
         <!-- Likes -->
-        <div class="likes">
-          {{product.negativeReview.likes}} customers found this helpful
-        </div>
+        <div class="likes">{{negativeReview.likes}} customers found this helpful</div>
 
-        <!-- Stars and review title -->
-        <div style="margin-bottom: 4px;">
-          <stars [rating]="product.negativeReview.rating"></stars>
-          <span class="review-title-text">
-            {{product.negativeReview.title}}
-          </span>
-        </div>
-
-
-        <!-- Username, date, verified purchase -->
-        <div style="margin-bottom: 4px;">
-          {{product.negativeReview.username}}
-        </div>
-
-        <div style="margin-bottom: 4px;">
-          {{product.negativeReview.date}}
-        </div>
-
-        <div *ngIf="product.negativeReview.isVerified" class="verified-text">
-          Verified Purchase
-        </div>
-
-
-        <!-- Review Text -->
-        <div class="review-text-container">
-          {{product.negativeReview.text}}
-        </div>
+        <!-- Review -->
+        <review [review]="negativeReview" [showReviewHelpful]="false"></review>
       </div>
     </div>
 
 
     <!-- Showing and Sort -->
-    <div>
+    <div id="reviews" *ngIf="reviews.length > 0">
       <div class="review-count">
         Showing {{reviewsStart}} - {{reviewsEnd}} of {{product.totalReviews}} reviews
       </div>
@@ -144,13 +90,17 @@
 
 
     <!-- Reviews -->
-    <div *ngFor="let review of product.reviews">
+    <div *ngFor="let review of reviews">
       <review [review]="review"></review>
     </div>
 
     <!-- Pages -->
-    <div style="margin-top: 20px;">
+    <div *ngIf="reviews.length > 0" style="margin-top: 20px;">
       <paging [pageCount]="pageCount" [currentPage]="currentPage" [url]="'/reviews/' + product.urlTitle"></paging>
+    </div>
+
+    <div *ngIf="reviews.length == 0" class="no-reviews">
+      No reviews found
     </div>
 
   </div>

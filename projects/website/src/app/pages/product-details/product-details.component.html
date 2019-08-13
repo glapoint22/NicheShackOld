@@ -3,8 +3,8 @@
 
   <div class="product-container">
     <!-- Media -->
-    <div *ngIf="product.media.length > 0">
-      <media-group [media]="product.media" [productTitle]="product.title"></media-group>
+    <div *ngIf="media.length > 0">
+      <media-group [media]="media" [productTitle]="product.title"></media-group>
     </div>
 
     <div style="margin: auto; display: flex">
@@ -83,16 +83,16 @@
   <table>
     <tr>
       <th>Here’s what you get</th>
-      <tH *ngFor="let pricePoint of product.pricePoints">
+      <tH *ngFor="let pricePoint of pricePoints">
         {{pricePoint.price | currency:'USD'}} - {{pricePoint.frequency}}
       </tH>
     </tr>
-    <tr *ngFor="let item of product.content">
+    <tr *ngFor="let item of content">
       <td>
         <img [src]="'/assets/' + item.type + '.png'">
         {{item.title}}
       </td>
-      <td *ngFor="let pricePoint of product.pricePoints; let i = index">
+      <td *ngFor="let pricePoint of pricePoints; let i = index">
         <i *ngIf="hasPricePoint(item.priceIndices, i)" class="fas fa-check"></i>
       </td>
     </tr>
@@ -133,6 +133,13 @@
     <div *ngFor="let review of reviews">
       <review [review]="review"></review>
     </div>
+
+    <!-- View all reviews button -->
+    <div *ngIf="product.totalReviews > 10" class="purple-button" style="margin-top: 20px;"
+      (click)="onViewAllReviewsClick()">
+      View all {{product.totalReviews | number}} reviews
+    </div>
+
   </div>
 
 

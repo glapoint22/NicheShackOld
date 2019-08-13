@@ -1,15 +1,18 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { ProductsSlider } from '../../shared/products-slider/products-slider';
 import { QueryParametersService } from '../../query-parameters.service';
 import { SharePage } from '../share-page';
 import { Title, Meta } from '@angular/platform-browser';
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { Product } from '../../shared/product/product';
 import { DataService } from 'src/app/services/data/data.service';
 import { Review } from '../../shared/review/review';
+import { ProductContent } from '../../shared/product/product-content';
+import { ProductPricePoint } from '../../shared/product/product-price-point';
+import { ProductMedia } from '../../shared/product/product-media';
 
 @Component({
   selector: 'product-details',
@@ -18,6 +21,9 @@ import { Review } from '../../shared/review/review';
 })
 export class ProductDetailsComponent extends SharePage implements OnInit {
   public product: Product = new Product();
+  public content: Array<ProductContent> = [];
+  public pricePoints: Array<ProductPricePoint> = [];
+  public media: Array<ProductMedia> = [];
   public productsSlider: Array<ProductsSlider>;
   private onCloseSubscription: Subscription;
   public reviews: Array<Review> = [];
@@ -30,22 +36,29 @@ export class ProductDetailsComponent extends SharePage implements OnInit {
     public modalService: ModalService,
     private router: Router,
     private queryParametersService: QueryParametersService,
-    private dataService: DataService) { super(titleService, metaService, document) }
+    private dataService: DataService,
+    @Inject(PLATFORM_ID) private platformId: Object) { super(titleService, metaService, document) }
 
 
   ngOnInit() {
-    //Scroll to top
-    // let body = document.scrollingElement || document.documentElement;
-    // body.scrollTop = 0;
+    if (isPlatformBrowser(this.platformId)) {
+      //Scroll to top
+      let body = document.scrollingElement || document.documentElement;
+      body.scrollTop = 0;
+    }
 
     this.dataService
-      .get('api/ProductDetails', [{ key: 'urlTitle', value: this.route.snapshot.params['product'] }])
-      .subscribe(product => {
-        this.product = product;
+      .get('api/Products/Detailed', [{ key: 'urlTitle', value: this.route.snapshot.params['product'] }])
+      .subscribe(productDetails => {
+        this.product = productDetails.product;
+        this.content = productDetails.content;
+        this.pricePoints = productDetails.pricePoints;
+        this.media = productDetails.media;
+
         this.title = this.product.title;
         this.description = this.product.description;
         this.image = '/Images/' + this.product.shareImage;
-        this.getReviews();
+        this.getReviews(this.route.snapshot.queryParams['sort']);
         super.ngOnInit();
       });
 
@@ -60,10 +73,10 @@ export class ProductDetailsComponent extends SharePage implements OnInit {
     });
   }
 
-  getReviews(sort?: string) {
+  getReviews(sort: string) {
     this.dataService
       .get('api/ProductReviews', [{ key: 'productId', value: this.product.id }, { key: 'orderBy', value: sort }])
-      .subscribe(reviews => {
+      .subscribe((reviews: Array<Review>) => {
         this.reviews = reviews;
       });
   }
