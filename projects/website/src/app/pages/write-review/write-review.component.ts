@@ -14,7 +14,7 @@ import { Product } from '../../shared/product/product';
 })
 export class WriteReviewComponent extends ValidationPage implements OnInit {
   public review: Review = new Review();
-  public product: Product;
+  public product: Product = new Product();
   public submitted: boolean;
 
   constructor(

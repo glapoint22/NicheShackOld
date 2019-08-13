@@ -12,8 +12,10 @@
     }
     .review-text-container {
         margin: 20px 0;
-        width: 680px;
+        width: 570px;
         color: #dadada;
+        word-wrap: break-word;
+        word-break: break-word;
     }
     .review-helpful-text {
         color: $gold;

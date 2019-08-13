@@ -85,12 +85,12 @@
       <div class="review-count">
         Showing {{reviewsStart}} - {{reviewsEnd}} of {{product.totalReviews}} reviews
       </div>
-      <review-sort [url]="'reviews/' + product.urlTitle"></review-sort>
+      <review-sort [url]="'reviews/' + product.urlTitle" [sortOptions]="sortOptions"></review-sort>
     </div>
 
 
     <!-- Reviews -->
-    <div *ngFor="let review of reviews">
+    <div *ngFor="let review of reviews; trackBy:trackReview">
       <review [review]="review"></review>
     </div>
 
@@ -99,7 +99,7 @@
       <paging [pageCount]="pageCount" [currentPage]="currentPage" [url]="'/reviews/' + product.urlTitle"></paging>
     </div>
 
-    <div *ngIf="reviews.length == 0" class="no-reviews">
+    <div *ngIf="product && product.id && reviews.length == 0" class="no-reviews">
       No reviews found
     </div>
 

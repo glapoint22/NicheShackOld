@@ -137,10 +137,10 @@ export class SearchComponent extends Page implements OnInit, AfterViewInit {
           let index = this.perPageOptions.findIndex(x => x.value === perPage);
 
           //Scroll to top
-          if (isPlatformBrowser(this.platformId)) {
-            let body = document.scrollingElement || document.documentElement;
-            body.scrollTop = 0;
-          }
+          // if (isPlatformBrowser(this.platformId)) {
+          //   let body = document.scrollingElement || document.documentElement;
+          //   body.scrollTop = 0;
+          // }
 
 
           // Products per page

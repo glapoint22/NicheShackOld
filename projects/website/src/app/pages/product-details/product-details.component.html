@@ -119,23 +119,23 @@
       <div class="review-count">
         Showing 1-{{reviews.length}} of {{product.totalReviews | number}} review{{product.totalReviews > 1 ? 's' : ''}}
       </div>
-      <review-sort [url]="product.urlTitle"></review-sort>
+      <review-sort [url]="product.urlTitle" [sortOptions]="sortOptions"></review-sort>
     </div>
 
 
     <!-- View all reviews button -->
-    <div *ngIf="product.totalReviews > 10" class="purple-button" style="margin-bottom: 20px;"
+    <div *ngIf="product.totalReviews > reviewsPerPage" class="purple-button" style="margin-bottom: 20px;"
       (click)="onViewAllReviewsClick()">
       View all {{product.totalReviews | number}} reviews
     </div>
 
     <!-- Review -->
-    <div *ngFor="let review of reviews">
+    <div *ngFor="let review of reviews; trackBy:trackReview">
       <review [review]="review"></review>
     </div>
 
     <!-- View all reviews button -->
-    <div *ngIf="product.totalReviews > 10" class="purple-button" style="margin-top: 20px;"
+    <div *ngIf="product.totalReviews > reviewsPerPage" class="purple-button" style="margin-top: 20px;"
       (click)="onViewAllReviewsClick()">
       View all {{product.totalReviews | number}} reviews
     </div>

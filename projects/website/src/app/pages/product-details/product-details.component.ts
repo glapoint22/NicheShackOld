@@ -1,11 +1,11 @@
-import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { ProductsSlider } from '../../shared/products-slider/products-slider';
 import { QueryParametersService } from '../../query-parameters.service';
 import { SharePage } from '../share-page';
 import { Title, Meta } from '@angular/platform-browser';
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { Product } from '../../shared/product/product';
 import { DataService } from 'src/app/services/data/data.service';
@@ -27,6 +27,8 @@ export class ProductDetailsComponent extends SharePage implements OnInit {
   public productsSlider: Array<ProductsSlider>;
   private onCloseSubscription: Subscription;
   public reviews: Array<Review> = [];
+  public reviewsPerPage: number;
+  public sortOptions: Array<any> = [];
 
   constructor(
     titleService: Title,
@@ -36,46 +38,51 @@ export class ProductDetailsComponent extends SharePage implements OnInit {
     public modalService: ModalService,
     private router: Router,
     private queryParametersService: QueryParametersService,
-    private dataService: DataService,
-    @Inject(PLATFORM_ID) private platformId: Object) { super(titleService, metaService, document) }
+    private dataService: DataService
+  ) { super(titleService, metaService, document) }
 
 
   ngOnInit() {
-    if (isPlatformBrowser(this.platformId)) {
-      //Scroll to top
-      let body = document.scrollingElement || document.documentElement;
-      body.scrollTop = 0;
-    }
-
     this.dataService
-      .get('api/Products/Detailed', [{ key: 'urlTitle', value: this.route.snapshot.params['product'] }])
-      .subscribe(productDetails => {
-        this.product = productDetails.product;
-        this.content = productDetails.content;
-        this.pricePoints = productDetails.pricePoints;
-        this.media = productDetails.media;
+      .get('api/ProductReviews/Detailed',
+        [
+          { key: 'urlTitle', value: this.route.snapshot.params['product'] },
+          { key: 'orderBy', value: this.route.snapshot.queryParams['sort'] || '' }
+        ])
+      .subscribe(results => {
+        this.product = results.product;
+        this.content = results.content;
+        this.pricePoints = results.pricePoints;
+        this.media = results.media;
+        this.reviews = results.reviews;
 
+        // Sort options
+        this.sortOptions = results.options;
+
+        // Reviews per page
+        this.reviewsPerPage = results.reviewsPerPage;
+
+        // Set the page properties
         this.title = this.product.title;
         this.description = this.product.description;
         this.image = '/Images/' + this.product.shareImage;
-        this.getReviews(this.route.snapshot.queryParams['sort']);
         super.ngOnInit();
       });
 
-
+    // ***************************** TODO: Get product group data *****************************************
     this.productsSlider = null;
 
     this.route.queryParamMap.subscribe((queryParams: ParamMap) => {
       this.queryParametersService.queryParams = queryParams;
       if (this.product.id) {
-        this.getReviews(queryParams.get('sort'));
+        this.getReviews();
       }
     });
   }
 
-  getReviews(sort: string) {
+  getReviews() {
     this.dataService
-      .get('api/ProductReviews', [{ key: 'productId', value: this.product.id }, { key: 'orderBy', value: sort }])
+      .get('api/ProductReviews', [{ key: 'productId', value: this.product.id }, { key: 'orderBy', value: this.route.snapshot.queryParams['sort'] }])
       .subscribe((reviews: Array<Review>) => {
         this.reviews = reviews;
       });
@@ -116,5 +123,9 @@ export class ProductDetailsComponent extends SharePage implements OnInit {
 
       this.modalService.addToList.show = true;
     });
+  }
+
+  trackReview(index: number, review: Review) {
+    return review.id;
   }
 }
