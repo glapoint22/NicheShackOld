@@ -1,6 +1,6 @@
 <div *ngIf="categoryFilter.currentCategory !== null && categoryFilter.currentCategory >= 0 && categoryFilter.query != undefined" class="content" style="margin-bottom: 10px" [ngClass]="{'show-content': categoryFilter.showContent}">
   <i class="fas fa-angle-left"></i>
-  <div class="pointer inline" (click)="onClick({add: [], remove: ['nicheId', 'page', 'category']})">Any Category</div>
+  <div class="pointer inline" (click)="onClick({add: [], remove: ['nicheId', 'page', 'categoryId']})">Any Category</div>
 </div>
 
 <!-- List of categories -->
@@ -12,7 +12,7 @@
   <!-- Category name -->
   <div class="text">
     <i *ngIf="categoryFilter.currentNiche !== null && categoryFilter.currentNiche >= 0" class="fas fa-angle-left"></i>
-    <div style="display: inline-block" (click)="categoryFilter.currentCategory == null || (categoryFilter.currentNiche !== null && categoryFilter.currentNiche >= 0) ? onClick({add: [{name: 'category', value: category.id}], remove: ['nicheId', 'page']}) : null" class="highlight"
+    <div style="display: inline-block" (click)="categoryFilter.currentCategory == null || (categoryFilter.currentNiche !== null && categoryFilter.currentNiche >= 0) ? onClick({add: [{name: 'categoryId', value: category.id}], remove: ['nicheId', 'page']}) : null" class="highlight"
       [ngClass]="{'pointer' : categoryFilter.currentCategory == null || (categoryFilter.currentNiche !== null && categoryFilter.currentNiche >= 0)}">{{category.name}}</div>
   </div>
 
@@ -24,7 +24,7 @@
 
     <!-- Niche name -->
     <div [ngClass]="{'pointer' : (categoryFilter.currentNiche == null && category.niches.length > 1) || categoryFilter.categories.length > 1}" class="margin-left text"
-      (click)="(categoryFilter.currentNiche == null && category.niches.length > 1) || categoryFilter.categories.length > 1 ? onClick({add: [{name: 'nicheId', value: niche.id}, {name: 'category', value: category.id}], remove: ['page']}): null">{{niche.name}}
+      (click)="(categoryFilter.currentNiche == null && category.niches.length > 1) || categoryFilter.categories.length > 1 ? onClick({add: [{name: 'nicheId', value: niche.id}, {name: 'categoryId', value: category.id}], remove: ['page']}): null">{{niche.name}}
     </div>
   </div>
 
