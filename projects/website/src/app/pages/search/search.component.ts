@@ -155,7 +155,7 @@ export class SearchComponent extends Page implements OnInit, AfterViewInit {
           this.filters = response.filters;
 
           //Set the properties
-          this.currentCategory = queryParams.get('category');
+          this.currentCategory = queryParams.get('categoryId');
           this.currentNiche = queryParams.get('nicheId');
           this.currentQuery = queryParams.get('query');
 
