@@ -24,7 +24,7 @@
       <div class="dropdown-container" style="right: 0">
         <select [(ngModel)]="selectedSortOption"
           (change)="queryParametersService.updateUrl('/search', {add: [{name: 'sort', value: selectedSortOption.value}], remove: ['page']})">
-          <option *ngFor="let sortOption of sortOptions" [ngValue]="sortOption">Sort by {{sortOption.name}}</option>
+          <option *ngFor="let sortOption of sortOptions" [ngValue]="sortOption">Sort by {{sortOption.key}}</option>
         </select>
       </div>
 

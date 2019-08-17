@@ -25,7 +25,7 @@ export class MenuComponent {
   onCategoryClick() {
     this.hideMenu();
     this.router.navigate(['/search'], {
-      queryParams: { 'category': this.currentCategory.id }
+      queryParams: { 'categoryId': this.currentCategory.id }
     });
   }
 

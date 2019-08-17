@@ -94,6 +94,13 @@ export class SearchComponent extends Page implements OnInit, AfterViewInit {
     //     value: 96
     //   },
     // ];
+    
+    this.dataService.get('api/Products/Init')
+      .subscribe(response  => {
+        this.sortOptions = response.sortOptions;
+        let index = Math.max(0, this.sortOptions.findIndex(x => x.value == this.queryParametersService.queryParams.get('sort')));
+        this.selectedSortOption = this.sortOptions[index];
+      });
 
     this.route.queryParamMap.subscribe((queryParams: ParamMap) => {
       let parameters: Array<any> = [];
