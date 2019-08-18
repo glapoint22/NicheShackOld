@@ -18,7 +18,7 @@ export class MenuComponent {
   onNicheClick(niche) {
     this.hideMenu();
     this.router.navigate(['/search'], {
-      queryParams: { 'category': this.currentCategory.id, 'nicheId': niche.id }
+      queryParams: { 'categoryId': this.currentCategory.id, 'nicheId': niche.id }
     });
   }
 

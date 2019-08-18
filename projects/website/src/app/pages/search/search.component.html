@@ -30,9 +30,9 @@
 
       <!-- Per Page -->
       <div class="dropdown-container" style="right: 200px;">
-        <select [(ngModel)]="productsPerPage"
-          (change)="queryParametersService.updateUrl('/search', {add: [{name: 'limit', value: productsPerPage.value}], remove: ['page']})">
-          <option *ngFor="let perPageOption of perPageOptions" [ngValue]="perPageOption">{{perPageOption.name}} Products
+        <select [(ngModel)]="selectedPerPageOption"
+          (change)="queryParametersService.updateUrl('/search', {add: [{name: 'limit', value: selectedPerPageOption.value}], remove: ['page']})">
+          <option *ngFor="let perPageOption of perPageOptions" [ngValue]="perPageOption">{{perPageOption.key}} Products
             Per Page</option>
         </select>
       </div>
@@ -48,7 +48,7 @@
         <div *ngIf="showFilters">
           <!-- Per Page -->
           <filter #perPage [caption]="'Products Per Page'">
-            <radio-filter-options [filter]="perPage" [options]="perPageOptions" [selectedOption]="productsPerPage" [paramName]="'limit'">
+            <radio-filter-options [filter]="perPage" [options]="perPageOptions" [selectedOption]="selectedPerPageOption" [paramName]="'limit'">
             </radio-filter-options>
           </filter>
 

@@ -68,7 +68,7 @@ export class SearchBarComponent implements OnInit {
     let category;
     let id;
 
-    category = this.queryParams.get('category');
+    category = this.queryParams.get('categoryId');
 
 
     if (!category) {
