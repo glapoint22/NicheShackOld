@@ -1,6 +1,6 @@
-import { FilterOption } from '../filter-option';
+import { Option } from './option';
 
-export interface Filter {
+export class Filter {
     caption: string;
-    options: Array<FilterOption>;
+    options: Array<Option>;
 }

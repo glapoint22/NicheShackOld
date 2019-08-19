@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { FilterComponent } from '../filter/filter.component';
-import { FilterOption } from '../filter-option';
+import { Option } from '../filter/option';
 
 @Component({
   template: '',
 })
 export class FilterOptionsComponent {
   @Input() filter: FilterComponent;
-  @Input() options: Array<FilterOption>;
+  @Input() options: Array<Option>;
 }

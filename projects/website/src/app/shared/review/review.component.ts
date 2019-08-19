@@ -28,7 +28,7 @@ export class ReviewComponent {
     this.modalService.reportReview.reviewId = this.review.id;
   }
 
-  formatDate(date: string): string {
+  formatDate(date: Date): string {
     return new Date(date).toDateString();
   }
 }

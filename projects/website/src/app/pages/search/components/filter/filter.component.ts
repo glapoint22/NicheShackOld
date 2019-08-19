@@ -61,7 +61,7 @@ export class FilterComponent {
           }
         } else {
           //The option is not a price range
-          let index = array.indexOf(filterSelection.option);
+          let index = array.indexOf(filterSelection.option.toString());
 
           //If the option is not found, add it to the mid string
           if (index == -1) {

@@ -1,5 +1,6 @@
 import { Component, OnChanges } from '@angular/core';
 import { CheckboxFilterOptionsComponent } from '../checkbox-filter-options/checkbox-filter-options.component';
+import { PriceFilterOption } from '../filter/price-filter-option';
 
 @Component({
   selector: 'checkbox-price-filter-options',
@@ -8,20 +9,11 @@ import { CheckboxFilterOptionsComponent } from '../checkbox-filter-options/check
 })
 export class CheckboxPriceFilterOptionsComponent extends CheckboxFilterOptionsComponent implements OnChanges {
   
-  onChange(selectedOption: string) {
-    // change the selected option string (i.e from $10 - $20 to 10-20)
-    let option = this.options.find(x => x.name == selectedOption);
-    selectedOption = option.min + '-' + option.max;
-
-    super.onChange(selectedOption);
+  onChange(selectedOption: PriceFilterOption) {
+    this.filter.updateFilterParams({ filterName: this.filter.caption, option:  this.getOption(selectedOption)});
   }
 
-
-  ngOnChanges() {
-    // change the options (i.e from 10-20 to $10 - $20)
-    this.options.forEach(x => {
-      x.name = '$' + x.min.toLocaleString() + ' - $' + x.max.toLocaleString();
-    });
-    super.ngOnChanges();
+  getOption(option: PriceFilterOption){
+    return option.min + '-' + option.max
   }
 }

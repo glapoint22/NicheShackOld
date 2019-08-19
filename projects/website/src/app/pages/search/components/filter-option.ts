@@ -1,6 +1,5 @@
-export interface FilterOption {
-    name: string;
-    checked: boolean;
-    min: number;
-    max: number;
+import { Option } from './filter/option';
+
+export class FilterOption extends Option {
+    id: string;
 }
