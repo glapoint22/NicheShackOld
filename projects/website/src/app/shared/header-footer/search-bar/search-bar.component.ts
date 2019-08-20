@@ -83,7 +83,7 @@ export class SearchBarComponent implements OnInit {
   setQuery(query: string) {
     if (query !== '') {
       this.searchSuggestions = [];
-      this.router.navigate(['/search'], { queryParams: this.selectedCategory.id > -1 ? { 'query': query, 'category': this.selectedCategory.id } : { 'query': query } });
+      this.router.navigate(['/search'], { queryParams: this.selectedCategory.id > -1 ? { 'query': query, 'categoryId': this.selectedCategory.id } : { 'query': query } });
     }
   }
   onImageClick() {
