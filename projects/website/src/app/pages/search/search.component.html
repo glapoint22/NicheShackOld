@@ -66,14 +66,20 @@
 
         <div *ngFor="let filter of filters; trackBy:trackFilter">
           <!-- Price Filter -->
-          <price-filter #priceFilter *ngIf="filter.caption == 'Price'" [caption]="filter.caption" [showContent]="!showFilters" [show]="!showFilters">
+          <price-filter #priceFilter *ngIf="filter.type == 'Price'" [caption]="filter.caption" [showContent]="!showFilters" [show]="!showFilters">
             <price-filter-content [priceFilter]="priceFilter">
               <checkbox-price-filter-options [filter]="priceFilter" [options]="filter.options"></checkbox-price-filter-options>
             </price-filter-content>
           </price-filter>
 
-          <!-- Checkbox Filter -->
-          <filter #checkboxFilter *ngIf="filter.caption != 'Price'" [caption]="filter.caption" [showContent]="!showFilters" [show]="!showFilters">
+
+          <!-- Rating Filter -->
+          <filter #ratingFilter *ngIf="filter.type == 'Rating'" [caption]="filter.caption" [showContent]="!showFilters" [show]="!showFilters">
+            <checkbox-rating-filter-options [filter]="ratingFilter" [options]="filter.options"></checkbox-rating-filter-options>
+          </filter>
+
+          <!-- Custom Filters -->
+          <filter #checkboxFilter *ngIf="filter.type == 'Custom'" [caption]="filter.caption" [showContent]="!showFilters" [show]="!showFilters">
             <checkbox-filter-options [filter]="checkboxFilter" [options]="filter.options"></checkbox-filter-options>
           </filter>
         </div>

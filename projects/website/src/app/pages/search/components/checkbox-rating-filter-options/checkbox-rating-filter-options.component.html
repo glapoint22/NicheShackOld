@@ -1,0 +1,4 @@
+<div *ngFor="let option of options" class="content" [ngClass]="{'show-content': filter.showContent}" (transitionend)="filter.onTransitionEnd()">
+    <checkbox [type]="'checkbox'" [checked]="option.checked" (change)="onChange(option)"></checkbox>
+    <stars [rating]="option.id"></stars> <span> & Up</span>
+</div>

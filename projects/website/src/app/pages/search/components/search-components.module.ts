@@ -12,6 +12,8 @@ import { MaxItemsPipe } from './max-items.pipe';
 import { FormsModule } from '@angular/forms';
 import { InputsModule } from 'src/app/components/inputs/inputs.module';
 import { CheckboxPriceFilterOptionsComponent } from './checkbox-price-filter-options/checkbox-price-filter-options.component';
+import { CheckboxRatingFilterOptionsComponent } from './checkbox-rating-filter-options/checkbox-rating-filter-options.component';
+import { StarsModule } from '../../../shared/stars/stars.module';
 
 @NgModule({
   declarations: [
@@ -24,12 +26,14 @@ import { CheckboxPriceFilterOptionsComponent } from './checkbox-price-filter-opt
     PriceFilterContentComponent,
     RadioFilterOptionsComponent,
     MaxItemsPipe,
-    CheckboxPriceFilterOptionsComponent
+    CheckboxPriceFilterOptionsComponent,
+    CheckboxRatingFilterOptionsComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
-    InputsModule
+    InputsModule,
+    StarsModule
   ],
   exports: [
     CategoryFilterComponent,
@@ -41,7 +45,8 @@ import { CheckboxPriceFilterOptionsComponent } from './checkbox-price-filter-opt
     PriceFilterContentComponent,
     RadioFilterOptionsComponent,
     MaxItemsPipe,
-    CheckboxPriceFilterOptionsComponent
+    CheckboxPriceFilterOptionsComponent,
+    CheckboxRatingFilterOptionsComponent
   ]
 })
 export class SearchComponentsModule { }
