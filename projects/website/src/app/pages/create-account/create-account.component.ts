@@ -3,6 +3,7 @@ import { ValidationPage } from '../validation-page/Validation-page';
 import { Title, Meta } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
+import { DataService } from 'src/app/services/data/data.service';
 
 @Component({
   selector: 'create-account',
@@ -12,13 +13,16 @@ import { Router } from '@angular/router';
 export class CreateAccountComponent extends ValidationPage implements OnInit {
   public account: any = {}
   public reEnteredPassword: string;
+  public errors: Array<any> = [];
 
   constructor(
     titleService: Title,
     metaService: Meta,
     @Inject(DOCUMENT) document,
     @Inject(PLATFORM_ID) platformId: Object,
-    public router: Router) {
+    public router: Router,
+    private dataService: DataService
+  ) {
     super(titleService, metaService, document, platformId);
   }
 
@@ -29,7 +33,15 @@ export class CreateAccountComponent extends ValidationPage implements OnInit {
   }
 
   submitData(): void {
-    this.router.navigate(['']);
+    this.dataService.post('api/Account/Register', this.account)
+      .subscribe(response => {
+      },
+      response => {
+        this.errors = [];
+        Object.keys(response.error).forEach(key => {
+          this.errors.push(response.error[key][0])
+        });
+      });
   }
 
   onSignInClick() {

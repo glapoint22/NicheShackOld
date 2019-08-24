@@ -35,8 +35,12 @@ export class DataService {
 
   handleError() {
     return (error) => {
-      // showError
-      this.isError = true;
+      if (error.status != 409) {
+        // showError
+        this.isError = true;
+      }
+
+
 
       return throwError(error);
     }

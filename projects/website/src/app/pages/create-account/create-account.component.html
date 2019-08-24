@@ -7,6 +7,24 @@
         <!-- Logo -->
         <img src="assets/Logo.png" routerLink="">
 
+        <div *ngIf="errors.length > 0" class="warning">
+            <div style="display: flex; align-items: center;">
+                <div>
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+
+                <div class="warning-text">
+                    <ul>
+                        <li *ngFor="let error of errors" style="margin-bottom: 10px;">
+                            {{error}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+
+        </div>
+
         <form (ngSubmit)="onSubmit()" #form="ngForm" [matchValue]="['password', 'reEnteredPassword']">
             <div class="form-title">Create Account</div>
 
@@ -16,10 +34,10 @@
             <!-- Invalid first name -->
             <ng-template #invalidFirstName>
                 <div class="not-valid caption">
-                    Please provide a first name.
+                    Please provide a valid first name.
                 </div>
             </ng-template>
-            <input class="dark" required [(ngModel)]="account.firstName" name="firstName" #firstName="ngModel"
+            <input class="dark" required pattern="^\b[a-zA-Z\s]+\b$" [(ngModel)]="account.firstName" name="firstName" #firstName="ngModel"
                 autocomplete="off">
 
             <!-- Last Name -->
@@ -28,10 +46,10 @@
             <!-- Invalid last name -->
             <ng-template #invalidLastName>
                 <div class="not-valid caption">
-                    Please provide a last name.
+                    Please provide a valid last name.
                 </div>
             </ng-template>
-            <input class="dark" required [(ngModel)]="account.lastName" name="lastName" #lastName="ngModel"
+            <input class="dark" required pattern="^\b[a-zA-Z\s]+\b$" [(ngModel)]="account.lastName" name="lastName" #lastName="ngModel"
                 autocomplete="off">
 
 
@@ -58,7 +76,7 @@
                     Passwords must be at least 6 characters.
                 </div>
             </ng-template>
-            <input type="password" class="dark" required pattern=".{6,}" [(ngModel)]="account.password" name="password"
+            <input type="password" class="dark" required pattern="(?=.*\S).{6,}" [(ngModel)]="account.password" name="password"
                 #_password="ngModel" autocomplete="off">
 
             <div class="info-container">
@@ -81,7 +99,9 @@
                 #re_enter_password="ngModel" autocomplete="off">
 
             <div class="disclaimer">
-                <span>By clicking Create Account, you acknowledge you have read and agreed to our </span><a routerLink="/terms">Terms of Use</a><span> and </span><a routerLink="/privacy-policy">Privacy Policy</a>
+                <span>By clicking Create Account, you acknowledge you have read and agreed to our </span><a
+                    routerLink="/terms">Terms of Use</a><span> and </span><a routerLink="/privacy-policy">Privacy
+                    Policy</a>
             </div>
 
             <!-- Save button -->
@@ -93,12 +113,12 @@
             <button type="button" class="gray-button" (click)="onSignInClick()">Sign in</button>
         </form>
 
-        <div style="text-align: center; margin-top: 20px;">
+        <div style="text-align: center; margin-top: 20px; margin-bottom: 80px;">
             <a routerLink="/terms" style="margin-right: 20px;">Terms of Use</a>
             <a routerLink="/privacy-policy">Privacy Policy</a>
         </div>
 
-        
+
     </div>
 
 
