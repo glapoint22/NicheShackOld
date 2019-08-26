@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, Inject, PLATFORM_ID } from '@
 import { DataService } from 'src/app/services/data/data.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'search-bar',
@@ -18,18 +19,28 @@ export class SearchBarComponent implements OnInit {
   private queryParams: any;
   private searchWord: string;
   public suggestionClicked: boolean;
+  public isLoggedIn: boolean;
+  public customerName: string;
   @ViewChild('tmpSelect', { static: true }) tmpSelect: ElementRef;
   @ViewChild('select', { static: true }) select: ElementRef;
   @ViewChild('search', { static: true }) search: ElementRef;
 
 
-  constructor(private dataService: DataService, private router: Router, private route: ActivatedRoute, @Inject(PLATFORM_ID) private platformId: Object) { }
+  constructor(private dataService: DataService,
+    private router: Router,
+    private route: ActivatedRoute,
+    @Inject(PLATFORM_ID) private platformId: Object,
+    public authService: AuthService
+  ) { }
 
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) this.setSelectElementWidth();
   }
 
   ngOnInit() {
+    this.isLoggedIn = this.authService.isLoggedIn;
+    this.customerName = this.authService.customerName;
+
     this.route.queryParamMap.subscribe(queryParams => {
       this.queryParams = queryParams;
       if (this.categories.length > 0) {
@@ -169,5 +180,9 @@ export class SearchBarComponent implements OnInit {
         this.suggestionClicked = false;
       }
     }, 1);
+  }
+
+  onSignOut(){
+    this.authService.removeToken();
   }
 }

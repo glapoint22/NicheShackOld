@@ -87,15 +87,17 @@ input{
     float: left;
 }
 .customer-name {
+    position: absolute;
     font-size: 12px;
     color: #f0f0f0;
     margin-left: 20px;
-    margin-top: 25px;
+    margin-top: 22px;
     white-space: nowrap;
 }
 .menu-container {
     display: flex;
     margin-right: 20px;
+    margin-top: 38px;
     a, .menu {
         color: $gold;
         font-size: 14px;
@@ -181,7 +183,7 @@ input{
         border-bottom: 12px solid rgba(19, 18, 18, 0.9);
         position: absolute;
         top: -11px;
-        left: 129px;
+        left: 119px;
     }
     .dropdown-menu-arrow::before{
         content: "";
@@ -192,7 +194,7 @@ input{
         border-bottom: 12px solid #ab0395;
         position: absolute;
         top: -12px;
-        left: 129px;
+        left: 119px;
     }
 }
 .mobile-input {

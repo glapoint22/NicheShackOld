@@ -23,12 +23,12 @@
                     Please enter a valid email address.
                 </div>
             </ng-template>
-            <input class="dark" required email [(ngModel)]="account.email" name="email" #email="ngModel" autocomplete="off">
+            <input class="dark" required email [(ngModel)]="account.email" name="email" #email="ngModel">
 
             <!-- Password -->
             <div *ngIf="valid(password); else invalidPassword" class="caption" style="display: inline-block;">Password:
             </div>
-            <a routerLink="/forgot-password" class="gold-link">Forgot your password?</a>
+            <a tabindex="10" routerLink="/forgot-password" class="gold-link">Forgot your password?</a>
 
             <!-- Invalid password -->
             <ng-template #invalidPassword>
@@ -37,13 +37,13 @@
                 </div>
             </ng-template>
             <input type="password" class="dark" required [(ngModel)]="account.password" name="password"
-                #password="ngModel" autocomplete="off">
+                #password="ngModel">
 
             <!-- Sign in button -->
             <button class="gold-button">Sign in</button>
 
             <div style="margin-left: 20px; margin-bottom: 20px;">
-                <checkbox [type]="'checkbox'" [label]="'Keep me signed in.'" (change)="onChange()"></checkbox>
+                <checkbox [type]="'checkbox'" [label]="'Keep me signed in.'" [checked]="true" (change)="keepSignedIn = !keepSignedIn"></checkbox>
             </div>
 
             <hr>

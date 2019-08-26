@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from 'src/app/components/page-not-found/page-not-found.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   {
@@ -14,7 +15,8 @@ const routes: Routes = [
   },
   {
     path: 'account',
-    loadChildren: () => import('./pages/account/account.module').then(m => m.AccountModule)
+    loadChildren: () => import('./pages/account/account.module').then(m => m.AccountModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'contact',

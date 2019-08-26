@@ -35,7 +35,7 @@ export class DataService {
 
   handleError() {
     return (error) => {
-      if (error.status != 409) {
+      if (error.status != 409 && error.status != 401) {
         // showError
         this.isError = true;
       }

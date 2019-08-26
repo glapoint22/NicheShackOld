@@ -42,13 +42,13 @@
     </div>
 
     <div>
-        <div class="customer-name">Hello, Zorioth</div>
+        <div *ngIf="customerName" class="customer-name">Hello, {{customerName}}</div>
         <div class="menu-container">
             <div class="account-container">
 
                 <div class="menu arrow">Account</div>
                 <div class="dropdown-menu dropdown-menu-arrow">
-                    <a routerLink="/sign-in">
+                    <a *ngIf="!isLoggedIn" routerLink="/sign-in">
                         <i class="fas fa-sign-in-alt"></i>
                         <span>Sign In</span>
                     </a>
@@ -68,11 +68,11 @@
                         <i class="fas fa-envelope"></i>
                         <span>Your Email Preferences</span>
                     </a>
-                    <a routerLink="/sign-in">
+                    <a *ngIf="isLoggedIn" routerLink="/sign-in" (click)="onSignOut()">
                         <i class="fas fa-sign-out-alt"></i>
                         <span>Sign Out</span>
                     </a>
-                    <a routerLink="/create-account">
+                    <a *ngIf="!isLoggedIn" routerLink="/create-account">
                         <i class="fas fa-user-plus"></i>
                         <span>Create Account</span>
                     </a>

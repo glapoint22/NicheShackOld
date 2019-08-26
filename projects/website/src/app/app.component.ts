@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 import { DataService } from 'src/app/services/data/data.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,14 +9,13 @@ import { DataService } from 'src/app/services/data/data.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private cookieService: CookieService, public dataService: DataService) { }
+  constructor(public dataService: DataService, private authService: AuthService) { }
 
   ngOnInit() {
-    // if (!this.cookieService.check('_session')) {
-    //   this.cookieService.set('_session', '');
-    //   this.dataService.get('api/Customers/Session').subscribe((response) => {
-    //     response;
-    //   });
-    // }
+    let token = this.authService.getToken();
+
+    if (token) {
+      this.authService.setToken(token);
+    }
   }
 } 

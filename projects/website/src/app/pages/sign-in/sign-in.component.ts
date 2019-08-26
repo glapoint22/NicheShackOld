@@ -3,6 +3,8 @@ import { ValidationPage } from '../validation-page/Validation-page';
 import { Title, Meta } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
+import { DataService } from 'src/app/services/data/data.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'sign-in',
@@ -12,13 +14,16 @@ import { Router } from '@angular/router';
 export class SignInComponent extends ValidationPage implements OnInit {
   public account: any = {}
   public isError: boolean;
+  public keepSignedIn: boolean = true;
 
   constructor(
     titleService: Title,
     metaService: Meta,
     @Inject(DOCUMENT) document,
     @Inject(PLATFORM_ID) platformId: Object,
-    public router: Router) {
+    public router: Router,
+    private dataService: DataService,
+    private authService: AuthService) {
     super(titleService, metaService, document, platformId);
   }
 
@@ -29,15 +34,21 @@ export class SignInComponent extends ValidationPage implements OnInit {
   }
 
   submitData(): void {
-    this.isError = true;
-    if(!this.isError) this.router.navigate(['']);
+    this.dataService.post('api/Account/SignIn', this.account)
+      .subscribe(response => {
+        this.authService.setToken(response);
+        this.authService.saveToken(response, this.keepSignedIn);
+        
+        this.router.navigate([this.authService.redirectUrl]);
+      },
+        error => {
+          if (error.status == 401) this.isError = true;
+        });
   }
 
-  onChange(){
+  
 
-  }
-
-  onCreateAccountClick(){
+  onCreateAccountClick() {
     this.router.navigate(['/create-account']);
   }
 

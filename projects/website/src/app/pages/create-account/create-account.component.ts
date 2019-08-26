@@ -36,12 +36,14 @@ export class CreateAccountComponent extends ValidationPage implements OnInit {
     this.dataService.post('api/Account/Register', this.account)
       .subscribe(response => {
       },
-      response => {
-        this.errors = [];
-        Object.keys(response.error).forEach(key => {
-          this.errors.push(response.error[key][0])
+        response => {
+          if (response.status == 409) {
+            this.errors = [];
+            Object.keys(response.error).forEach(key => {
+              this.errors.push(response.error[key][0])
+            });
+          }
         });
-      });
   }
 
   onSignInClick() {
