@@ -11,7 +11,7 @@ export class AuthGuard implements CanLoad, CanActivate {
   constructor(private router: Router, private authService: AuthService) { }
 
   canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
-    if (this.authService.isLoggedIn) {
+    if (this.authService.isSignedIn) {
       return true;
     }
 
@@ -26,7 +26,7 @@ export class AuthGuard implements CanLoad, CanActivate {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    if (this.authService.isLoggedIn) {
+    if (this.authService.isSignedIn) {
       return true;
     }
 

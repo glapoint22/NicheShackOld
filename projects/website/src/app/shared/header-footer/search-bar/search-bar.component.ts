@@ -19,7 +19,7 @@ export class SearchBarComponent implements OnInit {
   private queryParams: any;
   private searchWord: string;
   public suggestionClicked: boolean;
-  public isLoggedIn: boolean;
+  public isSignedIn: boolean;
   public customerName: string;
   @ViewChild('tmpSelect', { static: true }) tmpSelect: ElementRef;
   @ViewChild('select', { static: true }) select: ElementRef;
@@ -38,8 +38,11 @@ export class SearchBarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.isLoggedIn = this.authService.isLoggedIn;
-    this.customerName = this.authService.customerName;
+    // Is customer signed in
+    this.isSignedIn = this.authService.isSignedIn;
+
+    // Get the customer's first name if signed in
+    if (this.isSignedIn) this.customerName = this.authService.subject.firstName;
 
     this.route.queryParamMap.subscribe(queryParams => {
       this.queryParams = queryParams;
@@ -182,7 +185,7 @@ export class SearchBarComponent implements OnInit {
     }, 1);
   }
 
-  onSignOut(){
+  onSignOut() {
     this.authService.removeToken();
   }
 }

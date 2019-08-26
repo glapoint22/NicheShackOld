@@ -4,6 +4,8 @@ import { Title, Meta } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
 import { DataService } from 'src/app/services/data/data.service';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { AuthSubject } from 'src/app/classes/auth-subject';
 
 @Component({
   selector: 'change-email',
@@ -14,6 +16,7 @@ export class ChangeEmailComponent extends ValidationPage implements OnInit {
   public newEmail: string;
   public oldEmail: string
   public reEnteredEmail: string;
+  public isUnauthorized: boolean;
 
   constructor(
     titleService: Title,
@@ -21,7 +24,9 @@ export class ChangeEmailComponent extends ValidationPage implements OnInit {
     @Inject(DOCUMENT) document,
     @Inject(PLATFORM_ID) platformId: Object,
     public router: Router,
-    private dataService: DataService) {
+    private dataService: DataService,
+    private authService: AuthService
+  ) {
     super(titleService, metaService, document, platformId);
   }
 
@@ -30,8 +35,8 @@ export class ChangeEmailComponent extends ValidationPage implements OnInit {
     this.share = false;
     super.ngOnInit();
 
-    this.oldEmail = 'glapoint22@gmail.com';
-    this.newEmail = 'glapoint22@gmail.com';
+    this.oldEmail = this.authService.subject.email;
+     
   }
 
   onSubmit() {
@@ -42,7 +47,16 @@ export class ChangeEmailComponent extends ValidationPage implements OnInit {
   }
 
   submitData(): void {
-    this.dataService.data.hasChanges = true;
-    this.router.navigate(['account', 'profile']);
+    this.dataService.put('api/Account/UpdateEmail', {oldEmail: this.oldEmail, newEmail: this.newEmail})
+      .subscribe((subject: AuthSubject) => {
+        this.authService.updateSubject(subject);
+        this.dataService.data.hasChanges = true;
+        this.router.navigate(['account', 'profile']);
+      },
+      error => {
+        if(error.status == 401){
+          this.isUnauthorized = true;
+        }
+      });
   }
 }

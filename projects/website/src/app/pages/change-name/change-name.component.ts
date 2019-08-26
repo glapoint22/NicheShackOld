@@ -4,6 +4,8 @@ import { Title, Meta } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data/data.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { AuthSubject } from 'src/app/classes/auth-subject';
 
 @Component({
   selector: 'change-name',
@@ -12,6 +14,7 @@ import { DataService } from 'src/app/services/data/data.service';
 })
 export class ChangeNameComponent extends ValidationPage implements OnInit {
   public account: any;
+  public isUnauthorized: boolean;
 
   constructor(
     titleService: Title,
@@ -19,7 +22,9 @@ export class ChangeNameComponent extends ValidationPage implements OnInit {
     @Inject(DOCUMENT) document,
     @Inject(PLATFORM_ID) platformId: Object,
     public router: Router,
-    private dataService: DataService) {
+    private dataService: DataService,
+    private authService: AuthService
+  ) {
     super(titleService, metaService, document, platformId);
   }
 
@@ -29,13 +34,24 @@ export class ChangeNameComponent extends ValidationPage implements OnInit {
     super.ngOnInit();
 
     this.account = {
-      firstName: 'Gabe',
-      lastName: 'LaPoint'
+      firstName: this.authService.subject.firstName,
+      lastName: this.authService.subject.lastName,
+      email: this.authService.subject.email
     }
   }
 
   submitData(): void {
-    this.dataService.data.hasChanges = true;
-    this.router.navigate(['account', 'profile']);
+    this.dataService.put('api/Account/UpdateName', this.account)
+      .subscribe((subject: AuthSubject) => {
+        this.authService.updateSubject(subject);
+        this.dataService.data.hasChanges = true;
+        this.router.navigate(['account', 'profile']);
+      },
+      error => {
+        if(error.status == 401){
+          this.isUnauthorized = true;
+        }
+      });
+
   }
 }

@@ -4,6 +4,7 @@ import { Title, Meta } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data/data.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'profile',
@@ -19,7 +20,8 @@ export class ProfileComponent extends Page implements OnInit {
     metaService: Meta,
     @Inject(DOCUMENT) document,
     private router: Router,
-    private dataService: DataService) {
+    private dataService: DataService,
+    private authService: AuthService) {
     super(titleService, metaService, document);
   }
 
@@ -32,9 +34,9 @@ export class ProfileComponent extends Page implements OnInit {
     this.dataService.data = {};
 
     this.profile = {
-      firstName: 'Gabe',
-      lastName: 'LaPoint',
-      email: 'glapoint22@gmail.com'
+      firstName: this.authService.subject.firstName,
+      lastName: this.authService.subject.lastName,
+      email: this.authService.subject.email
     }
   }
 

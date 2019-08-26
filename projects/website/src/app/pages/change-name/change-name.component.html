@@ -3,17 +3,24 @@
   <search-bar></search-bar>
 
   <div class="container">
-      <!-- Breadcrumb -->
-      <div class="breadcrumb-container">
-          <a routerLink="/account">Your Account</a>
-          <i class="fas fa-caret-right" style="margin: 0 10px;"></i>
-          <a routerLink="/account/profile">Profile</a>
-          <i class="fas fa-caret-right" style="margin: 0 10px;"></i>
-          <span class="path">Change Name</span>
-      </div>
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-container">
+      <a routerLink="/account">Your Account</a>
+      <i class="fas fa-caret-right" style="margin: 0 10px;"></i>
+      <a routerLink="/account/profile">Profile</a>
+      <i class="fas fa-caret-right" style="margin: 0 10px;"></i>
+      <span class="path">Change Name</span>
+    </div>
 
     <!-- Logo -->
     <img src="assets/Logo.png" routerLink="">
+
+    <div *ngIf="isUnauthorized" class="warning">
+      <i class="fas fa-exclamation-triangle"></i>
+      <div class="warning-text">
+        You are not authorized to make this request.
+      </div>
+    </div>
 
     <form (ngSubmit)="onSubmit()" #form="ngForm">
       <div class="form-title">Change Name</div>
