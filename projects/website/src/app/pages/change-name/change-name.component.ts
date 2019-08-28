@@ -48,7 +48,7 @@ export class ChangeNameComponent extends ValidationPage implements OnInit {
       },
       error => {
         if(error.status == 401){
-          this.authService.removeToken();
+          this.authService.removeTokenData();
           this.router.navigate(['sign-in']);
         }
       });

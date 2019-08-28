@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AuthSubject } from 'src/app/classes/auth-subject';
+import { DataService } from '../data/data.service';
 import { HttpHeaders } from '@angular/common/http';
+import { TokenData } from 'src/app/classes/token-data';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +13,8 @@ export class AuthService {
   public refreshToken: string;
   public refreshTokenExpires: string;
   public subject: AuthSubject;
+  public safeToRunApp: boolean;
+  private tokenRefreshTimerHandle: number;
 
   // isSignedIn
   public get isSignedIn(): boolean {
@@ -37,21 +41,10 @@ export class AuthService {
   }
 
 
-  // authorizationHeader
-  private _authorizationHeader: HttpHeaders;
-  public get authorizationHeader(): HttpHeaders {
-    this._authorizationHeader = new HttpHeaders({
-      'Authorization': 'Bearer ' + this.token
-    });
-    return this._authorizationHeader;
-  }
-  public set authorizationHeader(v: HttpHeaders) {
-    this._authorizationHeader = v;
-  }
+  constructor(private dataService: DataService) { }
 
 
-
-  saveToken(tokenData: any, keepSignedIn: boolean) {
+  private saveToken(tokenData: TokenData, keepSignedIn: boolean) {
     if (keepSignedIn) {
       localStorage.setItem('token', JSON.stringify(tokenData));
     } else {
@@ -62,15 +55,18 @@ export class AuthService {
   }
 
 
-  setToken(tokenData: any) {
+  public setTokenData(tokenData: TokenData) {
     this.token = tokenData.token;
     this.tokenExpires = tokenData.tokenExpires;
     this.refreshToken = tokenData.refreshToken;
     this.refreshTokenExpires = tokenData.refreshTokenExpires;
     this.subject = tokenData.subject;
+    this.dataService.authorizationHeader = new HttpHeaders({
+      'Authorization': 'Bearer ' + this.token
+    });
   }
 
-  getStoredToken() {
+  public getStoredTokenData(): TokenData {
     let token;
 
     token = sessionStorage.getItem('token');
@@ -83,22 +79,54 @@ export class AuthService {
     return JSON.parse(token);
   }
 
-  removeToken() {
+  public removeTokenData() {
     localStorage.removeItem('token');
     sessionStorage.removeItem('token');
-    this.subject = null;
     this.token = null;
+    this.tokenExpires = null;
+    this.refreshToken = null;
+    this.refreshTokenExpires = null;
+    this.subject = null;
+    this.dataService.authorizationHeader = null;
+    window.clearTimeout(this.tokenRefreshTimerHandle);
   }
 
-  updateSubject(subject: AuthSubject) {
-    let tokenData = this.getStoredToken();
+  public updateSubject(subject: AuthSubject) {
+    let tokenData = this.getStoredTokenData();
     tokenData.subject = subject;
 
-    this.updateToken(tokenData);
+    this.updateTokenData(tokenData);
   }
 
-  updateToken(tokenData){
-    this.setToken(tokenData);
-    this.saveToken(tokenData, localStorage["token"] != null);
+  public updateTokenData(tokenData: TokenData, keepSignedIn: boolean = localStorage["token"] != null) {
+    this.setTokenData(tokenData);
+    this.saveToken(tokenData, keepSignedIn);
+  }
+
+  public startTokenRefreshTimer() {
+    let milliseconds = new Date(this.tokenExpires).valueOf() - new Date().valueOf();
+
+    this.tokenRefreshTimerHandle = window.setTimeout(() => {
+      this.dataService.post('api/Account/Refresh', {
+        token: this.token,
+        refreshToken: this.refreshToken
+      })
+        .subscribe((tokenData: TokenData) => {
+          this.safeToRunApp = true;
+
+          if (tokenData != null) {
+            // Update the token data and restart the refresh timer
+            this.updateTokenData(tokenData);
+            this.startTokenRefreshTimer();
+          } else {
+            this.removeTokenData();
+          }
+
+        });
+    }, milliseconds);
+  }
+
+  public isTokenExpired(tokenExpires: string) {
+    return new Date(tokenExpires).valueOf() < new Date().valueOf();
   }
 }

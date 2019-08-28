@@ -5,6 +5,7 @@ import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data/data.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { TokenData } from 'src/app/classes/token-data';
 
 @Component({
   selector: 'sign-in',
@@ -37,10 +38,10 @@ export class SignInComponent extends ValidationPage implements OnInit {
 
   submitData(): void {
     this.dataService.post('api/Account/SignIn', this.account)
-      .subscribe(response => {
-        this.authService.setToken(response);
-        this.authService.saveToken(response, this.keepSignedIn);
-        this.dataService.setTokenRefreshTime();
+      .subscribe((tokenData: TokenData) => {
+        // Update the auth token with the new token data and start the countdown for the next refresh of the token
+        this.authService.updateTokenData(tokenData, this.keepSignedIn)
+        this.authService.startTokenRefreshTimer();
         
         this.router.navigate([this.redirectUrl]);
       },

@@ -186,6 +186,6 @@ export class SearchBarComponent implements OnInit {
   }
 
   onSignOut() {
-    this.authService.removeToken();
+    this.authService.removeTokenData();
   }
 }
