@@ -6,7 +6,10 @@ import { HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class AuthService {
-  private token: string;
+  public token: string;
+  public tokenExpires: string;
+  public refreshToken: string;
+  public refreshTokenExpires: string;
   public subject: AuthSubject;
 
   // isSignedIn
@@ -35,23 +38,25 @@ export class AuthService {
 
 
   // authorizationHeader
-  private _authorizationHeader : HttpHeaders;
-  public get authorizationHeader() : HttpHeaders {
+  private _authorizationHeader: HttpHeaders;
+  public get authorizationHeader(): HttpHeaders {
     this._authorizationHeader = new HttpHeaders({
       'Authorization': 'Bearer ' + this.token
     });
     return this._authorizationHeader;
   }
-  public set authorizationHeader(v : HttpHeaders) {
+  public set authorizationHeader(v: HttpHeaders) {
     this._authorizationHeader = v;
   }
-  
+
 
 
   saveToken(tokenData: any, keepSignedIn: boolean) {
     if (keepSignedIn) {
       localStorage.setItem('token', JSON.stringify(tokenData));
     } else {
+      // Just in case token is in local storage, remove it
+      localStorage.removeItem('token');
       sessionStorage.setItem('token', JSON.stringify(tokenData));
     }
   }
@@ -59,10 +64,13 @@ export class AuthService {
 
   setToken(tokenData: any) {
     this.token = tokenData.token;
+    this.tokenExpires = tokenData.tokenExpires;
+    this.refreshToken = tokenData.refreshToken;
+    this.refreshTokenExpires = tokenData.refreshTokenExpires;
     this.subject = tokenData.subject;
   }
 
-  getToken() {
+  getStoredToken() {
     let token;
 
     token = sessionStorage.getItem('token');
@@ -83,10 +91,14 @@ export class AuthService {
   }
 
   updateSubject(subject: AuthSubject) {
-    let token = this.getToken();
-    token.subject = subject;
+    let tokenData = this.getStoredToken();
+    tokenData.subject = subject;
 
-    this.setToken(token);
-    this.saveToken(token, localStorage["token"] != null);
+    this.updateToken(tokenData);
+  }
+
+  updateToken(tokenData){
+    this.setToken(tokenData);
+    this.saveToken(tokenData, localStorage["token"] != null);
   }
 }

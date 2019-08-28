@@ -44,4 +44,19 @@ export class DataService {
       return throwError(error);
     }
   }
+
+  setTokenRefreshTime() {
+    let milliseconds = new Date(this.authService.tokenExpires).valueOf() - new Date().valueOf();
+
+    window.setTimeout(() => {
+      this.post('api/Account/Refresh', {
+        token: this.authService.token,
+        refreshToken: this.authService.refreshToken
+      })
+        .subscribe(response => {
+          this.authService.updateToken(response);
+          this.setTokenRefreshTime();
+        });
+    }, milliseconds);
+  }
 }

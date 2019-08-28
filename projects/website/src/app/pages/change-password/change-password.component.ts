@@ -15,7 +15,6 @@ export class ChangePasswordComponent extends ValidationPage implements OnInit {
   public currentPassword: string;
   public newPassword: string;
   public reEnteredPassword: string;
-  public isUnauthorized: boolean;
 
   constructor(
     titleService: Title,
@@ -48,7 +47,8 @@ export class ChangePasswordComponent extends ValidationPage implements OnInit {
           this.form.controls['currentPassword'].setErrors({ incorrectPassword: true });
           this.onSubmit();
         } else if (error.status == 401) {
-          this.isUnauthorized = true;
+          this.authService.removeToken();
+          this.router.navigate(['sign-in']);
         }
       });
   }

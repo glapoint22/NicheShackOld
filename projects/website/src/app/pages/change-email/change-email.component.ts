@@ -16,7 +16,6 @@ export class ChangeEmailComponent extends ValidationPage implements OnInit {
   public newEmail: string;
   public oldEmail: string
   public reEnteredEmail: string;
-  public isUnauthorized: boolean;
 
   constructor(
     titleService: Title,
@@ -55,7 +54,8 @@ export class ChangeEmailComponent extends ValidationPage implements OnInit {
       },
       error => {
         if(error.status == 401){
-          this.isUnauthorized = true;
+          this.authService.removeToken();
+          this.router.navigate(['sign-in']);
         }
       });
   }

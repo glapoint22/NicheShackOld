@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
   constructor(public dataService: DataService, private authService: AuthService) { }
 
   ngOnInit() {
-    let token = this.authService.getToken();
+    let token = this.authService.getStoredToken();
 
     if (token) {
       this.authService.setToken(token);

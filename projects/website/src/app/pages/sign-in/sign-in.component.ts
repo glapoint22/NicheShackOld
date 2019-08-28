@@ -15,6 +15,7 @@ export class SignInComponent extends ValidationPage implements OnInit {
   public account: any = {}
   public isError: boolean;
   public keepSignedIn: boolean = true;
+  private redirectUrl: string;
 
   constructor(
     titleService: Title,
@@ -30,6 +31,7 @@ export class SignInComponent extends ValidationPage implements OnInit {
   ngOnInit() {
     this.title = 'Sign In';
     this.share = false;
+    this.redirectUrl = this.authService.redirectUrl;
     super.ngOnInit();
   }
 
@@ -38,8 +40,9 @@ export class SignInComponent extends ValidationPage implements OnInit {
       .subscribe(response => {
         this.authService.setToken(response);
         this.authService.saveToken(response, this.keepSignedIn);
+        this.dataService.setTokenRefreshTime();
         
-        this.router.navigate([this.authService.redirectUrl]);
+        this.router.navigate([this.redirectUrl]);
       },
         error => {
           if (error.status == 401) this.isError = true;

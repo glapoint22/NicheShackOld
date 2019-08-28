@@ -15,13 +15,6 @@
         <!-- Logo -->
         <img src="assets/Logo.png" routerLink="">
 
-        <div *ngIf="isUnauthorized" class="warning">
-            <i class="fas fa-exclamation-triangle"></i>
-            <div class="warning-text">
-              You are not authorized to make this request.
-            </div>
-          </div>
-
         <form (ngSubmit)="onSubmit()" #form="ngForm" [matchValue]="['newEmail', 'reEnteredEmail']">
             <div class="form-title">Change Email</div>
 
