@@ -61,9 +61,9 @@ export class AuthService {
     this.refreshToken = tokenData.refreshToken;
     this.refreshTokenExpires = tokenData.refreshTokenExpires;
     this.subject = tokenData.subject;
-    this.dataService.authorizationHeader = new HttpHeaders({
-      'Authorization': 'Bearer ' + this.token
-    });
+    // this.dataService.authorizationHeader = new HttpHeaders({
+    //   'Authorization': 'Bearer ' + this.token
+    // });
   }
 
   public getStoredTokenData(): TokenData {

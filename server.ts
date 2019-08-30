@@ -49,7 +49,7 @@ app.set('views', DIST_FOLDER);
 
 app.use(
   '/api',
-  proxy('/api', { target: 'http://localhost:81' })
+  proxy('/api', { target: 'http://localhost:49459' })
 );
 
 // app.use(

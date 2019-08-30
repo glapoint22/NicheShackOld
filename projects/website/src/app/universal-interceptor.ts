@@ -12,17 +12,36 @@ export class UniversalInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     let serverReq: HttpRequest<any> = req;
+    let cookie: any = {};
+    let authorization: string = '';
+
+
     if (this.request) {
       let newUrl = `${this.request.protocol}://${this.request.get('host')}`;
       if (!req.url.startsWith('/')) {
         newUrl += '/';
       }
 
+      if (this.request.headers.cookie) {
+        let token: string;
+        let regEx = new RegExp(/(?:auth)=([A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*)/, 'g');
+        let results = regEx.exec(this.request.headers.cookie);
+        if (results) token = results[1];
+
+        if (token) {
+          authorization = 'Bearer ' + token;
+        }
+
+        cookie = this.request.headers.cookie;
+      }
+
+
       newUrl += req.url;
       serverReq = req.clone({
         url: newUrl,
         headers: new HttpHeaders({
-          cookie: this.request.headers.cookie ? this.request.headers.cookie : {}
+          cookie: cookie,
+          Authorization: authorization
         })
       });
     }
