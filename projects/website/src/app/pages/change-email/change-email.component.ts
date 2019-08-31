@@ -14,7 +14,6 @@ import { AuthSubject } from 'src/app/classes/auth-subject';
 })
 export class ChangeEmailComponent extends ValidationPage implements OnInit {
   public newEmail: string;
-  public oldEmail: string
   public reEnteredEmail: string;
 
   constructor(
@@ -24,7 +23,7 @@ export class ChangeEmailComponent extends ValidationPage implements OnInit {
     @Inject(PLATFORM_ID) platformId: Object,
     public router: Router,
     private dataService: DataService,
-    private authService: AuthService
+    public authService: AuthService
   ) {
     super(titleService, metaService, document, platformId);
   }
@@ -34,7 +33,6 @@ export class ChangeEmailComponent extends ValidationPage implements OnInit {
     this.share = false;
     super.ngOnInit();
 
-    this.oldEmail = this.authService.subject.email;
      
   }
 
@@ -46,7 +44,7 @@ export class ChangeEmailComponent extends ValidationPage implements OnInit {
   }
 
   submitData(): void {
-    this.dataService.put('api/Account/UpdateEmail', {oldEmail: this.oldEmail, newEmail: this.newEmail})
+    this.dataService.put('api/Account/UpdateEmail', {oldEmail: this.authService.subject.email, newEmail: this.newEmail})
       .subscribe((subject: AuthSubject) => {
         this.authService.updateSubject(subject);
         this.dataService.data.hasChanges = true;
@@ -54,7 +52,7 @@ export class ChangeEmailComponent extends ValidationPage implements OnInit {
       },
       error => {
         if(error.status == 401){
-          this.authService.removeTokenData();
+          this.authService.signOut();
           this.router.navigate(['sign-in']);
         }
       });

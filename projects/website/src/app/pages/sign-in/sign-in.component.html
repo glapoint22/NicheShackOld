@@ -43,7 +43,7 @@
             <button class="gold-button">Sign in</button>
 
             <div style="margin-left: 20px; margin-bottom: 20px;">
-                <checkbox [type]="'checkbox'" [label]="'Keep me signed in.'" [checked]="true" (change)="keepSignedIn = !keepSignedIn"></checkbox>
+                <checkbox [type]="'checkbox'" [label]="'Keep me signed in.'" [checked]="account.isPersistent" (change)="account.isPersistent = !account.isPersistent"></checkbox>
             </div>
 
             <hr>

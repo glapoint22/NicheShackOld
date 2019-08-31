@@ -1,5 +1,3 @@
-<!-- <div *ngIf="authService.safeToRunApp"> -->
-    <router-outlet *ngIf="!dataService.isError && !dataService.notFound"></router-outlet>
-    <error *ngIf="dataService.isError"></error>
-    <page-not-found *ngIf="dataService.notFound"></page-not-found>
-<!-- </div> -->
+<router-outlet *ngIf="!dataService.isError && !dataService.notFound"></router-outlet>
+<error *ngIf="dataService.isError"></error>
+<page-not-found *ngIf="dataService.notFound"></page-not-found>

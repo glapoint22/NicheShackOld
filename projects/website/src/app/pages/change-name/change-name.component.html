@@ -16,7 +16,7 @@
     <img src="assets/Logo.png" routerLink="">
 
 
-    <form (ngSubmit)="onSubmit()" #form="ngForm">
+    <form *ngIf="this.authService.subject" (ngSubmit)="onSubmit()" #form="ngForm">
       <div class="form-title">Change Name</div>
 
       <!-- First Name -->
@@ -28,7 +28,7 @@
           Please provide a first name.
         </div>
       </ng-template>
-      <input class="dark" required [(ngModel)]="account.firstName" name="firstName" #firstName="ngModel"
+      <input class="dark" required [(ngModel)]="authService.subject.firstName" name="firstName" #firstName="ngModel"
         autocomplete="off">
 
       <!-- Last Name -->
@@ -40,7 +40,7 @@
           Please provide a last name.
         </div>
       </ng-template>
-      <input class="dark" required [(ngModel)]="account.lastName" name="lastName" #lastName="ngModel"
+      <input class="dark" required [(ngModel)]="authService.subject.lastName" name="lastName" #lastName="ngModel"
         autocomplete="off">
 
       <!-- Save button -->

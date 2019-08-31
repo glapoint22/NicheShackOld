@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -11,7 +11,6 @@ export class DataService {
   public isError: boolean;
   public notFound: boolean;
   public categories: Array<any> = [];
-  public authorizationHeader : HttpHeaders;
 
   constructor(private http: HttpClient) { }
 
@@ -22,16 +21,16 @@ export class DataService {
     if (parameters) parameters.forEach(x => params = params.set(x.key, x.value));
 
     //Get the data
-    return this.http.get(url, { params: params, headers: this.authorizationHeader }).pipe(catchError(this.handleError()));
+    return this.http.get(url, { params: params }).pipe(catchError(this.handleError()));
   }
 
 
   post(url: string, body: any) {
-    return this.http.post(url, body, { headers: this.authorizationHeader }).pipe(catchError(this.handleError()));
+    return this.http.post(url, body).pipe(catchError(this.handleError()));
   }
 
   put(url: string, body: any) {
-    return this.http.put(url, body, { headers: this.authorizationHeader }).pipe(catchError(this.handleError()));
+    return this.http.put(url, body).pipe(catchError(this.handleError()));
   }
 
   handleError() {

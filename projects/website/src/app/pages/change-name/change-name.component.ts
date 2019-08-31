@@ -13,7 +13,7 @@ import { AuthSubject } from 'src/app/classes/auth-subject';
   styleUrls: ['../validation-page/validation-page.scss']
 })
 export class ChangeNameComponent extends ValidationPage implements OnInit {
-  public account: any;
+  // public account: any;
 
   constructor(
     titleService: Title,
@@ -22,7 +22,7 @@ export class ChangeNameComponent extends ValidationPage implements OnInit {
     @Inject(PLATFORM_ID) platformId: Object,
     public router: Router,
     private dataService: DataService,
-    private authService: AuthService
+    public authService: AuthService
   ) {
     super(titleService, metaService, document, platformId);
   }
@@ -32,15 +32,15 @@ export class ChangeNameComponent extends ValidationPage implements OnInit {
     this.share = false;
     super.ngOnInit();
 
-    this.account = {
-      firstName: this.authService.subject.firstName,
-      lastName: this.authService.subject.lastName,
-      email: this.authService.subject.email
-    }
+    // this.account = {
+    //   firstName: this.authService.subject.firstName,
+    //   lastName: this.authService.subject.lastName,
+    //   email: this.authService.subject.email
+    // }
   }
 
   submitData(): void {
-    this.dataService.put('api/Account/UpdateName', this.account)
+    this.dataService.put('api/Account/UpdateName', this.authService.subject)
       .subscribe((subject: AuthSubject) => {
         this.authService.updateSubject(subject);
         this.dataService.data.hasChanges = true;
@@ -48,7 +48,7 @@ export class ChangeNameComponent extends ValidationPage implements OnInit {
       },
       error => {
         if(error.status == 401){
-          this.authService.removeTokenData();
+          this.authService.signOut();
           this.router.navigate(['sign-in']);
         }
       });

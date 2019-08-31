@@ -47,7 +47,7 @@ export class ChangePasswordComponent extends ValidationPage implements OnInit {
           this.form.controls['currentPassword'].setErrors({ incorrectPassword: true });
           this.onSubmit();
         } else if (error.status == 401) {
-          this.authService.removeTokenData();
+          this.authService.signOut();
           this.router.navigate(['sign-in']);
         }
       });

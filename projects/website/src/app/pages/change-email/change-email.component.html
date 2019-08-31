@@ -15,12 +15,12 @@
         <!-- Logo -->
         <img src="assets/Logo.png" routerLink="">
 
-        <form (ngSubmit)="onSubmit()" #form="ngForm" [matchValue]="['newEmail', 'reEnteredEmail']">
+        <form *ngIf="this.authService.subject" (ngSubmit)="onSubmit()" #form="ngForm" [matchValue]="['newEmail', 'reEnteredEmail']">
             <div class="form-title">Change Email</div>
 
             <!-- Old email -->
             <div class="caption">Old email:</div>
-            <input class="old-email" [(ngModel)]="oldEmail" name="oldEmail" #oldEmailAddress="ngModel"
+            <input class="old-email" [(ngModel)]="authService.subject.email" name="oldEmail" #oldEmailAddress="ngModel"
                 autocomplete="off" disabled>
 
             <!-- New email -->

@@ -19,8 +19,6 @@ export class SearchBarComponent implements OnInit {
   private queryParams: any;
   private searchWord: string;
   public suggestionClicked: boolean;
-  public isSignedIn: boolean;
-  public customerName: string;
   @ViewChild('tmpSelect', { static: true }) tmpSelect: ElementRef;
   @ViewChild('select', { static: true }) select: ElementRef;
   @ViewChild('search', { static: true }) search: ElementRef;
@@ -40,7 +38,6 @@ export class SearchBarComponent implements OnInit {
   ngOnInit() {
     // Is customer signed in
     // this.isSignedIn = this.authService.isSignedIn;
-    this.isSignedIn = true;
 
     // Get the customer's first name if signed in
     // if (this.isSignedIn) this.customerName = this.authService.subject.firstName;
@@ -187,6 +184,6 @@ export class SearchBarComponent implements OnInit {
   }
 
   onSignOut() {
-    this.authService.removeTokenData();
+    this.authService.signOut();
   }
 }

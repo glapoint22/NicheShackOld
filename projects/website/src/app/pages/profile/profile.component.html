@@ -23,7 +23,7 @@
         <div class="property-container">
             <div class="data-container">
                 <div class="caption">Name:</div>
-                <div class="value">{{profile.firstName}} {{profile.lastName}}</div>
+                <div *ngIf="this.authService.subject" class="value">{{this.authService.subject.firstName}} {{this.authService.subject.lastName}}</div>
             </div>
             <button class="gray-button" (click)="navigate('account/profile/change-name')">Edit</button>
         </div>
@@ -33,7 +33,7 @@
         <div class="property-container">
             <div class="data-container">
                 <div class="caption">Email:</div>
-                <div class="value">{{profile.email}}</div>
+                <div *ngIf="this.authService.subject" class="value">{{this.authService.subject.email}}</div>
             </div>
             <button class="gray-button" (click)="navigate('account/profile/change-email')">Edit</button>
         </div>

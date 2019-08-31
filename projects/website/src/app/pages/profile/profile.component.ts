@@ -12,7 +12,6 @@ import { AuthService } from 'src/app/services/auth/auth.service';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent extends Page implements OnInit {
-  public profile: any;
   public hasChanges: boolean;
 
   constructor(
@@ -21,7 +20,7 @@ export class ProfileComponent extends Page implements OnInit {
     @Inject(DOCUMENT) document,
     private router: Router,
     private dataService: DataService,
-    private authService: AuthService) {
+    public authService: AuthService) {
     super(titleService, metaService, document);
   }
 
@@ -30,14 +29,8 @@ export class ProfileComponent extends Page implements OnInit {
     this.share = false;
     super.ngOnInit();
 
-    this.hasChanges =this.dataService.data.hasChanges;
+    this.hasChanges = this.dataService.data.hasChanges;
     this.dataService.data = {};
-
-    this.profile = {
-      firstName: this.authService.subject.firstName,
-      lastName: this.authService.subject.lastName,
-      email: this.authService.subject.email
-    }
   }
 
   navigate(path: string) {

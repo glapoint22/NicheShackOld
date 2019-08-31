@@ -42,13 +42,13 @@
     </div>
 
     <div>
-        <div *ngIf="customerName" class="customer-name">Hello, {{customerName}}</div>
+        <div *ngIf="authService.accessToken" class="customer-name">Hello, {{authService.subject.firstName}}</div>
         <div class="menu-container">
             <div class="account-container">
 
                 <div class="menu arrow">Account</div>
                 <div class="dropdown-menu dropdown-menu-arrow">
-                    <a *ngIf="!isSignedIn" routerLink="/sign-in">
+                    <a *ngIf="!authService.accessToken" routerLink="/sign-in">
                         <i class="fas fa-sign-in-alt"></i>
                         <span>Sign In</span>
                     </a>
@@ -68,11 +68,11 @@
                         <i class="fas fa-envelope"></i>
                         <span>Your Email Preferences</span>
                     </a>
-                    <a *ngIf="isSignedIn" routerLink="/sign-in" (click)="onSignOut()">
+                    <a *ngIf="authService.accessToken" routerLink="/sign-in" (click)="onSignOut()">
                         <i class="fas fa-sign-out-alt"></i>
                         <span>Sign Out</span>
                     </a>
-                    <a *ngIf="!isSignedIn" routerLink="/create-account">
+                    <a *ngIf="!authService.accessToken" routerLink="/create-account">
                         <i class="fas fa-user-plus"></i>
                         <span>Create Account</span>
                     </a>
