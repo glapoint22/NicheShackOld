@@ -13,7 +13,7 @@ import { AuthSubject } from 'src/app/classes/auth-subject';
   styleUrls: ['../validation-page/validation-page.scss']
 })
 export class ChangeNameComponent extends ValidationPage implements OnInit {
-  // public account: any;
+  public subject: AuthSubject;
 
   constructor(
     titleService: Title,
@@ -31,27 +31,33 @@ export class ChangeNameComponent extends ValidationPage implements OnInit {
     this.title = 'Change Name';
     this.share = false;
     super.ngOnInit();
+  }
 
-    // this.account = {
-    //   firstName: this.authService.subject.firstName,
-    //   lastName: this.authService.subject.lastName,
-    //   email: this.authService.subject.email
-    // }
+  ngDoCheck() {
+    if (this.authService.subject) {
+      if (!this.subject) {
+        this.subject = {
+          firstName: this.authService.subject.firstName,
+          lastName: this.authService.subject.lastName,
+          email: this.authService.subject.email
+        }
+      }
+    }
   }
 
   submitData(): void {
-    this.dataService.put('api/Account/UpdateName', this.authService.subject)
+    this.dataService.put('api/Account/UpdateName', this.subject)
       .subscribe((subject: AuthSubject) => {
         this.authService.updateSubject(subject);
         this.dataService.data.hasChanges = true;
         this.router.navigate(['account', 'profile']);
       },
-      error => {
-        if(error.status == 401){
-          this.authService.signOut();
-          this.router.navigate(['sign-in']);
-        }
-      });
+        error => {
+          if (error.status == 401) {
+            this.authService.signOut();
+            this.router.navigate(['sign-in']);
+          }
+        });
 
   }
 }

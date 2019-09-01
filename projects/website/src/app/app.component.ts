@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.dataService
-      .get('api/Account/Init')
+      .get('api/Account/Refresh')
       .subscribe((tokenData: TokenData) => {
         if (tokenData) {
           this.authService.setTokenData(tokenData);

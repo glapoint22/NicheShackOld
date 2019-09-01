@@ -24,7 +24,7 @@ export class UniversalInterceptor implements HttpInterceptor {
 
       if (this.request.headers.cookie) {
         let token: string;
-        let regEx = new RegExp(/(?:auth)=([A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*)/, 'g');
+        let regEx = new RegExp(/(?:[a-zA-Z]+=)([A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*)/, 'g');
         let results = regEx.exec(this.request.headers.cookie);
         if (results) token = results[1];
 

@@ -19,6 +19,8 @@ export class SearchBarComponent implements OnInit {
   private queryParams: any;
   private searchWord: string;
   public suggestionClicked: boolean;
+  public firstName: string;
+  public isSignedIn: boolean;
   @ViewChild('tmpSelect', { static: true }) tmpSelect: ElementRef;
   @ViewChild('select', { static: true }) select: ElementRef;
   @ViewChild('search', { static: true }) search: ElementRef;
@@ -33,6 +35,15 @@ export class SearchBarComponent implements OnInit {
 
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) this.setSelectElementWidth();
+  }
+
+  ngDoCheck(){
+    if(this.authService.subject){
+      if(!this.firstName){
+        this.firstName = this.authService.subject.firstName;
+        this.isSignedIn = true;
+      }
+    }
   }
 
   ngOnInit() {

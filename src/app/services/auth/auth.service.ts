@@ -10,23 +10,13 @@ export class AuthService {
   // Token Data
   private tokenData: TokenData;
 
-  // Access Token
-  public get accessToken(): string {
-    if (!this.tokenData) return null;
-    return this.tokenData.accessToken;
-  }
 
   // Access Token Expiration
-  public get accessTokenExpiration(): string {
+  private get accessTokenExpiration(): string {
     if (!this.tokenData) return null;
     return this.tokenData.accessTokenExpiration;
   }
 
-  // Refresh Token
-  public get refreshToken(): string {
-    if (!this.tokenData) return null;
-    return this.tokenData.refreshToken;
-  }
 
   // Subject
   public get subject(): AuthSubject {
@@ -80,11 +70,10 @@ export class AuthService {
   public startTokenRefreshTimer() {
     let milliseconds = new Date(this.accessTokenExpiration).valueOf() - new Date().valueOf();
 
+    console.log(milliseconds + '    ' + this.accessTokenExpiration);
+
     this.tokenRefreshTimerHandle = window.setTimeout(() => {
-      this.dataService.post('api/Account/Refresh', {
-        accessToken: this.accessToken,
-        refreshToken: this.refreshToken
-      })
+      this.dataService.get('api/Account/Refresh')
         .subscribe((tokenData: TokenData) => {
           if (tokenData != null) {
             // Update the token data and restart the refresh timer
