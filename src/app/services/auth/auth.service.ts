@@ -70,10 +70,9 @@ export class AuthService {
   public startTokenRefreshTimer() {
     let milliseconds = new Date(this.accessTokenExpiration).valueOf() - new Date().valueOf();
 
-    console.log(milliseconds + '    ' + this.accessTokenExpiration);
-
     this.tokenRefreshTimerHandle = window.setTimeout(() => {
-      this.dataService.get('api/Account/Refresh')
+      // Wanted to make this a get request but for some reason get doesn't work so I changed it to post
+      this.dataService.post('api/Account/Refresh',{})
         .subscribe((tokenData: TokenData) => {
           if (tokenData != null) {
             // Update the token data and restart the refresh timer

@@ -47,12 +47,6 @@ export class SearchBarComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Is customer signed in
-    // this.isSignedIn = this.authService.isSignedIn;
-
-    // Get the customer's first name if signed in
-    // if (this.isSignedIn) this.customerName = this.authService.subject.firstName;
-
     this.route.queryParamMap.subscribe(queryParams => {
       this.queryParams = queryParams;
       if (this.categories.length > 0) {

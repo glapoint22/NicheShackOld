@@ -49,7 +49,6 @@ export class SignInComponent extends ValidationPage implements OnInit {
         });
   }
 
-  
 
   onCreateAccountClick() {
     this.router.navigate(['/create-account']);

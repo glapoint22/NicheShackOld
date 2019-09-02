@@ -15,6 +15,7 @@ import { AuthSubject } from 'src/app/classes/auth-subject';
 export class ChangeEmailComponent extends ValidationPage implements OnInit {
   public newEmail: string;
   public reEnteredEmail: string;
+  public errors: Array<any> = [];
 
   constructor(
     titleService: Title,
@@ -54,6 +55,11 @@ export class ChangeEmailComponent extends ValidationPage implements OnInit {
         if(error.status == 401){
           this.authService.signOut();
           this.router.navigate(['sign-in']);
+        }else if (error.status == 409) {
+          this.errors = [];
+          Object.keys(error.error).forEach(key => {
+            this.errors.push(error.error[key][0])
+          });
         }
       });
   }

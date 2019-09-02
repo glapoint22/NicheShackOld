@@ -2,7 +2,7 @@ const PROXY_CONFIG = [
     {
         context: [
             "/api",
-            "/Images"
+            // "/Images"
         ],
         // target: "http://www.nicheshack.com/",
         // target: "http://localhost:49699/",

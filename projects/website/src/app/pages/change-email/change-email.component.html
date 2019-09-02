@@ -15,6 +15,23 @@
         <!-- Logo -->
         <img src="assets/Logo.png" routerLink="">
 
+        <!-- Errors -->
+        <div *ngIf="errors.length > 0" class="warning">
+            <div style="display: flex; align-items: center;">
+                <div>
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+
+                <div class="warning-text">
+                    <ul>
+                        <li *ngFor="let error of errors" style="margin-bottom: 10px;">
+                            {{error}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
         <form *ngIf="this.authService.subject" (ngSubmit)="onSubmit()" #form="ngForm" [matchValue]="['newEmail', 'reEnteredEmail']">
             <div class="form-title">Change Email</div>
 

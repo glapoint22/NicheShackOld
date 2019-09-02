@@ -13,7 +13,7 @@ export class FeaturedCategoriesComponent {
   constructor(private router: Router) { }
 
   ngOnChanges(){
-    this.featuredCategories = this.categories.slice().filter(x => x.featured);
+    this.featuredCategories = this.categories;
   }
 
   onClick(category: number) {

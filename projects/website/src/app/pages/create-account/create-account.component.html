@@ -7,6 +7,7 @@
         <!-- Logo -->
         <img src="assets/Logo.png" routerLink="">
 
+        <!-- Errors -->
         <div *ngIf="errors.length > 0" class="warning">
             <div style="display: flex; align-items: center;">
                 <div>
@@ -21,8 +22,6 @@
                     </ul>
                 </div>
             </div>
-
-
         </div>
 
         <form (ngSubmit)="onSubmit()" #form="ngForm" [matchValue]="['password', 'reEnteredPassword']">
