@@ -4,6 +4,8 @@ import { Page } from '../page';
 import { Title, Meta } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { DataService } from 'src/app/services/data/data.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'orders',
@@ -25,7 +27,9 @@ export class OrdersComponent extends Page implements OnInit {
     metaService: Meta,
     @Inject(DOCUMENT) document,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dataService: DataService,
+    private authService: AuthService
   ) { super(titleService, metaService, document) }
 
 
@@ -65,86 +69,95 @@ export class OrdersComponent extends Page implements OnInit {
     this.route.queryParamMap.subscribe((queryParams: ParamMap) => {
       this.search = queryParams.get('search');
 
-      // Orders
-      this.orders = [
-        {
-          date: 'May 22, 2019',
-          orderNumber: 'CWOGBZLN',
-          mainProduct: {
-            id: 'FRT6YHJE4J',
-            hoplink: 'https://201behydk0sr8n2-f2jo9qcq9u.hop.clickbank.net/',
-            urlTitle: 'fat-loss-activation'
-          },
-          products: [
-            {
-              title: 'The 2 Week Diet Audiobook Companion (Listen On Any Device!)',
-              type: 'Physical',
-              quantity: 2,
-              price: 4.95,
-              image: 'e9a794bc40f14f709e6636aefbfe5d43.png',
-            },
-            {
-              title: 'The 2 Week Diet Audiobook Companion (Listen On Any Device!)',
-              type: 'Digital',
-              quantity: 2,
-              price: 4.95,
-              image: null,
-            },
-            {
-              title: 'The 2 Week Diet Audiobook Companion (Listen On Any Device!)',
-              type: 'Digital',
-              quantity: 2,
-              price: 4.95,
-              image: null,
-            }
-          ],
-          paymentMethod: 'MAES',
-          subtotal: 65.04,
-          shippingHandling: 5,
-          discount: 2.22,
-          tax: 1.07,
-          total: 69.11
-        },
 
-        {
-          date: 'January 2, 2019',
-          orderNumber: '5TFYID4T',
-          mainProduct: {
-            id: 'D4GKW7DHEF',
-            hoplink: 'https://201behydk0sr8n2-f2jo9qcq9u.hop.clickbank.net/',
-            urlTitle: 'fat-loss-activation'
+      this.dataService
+        .get('api/Products/Orders', [
+          {
+            key: 'email',
+            value: this.authService.subject.email
           },
-          products: [
-            {
-              title: 'The 2 Week Diet Audiobook Companion (Listen On Any Device!)',
-              type: 'Physical',
-              quantity: 2,
-              price: 4.95,
-              image: 'e9a794bc40f14f709e6636aefbfe5d43.png',
-            },
-            {
-              title: 'The 2 Week Diet Audiobook Companion (Listen On Any Device!)',
-              type: 'Digital',
-              quantity: 2,
-              price: 4.95,
-              image: null,
-            },
-            {
-              title: 'The 2 Week Diet Audiobook Companion (Listen On Any Device!)',
-              type: 'Digital',
-              quantity: 2,
-              price: 4.95,
-              image: null,
-            }
-          ],
-          paymentMethod: 'MAES',
-          subtotal: 65.04,
-          shippingHandling: 5,
-          discount: 1.77,
-          tax: 1.07,
-          total: 69.11
-        }
-      ]
+          {
+            key: 'filter',
+            value: this.selectedFilter.value
+          }
+        ])
+        .subscribe(orders => {
+          this.orders = orders
+        });
+      // Orders
+      // this.orders = [
+      //   {
+      //     date: 'May 22, 2019',
+      //     orderNumber: 'CWOGBZLN',
+      //     paymentMethod: 'MAES',
+      //     subtotal: 65.04,
+      //     shippingHandling: 5,
+      //     discount: 2.22,
+      //     tax: 1.07,
+      //     total: 69.11,
+      //     products: [
+      //       {
+      //         id: 'FRT6YHJE4J',
+      //         hoplink: 'https://201behydk0sr8n2-f2jo9qcq9u.hop.clickbank.net/',
+      //         title: 'The 2 Week Diet Audiobook Companion (Listen On Any Device!)',
+      //         type: 'Physical',
+      //         quantity: 2,
+      //         price: 4.95,
+      //         image: 'e9a794bc40f14f709e6636aefbfe5d43.png',
+      //       },
+      //       {
+      //         title: 'The 2 Week Diet Audiobook Companion (Listen On Any Device!)',
+      //         type: 'Digital',
+      //         quantity: 2,
+      //         price: 4.95,
+      //         image: null,
+      //       },
+      //       {
+      //         title: 'The 2 Week Diet Audiobook Companion (Listen On Any Device!)',
+      //         type: 'Digital',
+      //         quantity: 2,
+      //         price: 4.95,
+      //         image: null,
+      //       }
+      //     ]
+      //   },
+
+      //   {
+      //     date: 'January 2, 2019',
+      //     orderNumber: '5TFYID4T',
+      //     paymentMethod: 'MAES',
+      //     subtotal: 65.04,
+      //     shippingHandling: 5,
+      //     discount: 1.77,
+      //     tax: 1.07,
+      //     total: 69.11,
+      //     products: [
+      //       {
+      //         id: 'D4GKW7DHEF',
+      //         hoplink: 'https://201behydk0sr8n2-f2jo9qcq9u.hop.clickbank.net/',
+      //         title: 'The 2 Week Diet Audiobook Companion (Listen On Any Device!)',
+      //         type: 'Physical',
+      //         quantity: 2,
+      //         price: 4.95,
+      //         image: 'e9a794bc40f14f709e6636aefbfe5d43.png',
+      //       },
+      //       {
+      //         title: 'The 2 Week Diet Audiobook Companion (Listen On Any Device!)',
+      //         type: 'Digital',
+      //         quantity: 2,
+      //         price: 4.95,
+      //         image: null,
+      //       },
+      //       {
+      //         title: 'The 2 Week Diet Audiobook Companion (Listen On Any Device!)',
+      //         type: 'Digital',
+      //         quantity: 2,
+      //         price: 4.95,
+      //         image: null,
+      //       }
+      //     ]
+      //   }
+      // ]
 
       // Search results
       this.searchResults = [
@@ -163,14 +176,14 @@ export class OrdersComponent extends Page implements OnInit {
           hoplink: 'https://201behydk0sr8n2-f2jo9qcq9u.hop.clickbank.net/',
           orderNumber: 'CWOGBZLN',
           numItems: 4
-        },{
+        }, {
           date: 'May 22, 2019',
           title: 'The 2 Week Diet Audiobook Companion (Listen On Any Device!)',
           image: 'e9a794bc40f14f709e6636aefbfe5d43.png',
           hoplink: 'https://201behydk0sr8n2-f2jo9qcq9u.hop.clickbank.net/',
           orderNumber: 'CWOGBZLN',
           numItems: 4
-        },{
+        }, {
           date: 'May 22, 2019',
           title: 'The 2 Week Diet Audiobook Companion (Listen On Any Device!)',
           image: 'e9a794bc40f14f709e6636aefbfe5d43.png',
@@ -181,7 +194,7 @@ export class OrdersComponent extends Page implements OnInit {
       ];
 
       // This will be determined by the server - "product" or "order"
-      this.displayType = 'order'; 
+      this.displayType = 'order';
 
     });
   }
@@ -193,15 +206,15 @@ export class OrdersComponent extends Page implements OnInit {
     });
   }
 
-  onSearch(search: string){
+  onSearch(search: string) {
     this.router.navigate([location.pathname], {
       queryParams: { 'search': search }
     });
   }
-  
-  resetUrl(){
+
+  resetUrl() {
     this.router.navigate([location.pathname], {
-      queryParams: { }
+      queryParams: {}
     });
   }
 

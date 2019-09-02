@@ -103,9 +103,9 @@
                         <!-- Button container -->
                         <div class="button-container">
                             <button class="gold-button"
-                                (click)="onPublisherButtonClick(order.mainProduct.hoplink)">Visit
+                                (click)="onPublisherButtonClick(order.products[0].hoplink)">Visit
                                 Publisher’s Page</button>
-                            <button class="gray-button" (click)="onWriteReviewClick(order.mainProduct.id)">Write a
+                            <button class="gray-button" (click)="onWriteReviewClick(order.products[0].id)">Write a
                                 review</button>
                         </div>
 
