@@ -13,7 +13,7 @@ import { AuthSubject } from 'src/app/classes/auth-subject';
   styleUrls: ['../validation-page/validation-page.scss']
 })
 export class ChangeNameComponent extends ValidationPage implements OnInit {
-  public subject: AuthSubject;
+  public subject: AuthSubject = new AuthSubject();
 
   constructor(
     titleService: Title,
@@ -31,19 +31,14 @@ export class ChangeNameComponent extends ValidationPage implements OnInit {
     this.title = 'Change Name';
     this.share = false;
     super.ngOnInit();
+
+    this.authService.subject
+      .subscribe((subject: AuthSubject)=>{
+        this.subject.firstName = subject.firstName;
+        this.subject.lastName = subject.lastName;
+      });
   }
 
-  ngDoCheck() {
-    if (this.authService.subject) {
-      if (!this.subject) {
-        this.subject = {
-          firstName: this.authService.subject.firstName,
-          lastName: this.authService.subject.lastName,
-          email: this.authService.subject.email
-        }
-      }
-    }
-  }
 
   submitData(): void {
     this.dataService.put('api/Account/UpdateName', this.subject)

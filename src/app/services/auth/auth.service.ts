@@ -1,28 +1,31 @@
 import { Injectable } from '@angular/core';
 import { AuthSubject } from 'src/app/classes/auth-subject';
 import { DataService } from '../data/data.service';
-import { TokenData } from 'src/app/classes/token-data';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  // Token Data
-  private tokenData: TokenData;
-
-
-  // Access Token Expiration
-  private get accessTokenExpiration(): string {
-    if (!this.tokenData) return null;
-    return this.tokenData.accessTokenExpiration;
-  }
-
+  public tokenExpiration: string;
 
   // Subject
-  public get subject(): AuthSubject {
-    if (!this.tokenData) return null;
-    return this.tokenData.subject;
-  }
+  private _subject: AuthSubject;
+  public subject = new Observable<AuthSubject>(observer => {
+    if (this._subject) {
+      observer.next(this._subject);
+      observer.complete();
+    } else {
+      this.dataService
+        .get('api/Account/GetSubject')
+        .subscribe((subject: AuthSubject) => {
+          this._subject = subject;
+          observer.next(subject);
+          observer.complete();
+        });
+    }
+  });
+
 
 
   // redirectUrl
@@ -50,33 +53,27 @@ export class AuthService {
   constructor(private dataService: DataService) { }
 
 
-
-  public setTokenData(tokenData: TokenData) {
-    this.tokenData = tokenData;
-  }
-
-
   public signOut() {
-    this.tokenData = null;
     window.clearTimeout(this.tokenRefreshTimerHandle);
     this.dataService.get('api/Account/SignOut').subscribe(() => { });
+    this._subject = null;
   }
 
   public updateSubject(subject: AuthSubject) {
-    this.tokenData.subject = subject;
+    this._subject = subject;
   }
 
 
   public startTokenRefreshTimer() {
-    let milliseconds = new Date(this.accessTokenExpiration).valueOf() - new Date().valueOf();
+    let milliseconds = new Date(this.tokenExpiration).valueOf() - new Date().valueOf();
 
     this.tokenRefreshTimerHandle = window.setTimeout(() => {
       // Wanted to make this a get request but for some reason get doesn't work so I changed it to post
-      this.dataService.post('api/Account/Refresh',{})
-        .subscribe((tokenData: TokenData) => {
-          if (tokenData != null) {
+      this.dataService.post('api/Account/Refresh', {})
+        .subscribe((response: any) => {
+          if (response) {
             // Update the token data and restart the refresh timer
-            this.setTokenData(tokenData);
+            this.tokenExpiration = response.tokenExpiration;
             this.startTokenRefreshTimer();
           } else {
             this.signOut();

@@ -13,9 +13,11 @@ import { AuthSubject } from 'src/app/classes/auth-subject';
   styleUrls: ['../validation-page/validation-page.scss', './change-email.component.scss']
 })
 export class ChangeEmailComponent extends ValidationPage implements OnInit {
+  public oldEmail: string;
   public newEmail: string;
   public reEnteredEmail: string;
   public errors: Array<any> = [];
+  
 
   constructor(
     titleService: Title,
@@ -34,7 +36,10 @@ export class ChangeEmailComponent extends ValidationPage implements OnInit {
     this.share = false;
     super.ngOnInit();
 
-     
+    this.authService.subject.subscribe((subject: AuthSubject) => {
+      this.oldEmail = subject.email;
+    });
+
   }
 
   onSubmit() {
@@ -45,22 +50,22 @@ export class ChangeEmailComponent extends ValidationPage implements OnInit {
   }
 
   submitData(): void {
-    this.dataService.put('api/Account/UpdateEmail', {oldEmail: this.authService.subject.email, newEmail: this.newEmail})
+    this.dataService.put('api/Account/UpdateEmail', {email: this.newEmail} )
       .subscribe((subject: AuthSubject) => {
         this.authService.updateSubject(subject);
         this.dataService.data.hasChanges = true;
         this.router.navigate(['account', 'profile']);
       },
-      error => {
-        if(error.status == 401){
-          this.authService.signOut();
-          this.router.navigate(['sign-in']);
-        }else if (error.status == 409) {
-          this.errors = [];
-          Object.keys(error.error).forEach(key => {
-            this.errors.push(error.error[key][0])
-          });
-        }
-      });
+        error => {
+          if (error.status == 401) {
+            this.authService.signOut();
+            this.router.navigate(['sign-in']);
+          } else if (error.status == 409) {
+            this.errors = [];
+            Object.keys(error.error).forEach(key => {
+              this.errors.push(error.error[key][0])
+            });
+          }
+        });
   }
 }

@@ -3,6 +3,7 @@ import { DataService } from 'src/app/services/data/data.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { AuthSubject } from 'src/app/classes/auth-subject';
 
 @Component({
   selector: 'search-bar',
@@ -37,16 +38,13 @@ export class SearchBarComponent implements OnInit {
     if (isPlatformBrowser(this.platformId)) this.setSelectElementWidth();
   }
 
-  ngDoCheck(){
-    if(this.authService.subject){
-      if(!this.firstName){
-        this.firstName = this.authService.subject.firstName;
-        this.isSignedIn = true;
-      }
-    }
-  }
 
   ngOnInit() {
+    // Get the first name to display
+    this.authService.subject.subscribe((subject: AuthSubject) => {
+      this.firstName = subject ? subject.firstName : '';
+    })
+
     this.route.queryParamMap.subscribe(queryParams => {
       this.queryParams = queryParams;
       if (this.categories.length > 0) {
@@ -55,12 +53,16 @@ export class SearchBarComponent implements OnInit {
       }
     });
 
+
+
     if (this.dataService.categories.length === 0) {
       this.dataService.get('api/SearchBar')
         .subscribe((response: any) => {
           this.categories = this.dataService.categories = response;
           this.setCategories();
         });
+
+
     } else {
       this.categories = this.dataService.categories;
       this.setCategories();

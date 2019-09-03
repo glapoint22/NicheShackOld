@@ -5,7 +5,6 @@ import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data/data.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { TokenData } from 'src/app/classes/token-data';
 
 @Component({
   selector: 'sign-in',
@@ -38,8 +37,8 @@ export class SignInComponent extends ValidationPage implements OnInit {
 
   submitData(): void {
     this.dataService.post('api/Account/SignIn', this.account)
-      .subscribe((tokenData: TokenData) => {
-        this.authService.setTokenData(tokenData);
+      .subscribe((response: any) => {
+        this.authService.tokenExpiration = response.tokenExpiration;
         this.authService.startTokenRefreshTimer();
         
         this.router.navigate([this.redirectUrl]);

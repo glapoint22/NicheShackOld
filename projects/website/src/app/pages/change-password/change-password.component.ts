@@ -34,7 +34,6 @@ export class ChangePasswordComponent extends ValidationPage implements OnInit {
   submitData(): void {
     this.dataService
       .put('api/Account/UpdatePassword', {
-        email: this.authService.subject.email,
         currentPassword: this.currentPassword,
         newPassword: this.newPassword
       })

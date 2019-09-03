@@ -16,7 +16,7 @@ export class OrdersComponent extends Page implements OnInit {
   public event = new Subject<void>();
   public origin: number = 2019;
   public filter: Array<any>;
-  public orders: Array<any>;
+  public orders: Array<any> = [];
   public selectedFilter;
   public search: string;
   public searchResults: Array<any>;
@@ -72,10 +72,6 @@ export class OrdersComponent extends Page implements OnInit {
 
       this.dataService
         .get('api/Products/Orders', [
-          {
-            key: 'email',
-            value: this.authService.subject.email
-          },
           {
             key: 'filter',
             value: this.selectedFilter.value
