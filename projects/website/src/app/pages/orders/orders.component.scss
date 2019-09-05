@@ -69,18 +69,19 @@ a:hover, .link:hover {
     margin-top: 10px;
 }
 .image-background {
-    width: 99px;
-    height: 99px;
+    width: 100px;
+    height: 100px;
     background: #181818;
-    text-align: center;
-    line-height: 96px;
     border: 1px solid #292929;
     margin-left: 10px;
     flex-shrink: 0;
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     img {
-        vertical-align: middle;
-        width: 75px;
+        max-width: 75px;
+        max-height: 75px;
     }
 }
 .product-info {

@@ -8,12 +8,12 @@
             <div *ngIf="displayType == 'order' && !search" class="flex-container">
                 <div class="gray-text" style="margin-right: 5px;">{{orders.length}}
                     order{{orders.length == 1 ? '' : 's'}} placed in</div>
-                <popup-button [title]="selectedFilter.name" [items]="filter" (onClick)="onFilterClick($event)"
+                <popup-button [title]="selectedFilter.key" [items]="filter" (onClick)="onFilterClick($event)"
                     [onClose]="event" [defaultIndex]="getDefaultIndex()"></popup-button>
             </div>
 
             <div *ngIf="displayType == 'product' || search" class="flex-container">
-                <div class="gray-text">{{searchResults.length}} order{{searchResults.length == 1 ? '' : 's'}} matching
+                <div class="gray-text">{{count}} {{displayType == 'order' ? 'order' : 'product'}}{{count == 1 ? '' : 's'}} matching
                     "{{search}}"</div>
             </div>
 
@@ -29,7 +29,7 @@
             </div>
         </div>
 
-
+        <!-- Display type: Order -->
         <a *ngIf="displayType == 'order' && !search" href="https://www.clkbank.com">Order support</a>
         <div class="link" *ngIf="displayType == 'product' || search" (click)="resetUrl()">Your Orders</div>
 
@@ -49,7 +49,7 @@
                                 <div class="product-info">
                                     <div class="caption">{{product.title}}</div>
                                     <div class="gray-text" style="margin-bottom: 5px;">{{product.type}}</div>
-                                    <div class="gray-text">Quantity: {{product.quantity}}</div>
+                                    <div *ngIf="product.quantity > 0" class="gray-text">Quantity: {{product.quantity}}</div>
                                     <div class="gold-font" style="margin-top: 5px;">{{product.price | currency:'USD'}}
                                     </div>
                                 </div>
@@ -103,9 +103,9 @@
                         <!-- Button container -->
                         <div class="button-container">
                             <button class="gold-button"
-                                (click)="onPublisherButtonClick(order.products[0].hoplink)">Visit
+                                (click)="onPublisherButtonClick(order.hoplink)">Visit
                                 Publisher’s Page</button>
-                            <button class="gray-button" (click)="onWriteReviewClick(order.products[0].id)">Write a
+                            <button class="gray-button" (click)="onWriteReviewClick(order.productId)">Write a
                                 review</button>
                         </div>
 
@@ -116,20 +116,21 @@
             </div>
         </div>
 
+        <!-- Display type: product -->
         <div *ngIf="displayType == 'product'" class="search-results-container">
-            <div *ngFor="let result of searchResults" class="product-container">
+            <div *ngFor="let product of products" class="product-container">
                 <div class="image-background">
-                    <img [src]="result.image ? '/Images/' + result.image : 'assets/no_image.png'">
+                    <img [src]="product.image ? '/Images/' + product.image : 'assets/no_image.png'">
                 </div>
                 <div class="product-info">
                     <div class="order-detail-container">
-                        <span class="gold-font order-detail" (click)="onSearch(result.orderNumber)">Order Details</span>
-                        <span class="gray-text order-detail">Ordered on {{result.date}}</span>
-                        <span class="gray-text">Order number: {{result.orderNumber}}</span>
+                        <span class="gold-font order-detail" (click)="onSearch(product.orderNumber)">Order Details</span>
+                        <span class="gray-text order-detail">Ordered on {{product.date}}</span>
+                        <span class="gray-text">Order number: {{product.orderNumber}}</span>
                     </div>
 
-                    <div class="caption">{{result.title}}</div>
-                    <button class="gold-button" (click)="onPublisherButtonClick(result.hoplink)">Visit Publisher's
+                    <div class="caption">{{product.title}}</div>
+                    <button class="gold-button" (click)="onPublisherButtonClick(product.hoplink)">Visit Publisher's
                         Page</button>
                 </div>
             </div>

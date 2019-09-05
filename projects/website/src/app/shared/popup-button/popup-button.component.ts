@@ -23,8 +23,14 @@ export class PopupButtonComponent implements OnInit {
     this.onCloseSubscription = this.onClose.subscribe(() => {
       this.showPopup = false;
     });
+    
+  }
+
+  ngOnChanges(){
     if (this.defaultIndex != -1) this.selectedItemIndex = this.defaultIndex;
   }
+
+
   ngOnDestroy() {
     this.onCloseSubscription.unsubscribe();
   }

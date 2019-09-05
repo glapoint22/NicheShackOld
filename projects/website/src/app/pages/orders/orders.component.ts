@@ -5,7 +5,6 @@ import { Title, Meta } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { DataService } from 'src/app/services/data/data.service';
-import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'orders',
@@ -14,13 +13,13 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class OrdersComponent extends Page implements OnInit {
   public event = new Subject<void>();
-  public origin: number = 2019;
   public filter: Array<any>;
   public orders: Array<any> = [];
-  public selectedFilter;
+  public selectedFilter: any = {};
   public search: string;
-  public searchResults: Array<any>;
+  public products: Array<any> = [];
   public displayType: string;
+  public count: number;
 
   constructor(
     titleService: Title,
@@ -29,176 +28,55 @@ export class OrdersComponent extends Page implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private dataService: DataService,
-    private authService: AuthService
   ) { super(titleService, metaService, document) }
 
 
 
   ngOnInit() {
-    // Set the filter options
-    this.filter = [
-      {
-        name: 'Last 30 days',
-        value: 'last30'
-      },
-      {
-        name: 'Past 6 months',
-        value: '6-months'
-      }
-    ]
-
-    // Add the years to the filter options
-    let currentYear = new Date().getFullYear();
-    do {
-      this.filter.push({
-        name: currentYear.toString(),
-        value: 'year-' + currentYear
-      });
-      currentYear--;
-    }
-    while (currentYear >= this.origin)
-
-    // Select the default filter
-    this.selectedFilter = this.filter[1];
-
     // Set the page properties
     this.title = 'Your Orders';
     this.share = false;
     super.ngOnInit();
 
     this.route.queryParamMap.subscribe((queryParams: ParamMap) => {
+      let parameters: Array<any> = [];
+
       this.search = queryParams.get('search');
 
+      // Get all the query params
+      for (let i = 0; i < queryParams.keys.length; i++) {
+        parameters.push({ key: queryParams.keys[i], value: queryParams.get(queryParams.keys[i]) });
+      }
 
       this.dataService
-        .get('api/Products/Orders', [
-          {
-            key: 'filter',
-            value: this.selectedFilter.value
+        .get('api/Products/Orders', parameters)
+        .subscribe(response => {
+          this.displayType = response.displayType;
+
+          // Display orders
+          if (this.displayType == 'order') {
+            this.orders = response.orders;
+            this.filter = response.filters;
+            this.count = this.orders.length;
+          } else {
+            // Display products
+            this.products = response.products;
+            this.count = this.products.length;
           }
-        ])
-        .subscribe(orders => {
-          this.orders = orders
+
+          // Set the selected filter for the time span of the orders
+          if (this.filter) {
+            let index = Math.max(0, this.filter.findIndex(x => x.value == queryParams.get('filter')));
+            this.selectedFilter = this.filter[index];
+          }
         });
-      // Orders
-      // this.orders = [
-      //   {
-      //     date: 'May 22, 2019',
-      //     orderNumber: 'CWOGBZLN',
-      //     paymentMethod: 'MAES',
-      //     subtotal: 65.04,
-      //     shippingHandling: 5,
-      //     discount: 2.22,
-      //     tax: 1.07,
-      //     total: 69.11,
-      //     products: [
-      //       {
-      //         id: 'FRT6YHJE4J',
-      //         hoplink: 'https://201behydk0sr8n2-f2jo9qcq9u.hop.clickbank.net/',
-      //         title: 'The 2 Week Diet Audiobook Companion (Listen On Any Device!)',
-      //         type: 'Physical',
-      //         quantity: 2,
-      //         price: 4.95,
-      //         image: 'e9a794bc40f14f709e6636aefbfe5d43.png',
-      //       },
-      //       {
-      //         title: 'The 2 Week Diet Audiobook Companion (Listen On Any Device!)',
-      //         type: 'Digital',
-      //         quantity: 2,
-      //         price: 4.95,
-      //         image: null,
-      //       },
-      //       {
-      //         title: 'The 2 Week Diet Audiobook Companion (Listen On Any Device!)',
-      //         type: 'Digital',
-      //         quantity: 2,
-      //         price: 4.95,
-      //         image: null,
-      //       }
-      //     ]
-      //   },
-
-      //   {
-      //     date: 'January 2, 2019',
-      //     orderNumber: '5TFYID4T',
-      //     paymentMethod: 'MAES',
-      //     subtotal: 65.04,
-      //     shippingHandling: 5,
-      //     discount: 1.77,
-      //     tax: 1.07,
-      //     total: 69.11,
-      //     products: [
-      //       {
-      //         id: 'D4GKW7DHEF',
-      //         hoplink: 'https://201behydk0sr8n2-f2jo9qcq9u.hop.clickbank.net/',
-      //         title: 'The 2 Week Diet Audiobook Companion (Listen On Any Device!)',
-      //         type: 'Physical',
-      //         quantity: 2,
-      //         price: 4.95,
-      //         image: 'e9a794bc40f14f709e6636aefbfe5d43.png',
-      //       },
-      //       {
-      //         title: 'The 2 Week Diet Audiobook Companion (Listen On Any Device!)',
-      //         type: 'Digital',
-      //         quantity: 2,
-      //         price: 4.95,
-      //         image: null,
-      //       },
-      //       {
-      //         title: 'The 2 Week Diet Audiobook Companion (Listen On Any Device!)',
-      //         type: 'Digital',
-      //         quantity: 2,
-      //         price: 4.95,
-      //         image: null,
-      //       }
-      //     ]
-      //   }
-      // ]
-
-      // Search results
-      this.searchResults = [
-        {
-          date: 'May 22, 2019',
-          title: 'The 2 Week Diet Audiobook Companion (Listen On Any Device!)',
-          image: 'e9a794bc40f14f709e6636aefbfe5d43.png',
-          hoplink: 'https://201behydk0sr8n2-f2jo9qcq9u.hop.clickbank.net/',
-          orderNumber: 'CWOGBZLN',
-          numItems: 4
-        },
-        {
-          date: 'May 22, 2019',
-          title: 'The 2 Week Diet Audiobook Companion (Listen On Any Device!)',
-          image: 'e9a794bc40f14f709e6636aefbfe5d43.png',
-          hoplink: 'https://201behydk0sr8n2-f2jo9qcq9u.hop.clickbank.net/',
-          orderNumber: 'CWOGBZLN',
-          numItems: 4
-        }, {
-          date: 'May 22, 2019',
-          title: 'The 2 Week Diet Audiobook Companion (Listen On Any Device!)',
-          image: 'e9a794bc40f14f709e6636aefbfe5d43.png',
-          hoplink: 'https://201behydk0sr8n2-f2jo9qcq9u.hop.clickbank.net/',
-          orderNumber: 'CWOGBZLN',
-          numItems: 4
-        }, {
-          date: 'May 22, 2019',
-          title: 'The 2 Week Diet Audiobook Companion (Listen On Any Device!)',
-          image: 'e9a794bc40f14f709e6636aefbfe5d43.png',
-          hoplink: 'https://201behydk0sr8n2-f2jo9qcq9u.hop.clickbank.net/',
-          orderNumber: 'CWOGBZLN',
-          numItems: 4
-        }
-      ];
-
-      // This will be determined by the server - "product" or "order"
-      this.displayType = 'order';
-
     });
   }
 
   onFilterClick(item) {
     this.selectedFilter = item;
     this.router.navigate([location.pathname], {
-      queryParams: { 'orderFilter': this.selectedFilter.value }
+      queryParams: { 'filter': this.selectedFilter.value }
     });
   }
 
@@ -255,7 +133,9 @@ export class OrdersComponent extends Page implements OnInit {
   }
 
   getDefaultIndex() {
-    return this.filter.findIndex(x => x == this.selectedFilter);
+    if (this.filter) return this.filter.findIndex(x => x == this.selectedFilter);
+    return {};
+
   }
 
   onWriteReviewClick(productId: string) {
@@ -265,5 +145,4 @@ export class OrdersComponent extends Page implements OnInit {
   onPublisherButtonClick(hoplink) {
     window.location.href = hoplink;
   }
-
 }

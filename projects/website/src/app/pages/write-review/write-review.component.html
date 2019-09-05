@@ -10,7 +10,7 @@
       <!-- Image and product title -->
       <div style="display: flex;">
         <div class="image-background">
-          <div class="img" [style.background-image]="'url(/Images/' + product.image + ')'"></div>
+          <div *ngIf="product.image" class="img" [style.background-image]="'url(/Images/' + product.image + ')'"></div>
         </div>
 
         <div class="product-title">
