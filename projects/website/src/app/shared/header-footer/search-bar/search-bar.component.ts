@@ -3,7 +3,7 @@ import { DataService } from 'src/app/services/data/data.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { AuthSubject } from 'src/app/classes/auth-subject';
+import { Customer } from 'src/app/classes/customer';
 
 @Component({
   selector: 'search-bar',
@@ -41,8 +41,8 @@ export class SearchBarComponent implements OnInit {
 
   ngOnInit() {
     // Get the first name to display
-    this.authService.subject.subscribe((subject: AuthSubject) => {
-      this.firstName = subject ? subject.firstName : '';
+    this.authService.customer.subscribe((customer: Customer) => {
+      this.firstName = customer ? customer.firstName : '';
     })
 
     this.route.queryParamMap.subscribe(queryParams => {

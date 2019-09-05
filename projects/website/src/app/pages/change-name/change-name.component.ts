@@ -5,7 +5,7 @@ import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data/data.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { AuthSubject } from 'src/app/classes/auth-subject';
+import { Customer } from 'src/app/classes/customer';
 
 @Component({
   selector: 'change-name',
@@ -13,7 +13,7 @@ import { AuthSubject } from 'src/app/classes/auth-subject';
   styleUrls: ['../validation-page/validation-page.scss']
 })
 export class ChangeNameComponent extends ValidationPage implements OnInit {
-  public subject: AuthSubject = new AuthSubject();
+  public customer: Customer = new Customer();
 
   constructor(
     titleService: Title,
@@ -32,18 +32,18 @@ export class ChangeNameComponent extends ValidationPage implements OnInit {
     this.share = false;
     super.ngOnInit();
 
-    this.authService.subject
-      .subscribe((subject: AuthSubject)=>{
-        this.subject.firstName = subject.firstName;
-        this.subject.lastName = subject.lastName;
+    this.authService.customer
+      .subscribe((customer: Customer) => {
+        this.customer.firstName = customer.firstName;
+        this.customer.lastName = customer.lastName;
       });
   }
 
 
   submitData(): void {
-    this.dataService.put('api/Account/UpdateName', this.subject)
-      .subscribe((subject: AuthSubject) => {
-        this.authService.updateSubject(subject);
+    this.dataService.put('api/Account/UpdateName', this.customer)
+      .subscribe((customer: Customer) => {
+        this.authService.updateCustomer(customer);
         this.dataService.data.hasChanges = true;
         this.router.navigate(['account', 'profile']);
       },

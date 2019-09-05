@@ -5,7 +5,7 @@ import { DOCUMENT } from '@angular/common';
 import { DataService } from 'src/app/services/data/data.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { AuthSubject } from 'src/app/classes/auth-subject';
+import { Customer } from 'src/app/classes/customer';
 
 @Component({
   selector: 'change-email',
@@ -17,7 +17,7 @@ export class ChangeEmailComponent extends ValidationPage implements OnInit {
   public newEmail: string;
   public reEnteredEmail: string;
   public errors: Array<any> = [];
-  
+
 
   constructor(
     titleService: Title,
@@ -36,8 +36,8 @@ export class ChangeEmailComponent extends ValidationPage implements OnInit {
     this.share = false;
     super.ngOnInit();
 
-    this.authService.subject.subscribe((subject: AuthSubject) => {
-      this.oldEmail = subject.email;
+    this.authService.customer.subscribe((customer: Customer) => {
+      this.oldEmail = customer.email;
     });
 
   }
@@ -50,9 +50,9 @@ export class ChangeEmailComponent extends ValidationPage implements OnInit {
   }
 
   submitData(): void {
-    this.dataService.put('api/Account/UpdateEmail', {email: this.newEmail} )
-      .subscribe((subject: AuthSubject) => {
-        this.authService.updateSubject(subject);
+    this.dataService.put('api/Account/UpdateEmail', { email: this.newEmail })
+      .subscribe((customer: Customer) => {
+        this.authService.updateCustomer(customer);
         this.dataService.data.hasChanges = true;
         this.router.navigate(['account', 'profile']);
       },

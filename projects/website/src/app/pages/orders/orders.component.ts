@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, Inject } from '@angular/core';
+import { Component, OnInit, HostListener, Inject, ViewChild, ElementRef } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Page } from '../page';
 import { Title, Meta } from '@angular/platform-browser';
@@ -20,6 +20,7 @@ export class OrdersComponent extends Page implements OnInit {
   public products: Array<any> = [];
   public displayType: string;
   public count: number;
+  @ViewChild('searchInput', { static: true }) searchInput: ElementRef;
 
   constructor(
     titleService: Title,
@@ -39,18 +40,24 @@ export class OrdersComponent extends Page implements OnInit {
     super.ngOnInit();
 
     this.route.queryParamMap.subscribe((queryParams: ParamMap) => {
+      // Parameters we will pass to the server
       let parameters: Array<any> = [];
 
+      // The search words for searching orders
       this.search = queryParams.get('search');
+      if (this.searchInput) this.searchInput.nativeElement.value = this.search;
 
-      // Get all the query params
+      // Get all the query params from the url and assign it to the parameters array
       for (let i = 0; i < queryParams.keys.length; i++) {
         parameters.push({ key: queryParams.keys[i], value: queryParams.get(queryParams.keys[i]) });
       }
 
+      // Get orders or products from the database
       this.dataService
         .get('api/Products/Orders', parameters)
         .subscribe(response => {
+          // Display type will be either "order" or "Product"
+          // This is based on what is searched in the search input box
           this.displayType = response.displayType;
 
           // Display orders
@@ -64,7 +71,7 @@ export class OrdersComponent extends Page implements OnInit {
             this.count = this.products.length;
           }
 
-          // Set the selected filter for the time span of the orders
+          // Set the time span filter based on the selected filter (ex. "Last 30 days")
           if (this.filter) {
             let index = Math.max(0, this.filter.findIndex(x => x.value == queryParams.get('filter')));
             this.selectedFilter = this.filter[index];
@@ -74,25 +81,32 @@ export class OrdersComponent extends Page implements OnInit {
   }
 
   onFilterClick(item) {
+    // A new time span has been selected. (ex. "Last 30 days")
     this.selectedFilter = item;
+
+    // Get orders based on the time span
     this.router.navigate([location.pathname], {
       queryParams: { 'filter': this.selectedFilter.value }
     });
   }
 
   onSearch(search: string) {
+    // Get orders or products based on the search words
     this.router.navigate([location.pathname], {
       queryParams: { 'search': search }
     });
   }
 
   resetUrl() {
+    // This will remove all query params from the url
     this.router.navigate([location.pathname], {
       queryParams: {}
     });
+    this.searchInput.nativeElement.value = '';
   }
 
   onSearchKeydown(event, search: string) {
+    // See if user pressed the enter key in the search input box
     if (event.code === 'NumpadEnter' || event.code === 'Enter' || event.keyCode === 13) {
       this.onSearch(search);
     }
@@ -100,49 +114,33 @@ export class OrdersComponent extends Page implements OnInit {
 
   @HostListener('document:mousedown', ['$event'])
   onMousedown() {
+    // When a mousedown event happens
+    // This is used to remove the dropdown from the popup button
     this.event.next();
   }
 
   @HostListener('document:keydown', ['$event'])
   onKeydown(keydownEvent) {
+    // When the esc key is pressed
+    // This is used to remove the dropdown from the popup button
     if (keydownEvent.code === 'Escape' || keydownEvent.keyCode === 27) {
       this.event.next();
     }
   }
 
-  getPaymentMethodImg(method: string) {
-    if (method == 'PYPL') return 'paypal.png';
-    if (method == 'VISA') return 'visa.png';
-    if (method == 'MSTR') return 'master_card.png';
-    if (method == 'DISC') return 'discover.png';
-    if (method == 'AMEX') return 'amex.png';
-    if (method == 'SOLO') return 'solo.png';
-    if (method == 'DNRS') return 'diners_club.png';
-    if (method == 'MAES') return 'maestro.png';
-  }
-
-  getPaymentMethodTitle(method: string) {
-    if (method == 'PYPL') return 'Paypal';
-    if (method == 'VISA') return 'Visa';
-    if (method == 'MSTR') return 'Mastercard';
-    if (method == 'DISC') return 'Discover';
-    if (method == 'AMEX') return 'American Express';
-    if (method == 'SOLO') return 'Solo';
-    if (method == 'DNRS') return 'Diners Club';
-    if (method == 'MAES') return 'Maestro';
-  }
-
   getDefaultIndex() {
+    // Used to display the defulat selection in the popup button
     if (this.filter) return this.filter.findIndex(x => x == this.selectedFilter);
     return {};
-
   }
 
   onWriteReviewClick(productId: string) {
+    // Navigate to the write review page
     this.router.navigate(['/reviews/write-review'], { queryParams: { 'id': productId } });
   }
 
   onPublisherButtonClick(hoplink) {
+    // Navigate to the product page
     window.location.href = hoplink;
   }
 }

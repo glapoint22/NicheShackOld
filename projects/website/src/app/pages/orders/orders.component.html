@@ -66,8 +66,8 @@
 
                         <div class="purchase-info">
                             <div class="caption" style="display: inline-block">Payment Method</div>
-                            <img [src]="'assets/'+ getPaymentMethodImg(order.paymentMethod)" class="payment-method-img"
-                                [title]="getPaymentMethodTitle(order.paymentMethod)">
+                            <img [src]="'assets/'+ order.paymentMethodImg" class="payment-method-img"
+                                [title]="order.paymentMethod">
                             <div class="caption" style="margin-top: 20px;">Order Summary</div>
 
                             <div class="info">

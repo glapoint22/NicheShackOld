@@ -5,7 +5,7 @@ import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data/data.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { AuthSubject } from 'src/app/classes/auth-subject';
+import { Customer } from 'src/app/classes/customer';
 
 @Component({
   selector: 'profile',
@@ -14,7 +14,7 @@ import { AuthSubject } from 'src/app/classes/auth-subject';
 })
 export class ProfileComponent extends Page implements OnInit {
   public hasChanges: boolean;
-  public subject: AuthSubject = new AuthSubject();
+  public customer: Customer = new Customer();
 
   constructor(
     titleService: Title,
@@ -33,10 +33,11 @@ export class ProfileComponent extends Page implements OnInit {
 
     this.hasChanges = this.dataService.data.hasChanges;
     this.dataService.data = {};
-    
-    this.authService.subject.subscribe((subject: AuthSubject)=>{
-      this.subject = subject;
-    });
+
+    this.authService.customer
+      .subscribe((customer: Customer) => {
+        this.customer = customer;
+      });
   }
 
   navigate(path: string) {

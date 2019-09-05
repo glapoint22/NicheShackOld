@@ -37,8 +37,8 @@ export class SignInComponent extends ValidationPage implements OnInit {
 
   submitData(): void {
     this.dataService.post('api/Account/SignIn', this.account)
-      .subscribe((response: any) => {
-        this.authService.tokenExpiration = response.tokenExpiration;
+      .subscribe((tokenData: any) => {
+        this.authService.setTokenData(tokenData);
         this.authService.startTokenRefreshTimer();
         
         this.router.navigate([this.redirectUrl]);

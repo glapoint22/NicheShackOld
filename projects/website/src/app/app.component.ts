@@ -16,15 +16,12 @@ export class AppComponent implements OnInit {
     @Inject(PLATFORM_ID) private platformId: Object) { }
 
   ngOnInit() {
-    this.dataService
-    // Wanted to make this a get request but for some reason get doesn't work so I changed it to post
-      .post('api/Account/Refresh',{})
-      .subscribe((response: any) => {
-        if (response) {
-          this.authService.tokenExpiration = response.tokenExpiration;
-          if (isPlatformBrowser(this.platformId)) {
-            this.authService.startTokenRefreshTimer();
-          }
+    // Check to see if the customer is signed in
+    this.authService.isSignedIn
+      .subscribe((isSignedIn: Boolean) => {
+        // If the customer is signed in and this is the browser, start the timer to refresh the token
+        if (isSignedIn && isPlatformBrowser(this.platformId)) {
+          this.authService.startTokenRefreshTimer();
         }
       });
   }
