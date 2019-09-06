@@ -61,7 +61,8 @@ const routes: Routes = [
   },
   {
     path: 'lists/:listId',
-    loadChildren: () => import('./pages/lists/lists.module').then(m => m.ListsModule)
+    loadChildren: () => import('./pages/lists/lists.module').then(m => m.ListsModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'lists/view/:viewListId',

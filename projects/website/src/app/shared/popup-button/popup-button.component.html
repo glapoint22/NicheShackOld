@@ -1,5 +1,5 @@
 <div *ngIf="showPopup" class="popup dark" [style.minWidth.px]="button.clientWidth">
     <div *ngFor="let item of items; let i = index" class="popup-item" (mousedown)="$event.stopPropagation()" [ngClass]="{'selected': i == selectedItemIndex}"
-        (click)="onItemClick(item, i)">{{item.key}}</div>
+        (click)="onItemClick(item, i)">{{item.key || item.name}}</div>
 </div>
 <button #button class="gray-button arrow" (click)="showPopup = true" [style.width]="width > 0 ? width + 'px' : 'initial'">{{title}}</button>

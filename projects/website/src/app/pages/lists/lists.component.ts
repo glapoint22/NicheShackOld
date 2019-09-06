@@ -17,7 +17,7 @@ export class ListsComponent extends SharePage implements OnInit {
   public selectedSortOption: any = {};
   public ownerName: string;
   public isOwner: boolean = true;
-  public isCollaborator: boolean = false;;
+  public isCollaborator: boolean = false;
 
 
 
