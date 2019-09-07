@@ -11,7 +11,7 @@
       <!-- Product Image -->
       <div class="image-container">
         <div class="image-background">
-          <img [src]="'/Images/' + product.image">
+          <img *ngIf="product.image" [src]="'/Images/' + product.image">
         </div>
       </div>
 

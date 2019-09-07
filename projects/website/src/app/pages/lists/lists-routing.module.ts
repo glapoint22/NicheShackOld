@@ -9,6 +9,14 @@ const routes: Routes = [
     path: '',
     component: ListsComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'view/:viewListId',
+    loadChildren: () => import('../../pages/view-list/view-list.module').then(m => m.ViewListModule)
+  },
+  {
+    path: 'collaborate/:collaborateListId',
+    loadChildren: () => import('../../pages/collaborate-list/collaborate-list.module').then(m => m.CollaborateListModule)
   }
 ];
 

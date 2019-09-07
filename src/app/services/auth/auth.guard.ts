@@ -12,7 +12,7 @@ export class AuthGuard implements CanLoad, CanActivate {
 
   // Can Load
   canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
-    return this.isSignedIn(() => {
+    return this.checkSignedIn(() => {
 
       // We are not signed in so we will loop through each segment to create the url for the redirect
       let url: string = '';
@@ -29,7 +29,7 @@ export class AuthGuard implements CanLoad, CanActivate {
 
   // Can Activate
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    return this.isSignedIn(() => {
+    return this.checkSignedIn(() => {
 
       // We are not signed in so assign the redirect url and navigate to the sign in page
       this.authService.redirectUrl = state.url;
@@ -39,23 +39,16 @@ export class AuthGuard implements CanLoad, CanActivate {
 
 
   // Is Signed In
-  isSignedIn(callback: Function): Observable<boolean> {
+  checkSignedIn(callback: Function): Observable<boolean> {
     return new Observable<boolean>(observer => {
       // Find out if we are signed in
       this.authService.isSignedIn
-        .subscribe((isSignedIn: boolean) => {
-          // We are signed in
-          if (isSignedIn) {
-            observer.next(true);
-            observer.complete();
-          } else {
-            // We are not signed in
-            observer.next(false);
-            observer.complete();
+        .subscribe((signedIn: boolean) => {
+          observer.next(signedIn);
+          observer.complete();
 
-            // Call the callback function
-            callback();
-          }
+          // If not signed in, call the callback function
+          if (!signedIn) callback();
         });
     });
   }

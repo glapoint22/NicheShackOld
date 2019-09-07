@@ -9,7 +9,7 @@
       <!-- Image -->
       <div>
         <div class="image-background" (click)="backToItem()">
-          <div class="img" [style.background-image]="'url(/Images/' + product.image + ')'"></div>
+          <div *ngIf="product.image" class="img" [style.background-image]="'url(/Images/' + product.image + ')'"></div>
         </div>
         <div class="purple-link" (click)="backToItem()">Back to item</div>
       </div>

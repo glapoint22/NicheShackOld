@@ -5,4 +5,8 @@ import { Component } from '@angular/core';
   templateUrl: './page-not-found.component.html',
   styleUrls: ['../error/error.component.scss']
 })
-export class PageNotFoundComponent { }
+export class PageNotFoundComponent {
+  onHomePageClick() {
+    document.location.href = document.location.origin;
+  }
+}

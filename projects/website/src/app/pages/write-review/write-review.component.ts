@@ -32,7 +32,7 @@ export class WriteReviewComponent extends ValidationPage implements OnInit {
 
 
     this.dataService
-      .get('api/Products/WriteReview', [{ key: 'id', value: this.route.snapshot.queryParams['id'] }])
+      .get('api/Products/WriteReview', [{ key: 'urlTitle', value: this.route.snapshot.params['product'] }])
       .subscribe(product => {
         this.product = product;
       });

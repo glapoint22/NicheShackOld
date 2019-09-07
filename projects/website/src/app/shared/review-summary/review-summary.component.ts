@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Product } from '../product/product';
 
 @Component({
@@ -12,7 +12,7 @@ export class ReviewSummaryComponent implements OnChanges {
   public reviewStats: Array<any> = [];
   private percentageTotal: number = 0;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private route: ActivatedRoute) { }
 
   ngOnChanges(): void {
     if (this.product.id) {
@@ -68,6 +68,6 @@ export class ReviewSummaryComponent implements OnChanges {
   }
 
   onWriteReview() {
-    this.router.navigate(['/reviews/write-review'], { queryParams: { 'id': this.product.id } });
+    this.router.navigate([this.route.snapshot.params['product'] + '/reviews/write-review']);
   }
 }

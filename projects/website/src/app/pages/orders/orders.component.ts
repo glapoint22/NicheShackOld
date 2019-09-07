@@ -134,9 +134,9 @@ export class OrdersComponent extends Page implements OnInit {
     return {};
   }
 
-  onWriteReviewClick(productId: string) {
+  onWriteReviewClick(productUrlTitle: string) {
     // Navigate to the write review page
-    this.router.navigate(['/reviews/write-review'], { queryParams: { 'id': productId } });
+    this.router.navigate([productUrlTitle + '/reviews/write-review']);
   }
 
   onPublisherButtonClick(hoplink) {

@@ -1,11 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ProductDetailsComponent } from "./product-details.component";
+import { ProductGuard } from '../../product.guard';
 
 const routes: Routes = [
   {
     path: '',
-    component: ProductDetailsComponent
+    component: ProductDetailsComponent,
+  },
+  {
+    path: 'reviews',
+    loadChildren: () => import('../../pages/reviews/reviews.module').then(m => m.ReviewsModule)
   }
 ];
 

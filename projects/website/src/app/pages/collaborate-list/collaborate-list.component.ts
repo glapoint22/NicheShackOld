@@ -27,7 +27,7 @@ export class CollaborateListComponent extends Page implements OnInit {
     this.image = '/assets/List.png';
     super.ngOnInit();
     if (isPlatformBrowser(this.platformId)) {
-      this.router.navigate(['lists/' + listId]);
+      this.router.navigate(['account/lists']);
     }
   }
 }
