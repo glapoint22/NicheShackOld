@@ -26,7 +26,7 @@ export class QuickLookComponent extends ModalComponent implements OnInit {
     this.modalServiceObject = this.modalService.quickLook;
     super.ngOnInit();
 
-    this.dataService.get('api/Products/QuickLook', [{ key: 'id', value: this.product.id }])
+    this.dataService.get('api/Products/QuickLookProduct', [{ key: 'id', value: this.product.id }])
       .subscribe(results => {
         this.media = results.media;
         this.product.description = results.description;

@@ -55,18 +55,6 @@ const routes: Routes = [
     path: 'preferences',
     loadChildren: () => import('./pages/email-preferences/email-preferences.module').then(m => m.EmailPreferencesModule)
   },
-  // {
-  //   path: 'lists',
-  //   loadChildren: () => import('./pages/lists/lists.module').then(m => m.ListsModule),
-  // },
-  // {
-  //   path: 'lists/view/:viewListId',
-  //   loadChildren: () => import('./pages/view-list/view-list.module').then(m => m.ViewListModule)
-  // },
-  // {
-  //   path: 'lists/collaborate/:collaborateListId',
-  //   loadChildren: () => import('./pages/collaborate-list/collaborate-list.module').then(m => m.CollaborateListModule)
-  // },
   {
     path: ':product',
     loadChildren: () => import('./pages/product-details/product-details.module').then(m => m.ProductDetailsModule),

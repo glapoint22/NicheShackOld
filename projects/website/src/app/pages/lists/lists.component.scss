@@ -66,10 +66,12 @@
     color: $color5;
 }
 .list-title {
-    font-size: 14px;
-    margin-top: 20px;
     color: white;
     cursor: pointer;
+}
+.title {
+    font-size: 14px;
+    margin-top: 20px;
 }
 .list-title:hover {
     text-decoration: underline;

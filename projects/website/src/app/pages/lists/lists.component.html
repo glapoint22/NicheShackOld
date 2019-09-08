@@ -12,12 +12,12 @@
 
             <!-- Each list -->
             <div *ngFor="let list of lists" class="list">
-                <div [ngClass]="{'selected-list': list.selected, 'list-title': !list.selected}"
+                <div class="title" [ngClass]="{'selected-list': list.selected, 'list-title': !list.selected}"
                     (click)="onListClick(list)">
                     {{list.name}}
                 </div>
-                <div *ngIf="list.ownerName" class="owner">
-                    Owner: {{list.ownerName}}
+                <div *ngIf="list.owner" class="owner">
+                    Owner: {{list.owner}}
                 </div>
                 <div class="description">
                     {{list.description}}
@@ -37,7 +37,7 @@
         <div style="flex: 1; margin-left: 20px;">
 
             <!-- Heading -->
-            <div class="gray" *ngIf="ownerName">{{ownerName}}'s list</div>
+            <div class="gray" *ngIf="owner">{{owner}}'s list</div>
             <div class="heading-container">
                 <div class="main-title">{{listName}}</div>
 

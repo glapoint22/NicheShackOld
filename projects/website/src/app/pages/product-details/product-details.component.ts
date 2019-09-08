@@ -44,7 +44,7 @@ export class ProductDetailsComponent extends SharePage implements OnInit {
 
   ngOnInit() {
     this.dataService
-      .get('api/ProductReviews/Detailed',
+      .get('api/Products/DetailedProduct',
         [
           { key: 'urlTitle', value: this.route.snapshot.params['product'] },
           { key: 'orderBy', value: this.route.snapshot.queryParams['sort'] || '' }

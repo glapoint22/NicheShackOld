@@ -54,7 +54,7 @@ export class OrdersComponent extends Page implements OnInit {
 
       // Get orders or products from the database
       this.dataService
-        .get('api/Products/Orders', parameters)
+        .get('api/Orders', parameters)
         .subscribe(response => {
           // Display type will be either "order" or "Product"
           // This is based on what is searched in the search input box

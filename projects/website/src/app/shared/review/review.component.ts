@@ -14,9 +14,13 @@ export class ReviewComponent {
 
   constructor(private modalService: ModalService, private dataService: DataService) { }
 
-  onRateReviewClick() {
+  onRateReviewClick(likes: number, dislikes: number) {
     this.dataService
-      .put('api/ProductReviews', this.review)
+      .put('api/ProductReviews', {
+        reviewId: this.review.id,
+        likes: likes,
+        dislikes: dislikes
+      })
       .subscribe(() => {
         this.review.hasBeenRated = true;
       });

@@ -3,8 +3,9 @@ import { ModalService } from 'src/app/services/modal/modal.service';
 import { Title, Meta } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
 import { SharePage } from '../share-page';
-import { Router } from '@angular/router';
+import { Router, Route, ParamMap, ActivatedRoute } from '@angular/router';
 import { Subscription, Subject } from 'rxjs';
+import { DataService } from 'src/app/services/data/data.service';
 
 @Component({
   selector: 'lists',
@@ -18,15 +19,17 @@ export class ListsComponent extends SharePage implements OnInit {
   public ownerName: string;
   public isOwner: boolean = true;
   public isCollaborator: boolean = false;
+  public lists: Array<any> = [];
+  public products: Array<any> = [];
 
 
 
-  public listId: string = '36d247421e654d87bd627c';
-  public listName: string = 'Christmas List';
+  public listId: string;
+  public listName: string;
   public listDescription: string = 'This is the best list in the whole entire world!';
   public collaborateListId: string = '1SRHA3LjXDYIRHbXcGx24D';
-  
-  
+
+
   public collaborators = [
     {
       customerId: 'F6HJ8E9GOQ',
@@ -45,72 +48,19 @@ export class ListsComponent extends SharePage implements OnInit {
       name: 'Gabey Gump'
     }
   ]
-  
-  
-  
 
-  public lists: Array<any> = [
-    {
-      id: 'f5tyujhde4ujkiosdr3j0s',
-      name: 'Christmas List',
-      description: 'This is the best list in the whole entire world!',
-      totalItems: 2,
-      selected: true,
-      ownerName: ''
-    },
-    {
-      id: 'tyhd4t7uij9okge4rfgyt6',
-      name: 'Wish List',
-      description: 'These are the items I wish I could get',
-      totalItems: 1,
-      selected: false,
-      ownerName: ''
-    },
-    {
-      id: '35th8io0ohui03hs678j9k',
-      name: 'Favorites',
-      description: 'These items are awesome!',
-      totalItems: 10,
-      selected: false,
-      ownerName: 'Zorioth'
-    }
-  ];
-  public products: Array<any> = [
-    {
-      title: 'Isometrics Mass',
-      rating: 3,
-      totalReviews: 222,
-      minPrice: 10,
-      maxPrice: 0,
-      dateAdded: 'June 3, 2019',
-      collaborator: '',
-      hoplink: 'https://201behydk0sr8n2-f2jo9qcq9u.hop.clickbank.net/',
-      image: 'e9a794bc40f14f709e6636aefbfe5d43.png',
-      urlTitle: 'fat-loss-activation',
-      deleted: false,
-      movedToList: null
-    },
-    {
-      title: 'Muscle Building 101',
-      rating: 5,
-      totalReviews: 12,
-      minPrice: 13.58,
-      maxPrice: 20.22,
-      dateAdded: 'July 13, 2019',
-      collaborator: 'Zorioth',
-      hoplink: 'https://201behydk0sr8n2-f2jo9qcq9u.hop.clickbank.net/',
-      image: 'e9a794bc40f14f709e6636aefbfe5d43.png',
-      urlTitle: 'fat-loss-activation',
-      deleted: false,
-      movedToList: null
-    }
-  ];
+
+
+
+  
 
   constructor(
     titleService: Title,
     metaService: Meta,
     @Inject(DOCUMENT) document,
     public modalService: ModalService,
+    private dataService: DataService,
+    private route: ActivatedRoute,
     private router: Router) { super(titleService, metaService, document) }
 
   ngOnInit() {
@@ -144,6 +94,22 @@ export class ListsComponent extends SharePage implements OnInit {
 
     this.selectedSortOption = this.sortOptions[0];
     super.ngOnInit();
+
+
+
+    this.route.queryParamMap.subscribe((queryParams: ParamMap) => {
+      this.dataService
+      .get('api/Lists', [{key: 'listId', value: queryParams.get('listId')}])
+      .subscribe(response => {
+        this.lists = response.lists;
+
+        let selectedList = this.lists.find(x => x.selected);
+
+        this.listName = selectedList.name + (selectedList.owner ? ' (' + selectedList.owner + ')' : '');
+        this.products = response.products;
+      });
+    })
+
   }
 
 
@@ -194,7 +160,9 @@ export class ListsComponent extends SharePage implements OnInit {
 
   onListClick(list) {
     if (!list.selected) {
-      this.router.navigate(['lists/' + list.id]);
+      
+      this.router.navigate(['account/lists'], { queryParams: { 'listId': list.id } });
+      
     }
   }
 
@@ -243,7 +211,7 @@ export class ListsComponent extends SharePage implements OnInit {
     });
   }
 
-  getMoveToList(){
+  getMoveToList() {
     return this.lists.filter(x => !x.selected);
   }
 }
