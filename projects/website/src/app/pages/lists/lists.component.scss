@@ -12,18 +12,25 @@
     word-break: break-word;
 }
 .list {
-    border-bottom: 1px solid #3d3d3d;
-    padding-bottom: 10px;
+    padding: 0 0 5px 5px;
+    
+}
+.selected-list {
+    background: $color3;
+}
+.list:not(.selected-list):hover {
+    background: #2d2d2d;
+    cursor: pointer;
 }
 .description {
     color: #cccccc;
-    margin-top: 10px;
+    margin-top: 5px;
     font-size: 14px;
 }
 .owner {
     color: $gold;
     font-size: 12px;
-    margin-top: 4px;
+    margin-top: 5px;
 }
 .image-background {
     width: 150px;
@@ -65,19 +72,13 @@
     font-size: 14px;
     color: $color5;
 }
-.list-title {
-    color: white;
-    cursor: pointer;
-}
+
 .title {
-    font-size: 14px;
+    font-size: 18px;
     margin-top: 20px;
-}
-.list-title:hover {
+    padding-top: 5px;
+    color: white;
     text-decoration: underline;
-}
-.selected-list {
-    color: $gold;
 }
 h2 {
     color: $gold;
@@ -85,7 +86,7 @@ h2 {
 .total-items {
     color: $color1;
     font-size: 14px;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 .product-container {

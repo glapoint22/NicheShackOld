@@ -33,6 +33,10 @@ export class DataService {
     return this.http.put(url, body).pipe(catchError(this.handleError()));
   }
 
+  delete(url: string, params: any) {
+    return this.http.delete(url, {params: params}).pipe(catchError(this.handleError()));
+  }
+
   handleError() {
     return (error) => {
       if (error.status != 409 && error.status != 401) {

@@ -17,42 +17,12 @@ export class ListsComponent extends SharePage implements OnInit {
   public sortOptions: Array<any>;
   public selectedSortOption: any = {};
   public ownerName: string;
-  public isOwner: boolean = true;
-  public isCollaborator: boolean = false;
+  public isOwner: boolean;
+  public isCollaborator: boolean;
   public lists: Array<any> = [];
   public products: Array<any> = [];
-
-
-
-  public listId: string;
-  public listName: string;
-  public listDescription: string = 'This is the best list in the whole entire world!';
-  public collaborateListId: string = '1SRHA3LjXDYIRHbXcGx24D';
-
-
-  public collaborators = [
-    {
-      customerId: 'F6HJ8E9GOQ',
-      name: 'Gabe LaPoint'
-    },
-    {
-      customerId: '9OWJP1TKDT',
-      name: 'Zorioth'
-    },
-    {
-      customerId: 'I6SG0PWGMA',
-      name: 'Nightah'
-    },
-    {
-      customerId: 'TS472G9MQF',
-      name: 'Gabey Gump'
-    }
-  ]
-
-
-
-
-  
+  public collaborators = [];
+  public selectedList: any = {};
 
   constructor(
     titleService: Title,
@@ -102,11 +72,13 @@ export class ListsComponent extends SharePage implements OnInit {
       .get('api/Lists', [{key: 'listId', value: queryParams.get('listId')}])
       .subscribe(response => {
         this.lists = response.lists;
+        this.selectedList = this.lists.find(x => x.selected);
 
-        let selectedList = this.lists.find(x => x.selected);
-
-        this.listName = selectedList.name + (selectedList.owner ? ' (' + selectedList.owner + ')' : '');
         this.products = response.products;
+        this.collaborators = response.collaborators;
+        this.isOwner = response.isOwner;
+        this.isCollaborator = response.isCollaborator;
+        this.ownerName = this.selectedList.owner;
       });
     })
 
@@ -129,10 +101,10 @@ export class ListsComponent extends SharePage implements OnInit {
     let text: string;
 
     if (share.type === 'Collaborate') {
-      pathName = '/lists/collaborate/' + this.collaborateListId;
+      pathName = '/lists/collaborate/' + this.selectedList.collaborateId;
       text = 'You\'re invited to help me with my list at NicheShack.com!';
     } else {
-      pathName = '/lists/view/' + this.listId;
+      pathName = '/lists/view/' + this.selectedList.id;
       text = 'Check out my list at NicheShack.com!';
     }
 
@@ -160,9 +132,7 @@ export class ListsComponent extends SharePage implements OnInit {
 
   onListClick(list) {
     if (!list.selected) {
-      
       this.router.navigate(['account/lists'], { queryParams: { 'listId': list.id } });
-      
     }
   }
 
