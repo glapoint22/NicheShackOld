@@ -37,7 +37,7 @@ export class ManageCollaboratorsComponent extends DialogBoxComponent implements 
   onRemoveCollaborator() {
     // Update database!
     this.dataService.delete('api/Lists/Collaborator', {
-      collaboratorId: this.collaborators[this.collaboratorIndex].customerId,
+      customerId: this.collaborators[this.collaboratorIndex].customerId,
       listId: this.listId
     })
       .subscribe(() => {

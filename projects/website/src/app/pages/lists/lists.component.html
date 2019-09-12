@@ -22,7 +22,7 @@
                     {{list.description}}
                 </div>
                 <div class="total-items">
-                    {{list.totalItems + ' item' + (list.totalItems > 1 ? 's' : '')}}
+                    {{list.totalItems + ' item' + (list.totalItems == 1 ? '' : 's')}}
                 </div>
             </div>
 
@@ -53,9 +53,9 @@
 
 
                     <!-- Sort -->
-                    <select class="dark" [(ngModel)]="selectedSortOption" (change)="setSort()">
+                    <select *ngIf="products.length > 0" class="dark" [(ngModel)]="selectedSortOption" (change)="setSort()">
                         <option *ngFor="let sortOption of sortOptions" [ngValue]="sortOption">Sort by
-                            {{sortOption.name}}
+                            {{sortOption.key}}
                         </option>
                     </select>
                 </div>

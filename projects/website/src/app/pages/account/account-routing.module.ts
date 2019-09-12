@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AccountComponent } from './account.component';
 import { AuthGuard } from 'src/app/services/auth/auth.guard';
+import { ListResolver } from '../../list-resolver';
 
 const routes: Routes = [
   {
@@ -19,7 +20,8 @@ const routes: Routes = [
   },
   {
     path: 'lists',
-    loadChildren: () => import('../../pages/lists/lists.module').then(m => m.ListsModule)
+    loadChildren: () => import('../../pages/lists/lists.module').then(m => m.ListsModule),
+    resolve: { listData: ListResolver }
   },
 ];
 

@@ -23,6 +23,7 @@ export class ListsComponent extends SharePage implements OnInit {
   public products: Array<any> = [];
   public collaborators = [];
   public selectedList: any = {};
+  private isInit: boolean;
 
   constructor(
     titleService: Title,
@@ -39,49 +40,72 @@ export class ListsComponent extends SharePage implements OnInit {
       this.share = false;
     }
 
-    this.sortOptions = [
-      {
-        name: 'Added Date',
-        value: 'added'
-      },
-      {
-        name: 'Price: Low to High',
-        value: 'price-asc'
-      },
-      {
-        name: 'Price: High to Low',
-        value: 'price-desc'
-      },
-      {
-        name: 'Name',
-        value: 'name'
-      },
-      {
-        name: 'Rating',
-        value: 'rating'
-      }
-    ];
+    // this.sortOptions = [
+    //   {
+    //     name: 'Added Date',
+    //     value: 'added'
+    //   },
+    //   {
+    //     name: 'Price: Low to High',
+    //     value: 'price-asc'
+    //   },
+    //   {
+    //     name: 'Price: High to Low',
+    //     value: 'price-desc'
+    //   },
+    //   {
+    //     name: 'Name',
+    //     value: 'name'
+    //   },
+    //   {
+    //     name: 'Rating',
+    //     value: 'rating'
+    //   }
+    // ];
 
-    this.selectedSortOption = this.sortOptions[0];
+    // this.selectedSortOption = this.sortOptions[0];
     super.ngOnInit();
 
 
+    this.setListData(this.route.snapshot.data['listData']);
+
+    this.isInit = true;
 
     this.route.queryParamMap.subscribe((queryParams: ParamMap) => {
-      this.dataService
-      .get('api/Lists', [{key: 'listId', value: queryParams.get('listId')}])
-      .subscribe(response => {
-        this.lists = response.lists;
-        this.selectedList = this.lists.find(x => x.selected);
+      if (!this.isInit) {
+        let parameters: Array<any> = [];
 
-        this.products = response.products;
-        this.collaborators = response.collaborators;
-        this.isOwner = response.isOwner;
-        this.isCollaborator = response.isCollaborator;
-        this.ownerName = this.selectedList.owner;
-      });
+        //Set the parameters array from the query params
+        for (let i = 0; i < queryParams.keys.length; i++) {
+          parameters.push({ key: queryParams.keys[i], value: queryParams.get(queryParams.keys[i]) });
+        }
+
+
+        this.dataService
+          .get('api/Lists', parameters)
+          .subscribe(listData => {
+            this.setListData(listData);
+          });
+      }
+      this.isInit = false;
+
     })
 
+  }
+
+  setListData(listData) {
+    this.lists = listData.lists;
+    this.selectedList = this.lists.find(x => x.selected);
+
+    this.products = listData.products;
+    this.collaborators = listData.collaborators;
+    this.isOwner = listData.isOwner;
+    this.isCollaborator = listData.isCollaborator;
+    this.ownerName = this.selectedList.owner;
+
+    this.sortOptions = listData.sortOptions;
+    let index = Math.max(0, this.sortOptions.findIndex(x => x.value == this.route.snapshot.queryParams.sort));
+    this.selectedSortOption = this.sortOptions[index];
   }
 
 

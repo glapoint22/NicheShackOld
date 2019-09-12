@@ -43,31 +43,25 @@ export class ProductDetailsComponent extends SharePage implements OnInit {
 
 
   ngOnInit() {
-    this.dataService
-      .get('api/Products/DetailedProduct',
-        [
-          { key: 'urlTitle', value: this.route.snapshot.params['product'] },
-          { key: 'orderBy', value: this.route.snapshot.queryParams['sort'] || '' }
-        ])
-      .subscribe(results => {
-        this.product = results.product;
-        this.content = results.content;
-        this.pricePoints = results.pricePoints;
-        this.media = results.media;
-        this.reviews = results.reviews;
+    let productData = this.route.snapshot.data['productData'];
 
-        // Sort options
-        this.sortOptions = results.options;
+    this.product = productData.product;
+    this.content = productData.content;
+    this.pricePoints = productData.pricePoints;
+    this.media = productData.media;
+    this.reviews = productData.reviews;
 
-        // Reviews per page
-        this.reviewsPerPage = results.reviewsPerPage;
+    // Sort options
+    this.sortOptions = productData.options;
 
-        // Set the page properties
-        this.title = this.product.title;
-        this.description = this.product.description;
-        this.image = '/Images/' + this.product.shareImage;
-        super.ngOnInit();
-      });
+    // Reviews per page
+    this.reviewsPerPage = productData.reviewsPerPage;
+
+    // Set the page properties
+    this.title = this.product.title;
+    this.description = this.product.description;
+    this.image = '/Images/' + this.product.shareImage;
+    super.ngOnInit();
 
     // ***************************** TODO: Get product group data *****************************************
     this.productsSlider = null;

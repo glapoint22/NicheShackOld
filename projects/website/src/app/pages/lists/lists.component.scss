@@ -105,12 +105,12 @@ h2 {
     .main-title {
         font-size: 35px;
         color: $gold;
-        width: 400px;
+        width: 380px;
         display: inline-block;
     }
     select {
         height: 24px;
-        margin-left: 5px;
+        margin-left: 22px;
     }
     .sort-link-container {
         display: flex;
@@ -121,7 +121,7 @@ h2 {
             color: #b18100;
             text-decoration: underline;
             cursor: pointer;
-            margin: 8px 12px 0 10px;
+            margin: 8px 0 0 22px;
         }
         .link:hover {
             color: $gold;

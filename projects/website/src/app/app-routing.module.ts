@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from 'src/app/components/page-not-found/page-not-found.component';
 import { AuthGuard } from 'src/app/services/auth/auth.guard';
-import { ProductGuard } from './product.guard';
+import { ProductResolver } from './product-resolver';
 
 const routes: Routes = [
   {
@@ -58,9 +58,9 @@ const routes: Routes = [
   {
     path: ':product',
     loadChildren: () => import('./pages/product-details/product-details.module').then(m => m.ProductDetailsModule),
-    resolve: [ProductGuard]
+    resolve: { productData: ProductResolver }
   },
-  
+
   { path: '**', component: PageNotFoundComponent }
 ];
 
