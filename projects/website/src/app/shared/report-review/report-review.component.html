@@ -1,5 +1,5 @@
-<div class="modal-background" (click)="close()">
-  <div class="window" (click)="stopPropagation($event)">
+<div class="modal-background" (mousedown)="close()">
+  <div class="window" (mousedown)="stopPropagation($event)">
 
     <!-- Title Bar -->
     <div class="title-bar">

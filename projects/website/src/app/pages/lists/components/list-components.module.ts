@@ -4,6 +4,7 @@ import { ShareListComponent } from './share-list/share-list.component';
 import { ManageListComponent } from './manage-list/manage-list.component';
 import { FormsModule } from '@angular/forms';
 import { ManageCollaboratorsComponent } from './manage-collaborators/manage-collaborators.component';
+import { DeleteListComponent } from './delete-list/delete-list.component';
 
 
 
@@ -11,7 +12,8 @@ import { ManageCollaboratorsComponent } from './manage-collaborators/manage-coll
   declarations: [
     ShareListComponent,
     ManageListComponent,
-    ManageCollaboratorsComponent
+    ManageCollaboratorsComponent,
+    DeleteListComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +22,8 @@ import { ManageCollaboratorsComponent } from './manage-collaborators/manage-coll
   exports: [
     ShareListComponent,
     ManageListComponent,
-    ManageCollaboratorsComponent
+    ManageCollaboratorsComponent,
+    DeleteListComponent
   ]
 })
 export class ListComponentsModule { }

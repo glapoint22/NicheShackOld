@@ -23,7 +23,6 @@ export class ListsComponent extends SharePage implements OnInit {
   public products: Array<any> = [];
   public collaborators = [];
   public selectedList: any = {};
-  private isInit: boolean;
 
   constructor(
     titleService: Title,
@@ -35,62 +34,38 @@ export class ListsComponent extends SharePage implements OnInit {
     private router: Router) { super(titleService, metaService, document) }
 
   ngOnInit() {
+    // Set the page properties
     if (this.title == undefined) {
       this.title = 'Your Lists';
       this.share = false;
     }
 
-    // this.sortOptions = [
-    //   {
-    //     name: 'Added Date',
-    //     value: 'added'
-    //   },
-    //   {
-    //     name: 'Price: Low to High',
-    //     value: 'price-asc'
-    //   },
-    //   {
-    //     name: 'Price: High to Low',
-    //     value: 'price-desc'
-    //   },
-    //   {
-    //     name: 'Name',
-    //     value: 'name'
-    //   },
-    //   {
-    //     name: 'Rating',
-    //     value: 'rating'
-    //   }
-    // ];
-
-    // this.selectedSortOption = this.sortOptions[0];
     super.ngOnInit();
 
 
-    this.setListData(this.route.snapshot.data['listData']);
-
-    this.isInit = true;
-
     this.route.queryParamMap.subscribe((queryParams: ParamMap) => {
-      if (!this.isInit) {
-        let parameters: Array<any> = [];
+      let parameters: Array<any> = [];
+
+      if (this.lists.length == 0) {
+
+        // Get the data from the list resolver
+        this.setListData(this.route.snapshot.data['listData']);
+
+      } else {
 
         //Set the parameters array from the query params
         for (let i = 0; i < queryParams.keys.length; i++) {
           parameters.push({ key: queryParams.keys[i], value: queryParams.get(queryParams.keys[i]) });
         }
 
-
+        // Get the list data
         this.dataService
           .get('api/Lists', parameters)
           .subscribe(listData => {
             this.setListData(listData);
           });
       }
-      this.isInit = false;
-
     })
-
   }
 
   setListData(listData) {
@@ -101,7 +76,7 @@ export class ListsComponent extends SharePage implements OnInit {
     this.collaborators = listData.collaborators;
     this.isOwner = listData.isOwner;
     this.isCollaborator = listData.isCollaborator;
-    this.ownerName = this.selectedList.owner;
+    this.ownerName = listData.ownerName;
 
     this.sortOptions = listData.sortOptions;
     let index = Math.max(0, this.sortOptions.findIndex(x => x.value == this.route.snapshot.queryParams.sort));
@@ -195,12 +170,10 @@ export class ListsComponent extends SharePage implements OnInit {
 
   onCreateListClick() {
     this.modalService.createList.show = true;
-    let onCloseSubscription: Subscription = this.modalService.createList.onClose.subscribe((newList: any) => {
+    let onCloseSubscription: Subscription = this.modalService.createList.onClose.subscribe((response: any) => {
       onCloseSubscription.unsubscribe();
-      if (newList.listName) {
-        // Make a post request to the database and get the list id from the response
-        let listId = 'foofoofoofoo'
-        this.router.navigate(['lists/' + listId]);
+      if (response.submitted) {
+        this.router.navigate(['account', 'lists'], { queryParams: { listId: response.listId } });
       }
     });
   }

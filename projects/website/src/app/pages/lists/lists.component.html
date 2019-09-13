@@ -2,6 +2,15 @@
     <!-- Search Bar -->
     <search-bar></search-bar>
 
+    <!-- Links -->
+    <div style="width: 1170px;height: 20px;margin: auto;margin-top: 80px;">
+        <div *ngIf="isOwner || isCollaborator" class="link" (click)="modalService.shareList.show = true">Share List</div>
+        <div *ngIf="isOwner" class="link" (click)="modalService.manageList.show = true">Edit List</div>
+        <div *ngIf="isOwner" class="link" (click)="modalService.deleteList.show = true">Delete List</div>
+        <div *ngIf="isOwner && collaborators.length > 0" class="link" (click)="modalService.manageCollaborators.show = true">Manage Collaborators</div>
+    </div>
+
+
     <div class="container">
 
         <!-- Lists -->
@@ -11,8 +20,9 @@
             </h2>
 
             <!-- Each list -->
-            <div *ngFor="let list of lists" class="list" [ngClass]="{'selected-list': list.selected}" (click)="onListClick(list)">
-                <div class="title" >
+            <div *ngFor="let list of lists" class="list" [ngClass]="{'selected-list': list.selected}"
+                (click)="onListClick(list)">
+                <div class="title">
                     {{list.name}}
                 </div>
                 <div *ngIf="list.owner" class="owner">
@@ -36,29 +46,15 @@
         <div style="flex: 1; margin-left: 20px;">
 
             <!-- Heading -->
-            <div class="gray" *ngIf="owner">{{owner}}'s list</div>
             <div class="heading-container">
                 <div class="main-title">{{selectedList.name}}</div>
 
-
-                <div class="sort-link-container">
-
-                    <!-- Links -->
-                    <div *ngIf="isOwner && collaborators.length > 0" class="link"
-                        (click)="modalService.manageCollaborators.show = true">Manage Collaborators</div>
-                    <div *ngIf="isOwner" class="link" (click)="modalService.manageList.show = true">Manage List</div>
-                    <div *ngIf="isOwner || isCollaborator" class="link" (click)="modalService.shareList.show = true">
-                        Share List</div>
-
-
-
-                    <!-- Sort -->
-                    <select *ngIf="products.length > 0" class="dark" [(ngModel)]="selectedSortOption" (change)="setSort()">
-                        <option *ngFor="let sortOption of sortOptions" [ngValue]="sortOption">Sort by
-                            {{sortOption.key}}
-                        </option>
-                    </select>
-                </div>
+                <!-- Sort -->
+                <select *ngIf="products.length > 0" class="dark" [(ngModel)]="selectedSortOption" (change)="setSort()">
+                    <option *ngFor="let sortOption of sortOptions" [ngValue]="sortOption">Sort by
+                        {{sortOption.key}}
+                    </option>
+                </select>
             </div>
 
             <!-- Products -->
@@ -152,6 +148,6 @@
 <create-list *ngIf="modalService.createList.show"></create-list>
 <share-list *ngIf="modalService.shareList.show" (onShareClick)="onShareClick($event)"></share-list>
 <manage-list *ngIf="modalService.manageList.show" [list]="selectedList"></manage-list>
-<manage-collaborators [collaborators]="collaborators" [listId]="selectedList.id" *ngIf="modalService.manageCollaborators.show">
-</manage-collaborators>
+<manage-collaborators [collaborators]="collaborators" [listId]="selectedList.id" *ngIf="modalService.manageCollaborators.show"></manage-collaborators>
+<delete-list *ngIf="modalService.deleteList.show" [listId]="selectedList.id"></delete-list>
 <input id="copy" type="text" *ngIf="modalService.shareList.show">

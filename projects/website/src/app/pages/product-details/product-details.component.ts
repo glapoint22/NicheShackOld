@@ -110,7 +110,7 @@ export class ProductDetailsComponent extends SharePage implements OnInit {
 
     this.modalService.addToList.show = true;
     this.onCloseSubscription = this.modalService.createList.onClose.subscribe((newList: any) => {
-      if (newList.listName) {
+      if (newList.submitted) {
         // Make a post request to the database
         this.modalService.addToList.show = true;
       }

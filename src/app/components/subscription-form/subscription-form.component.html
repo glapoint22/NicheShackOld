@@ -1,5 +1,5 @@
-<div class="modal-background" (click)="close()">
-  <form (ngSubmit)="onSubmit(form)" #form="ngForm" (click)="stopPropagation($event)">
+<div class="modal-background" (mousedown)="close()">
+  <form (ngSubmit)="onSubmit(form)" #form="ngForm" (mousedown)="stopPropagation($event)">
     <i class="fas fa-times-circle" (click)="close()"></i>
     <br>
     <p>{{modalService.subscriptionForm.caption}}</p>

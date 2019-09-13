@@ -28,16 +28,6 @@ export class ManageListComponent extends DialogBoxComponent implements OnInit {
     this.description = this.list.description;
   }
 
-  onDelete() {
-    this.dataService.delete('api/Lists', {
-      listId: this.list.id
-    })
-      .subscribe(() => {
-        location.reload();
-      });
-
-  }
-
   onSave() {
     // Update database
     this.dataService.put('api/Lists', {

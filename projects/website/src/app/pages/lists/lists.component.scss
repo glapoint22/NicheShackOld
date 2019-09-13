@@ -3,7 +3,7 @@
 .container {
     width: 1170px;
     margin: auto;
-    margin-top: 140px;
+    margin-top: 50px;
     display: flex;
 }
 .lists-container {
@@ -98,6 +98,17 @@ h2 {
     margin-left: 20px;
     flex: 1;
 }
+.link {
+    font-size: 14px;
+    color: #b18100;
+    text-decoration: underline;
+    cursor: pointer;
+    margin: 8px 0 0 22px;
+    float: right;
+}
+.link:hover {
+    color: $gold;
+}
 .heading-container {
     width: 100%;
     position: relative;
@@ -105,28 +116,20 @@ h2 {
     .main-title {
         font-size: 35px;
         color: $gold;
-        width: 380px;
+        width: 740px;
         display: inline-block;
     }
     select {
         height: 24px;
-        margin-left: 22px;
-    }
-    .sort-link-container {
-        display: flex;
         float: right;
         margin-top: 10px;
-        .link {
-            font-size: 14px;
-            color: #b18100;
-            text-decoration: underline;
-            cursor: pointer;
-            margin: 8px 0 0 22px;
-        }
-        .link:hover {
-            color: $gold;
-        }
     }
+    // .sort-link-container {
+    //     display: flex;
+    //     float: right;
+    //     margin-top: 10px;
+        
+    // }
 }
 .buttons-container {
     width: 205px;

@@ -1,5 +1,5 @@
-<div class="modal-background" (click)="close()">
-  <div class="window" [style.width.px]="media.length > 0 ? 710 : 586" (click)="stopPropagation($event)">
+<div class="modal-background" (mousedown)="close()">
+  <div class="window" [style.width.px]="media.length > 0 ? 710 : 586" (mousedown)="stopPropagation($event)">
     <!-- Close -->
     <div class="close" (click)="close()" title="Close">
       <i class="fas fa-times"></i>
