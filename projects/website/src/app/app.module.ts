@@ -5,10 +5,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { PageNotFoundModule } from 'src/app/components/page-not-found/page-not-found.module';
 import { ErrorModule } from 'src/app/components/error/error.module';
-import {TransferHttpCacheModule} from '@nguniversal/common';
+import { TransferHttpCacheModule } from '@nguniversal/common';
 
-// Services
-import { CookieService } from 'ngx-cookie-service';
 
 // Components
 import { AppComponent } from './app.component';
@@ -27,11 +25,13 @@ import { AuthInterceptor } from './auth-interceptor';
     ErrorModule,
     TransferHttpCacheModule
   ],
-  providers: [CookieService, {
-    provide: HTTP_INTERCEPTORS,
-    useClass: AuthInterceptor,
-    multi: true
-  }],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

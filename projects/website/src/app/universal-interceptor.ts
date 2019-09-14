@@ -3,12 +3,13 @@ import { HttpInterceptor, HttpHandler, HttpRequest, HttpHeaders } from '@angular
 import { Request } from 'express';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
 import * as xhr2 from 'xhr2';
+import { AuthService } from 'src/app/services/auth/auth.service';
 xhr2.prototype._restrictedHeaders = {};
 
 @Injectable()
 export class UniversalInterceptor implements HttpInterceptor {
 
-  constructor(@Optional() @Inject(REQUEST) protected request: Request) { }
+  constructor(@Optional() @Inject(REQUEST) protected request: Request, private authService: AuthService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     let serverReq: HttpRequest<any> = req;
@@ -23,10 +24,7 @@ export class UniversalInterceptor implements HttpInterceptor {
       }
 
       if (this.request.headers.cookie) {
-        let token: string;
-        let regEx = new RegExp(/(?:[a-zA-Z]+=)([A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*)/, 'g');
-        let results = regEx.exec(this.request.headers.cookie);
-        if (results) token = results[1];
+        let token = this.authService.getAccessTokenFromCookie(this.request.headers.cookie);
 
         if (token) {
           authorization = 'Bearer ' + token;

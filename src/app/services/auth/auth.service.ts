@@ -85,8 +85,7 @@ export class AuthService {
   public getTokenData(callback: Function) {
     // Get the token data from the server
     this.dataService
-      // Wanted to make this a get request but for some reason get doesn't work so I changed it to post
-      .post('api/Account/Refresh', {})
+      .get('api/Account/Refresh')
       .subscribe((tokenData: any) => {
         this.setTokenData(tokenData);
         callback(tokenData);
@@ -144,5 +143,14 @@ export class AuthService {
         }
       });
     }, milliseconds);
+  }
+
+  public getAccessTokenFromCookie(cookie: string): string {
+    let token: string;
+    let regEx = new RegExp(/(?:[a-zA-Z]+=)([A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*)/, 'g');
+    let results = regEx.exec(cookie);
+    if (results) token = results[1];
+
+    return token;
   }
 }
